@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Twitter, Facebook, Instagram, Linkedin } from "lucide-react";
+import { Mail, Instagram, Youtube } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -18,17 +18,21 @@ const Footer = () => {
               Empowering learners worldwide with premium courses and free resources.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-background/60 hover:text-background transition-colors">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-background/60 hover:text-background transition-colors">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-background/60 hover:text-background transition-colors">
+              <a 
+                href="https://www.instagram.com/nextup.resources/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-background/60 hover:text-background transition-colors"
+              >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-background/60 hover:text-background transition-colors">
-                <Linkedin className="h-5 w-5" />
+              <a 
+                href="https://www.youtube.com/@NextupResources" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-background/60 hover:text-background transition-colors"
+              >
+                <Youtube className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -60,24 +64,24 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-4">Categories</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-background/70 hover:text-background transition-colors text-sm">
+                <span className="text-background/70 text-sm">
                   AI & Machine Learning
-                </a>
+                </span>
               </li>
               <li>
-                <a href="#" className="text-background/70 hover:text-background transition-colors text-sm">
+                <span className="text-background/70 text-sm">
                   Web Development
-                </a>
+                </span>
               </li>
               <li>
-                <a href="#" className="text-background/70 hover:text-background transition-colors text-sm">
-                  Data Science
-                </a>
+                <span className="text-background/70 text-sm">
+                  Video Editing
+                </span>
               </li>
               <li>
-                <a href="#" className="text-background/70 hover:text-background transition-colors text-sm">
-                  UI/UX Design
-                </a>
+                <span className="text-background/70 text-sm">
+                  Business & Marketing
+                </span>
               </li>
             </ul>
           </div>
@@ -88,15 +92,23 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-background/70 text-sm">
                 <Mail className="h-4 w-4" />
-                <span>hello@nextupresources.com</span>
+                <a 
+                  href="mailto:nextupresources@gmail.com"
+                  className="hover:text-background transition-colors"
+                >
+                  nextupresources@gmail.com
+                </a>
               </li>
               <li className="flex items-center gap-2 text-background/70 text-sm">
-                <Phone className="h-4 w-4" />
-                <span>+1 (555) 123-4567</span>
-              </li>
-              <li className="flex items-center gap-2 text-background/70 text-sm">
-                <MapPin className="h-4 w-4" />
-                <span>San Francisco, CA</span>
+                <Instagram className="h-4 w-4" />
+                <a 
+                  href="https://www.instagram.com/nextup.resources/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-background transition-colors"
+                >
+                  @nextup.resources
+                </a>
               </li>
             </ul>
           </div>

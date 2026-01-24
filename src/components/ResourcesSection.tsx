@@ -1,6 +1,11 @@
+import { useState } from "react";
 import ResourceCard from "./ResourceCard";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
 const ResourcesSection = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
   const resources = [
     {
       title: "All Sound Effects",
@@ -60,20 +65,46 @@ const ResourcesSection = () => {
     },
   ];
 
+  const filteredResources = resources.filter((resource) =>
+    resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    resource.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    resource.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {resources.map((resource, index) => (
-            <div
-              key={index}
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <ResourceCard {...resource} />
-            </div>
-          ))}
+        {/* Search Bar */}
+        <div className="max-w-md mx-auto mb-12 relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search resources..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10 h-12"
+          />
         </div>
+
+        {filteredResources.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredResources.map((resource, index) => (
+              <div
+                key={index}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <ResourceCard {...resource} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">
+              No resources found matching "{searchQuery}"
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );
