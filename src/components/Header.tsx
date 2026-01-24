@@ -31,8 +31,10 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full">
-      <div className="mx-3 sm:mx-4 mt-3 sm:mt-4">
+    // pointer-events-none prevents the fixed header container from blocking taps/clicks on content below
+    // while still allowing interaction on the actual header UI via pointer-events-auto.
+    <header className="fixed top-0 left-0 right-0 z-50 w-full pointer-events-none">
+      <div className="mx-3 sm:mx-4 mt-3 sm:mt-4 pointer-events-auto">
         <div 
           className={`rounded-2xl liquid-border transition-all duration-500 ease-apple-overshoot ${
             isScrolled 
@@ -103,7 +105,7 @@ const Header = () => {
 
       {/* Mobile Navigation with iOS spring animation */}
       <div 
-        className={`md:hidden mx-3 sm:mx-4 mt-2 transition-all duration-500 ease-apple-spring ${
+        className={`md:hidden mx-3 sm:mx-4 mt-2 transition-all duration-500 ease-apple-spring pointer-events-auto ${
           isMenuOpen 
             ? "opacity-100 translate-y-0 scale-100" 
             : "opacity-0 -translate-y-6 scale-95 pointer-events-none"
