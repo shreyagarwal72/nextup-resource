@@ -246,8 +246,12 @@ const CoursesSection = () => {
   );
 
   return (
-    <section id="courses" className="py-20 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="courses" className="py-20 relative overflow-hidden">
+      {/* Subtle background blobs */}
+      <div className="liquid-blob w-72 h-72 bg-primary/10 -top-36 -right-36" />
+      <div className="liquid-blob w-64 h-64 bg-purple-400/10 bottom-20 -left-32" style={{ animationDelay: "-4s" }} />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
             Featured Courses
@@ -259,13 +263,13 @@ const CoursesSection = () => {
           
           {/* Search Bar */}
           <div className="max-w-md mx-auto relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <Input
               type="text"
               placeholder="Search courses..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12"
+              className="pl-12"
             />
           </div>
         </div>
@@ -276,7 +280,7 @@ const CoursesSection = () => {
               <div
                 key={index}
                 className="animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <CourseCard {...course} />
               </div>
@@ -284,9 +288,11 @@ const CoursesSection = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-muted-foreground text-lg">
-              No courses found matching "{searchQuery}"
-            </p>
+            <div className="glass-heavy rounded-2xl p-8 max-w-md mx-auto">
+              <p className="text-muted-foreground text-lg">
+                No courses found matching "{searchQuery}"
+              </p>
+            </div>
           </div>
         )}
       </div>

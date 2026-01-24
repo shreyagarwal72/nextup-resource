@@ -72,17 +72,21 @@ const ResourcesSection = () => {
   );
 
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 relative overflow-hidden">
+      {/* Subtle background blobs */}
+      <div className="liquid-blob w-72 h-72 bg-primary/10 top-20 -left-36" />
+      <div className="liquid-blob w-64 h-64 bg-pink-400/10 -bottom-20 -right-32" style={{ animationDelay: "-4s" }} />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Search Bar */}
         <div className="max-w-md mx-auto mb-12 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <Input
             type="text"
             placeholder="Search resources..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 h-12"
+            className="pl-12"
           />
         </div>
 
@@ -100,9 +104,11 @@ const ResourcesSection = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-muted-foreground text-lg">
-              No resources found matching "{searchQuery}"
-            </p>
+            <div className="glass-heavy rounded-2xl p-8 max-w-md mx-auto">
+              <p className="text-muted-foreground text-lg">
+                No resources found matching "{searchQuery}"
+              </p>
+            </div>
           </div>
         )}
       </div>
