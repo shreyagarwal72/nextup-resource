@@ -45,7 +45,7 @@ const Header = () => {
               <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-primary/90 backdrop-blur-sm shadow-lg transition-all duration-500 ease-apple-spring group-hover:scale-110 group-hover:rotate-3 group-active:scale-95">
                 <span className="text-base sm:text-lg font-bold text-primary-foreground">N</span>
               </div>
-              <span className="text-base sm:text-lg font-semibold text-foreground hidden xs:inline transition-opacity duration-300">
+              <span className="text-sm sm:text-lg font-semibold text-foreground transition-opacity duration-300">
                 Nextup Resources
               </span>
             </Link>
