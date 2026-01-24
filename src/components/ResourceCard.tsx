@@ -1,7 +1,6 @@
-import { ExternalLink } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
 
 interface ResourceCardProps {
   title: string;
@@ -11,40 +10,44 @@ interface ResourceCardProps {
   link: string;
 }
 
-const ResourceCard = ({ title, description, category, image, link }: ResourceCardProps) => {
+const ResourceCard = ({
+  title,
+  description,
+  category,
+  image,
+  link,
+}: ResourceCardProps) => {
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border/50 group h-full flex flex-col">
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
-        <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground">
-          {category}
-        </Badge>
-      </div>
-      <CardHeader className="pb-2">
-        <h3 className="text-xl font-semibold text-foreground line-clamp-2">
-          {title}
-        </h3>
-      </CardHeader>
-      <CardContent className="pb-4 flex-1">
-        <p className="text-muted-foreground text-sm line-clamp-3">
-          {description}
-        </p>
-      </CardContent>
-      <CardFooter>
-        <Button 
-          className="w-full group-hover:bg-primary/90" 
-          variant="default"
-          onClick={() => window.open(link, "_blank")}
-        >
-          <ExternalLink className="h-4 w-4 mr-2" />
-          Download Free
-        </Button>
-      </CardFooter>
-    </Card>
+    <a href={link} target="_blank" rel="noopener noreferrer" className="block">
+      <Card className="group overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer bg-card/80 backdrop-blur-sm">
+        <div className="relative h-48 overflow-hidden">
+          <img
+            src={image}
+            alt={`${title} - Free resource`}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute top-4 right-4">
+            <Badge className="bg-primary text-primary-foreground">
+              {category}
+            </Badge>
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+            <div className="flex items-center gap-2 text-white font-semibold">
+              <Download className="w-5 h-5" />
+              <span>Download Free</span>
+            </div>
+          </div>
+        </div>
+        <CardContent className="p-6">
+          <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+            {title}
+          </h3>
+          <p className="text-muted-foreground text-sm line-clamp-2">
+            {description}
+          </p>
+        </CardContent>
+      </Card>
+    </a>
   );
 };
 
