@@ -2,6 +2,9 @@ import { Clock, Users, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import FavoriteButton from "./FavoriteButton";
+import PlatformBadge from "./PlatformBadge";
+import { useFavorites, generateId } from "@/hooks/useFavorites";
 
 interface CourseCardProps {
   title: string;
@@ -14,6 +17,16 @@ interface CourseCardProps {
 }
 
 const CourseCard = ({ title, description, category, duration, students, image, link }: CourseCardProps) => {
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const courseId = generateId(title);
+  const isCourseFavorite = isFavorite(courseId, "course");
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(courseId, "course");
+  };
+
   return (
     <Card className="group h-full flex flex-col">
       <div className="relative h-48 overflow-hidden rounded-t-xl">
@@ -26,6 +39,13 @@ const CourseCard = ({ title, description, category, duration, students, image, l
         <Badge className="absolute top-3 left-3 glass-button border-0 text-foreground">
           {category}
         </Badge>
+        <div className="absolute top-3 right-3">
+          <FavoriteButton
+            isFavorite={isCourseFavorite}
+            onToggle={handleFavoriteClick}
+          />
+        </div>
+        <PlatformBadge link={link} />
       </div>
       <CardHeader className="pb-2">
         <h3 className="text-xl font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors duration-300">
