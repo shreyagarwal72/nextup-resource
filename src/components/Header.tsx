@@ -105,9 +105,9 @@ const Header = () => {
 
       {/* Mobile Navigation with iOS spring animation */}
       <div 
-        className={`md:hidden mx-3 sm:mx-4 mt-2 transition-all duration-500 ease-apple-spring pointer-events-auto ${
+        className={`md:hidden mx-3 sm:mx-4 mt-2 transition-all duration-500 ease-apple-spring ${
           isMenuOpen 
-            ? "opacity-100 translate-y-0 scale-100" 
+            ? "opacity-100 translate-y-0 scale-100 pointer-events-auto" 
             : "opacity-0 -translate-y-6 scale-95 pointer-events-none"
         }`}
       >
