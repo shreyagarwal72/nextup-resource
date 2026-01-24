@@ -28,15 +28,15 @@ const CourseCard = ({ title, description, category, duration, students, image, l
   };
 
   return (
-    <Card className="group h-full flex flex-col">
+    <Card className="group h-full flex flex-col transition-all duration-500 ease-apple-spring hover:shadow-glass-xl">
       <div className="relative h-48 overflow-hidden rounded-t-xl">
         <img
           src={image}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-600 ease-apple-overshoot group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent" />
-        <Badge className="absolute top-3 left-3 glass-button border-0 text-foreground">
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent transition-opacity duration-300 group-hover:from-foreground/30" />
+        <Badge className="absolute top-3 left-3 glass-button border-0 text-foreground animate-ios-pop">
           {category}
         </Badge>
         <div className="absolute top-3 right-3">
@@ -48,7 +48,7 @@ const CourseCard = ({ title, description, category, duration, students, image, l
         <PlatformBadge link={link} />
       </div>
       <CardHeader className="pb-2">
-        <h3 className="text-xl font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors duration-300">
+        <h3 className="text-xl font-semibold text-foreground line-clamp-2 transition-colors duration-300 ease-apple-ease group-hover:text-primary">
           {title}
         </h3>
       </CardHeader>
@@ -57,11 +57,11 @@ const CourseCard = ({ title, description, category, duration, students, image, l
           {description}
         </p>
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1.5 glass-button px-2.5 py-1 rounded-lg text-xs">
+          <div className="flex items-center gap-1.5 glass-button px-2.5 py-1 rounded-lg text-xs transition-transform duration-300 ease-apple-spring hover:scale-105">
             <Clock className="h-3.5 w-3.5" />
             <span>{duration}</span>
           </div>
-          <div className="flex items-center gap-1.5 glass-button px-2.5 py-1 rounded-lg text-xs">
+          <div className="flex items-center gap-1.5 glass-button px-2.5 py-1 rounded-lg text-xs transition-transform duration-300 ease-apple-spring hover:scale-105">
             <Users className="h-3.5 w-3.5" />
             <span>{students}</span>
           </div>
@@ -69,7 +69,7 @@ const CourseCard = ({ title, description, category, duration, students, image, l
       </CardContent>
       <CardFooter>
         <Button 
-          className="w-full" 
+          className="w-full hover-spring" 
           variant="glassPrimary"
           onClick={() => window.open(link, "_blank")}
         >

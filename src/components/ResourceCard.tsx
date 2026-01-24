@@ -32,16 +32,16 @@ const ResourceCard = ({
 
   return (
     <a href={link} target="_blank" rel="noopener noreferrer" className="block">
-      <Card className="group overflow-hidden cursor-pointer h-full">
+      <Card className="group overflow-hidden cursor-pointer h-full transition-all duration-500 ease-apple-spring hover:shadow-glass-xl">
         <div className="relative h-48 overflow-hidden">
           <img
             src={image}
             alt={`${title} - Free resource`}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-full object-cover transition-transform duration-600 ease-apple-overshoot group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent transition-opacity duration-300 group-hover:from-foreground/40" />
           <div className="absolute top-4 left-4">
-            <Badge className="glass-button border-0 text-foreground">
+            <Badge className="glass-button border-0 text-foreground animate-ios-pop">
               {category}
             </Badge>
           </div>
@@ -52,15 +52,17 @@ const ResourceCard = ({
             />
           </div>
           <PlatformBadge link={link} />
-          <div className="absolute inset-0 bg-primary/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-            <div className="glass-heavy flex items-center gap-2 text-foreground font-semibold px-5 py-3 rounded-xl">
+          
+          {/* iOS-style hover overlay */}
+          <div className="absolute inset-0 bg-primary/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-400 ease-apple-ease flex items-center justify-center">
+            <div className="glass-heavy flex items-center gap-2 text-foreground font-semibold px-5 py-3 rounded-xl transform scale-90 group-hover:scale-100 transition-transform duration-400 ease-apple-spring">
               <Download className="w-5 h-5" />
               <span>Download Free</span>
             </div>
           </div>
         </div>
         <CardContent className="p-6">
-          <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+          <h3 className="text-xl font-semibold text-foreground mb-2 transition-colors duration-300 ease-apple-ease group-hover:text-primary">
             {title}
           </h3>
           <p className="text-muted-foreground text-sm line-clamp-2">
