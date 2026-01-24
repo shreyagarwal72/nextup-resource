@@ -1,11 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ResourceCard from "./ResourceCard";
+import LoadingSkeleton from "./LoadingSkeleton";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
+// Import generated resource images
+import bmwRawClipsImg from "@/assets/resources/bmw-raw-clips.jpg";
+import instagramHooksImg from "@/assets/resources/instagram-hooks.jpg";
+
 const ResourcesSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    // Simulate loading time for skeleton demonstration
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Resources sorted alphabetically by title
   const resources = [
     {
       title: "All Sound Effects",
@@ -16,12 +29,12 @@ const ResourcesSection = () => {
       link: "https://drive.google.com/drive/folders/1u6cDD5SpUC0M3eiDdYgalNvt58vKucgs",
     },
     {
-      title: "Visualsbylalit Editing Pack",
+      title: "BMW Car Raw Video Clips",
       description:
-        "Premium editing pack with transitions, effects, and templates for professional video editing. Elevate your content with cinematic tools.",
+        "Premium collection of cinematic BMW car footage for video editing, automotive content, and professional productions. High-quality raw clips.",
       category: "Video",
-      image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
-      link: "https://drive.google.com/drive/folders/1tF0AUt9RIZdENTDJJa1fktPtzTdGslN6",
+      image: bmwRawClipsImg,
+      link: "https://drive.google.com/drive/folders/1CqKEg7q-zwcq3wXehZbMBx2LJ6LPnwrl",
     },
     {
       title: "Ebook Abdellah",
@@ -32,12 +45,12 @@ const ResourcesSection = () => {
       link: "https://drive.google.com/drive/folders/1PWV29Q0NH4-2jqA8hYNw6WGShamu6HiE",
     },
     {
-      title: "Memes Pack",
+      title: "Instagram Viral Hook Bundle",
       description:
-        "Curated collection of trending memes and viral content templates. Perfect for social media creators and content marketers.",
-      category: "Content",
-      image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=800&auto=format&fit=crop",
-      link: "https://drive.google.com/drive/folders/1O8Tz_6Ida0mrzgY83v_XF8B3kF4A1JdD",
+        "Collection of trending Instagram hooks, text overlays, and templates to boost engagement and create viral Reels content.",
+      category: "Social Media",
+      image: instagramHooksImg,
+      link: "https://drive.google.com/drive/folders/1IyuR4KTZVJX80LsJlIxeJgKWe1EZFrNP",
     },
     {
       title: "Mega Thumbnail VFX Assets Pack",
@@ -48,12 +61,12 @@ const ResourcesSection = () => {
       link: "https://drive.google.com/drive/folders/1VuNLqGCORHLfRb5Q-GyHs5Ly0Ll_gkuH",
     },
     {
-      title: "Senpai Spider 1 Million Minecraft Texture Pack",
+      title: "Memes Pack",
       description:
-        "Massive Minecraft texture collection with over 1 million high-quality textures for ultimate customization.",
-      category: "Gaming",
-      image: "https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=800&auto=format&fit=crop",
-      link: "https://drive.google.com/drive/folders/1Z1JTqoljxO1CnZrNdfWRWQrUUqXUmx1K",
+        "Curated collection of trending memes and viral content templates. Perfect for social media creators and content marketers.",
+      category: "Content",
+      image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=800&auto=format&fit=crop",
+      link: "https://drive.google.com/drive/folders/1O8Tz_6Ida0mrzgY83v_XF8B3kF4A1JdD",
     },
     {
       title: "Premium Asset Collection",
@@ -62,6 +75,22 @@ const ResourcesSection = () => {
       category: "Assets",
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop",
       link: "https://drive.google.com/drive/folders/1acl8L0fcWuVWtQvOBHllOXmOqUBLu0sm",
+    },
+    {
+      title: "Senpai Spider 1 Million Minecraft Texture Pack",
+      description:
+        "Massive Minecraft texture collection with over 1 million high-quality textures for ultimate customization.",
+      category: "Gaming",
+      image: "https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=800&auto=format&fit=crop",
+      link: "https://drive.google.com/drive/folders/1Z1JTqoljxO1CnZrNdfWRWQrUUqXUmx1K",
+    },
+    {
+      title: "Visualsbylalit Editing Pack",
+      description:
+        "Premium editing pack with transitions, effects, and templates for professional video editing. Elevate your content with cinematic tools.",
+      category: "Video",
+      image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
+      link: "https://drive.google.com/drive/folders/1tF0AUt9RIZdENTDJJa1fktPtzTdGslN6",
     },
   ];
 
@@ -90,7 +119,9 @@ const ResourcesSection = () => {
           />
         </div>
 
-        {filteredResources.length > 0 ? (
+        {isLoading ? (
+          <LoadingSkeleton type="resource" count={6} />
+        ) : filteredResources.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredResources.map((resource, index) => (
               <div
