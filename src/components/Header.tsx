@@ -1,17 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Heart } from "lucide-react";
 import { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useFavorites } from "@/hooks/useFavorites";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { totalCount } = useFavorites();
 
   const navLinks = [
     { to: "/", label: "Home" },
     { to: "/courses", label: "Courses" },
     { to: "/resources", label: "Resources" },
+    { to: "/favorites", label: "Favorites" },
     { to: "/contact", label: "Contact" },
   ];
 
@@ -37,13 +40,18 @@ const Header = () => {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`nav-link px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+                  className={`nav-link px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 relative ${
                     isActive(link.to)
                       ? "glass-button text-primary"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {link.label}
+                  {link.to === "/favorites" && totalCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-destructive-foreground text-xs rounded-full flex items-center justify-center">
+                      {totalCount > 9 ? "9+" : totalCount}
+                    </span>
+                  )}
                 </Link>
               ))}
             </nav>

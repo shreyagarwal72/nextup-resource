@@ -9,6 +9,7 @@ import SplashScreen from "@/components/SplashScreen";
 import Index from "./pages/Index";
 import Courses from "./pages/Courses";
 import Resources from "./pages/Resources";
+import Favorites from "./pages/Favorites";
 import Contact from "./pages/Contact";
 import Install from "./pages/Install";
 import NotFound from "./pages/NotFound";
@@ -48,6 +49,7 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/courses" element={<Courses />} />
               <Route path="/resources" element={<Resources />} />
+              <Route path="/favorites" element={<Favorites />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/install" element={<Install />} />
               <Route path="*" element={<NotFound />} />

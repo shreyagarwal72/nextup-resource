@@ -25,11 +25,13 @@ const PlatformBadge = ({ link, className = "" }: PlatformBadgeProps) => {
       )}
       {platform === "drive" && (
         <svg
-          viewBox="0 0 24 24"
+          viewBox="0 0 87.3 78"
           className="w-5 h-5 text-foreground"
           fill="currentColor"
         >
-          <path d="M4.433 22.396l4-6.929H24l-4 6.929H4.433zm3.566-6.929l-3.998 6.929L0 15.467 7.785 1.98l3.999 6.93-3.785 6.557zm15.784-.001H7.999L12.764 8l8.017.001L24 15.466h-.217z" />
+          <path d="M6.6 66.85L0 53.9 28.1 0h16.6L6.6 66.85z" />
+          <path d="M21.8 78l8.3-14.4h57.2l-8.3 14.4H21.8z" />
+          <path d="M57.6 0l29.7 51.5-8.3 14.4L49.2 14.5H57.6L57.6 0zM28.1 0h21.5L79 51.5H57.5L28.1 0z" />
         </svg>
       )}
       {platform === "mega" && (
