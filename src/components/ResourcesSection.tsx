@@ -7,6 +7,8 @@ import { Search } from "lucide-react";
 // Import generated resource images
 import bmwRawClipsImg from "@/assets/resources/bmw-raw-clips.jpg";
 import instagramHooksImg from "@/assets/resources/instagram-hooks.jpg";
+import motivationReelsImg from "@/assets/resources/motivation-reels.jpg";
+import promptCollectionImg from "@/assets/resources/prompt-collection.jpg";
 
 const ResourcesSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,6 +22,14 @@ const ResourcesSection = () => {
 
   // Resources sorted alphabetically by title
   const resources = [
+    {
+      title: "15000+ Prompt Collection with Resell Rights",
+      description:
+        "Massive collection of AI prompts for ChatGPT, Midjourney, and more. Includes resell rights for commercial use and content creation.",
+      category: "AI Prompts",
+      image: promptCollectionImg,
+      link: "https://docs.google.com/spreadsheets/d/1OP8oUzIOFkSCYTst43Y9mmasYvdbQkCKIJiQEa_qm-0/edit?usp=drivesdk",
+    },
     {
       title: "All Sound Effects",
       description:
@@ -67,6 +77,14 @@ const ResourcesSection = () => {
       category: "Content",
       image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=800&auto=format&fit=crop",
       link: "https://drive.google.com/drive/folders/1O8Tz_6Ida0mrzgY83v_XF8B3kF4A1JdD",
+    },
+    {
+      title: "Premanand Ji Maharaj Motivation Reels Bundle",
+      description:
+        "Collection of spiritual motivation content featuring Premanand Ji Maharaj. Perfect for creating inspirational Reels and short-form content.",
+      category: "Spiritual",
+      image: motivationReelsImg,
+      link: "https://drive.google.com/drive/folders/1kOky_FOI3ZBOVzsIYifbmKbRVLcNQCkx",
     },
     {
       title: "Premium Asset Collection",
