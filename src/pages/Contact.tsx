@@ -130,40 +130,17 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="text-muted-foreground text-sm">Email</p>
-                      <a
-                        href="mailto:sanjayvansu1973@gmail.com"
-                        className="text-foreground hover:text-primary transition-colors duration-300"
-                      >
-                        sanjayvansu1973@gmail.com
-                      </a>
+                      <p className="text-foreground">Contact via form</p>
                     </div>
                   </div>
 
                   <div className="flex items-center space-x-4 hover:translate-x-1 transition-transform duration-300">
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <Phone className="text-primary" size={20} />
+                      <Send className="text-primary" size={20} />
                     </div>
                     <div>
-                      <p className="text-muted-foreground text-sm">Phone</p>
-                      <a
-                        href="tel:+919412104618"
-                        className="text-foreground hover:text-primary transition-colors duration-300"
-                      >
-                        +91 9412104618
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4 hover:translate-x-1 transition-transform duration-300">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <MapPin className="text-primary" size={20} />
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground text-sm">Location</p>
-                      <p className="text-foreground">Agra, India</p>
-                      <p className="text-muted-foreground text-sm">
-                        106/1 Balkeshwar Road Agra
-                      </p>
+                      <p className="text-muted-foreground text-sm">WhatsApp</p>
+                      <p className="text-foreground">Via contact form</p>
                     </div>
                   </div>
                 </div>
