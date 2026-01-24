@@ -39,7 +39,7 @@ const CourseCard = ({ title, description, category, duration, students, image, l
         <Badge className="absolute top-3 left-3 glass-button border-0 text-foreground animate-ios-pop">
           {category}
         </Badge>
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-3 right-3 z-20">
           <FavoriteButton
             isFavorite={isCourseFavorite}
             onToggle={handleFavoriteClick}

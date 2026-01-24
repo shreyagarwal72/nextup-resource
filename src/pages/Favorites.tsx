@@ -7,6 +7,7 @@ import { useFavorites, generateId } from "@/hooks/useFavorites";
 import { Heart, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link } from "react-router-dom";
 
 // Import course images
 import earnMoneyFacebookImg from "@/assets/courses/earn-money-facebook.jpg";
@@ -402,10 +403,10 @@ const Favorites = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Button variant="glassPrimary" asChild>
-                    <a href="/courses">Explore Courses</a>
+                    <Link to="/courses">Explore Courses</Link>
                   </Button>
                   <Button variant="glass" asChild>
-                    <a href="/resources">Browse Resources</a>
+                    <Link to="/resources">Browse Resources</Link>
                   </Button>
                 </div>
               </div>
