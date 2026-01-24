@@ -23,6 +23,14 @@ const ResourcesSection = () => {
   // Resources sorted alphabetically by title
   const resources = [
     {
+      title: "1000+ LUTs Bundle",
+      description:
+        "Massive collection of color grading LUTs for video editing. Transform your footage with cinematic, vintage, and creative color looks.",
+      category: "Video",
+      image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
+      link: "https://drive.google.com/drive/folders/1Wi8zTsgPXvSbfUI_fcul9mq8GDCdj1yw?usp=drive_link",
+    },
+    {
       title: "15000+ Prompt Collection with Resell Rights",
       description:
         "Massive collection of AI prompts for ChatGPT, Midjourney, and more. Includes resell rights for commercial use and content creation.",
@@ -31,12 +39,28 @@ const ResourcesSection = () => {
       link: "https://docs.google.com/spreadsheets/d/1OP8oUzIOFkSCYTst43Y9mmasYvdbQkCKIJiQEa_qm-0/edit?usp=drivesdk",
     },
     {
+      title: "ABBASI Free Hindi Font Pack",
+      description:
+        "Beautiful collection of Hindi fonts in ABBASI style. Perfect for Indian content creators, designers, and typography enthusiasts.",
+      category: "Fonts",
+      image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&auto=format&fit=crop",
+      link: "https://t.me/nextupfilebot?start=BQADAQADDhEAAo0tqUeYfdUSne7wOhYE",
+    },
+    {
       title: "All Sound Effects",
       description:
         "Comprehensive collection of high-quality sound effects for video editing, music production, and content creation. Perfect for enhancing your projects.",
       category: "Audio",
       image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&auto=format&fit=crop",
       link: "https://drive.google.com/drive/folders/1u6cDD5SpUC0M3eiDdYgalNvt58vKucgs",
+    },
+    {
+      title: "Bhartiya Hindi Font Pack",
+      description:
+        "Premium Bhartiya style Hindi fonts for graphic design and content creation. Ideal for traditional and modern Indian designs.",
+      category: "Fonts",
+      image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&auto=format&fit=crop",
+      link: "https://t.me/nextupfilebot?start=BQADAQADDxEAAo0tqUf58lOYNWLFHRYE",
     },
     {
       title: "BMW Car Raw Video Clips",
@@ -61,6 +85,14 @@ const ResourcesSection = () => {
       category: "Social Media",
       image: instagramHooksImg,
       link: "https://drive.google.com/drive/folders/1IyuR4KTZVJX80LsJlIxeJgKWe1EZFrNP",
+    },
+    {
+      title: "Krutidev Hindi Font Pack",
+      description:
+        "Complete Krutidev Hindi font collection, widely used for professional Hindi typing and design work in India.",
+      category: "Fonts",
+      image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&auto=format&fit=crop",
+      link: "https://t.me/nextupfilebot?start=BQADAQADEhEAAo0tqUeGVRgmMa31ChYE",
     },
     {
       title: "Mega Thumbnail VFX Assets Pack",
