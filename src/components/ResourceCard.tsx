@@ -45,7 +45,7 @@ const ResourceCard = ({
               {category}
             </Badge>
           </div>
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4 z-20">
             <FavoriteButton
               isFavorite={isResourceFavorite}
               onToggle={handleFavoriteClick}
@@ -54,7 +54,7 @@ const ResourceCard = ({
           <PlatformBadge link={link} />
           
           {/* iOS-style hover overlay */}
-          <div className="absolute inset-0 bg-primary/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-400 ease-apple-ease flex items-center justify-center">
+          <div className="absolute inset-0 bg-primary/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-400 ease-apple-ease flex items-center justify-center pointer-events-none">
             <div className="glass-heavy flex items-center gap-2 text-foreground font-semibold px-5 py-3 rounded-xl transform scale-90 group-hover:scale-100 transition-transform duration-400 ease-apple-spring">
               <Download className="w-5 h-5" />
               <span>Download Free</span>
