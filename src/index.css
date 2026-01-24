@@ -72,6 +72,13 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 211 100% 50%;
+
+    /* iOS/macOS Animation Timing Variables */
+    --apple-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --apple-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --apple-decelerate: cubic-bezier(0, 0, 0.2, 1);
+    --apple-overshoot: cubic-bezier(0.34, 1.3, 0.64, 1);
+    --apple-standard: cubic-bezier(0.42, 0, 0.58, 1);
   }
 
   .dark {
@@ -159,7 +166,7 @@
 }
 
 @layer utilities {
-  /* iOS 26 Liquid Glass Classes - Enhanced */
+  /* iOS 26 Liquid Glass Classes - Enhanced with Apple timing */
   .glass {
     background: hsl(var(--glass-bg));
     backdrop-filter: blur(var(--glass-blur)) saturate(180%);
@@ -195,6 +202,7 @@
       inset 0 -1px 2px hsl(0 0% 0% / 0.08);
   }
 
+  /* iOS-style glass card with spring hover */
   .glass-card {
     background: hsl(var(--glass-bg));
     backdrop-filter: blur(var(--glass-blur)) saturate(180%);
@@ -204,17 +212,27 @@
     box-shadow: 
       0 4px 24px hsl(var(--glass-shadow)),
       inset 0 1px 1px hsl(0 0% 100% / 0.15);
-    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: 
+      transform 0.5s var(--apple-spring),
+      box-shadow 0.4s var(--apple-ease),
+      background 0.3s var(--apple-ease);
+    will-change: transform;
   }
 
   .glass-card:hover {
-    transform: translateY(-6px) scale(1.02);
+    transform: translateY(-8px) scale(1.02);
     box-shadow: 
-      0 16px 48px hsl(var(--glass-shadow-lg)),
-      0 6px 20px hsl(var(--glass-shadow)),
+      0 20px 60px hsl(var(--glass-shadow-lg)),
+      0 8px 24px hsl(var(--glass-shadow)),
       inset 0 1px 2px hsl(0 0% 100% / 0.25);
   }
 
+  .glass-card:active {
+    transform: translateY(-2px) scale(0.99);
+    transition-duration: 0.15s;
+  }
+
+  /* iOS-style glass button with press feedback */
   .glass-button {
     background: hsl(var(--glass-bg-heavy));
     backdrop-filter: blur(24px) saturate(180%);
@@ -224,20 +242,24 @@
       0 4px 16px hsl(var(--glass-shadow)),
       inset 0 1px 1px hsl(0 0% 100% / 0.2),
       inset 0 -0.5px 0.5px hsl(0 0% 0% / 0.05);
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: 
+      transform 0.4s var(--apple-spring),
+      box-shadow 0.3s var(--apple-ease),
+      background 0.25s var(--apple-ease);
+    will-change: transform;
   }
 
   .glass-button:hover {
     background: hsl(var(--glass-bg-ultra));
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-3px) scale(1.03);
     box-shadow: 
-      0 8px 28px hsl(var(--glass-shadow-lg)),
+      0 12px 36px hsl(var(--glass-shadow-lg)),
       inset 0 1px 2px hsl(0 0% 100% / 0.3);
   }
 
   .glass-button:active {
-    transform: translateY(0) scale(0.98);
-    transition-duration: 0.1s;
+    transform: translateY(0) scale(0.97);
+    transition: transform 0.1s var(--apple-ease);
   }
 
   .glass-input {
@@ -248,7 +270,7 @@
     box-shadow: 
       inset 0 2px 6px hsl(var(--glass-shadow)),
       inset 0 1px 2px hsl(0 0% 0% / 0.03);
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.35s var(--apple-overshoot);
   }
 
   .glass-input:focus {
@@ -288,7 +310,7 @@
     background: var(--gradient-hero);
   }
 
-  /* Liquid shimmer effect */
+  /* iOS-style liquid shimmer effect */
   .liquid-shimmer {
     position: relative;
     overflow: hidden;
@@ -302,7 +324,7 @@
     width: 100%;
     height: 100%;
     background: var(--gradient-shimmer);
-    animation: shimmer 4s ease-in-out infinite;
+    animation: shimmer 4s var(--apple-ease) infinite;
   }
 
   @keyframes shimmer {
@@ -313,44 +335,52 @@
     100% { left: 100%; opacity: 0; }
   }
 
-  /* Floating animation for cards */
+  /* iOS spring floating animation */
   .float {
-    animation: float 6s ease-in-out infinite;
+    animation: ios-float 5s var(--apple-standard) infinite;
   }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
+  @keyframes ios-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-16px); }
   }
 
-  /* Liquid blob background */
+  /* iOS-style organic liquid blob */
   .liquid-blob {
     position: absolute;
-    border-radius: 50%;
     filter: blur(100px);
     opacity: 0.6;
-    animation: blob 10s ease-in-out infinite;
-    will-change: transform;
+    animation: ios-blob 18s var(--apple-standard) infinite;
+    will-change: transform, border-radius;
   }
 
-  @keyframes blob {
-    0%, 100% { 
-      transform: translate(0, 0) scale(1); 
+  @keyframes ios-blob {
+    0% { 
+      transform: translate(0, 0) scale(1) rotate(0deg);
+      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     }
     25% { 
-      transform: translate(40px, -40px) scale(1.15); 
+      transform: translate(50px, -30px) scale(1.1) rotate(45deg);
+      border-radius: 60% 40% 30% 70% / 60% 40% 50% 40%;
     }
-    50% {
-      transform: translate(-20px, 30px) scale(0.95);
+    50% { 
+      transform: translate(-20px, 40px) scale(0.95) rotate(90deg);
+      border-radius: 50% 50% 60% 40% / 50% 60% 40% 50%;
     }
     75% { 
-      transform: translate(-30px, -20px) scale(1.08); 
+      transform: translate(-40px, -20px) scale(1.05) rotate(135deg);
+      border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%;
+    }
+    100% { 
+      transform: translate(0, 0) scale(1) rotate(180deg);
+      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     }
   }
 
-  /* Navigation link hover effect */
+  /* iOS-style navigation link with spring underline */
   .nav-link {
     position: relative;
+    transition: color 0.3s var(--apple-ease);
   }
 
   .nav-link::after {
@@ -362,7 +392,7 @@
     height: 2px;
     background: hsl(var(--primary));
     border-radius: 1px;
-    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.4s var(--apple-spring);
     transform: translateX(-50%);
   }
 
@@ -377,39 +407,172 @@
     }
   }
 
-  /* Smooth page transitions */
+  /* iOS-style page transitions */
   @media (prefers-reduced-motion: no-preference) {
     ::view-transition-old(root),
     ::view-transition-new(root) {
-      animation-duration: 0.4s;
-      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      animation-duration: 0.45s;
+      animation-timing-function: var(--apple-spring);
     }
 
     ::view-transition-old(root) {
-      animation-name: fade-scale-out;
+      animation-name: ios-page-out;
     }
 
     ::view-transition-new(root) {
-      animation-name: fade-scale-in;
+      animation-name: ios-page-in;
     }
   }
 
-  @keyframes fade-scale-out {
-    from { opacity: 1; transform: scale(1); }
-    to { opacity: 0; transform: scale(0.95); }
+  @keyframes ios-page-out {
+    0% { opacity: 1; transform: scale(1) translateX(0); }
+    100% { opacity: 0; transform: scale(0.96) translateX(-20px); }
   }
 
-  @keyframes fade-scale-in {
-    from { opacity: 0; transform: scale(1.05); }
-    to { opacity: 1; transform: scale(1); }
+  @keyframes ios-page-in {
+    0% { opacity: 0; transform: scale(1.02) translateX(20px); }
+    60% { transform: scale(0.995) translateX(-3px); }
+    100% { opacity: 1; transform: scale(1) translateX(0); }
+  }
+
+  /* iOS-style hover scale with spring */
+  .hover-spring {
+    transition: transform 0.4s var(--apple-spring);
+    will-change: transform;
+  }
+
+  .hover-spring:hover {
+    transform: scale(1.05);
+  }
+
+  .hover-spring:active {
+    transform: scale(0.97);
+    transition-duration: 0.12s;
+  }
+
+  /* macOS-style press feedback */
+  .press-feedback {
+    transition: transform 0.2s var(--apple-ease);
+    will-change: transform;
+  }
+
+  .press-feedback:active {
+    transform: scale(0.96);
+  }
+
+  /* iOS heartbeat animation for favorites */
+  .heart-beat {
+    animation: ios-heartbeat 0.8s var(--apple-spring);
+  }
+
+  @keyframes ios-heartbeat {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.3); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.18); }
+    60% { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+
+  /* iOS rubber band effect for overscroll */
+  .rubber-band {
+    animation: ios-rubber-band 0.6s var(--apple-spring);
+  }
+
+  @keyframes ios-rubber-band {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.12, 0.88); }
+    40% { transform: scale(0.92, 1.08); }
+    50% { transform: scale(1.04, 0.96); }
+    65% { transform: scale(0.98, 1.02); }
+    75% { transform: scale(1.01, 0.99); }
+    100% { transform: scale(1); }
+  }
+
+  /* iOS-style pop animation for new elements */
+  .animate-ios-pop {
+    animation: ios-pop 0.5s var(--apple-spring) forwards;
+    opacity: 0;
+  }
+
+  @keyframes ios-pop {
+    0% { transform: scale(0.8); opacity: 0; }
+    45% { transform: scale(1.08); }
+    75% { transform: scale(0.98); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* macOS window opening animation */
+  .animate-macos-open {
+    animation: macos-window-open 0.4s var(--apple-overshoot) forwards;
+    opacity: 0;
+  }
+
+  @keyframes macos-window-open {
+    0% { opacity: 0; transform: scale(0.85) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* iOS-style slide animations */
+  .animate-slide-up-ios {
+    animation: ios-slide-up 0.5s var(--apple-overshoot) forwards;
+    opacity: 0;
+  }
+
+  @keyframes ios-slide-up {
+    0% { opacity: 0; transform: translateY(30px); }
+    70% { transform: translateY(-4px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-slide-down-ios {
+    animation: ios-slide-down 0.5s var(--apple-overshoot) forwards;
+    opacity: 0;
+  }
+
+  @keyframes ios-slide-down {
+    0% { opacity: 0; transform: translateY(-30px); }
+    70% { transform: translateY(4px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Breathing effect for background elements */
+  .animate-breathe {
+    animation: breathe 4s var(--apple-standard) infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.04); opacity: 1; }
+  }
+
+  /* iOS pulse for attention */
+  .animate-ios-pulse {
+    animation: ios-pulse 2s var(--apple-ease) infinite;
+  }
+
+  @keyframes ios-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.02); }
+  }
+
+  /* iOS notification slide-in */
+  .animate-notification {
+    animation: ios-notification 0.5s var(--apple-spring) forwards;
+  }
+
+  @keyframes ios-notification {
+    0% { opacity: 0; transform: translateY(-100%) scale(0.95); }
+    55% { transform: translateY(6px) scale(1.01); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 }
 
-/* Fade animations */
+/* iOS-style fade animations */
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -420,7 +583,7 @@
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -431,7 +594,7 @@
 @keyframes scale-up {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.92);
   }
   to {
     opacity: 1;
@@ -455,37 +618,41 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.7;
+    opacity: 0.8;
   }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: fade-in 0.55s var(--apple-overshoot) forwards;
 }
 
 .animate-fade-in-up {
   opacity: 0;
-  animation: fade-in-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: fade-in-up 0.6s var(--apple-overshoot) forwards;
 }
 
 .animate-scale-up {
-  animation: scale-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: scale-up 0.45s var(--apple-spring) forwards;
 }
 
 .animate-slide-up {
-  animation: slide-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: slide-up 0.5s var(--apple-overshoot) forwards;
 }
 
 .animate-pulse-soft {
-  animation: pulse-soft 2s ease-in-out infinite;
+  animation: pulse-soft 2.5s var(--apple-standard) infinite;
 }
 
 /* Staggered animation delays */
+.delay-75 { animation-delay: 0.075s; }
 .delay-100 { animation-delay: 0.1s; }
+.delay-150 { animation-delay: 0.15s; }
 .delay-200 { animation-delay: 0.2s; }
+.delay-250 { animation-delay: 0.25s; }
 .delay-300 { animation-delay: 0.3s; }
 .delay-400 { animation-delay: 0.4s; }
 .delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
 
 /* PWA-specific styles */
 @media (display-mode: standalone) {
@@ -496,11 +663,49 @@
   }
 }
 
-/* Touch feedback for mobile */
+/* Touch feedback for mobile - iOS style */
 @media (hover: none) {
-  .glass-button:active,
-  .glass-card:active {
+  .glass-card:active,
+  .glass-button:active {
     transform: scale(0.97);
-    transition-duration: 0.1s;
+    transition: transform 0.1s var(--apple-ease);
+  }
+  
+  /* iOS haptic-like visual feedback */
+  .touch-feedback {
+    transition: transform 0.15s var(--apple-ease), opacity 0.15s var(--apple-ease);
+  }
+  
+  .touch-feedback:active {
+    transform: scale(0.96);
+    opacity: 0.85;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass,
+  .glass-heavy,
+  .glass-ultra,
+  .glass-card,
+  .glass-button {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion - respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .liquid-blob,
+  .float,
+  .animate-breathe {
+    animation: none !important;
   }
 }

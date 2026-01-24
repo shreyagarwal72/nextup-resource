@@ -1,73 +1,180 @@
-# Welcome to your Lovable project
+<p align="center">
+  <img src="public/pwa-512x512.png" alt="Nextup Resources Logo" width="120" height="120" style="border-radius: 24px;">
+</p>
 
-## Project info
+<h1 align="center">Nextup Resources</h1>
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+<p align="center">
+  <strong>Quality Education for Everyone</strong>
+</p>
 
-## How can I edit this code?
+<p align="center">
+  A curated collection of free courses and resources to help you learn new skills and grow your career.
+</p>
 
-There are several ways of editing your application.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React">
+  <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Vite-5.0-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite">
+  <img src="https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/PWA-Ready-5A0FC8?style=flat-square&logo=pwa&logoColor=white" alt="PWA Ready">
+</p>
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## ✨ Features
 
-Changes made via Lovable will be committed automatically to this repo.
+- 📚 **Curated Courses** — Hand-picked courses covering AI, ethical hacking, business, and more
+- 📦 **Free Resources** — Downloadable assets, templates, and tools
+- ❤️ **Favorites System** — Save courses and resources for quick access
+- 🌙 **Dark Mode** — Beautiful light and dark themes
+- 📱 **PWA Support** — Install as a native app on any device
+- 🎨 **Liquid Glass UI** — Modern iOS/macOS-inspired design
+- ⚡ **Blazing Fast** — Built with Vite for instant page loads
+- 🔒 **Privacy First** — No tracking, no analytics, your data stays local
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠️ Tech Stack
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+| Category | Technology |
+|----------|------------|
+| **Framework** | React 18 with TypeScript |
+| **Build Tool** | Vite |
+| **Styling** | Tailwind CSS + shadcn/ui |
+| **Routing** | React Router v6 |
+| **State** | TanStack Query |
+| **Animations** | CSS Animations + Framer Motion principles |
+| **PWA** | vite-plugin-pwa |
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🚀 Getting Started
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Prerequisites
 
-# Step 3: Install the necessary dependencies.
-npm i
+- Node.js 18+ or Bun
+- npm, yarn, or bun package manager
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Installation
+
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd nextup-resources
+
+# Install dependencies
+npm install
+# or
+bun install
+
+# Start development server
 npm run dev
+# or
+bun dev
 ```
 
-**Edit a file directly in GitHub**
+The app will be available at `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Build for Production
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+npm run preview
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 📁 Project Structure
 
-This project is built with:
+```
+src/
+├── assets/           # Images and static assets
+│   ├── courses/      # Course thumbnail images
+│   └── resources/    # Resource thumbnail images
+├── components/       # Reusable UI components
+│   ├── ui/           # shadcn/ui components
+│   ├── Header.tsx    # Navigation header
+│   ├── Hero.tsx      # Landing page hero section
+│   ├── CourseCard.tsx
+│   ├── ResourceCard.tsx
+│   └── ...
+├── hooks/            # Custom React hooks
+│   ├── useFavorites.ts
+│   └── use-mobile.tsx
+├── lib/              # Utility functions
+├── pages/            # Route pages
+│   ├── Index.tsx     # Home page
+│   ├── Courses.tsx   # Courses listing
+│   ├── Resources.tsx # Resources listing
+│   ├── Favorites.tsx # Saved items
+│   ├── Contact.tsx   # Contact form
+│   └── Install.tsx   # PWA installation guide
+├── App.tsx           # Root component with routing
+├── main.tsx          # Application entry point
+└── index.css         # Global styles and design tokens
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 📱 PWA Installation
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+### iOS (Safari)
+1. Open the website in Safari
+2. Tap the Share button
+3. Select "Add to Home Screen"
 
-## Can I connect a custom domain to my Lovable project?
+### Android (Chrome)
+1. Open the website in Chrome
+2. Tap the menu (⋮)
+3. Select "Add to Home Screen" or "Install App"
 
-Yes, you can!
+### Desktop (Chrome/Edge)
+1. Look for the install icon in the address bar
+2. Click "Install"
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 🎨 Design System
+
+The app uses a custom "Liquid Glass" design system inspired by iOS and macOS:
+
+- **Glass morphism** — Translucent surfaces with backdrop blur
+- **Spring animations** — Physics-based motion that feels natural
+- **Semantic colors** — All colors defined as CSS custom properties
+- **Dark mode** — Automatic theme switching with smooth transitions
+
+### Color Tokens
+
+```css
+--background    /* Page background */
+--foreground    /* Primary text */
+--primary       /* Brand color */
+--secondary     /* Secondary surfaces */
+--muted         /* Subdued elements */
+--accent        /* Highlights */
+--destructive   /* Error states */
+```
+
+---
+
+## 🔐 Privacy
+
+This application:
+- ✅ Stores favorites locally in your browser
+- ✅ Uses session storage for UI state only
+- ❌ Does NOT track users
+- ❌ Does NOT use analytics
+- ❌ Does NOT collect personal data
+
+---
+
+## 📄 License
+
+This project is for educational purposes.
+
+---
+
+<p align="center">
+  Made with ❤️ for learners everywhere
+</p>
