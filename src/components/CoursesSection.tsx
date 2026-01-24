@@ -10,6 +10,11 @@ import ethicalHacking10hrImg from "@/assets/courses/ethical-hacking-10hr.jpg";
 import viralCrimeStoryImg from "@/assets/courses/viral-crime-story.jpg";
 import androidKaliLinuxImg from "@/assets/courses/android-kali-linux.jpg";
 import udemyCoursesImg from "@/assets/courses/udemy-courses.jpg";
+import promptEngineerImg from "@/assets/courses/prompt-engineer.jpg";
+import discipline2026Img from "@/assets/courses/discipline-2026.jpg";
+import trainingCourseImg from "@/assets/courses/training-course.jpg";
+import englishCourseImg from "@/assets/courses/english-course.jpg";
+import brahmacharyaImg from "@/assets/courses/brahmacharya.jpg";
 
 const CoursesSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -52,6 +57,16 @@ const CoursesSection = () => {
       students: "2.1K",
       image: androidKaliLinuxImg,
       link: "https://t.me/nextupfilebot?start=BQADAQADZBAAAo0tqUf7-Er9Ze4wZBYE",
+    },
+    {
+      title: "Brahmacharya Full Course",
+      description:
+        "Complete guide to brahmacharya and spiritual self-discipline. Learn ancient wisdom for modern life, energy management, and personal mastery.",
+      category: "Spirituality",
+      duration: "6 weeks",
+      students: "2.8K",
+      image: brahmacharyaImg,
+      link: "https://drive.google.com/file/d/1VTzlWqg3U1R91Q13_l02-YfV9ZLO9bKp/view?usp=drivesdk",
     },
     {
       title: "Build AI Chatbots Without Coding",
@@ -124,6 +139,16 @@ const CoursesSection = () => {
       link: "https://drive.google.com/drive/folders/1JWpSngNHZ0gKqD6ZjMaWqf6BAd3vi6SB",
     },
     {
+      title: "Discipline 2026",
+      description:
+        "Master self-discipline and productivity for 2026. Build unstoppable habits, time management skills, and achieve your goals with proven strategies.",
+      category: "Personal Development",
+      duration: "8 weeks",
+      students: "4.1K",
+      image: discipline2026Img,
+      link: "https://t.me/+9f6G15ffAcQ5NGY1",
+    },
+    {
       title: "Earn Money with Facebook",
       description:
         "Complete guide to monetizing Facebook through ads, marketplace, groups, and content creation. Build a profitable online business.",
@@ -142,6 +167,16 @@ const CoursesSection = () => {
       students: "5.8K",
       image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&auto=format&fit=crop",
       link: "https://drive.google.com/drive/folders/1I_O0jWOeWvNZa1UJrMPPE2SypMXRC4uf",
+    },
+    {
+      title: "Full Zero To Hero English Course",
+      description:
+        "Complete English language course from beginner to advanced. Master speaking, writing, grammar, and vocabulary with practical exercises.",
+      category: "Language",
+      duration: "12 weeks",
+      students: "6.5K",
+      image: englishCourseImg,
+      link: "https://t.me/+I6Mz2mtQoJw3M2Q9",
     },
     {
       title: "Full 10 Hours Ethical Hacking Course",
@@ -234,6 +269,16 @@ const CoursesSection = () => {
       link: "https://drive.google.com/drive/folders/1Oot-EMWNBDkVjQqhMesh6YSlRLCjC4F0",
     },
     {
+      title: "Prompt Engineer Course",
+      description:
+        "Learn to become a professional prompt engineer. Master techniques for ChatGPT, Claude, and other AI models to create powerful prompts.",
+      category: "AI",
+      duration: "6 weeks",
+      students: "5.1K",
+      image: promptEngineerImg,
+      link: "https://drive.google.com/drive/folders/1zRSK69ecEAW-XSMWKlUrV8V7KnzPf6FO",
+    },
+    {
       title: "Start Your Career Course",
       description:
         "Complete career development program covering job search strategies, interview preparation, resume building, and professional networking.",
@@ -272,6 +317,16 @@ const CoursesSection = () => {
       students: "2.9K",
       image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop",
       link: "https://mega.nz/folder/h2hCzI7L#tNrIvQL4Zkng43T_fgASHA",
+    },
+    {
+      title: "Training Course",
+      description:
+        "Professional skills training covering essential workplace competencies, certifications, and career advancement strategies.",
+      category: "Professional",
+      duration: "8 weeks",
+      students: "3.6K",
+      image: trainingCourseImg,
+      link: "https://t.me/+XuTWV1QwZftiZTg1",
     },
     {
       title: "Ultimate Body Transformation",
