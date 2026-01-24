@@ -15,6 +15,7 @@ import discipline2026Img from "@/assets/courses/discipline-2026.jpg";
 import trainingCourseImg from "@/assets/courses/training-course.jpg";
 import englishCourseImg from "@/assets/courses/english-course.jpg";
 import brahmacharyaImg from "@/assets/courses/brahmacharya.jpg";
+import instagramContentImg from "@/assets/courses/instagram-content.jpg";
 
 const CoursesSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -205,7 +206,7 @@ const CoursesSection = () => {
       category: "Social Media",
       duration: "6 weeks",
       students: "7.2K",
-      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&auto=format&fit=crop",
+      image: instagramContentImg,
       link: "https://drive.google.com/drive/folders/1I48C4OmwkAYgohpZne3OUUS8tz5xew6x",
     },
     {
