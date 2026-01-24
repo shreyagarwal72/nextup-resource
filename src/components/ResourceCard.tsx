@@ -19,20 +19,21 @@ const ResourceCard = ({
 }: ResourceCardProps) => {
   return (
     <a href={link} target="_blank" rel="noopener noreferrer" className="block">
-      <Card className="group overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer bg-card/80 backdrop-blur-sm">
+      <Card className="group overflow-hidden cursor-pointer h-full">
         <div className="relative h-48 overflow-hidden">
           <img
             src={image}
             alt={`${title} - Free resource`}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
           <div className="absolute top-4 right-4">
-            <Badge className="bg-primary text-primary-foreground">
+            <Badge className="glass-button border-0 text-foreground">
               {category}
             </Badge>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-            <div className="flex items-center gap-2 text-white font-semibold">
+          <div className="absolute inset-0 bg-primary/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+            <div className="glass-heavy flex items-center gap-2 text-foreground font-semibold px-5 py-3 rounded-xl">
               <Download className="w-5 h-5" />
               <span>Download Free</span>
             </div>
