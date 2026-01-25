@@ -32,18 +32,18 @@ const SplashScreen = ({ onComplete, minDuration = 2200 }: SplashScreenProps) => 
         background: "linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.08) 50%, hsl(var(--background)) 100%)",
       }}
     >
-      {/* iOS-style animated background blobs */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* iOS-style animated background blobs with blur */}
+      <div className="absolute inset-0 overflow-hidden backdrop-blur-xl">
         <div 
-          className="liquid-blob w-96 h-96 bg-primary/20 top-1/4 -left-20"
+          className="liquid-blob w-96 h-96 bg-primary/20 top-1/4 -left-20 blur-2xl"
           style={{ animationDuration: "12s" }}
         />
         <div 
-          className="liquid-blob w-80 h-80 bg-purple-500/15 bottom-1/4 -right-16"
+          className="liquid-blob w-80 h-80 bg-purple-500/15 bottom-1/4 -right-16 blur-2xl"
           style={{ animationDuration: "15s", animationDelay: "-3s" }}
         />
         <div
-          className="liquid-blob w-64 h-64 bg-pink-400/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="liquid-blob w-64 h-64 bg-pink-400/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-2xl"
           style={{ animationDuration: "18s", animationDelay: "-6s" }}
         />
       </div>

@@ -49,6 +49,14 @@ export interface Ebook {
   link: string;
 }
 
+export interface App {
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  link: string;
+}
+
 // All courses sorted alphabetically by title
 export const allCourses: Course[] = [
   {
@@ -474,5 +482,58 @@ export const allEbooks: Ebook[] = [
     category: "Business",
     image: vipEbookPackImg,
     link: "https://drive.google.com/drive/folders/1PWV29Q0NH4-2jqA8hYNw6WGShamu6HiE?usp=drive_link",
+  },
+];
+
+// All apps sorted alphabetically by title
+export const allApps: App[] = [
+  {
+    title: "Bloomee Music",
+    description: "Bloomee is an experimental cross-platform open source music player designed to bring you ad-free tunes from various sources.",
+    category: "Music",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&auto=format&fit=crop",
+    link: "https://github.com/HemantKArya/BloomeeTunes/releases/tag/v2.13.3%2B188",
+  },
+  {
+    title: "Hopeweb",
+    description: "Webpage to Android App converter, PHP & HTML Editor, Git Client, and PHP Runner. All-in-one development toolkit for mobile.",
+    category: "Development",
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQAD-BMAAr-PuUdB75yuaKp6lxYE",
+  },
+  {
+    title: "Image Toolbox",
+    description: "ImageToolbox is a versatile image editing tool designed for efficient photo manipulation with advanced features.",
+    category: "Image Editing",
+    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&auto=format&fit=crop",
+    link: "https://github.com/T8RIN/ImageToolbox",
+  },
+  {
+    title: "Insta Pro",
+    description: "Modified Instagram for Android with enhanced features and customization options for a better social media experience.",
+    category: "Social Media",
+    image: "https://images.unsplash.com/photo-1611262588024-d12430b98920?w=800&auto=format&fit=crop",
+    link: "https://www.instamod.app/?m=1",
+  },
+  {
+    title: "MB WhatsApp",
+    description: "Modified version of WhatsApp with anti-hack protection. Note: Don't login with phone number, just link in for security.",
+    category: "Messaging",
+    image: "https://images.unsplash.com/photo-1633675254053-d96c7668c3b8?w=800&auto=format&fit=crop",
+    link: "https://mb-mods.net/mbwhatsapp/?a",
+  },
+  {
+    title: "Moviebox",
+    description: "All Movies and Web Series in one place. Stream and download your favorite content easily.",
+    category: "Entertainment",
+    image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&auto=format&fit=crop",
+    link: "https://www.moviesbox.com.co/",
+  },
+  {
+    title: "Omnitools All-in-One Toolkit",
+    description: "All-in-one toolkit with multiple utility tools for everyday use. Simplify your tasks with one powerful app.",
+    category: "Utility",
+    image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&auto=format&fit=crop",
+    link: "https://play.google.com/store/apps/details?id=com.snitl.omnitools",
   },
 ];
