@@ -1,14 +1,21 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
+import { Mail, Send, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
+
+// EmailJS configuration (public keys are safe to store in code)
+const EMAILJS_SERVICE_ID = "service_0tz9fru";
+const EMAILJS_TEMPLATE_ID = "template_16ds9rx";
+const EMAILJS_PUBLIC_KEY = "KRsxH4cZ_5RJ2EMJB";
 
 const Contact = () => {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,20 +41,37 @@ const Contact = () => {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.length > 100) {
+      newErrors.name = "Name must be less than 100 characters";
+    }
+
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Email is invalid";
+    } else if (formData.email.length > 255) {
+      newErrors.email = "Email must be less than 255 characters";
     }
-    if (!formData.subject.trim()) newErrors.subject = "Subject is required";
-    if (!formData.message.trim()) newErrors.message = "Message is required";
+
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Subject is required";
+    } else if (formData.subject.length > 200) {
+      newErrors.subject = "Subject must be less than 200 characters";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (formData.message.length > 2000) {
+      newErrors.message = "Message must be less than 2000 characters";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -61,28 +85,38 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Create WhatsApp message
-    const whatsappMessage = `*New Contact Form Submission*%0A%0A*Name:* ${encodeURIComponent(
-      formData.name
-    )}%0A*Email:* ${encodeURIComponent(formData.email)}%0A*Subject:* ${encodeURIComponent(
-      formData.subject
-    )}%0A*Message:* ${encodeURIComponent(formData.message)}`;
+    try {
+      // Send email using EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name.trim(),
+          from_email: formData.email.trim(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+        },
+        EMAILJS_PUBLIC_KEY
+      );
 
-    const whatsappUrl = `https://wa.me/919412104618?text=${whatsappMessage}`;
-    
-    // Open WhatsApp
-    window.open(whatsappUrl, "_blank");
-
-    // Show success message
-    setTimeout(() => {
       toast({
-        title: "✅ Redirecting to WhatsApp",
-        description: "Your message has been prepared. Complete sending via WhatsApp.",
+        title: "✅ Message Sent!",
+        description: "Thank you for contacting us. We'll get back to you soon.",
       });
+
+      // Reset form
       setFormData({ name: "", email: "", subject: "", message: "" });
       setErrors({});
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      toast({
+        title: "Failed to send message",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleChange = (
@@ -139,8 +173,8 @@ const Contact = () => {
                       <Send className="text-primary" size={20} />
                     </div>
                     <div>
-                      <p className="text-muted-foreground text-sm">WhatsApp</p>
-                      <p className="text-foreground">Via contact form</p>
+                      <p className="text-muted-foreground text-sm">Response Time</p>
+                      <p className="text-foreground">Within 24 hours</p>
                     </div>
                   </div>
                 </div>
@@ -169,7 +203,7 @@ const Contact = () => {
                 Send a Message
               </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label
@@ -184,6 +218,7 @@ const Contact = () => {
                       type="text"
                       value={formData.name}
                       onChange={handleChange}
+                      maxLength={100}
                       className={errors.name ? "border-destructive" : ""}
                     />
                     {errors.name && (
@@ -205,6 +240,7 @@ const Contact = () => {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
+                      maxLength={255}
                       className={errors.email ? "border-destructive" : ""}
                     />
                     {errors.email && (
@@ -228,6 +264,7 @@ const Contact = () => {
                     type="text"
                     value={formData.subject}
                     onChange={handleChange}
+                    maxLength={200}
                     className={errors.subject ? "border-destructive" : ""}
                   />
                   {errors.subject && (
@@ -250,6 +287,7 @@ const Contact = () => {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
+                    maxLength={2000}
                     className={errors.message ? "border-destructive" : ""}
                     placeholder="Tell us about your inquiry..."
                   />
@@ -269,12 +307,12 @@ const Contact = () => {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Preparing...
+                      Sending...
                     </>
                   ) : (
                     <>
                       <Send className="mr-2" size={20} />
-                      Send via WhatsApp
+                      Send Message
                     </>
                   )}
                 </Button>
