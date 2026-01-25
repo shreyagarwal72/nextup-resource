@@ -485,29 +485,62 @@ export const allEbooks: Ebook[] = [
   },
 ];
 
-// All apps sorted alphabetically by title
+// All apps for the Apps section (sorted alphabetically, categorized)
 export const allApps: App[] = [
+  // Development
   {
-    title: "Bloomee Music",
-    description: "Bloomee is an experimental cross-platform open source music player designed to bring you ad-free tunes from various sources.",
-    category: "Music",
-    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&auto=format&fit=crop",
-    link: "https://github.com/HemantKArya/BloomeeTunes/releases/tag/v2.13.3%2B188",
-  },
-  {
-    title: "Hopeweb",
+    title: "Hopweb",
     description: "Webpage to Android App converter, PHP & HTML Editor, Git Client, and PHP Runner. All-in-one development toolkit for mobile.",
     category: "Development",
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop",
     link: "https://t.me/nextupfilebot?start=BQADAQAD-BMAAr-PuUdB75yuaKp6lxYE",
   },
   {
-    title: "Image Toolbox",
-    description: "ImageToolbox is a versatile image editing tool designed for efficient photo manipulation with advanced features.",
-    category: "Image Editing",
-    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&auto=format&fit=crop",
-    link: "https://github.com/T8RIN/ImageToolbox",
+    title: "Shizuku Mod",
+    description: "Forked version of Shizuku by thedjchi with additional features beyond the original app for advanced Android customization.",
+    category: "Development",
+    image: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=800&auto=format&fit=crop",
+    link: "https://github.com/thedjchi/Shizuku",
   },
+  // Entertainment
+  {
+    title: "Moviebox",
+    description: "All Movies and Web Series in one place. Stream and download your favorite content easily.",
+    category: "Entertainment",
+    image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&auto=format&fit=crop",
+    link: "https://www.moviesbox.com.co/",
+  },
+  {
+    title: "Subway Surfers City",
+    description: "High quality version of the popular endless runner game with enhanced graphics and smooth gameplay.",
+    category: "Entertainment",
+    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADGBQAAr-PuUe18UOGhjvsNBYE",
+  },
+  // Media & Music
+  {
+    title: "Bloomee Music",
+    description: "Bloomee is an experimental cross-platform open source music player designed to bring you ad-free tunes from various sources.",
+    category: "Media & Music",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&auto=format&fit=crop",
+    link: "https://github.com/HemantKArya/BloomeeTunes/releases/tag/v2.13.3%2B188",
+  },
+  {
+    title: "YouTube Pro",
+    description: "All premium features like background playback, video download in any resolution. Note: Micro G is required to run it.",
+    category: "Media & Music",
+    image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADGBQAAr-PuUe18UOGhjvsNBYE",
+  },
+  // Messaging
+  {
+    title: "MB WhatsApp",
+    description: "Modified version of WhatsApp with anti-hack protection. Note: Don't login with phone number, just link in for security.",
+    category: "Messaging",
+    image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=800&auto=format&fit=crop",
+    link: "https://mb-mods.net/mbwhatsapp/?a",
+  },
+  // Social Media
   {
     title: "Insta Pro",
     description: "Modified Instagram for Android with enhanced features and customization options for a better social media experience.",
@@ -515,19 +548,13 @@ export const allApps: App[] = [
     image: "https://images.unsplash.com/photo-1611262588024-d12430b98920?w=800&auto=format&fit=crop",
     link: "https://www.instamod.app/?m=1",
   },
+  // Utility
   {
-    title: "MB WhatsApp",
-    description: "Modified version of WhatsApp with anti-hack protection. Note: Don't login with phone number, just link in for security.",
-    category: "Messaging",
-    image: "https://images.unsplash.com/photo-1633675254053-d96c7668c3b8?w=800&auto=format&fit=crop",
-    link: "https://mb-mods.net/mbwhatsapp/?a",
-  },
-  {
-    title: "Moviebox",
-    description: "All Movies and Web Series in one place. Stream and download your favorite content easily.",
-    category: "Entertainment",
-    image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&auto=format&fit=crop",
-    link: "https://www.moviesbox.com.co/",
+    title: "Image Toolbox",
+    description: "ImageToolbox is a versatile image editing tool designed for efficient photo manipulation with advanced features.",
+    category: "Utility",
+    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&auto=format&fit=crop",
+    link: "https://github.com/T8RIN/ImageToolbox",
   },
   {
     title: "Omnitools All-in-One Toolkit",
@@ -535,5 +562,12 @@ export const allApps: App[] = [
     category: "Utility",
     image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&auto=format&fit=crop",
     link: "https://play.google.com/store/apps/details?id=com.snitl.omnitools",
+  },
+  {
+    title: "Shots Studio",
+    description: "A Screenshot Manager to declutter your gallery. Organize, edit, and manage your screenshots efficiently.",
+    category: "Utility",
+    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&auto=format&fit=crop",
+    link: "https://github.com/AnsahMohammad/shots-studio/releases/tag/v1.9.70",
   },
 ];
