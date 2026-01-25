@@ -3,11 +3,7 @@ import EbookCard from "./EbookCard";
 import LoadingSkeleton from "./LoadingSkeleton";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-
-// Import generated ebook images
-import ebookDefaultImg from "@/assets/ebooks/ebook-default.jpg";
-import videoEditorEbookImg from "@/assets/ebooks/video-editor-ebook.jpg";
-import vipEbookPackImg from "@/assets/ebooks/vip-ebook-pack.jpg";
+import { allEbooks } from "@/data/content";
 
 const EbooksSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,35 +15,7 @@ const EbooksSection = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Ebooks sorted alphabetically by title
-  const ebooks = [
-    {
-      title: "Ebook Abdellah",
-      description:
-        "Comprehensive educational ebook covering essential topics and strategies. Learn from expert insights and practical knowledge.",
-      category: "Education",
-      image: ebookDefaultImg,
-      link: "https://drive.google.com/drive/folders/1PWV29Q0NH4-2jqA8hYNw6WGShamu6HiE",
-    },
-    {
-      title: "How to Become Video Editor Full Ebook",
-      description:
-        "Complete guide to becoming a professional video editor. Learn editing techniques, software workflows, and industry best practices.",
-      category: "Video Editing",
-      image: videoEditorEbookImg,
-      link: "https://t.me/nextupfilebot?start=BQADAQADXQ4AAr-PsUdMDZZ5OgvUFBYE",
-    },
-    {
-      title: "VIP Ebook Pack",
-      description:
-        "50+ exclusive videos with coaching, 50,000+ international suppliers, 100,000+ editable Reels & templates. Includes influence strategies, logistics, taxation, Shopify pages, viral hooks, and tutorials.",
-      category: "Business",
-      image: vipEbookPackImg,
-      link: "https://drive.google.com/drive/folders/1PWV29Q0NH4-2jqA8hYNw6WGShamu6HiE?usp=drive_link",
-    },
-  ];
-
-  const filteredEbooks = ebooks.filter((ebook) =>
+  const filteredEbooks = allEbooks.filter((ebook) =>
     ebook.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     ebook.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
     ebook.category.toLowerCase().includes(searchQuery.toLowerCase())
