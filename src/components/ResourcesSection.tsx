@@ -3,13 +3,7 @@ import ResourceCard from "./ResourceCard";
 import LoadingSkeleton from "./LoadingSkeleton";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-
-// Import generated resource images
-import bmwRawClipsImg from "@/assets/resources/bmw-raw-clips.jpg";
-import instagramHooksImg from "@/assets/resources/instagram-hooks.jpg";
-import motivationReelsImg from "@/assets/resources/motivation-reels.jpg";
-import promptCollectionImg from "@/assets/resources/prompt-collection.jpg";
-import memesPackImg from "@/assets/resources/memes-pack.jpg";
+import { allResources } from "@/data/content";
 
 const ResourcesSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,123 +15,7 @@ const ResourcesSection = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Resources sorted alphabetically by title
-  const resources = [
-    {
-      title: "1000+ LUTs Bundle",
-      description:
-        "Massive collection of color grading LUTs for video editing. Transform your footage with cinematic, vintage, and creative color looks.",
-      category: "Video",
-      image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
-      link: "https://drive.google.com/drive/folders/1Wi8zTsgPXvSbfUI_fcul9mq8GDCdj1yw?usp=drive_link",
-    },
-    {
-      title: "15000+ Prompt Collection with Resell Rights",
-      description:
-        "Massive collection of AI prompts for ChatGPT, Midjourney, and more. Includes resell rights for commercial use and content creation.",
-      category: "AI Prompts",
-      image: promptCollectionImg,
-      link: "https://docs.google.com/spreadsheets/d/1OP8oUzIOFkSCYTst43Y9mmasYvdbQkCKIJiQEa_qm-0/edit?usp=drivesdk",
-    },
-    {
-      title: "ABBASI Free Hindi Font Pack",
-      description:
-        "Beautiful collection of Hindi fonts in ABBASI style. Perfect for Indian content creators, designers, and typography enthusiasts.",
-      category: "Fonts",
-      image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&auto=format&fit=crop",
-      link: "https://t.me/nextupfilebot?start=BQADAQADDhEAAo0tqUeYfdUSne7wOhYE",
-    },
-    {
-      title: "All Sound Effects",
-      description:
-        "Comprehensive collection of high-quality sound effects for video editing, music production, and content creation. Perfect for enhancing your projects.",
-      category: "Audio",
-      image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&auto=format&fit=crop",
-      link: "https://drive.google.com/drive/folders/1u6cDD5SpUC0M3eiDdYgalNvt58vKucgs",
-    },
-    {
-      title: "Bhartiya Hindi Font Pack",
-      description:
-        "Premium Bhartiya style Hindi fonts for graphic design and content creation. Ideal for traditional and modern Indian designs.",
-      category: "Fonts",
-      image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&auto=format&fit=crop",
-      link: "https://t.me/nextupfilebot?start=BQADAQADDxEAAo0tqUf58lOYNWLFHRYE",
-    },
-    {
-      title: "BMW Car Raw Video Clips",
-      description:
-        "Premium collection of cinematic BMW car footage for video editing, automotive content, and professional productions. High-quality raw clips.",
-      category: "Video",
-      image: bmwRawClipsImg,
-      link: "https://drive.google.com/drive/folders/1CqKEg7q-zwcq3wXehZbMBx2LJ6LPnwrl",
-    },
-    {
-      title: "Instagram Viral Hook Bundle",
-      description:
-        "Collection of trending Instagram hooks, text overlays, and templates to boost engagement and create viral Reels content.",
-      category: "Social Media",
-      image: instagramHooksImg,
-      link: "https://drive.google.com/drive/folders/1IyuR4KTZVJX80LsJlIxeJgKWe1EZFrNP",
-    },
-    {
-      title: "Krutidev Hindi Font Pack",
-      description:
-        "Complete Krutidev Hindi font collection, widely used for professional Hindi typing and design work in India.",
-      category: "Fonts",
-      image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&auto=format&fit=crop",
-      link: "https://t.me/nextupfilebot?start=BQADAQADEhEAAo0tqUeGVRgmMa31ChYE",
-    },
-    {
-      title: "Mega Thumbnail VFX Assets Pack",
-      description:
-        "Professional VFX assets and thumbnail templates to create eye-catching YouTube thumbnails and video content.",
-      category: "Graphics",
-      image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
-      link: "https://drive.google.com/drive/folders/1VuNLqGCORHLfRb5Q-GyHs5Ly0Ll_gkuH",
-    },
-    {
-      title: "Memes Pack",
-      description:
-        "Curated collection of trending memes and viral content templates. Perfect for social media creators and content marketers.",
-      category: "Content",
-      image: memesPackImg,
-      link: "https://drive.google.com/drive/folders/1O8Tz_6Ida0mrzgY83v_XF8B3kF4A1JdD",
-    },
-    {
-      title: "Premanand Ji Maharaj Motivation Reels Bundle",
-      description:
-        "Collection of spiritual motivation content featuring Premanand Ji Maharaj. Perfect for creating inspirational Reels and short-form content.",
-      category: "Spiritual",
-      image: motivationReelsImg,
-      link: "https://drive.google.com/drive/folders/1kOky_FOI3ZBOVzsIYifbmKbRVLcNQCkx",
-    },
-    {
-      title: "Premium Asset Collection",
-      description:
-        "Comprehensive collection of premium assets for video editing, graphic design, and content creation.",
-      category: "Assets",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop",
-      link: "https://drive.google.com/drive/folders/1acl8L0fcWuVWtQvOBHllOXmOqUBLu0sm",
-    },
-    {
-      title: "Senpai Spider 1 Million Minecraft Texture Pack",
-      description:
-        "Massive Minecraft texture collection with over 1 million high-quality textures for ultimate customization.",
-      category: "Gaming",
-      image: "https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=800&auto=format&fit=crop",
-      link: "https://drive.google.com/drive/folders/1Z1JTqoljxO1CnZrNdfWRWQrUUqXUmx1K",
-    },
-    {
-      title: "Visualsbylalit Editing Pack",
-      description:
-        "Premium editing pack with transitions, effects, and templates for professional video editing. Elevate your content with cinematic tools.",
-      category: "Video",
-      image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
-      link: "https://drive.google.com/drive/folders/1tF0AUt9RIZdENTDJJa1fktPtzTdGslN6",
-    },
-  ];
-
-  const filteredResources = resources.filter((resource) =>
+  const filteredResources = allResources.filter((resource) =>
     resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     resource.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
     resource.category.toLowerCase().includes(searchQuery.toLowerCase())
