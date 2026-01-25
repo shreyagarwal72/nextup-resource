@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { toast } from "@/hooks/use-toast";
 
 type FavoriteType = "course" | "resource" | "ebook";
@@ -12,13 +12,21 @@ const STORAGE_KEY = "nextup_favorites";
 
 export const useFavorites = () => {
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+  const favoritesRef = useRef<FavoriteItem[]>([]);
+
+  // Keep ref in sync with state
+  useEffect(() => {
+    favoritesRef.current = favorites;
+  }, [favorites]);
 
   // Load favorites from localStorage on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        setFavorites(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        setFavorites(parsed);
+        favoritesRef.current = parsed;
       }
     } catch (error) {
       console.error("Error loading favorites:", error);
@@ -30,6 +38,7 @@ export const useFavorites = () => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newFavorites));
       setFavorites(newFavorites);
+      favoritesRef.current = newFavorites;
     } catch (error) {
       console.error("Error saving favorites:", error);
     }
@@ -44,23 +53,28 @@ export const useFavorites = () => {
 
   const toggleFavorite = useCallback(
     (id: string, type: FavoriteType) => {
-      const exists = favorites.some((fav) => fav.id === id && fav.type === type);
+      // Use ref to always get the latest favorites
+      const currentFavorites = favoritesRef.current;
+      const exists = currentFavorites.some((fav) => fav.id === id && fav.type === type);
       const typeLabel = type === "course" ? "Course" : type === "resource" ? "Resource" : "Ebook";
+      
       if (exists) {
-        saveFavorites(favorites.filter((fav) => !(fav.id === id && fav.type === type)));
+        const newFavorites = currentFavorites.filter((fav) => !(fav.id === id && fav.type === type));
+        saveFavorites(newFavorites);
         toast({
           title: "Removed from favorites",
           description: `${typeLabel} removed from your favorites`,
         });
       } else {
-        saveFavorites([...favorites, { id, type }]);
+        const newFavorites = [...currentFavorites, { id, type }];
+        saveFavorites(newFavorites);
         toast({
           title: "Added to favorites",
           description: `${typeLabel} saved to your favorites`,
         });
       }
     },
-    [favorites, saveFavorites]
+    [saveFavorites]
   );
 
   const getFavoritesByType = useCallback(
