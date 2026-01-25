@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import CourseCard from "@/components/CourseCard";
 import ResourceCard from "@/components/ResourceCard";
+import EbookCard from "@/components/EbookCard";
 import { useFavorites, generateId } from "@/hooks/useFavorites";
 import { Heart, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,12 @@ import udemyCoursesImg from "@/assets/courses/udemy-courses.jpg";
 // Import resource images
 import bmwRawClipsImg from "@/assets/resources/bmw-raw-clips.jpg";
 import instagramHooksImg from "@/assets/resources/instagram-hooks.jpg";
+import memesPackImg from "@/assets/resources/memes-pack.jpg";
+
+// Import ebook images
+import ebookDefaultImg from "@/assets/ebooks/ebook-default.jpg";
+import videoEditorEbookImg from "@/assets/ebooks/video-editor-ebook.jpg";
+import vipEbookPackImg from "@/assets/ebooks/vip-ebook-pack.jpg";
 
 // All courses data
 const allCourses = [
@@ -293,13 +300,6 @@ const allResources = [
     link: "https://drive.google.com/drive/folders/1CqKEg7q-zwcq3wXehZbMBx2LJ6LPnwrl",
   },
   {
-    title: "Ebook Abdellah",
-    description: "Comprehensive educational ebook covering essential topics and strategies. Learn from expert insights and practical knowledge.",
-    category: "Ebook",
-    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&auto=format&fit=crop",
-    link: "https://drive.google.com/drive/folders/1PWV29Q0NH4-2jqA8hYNw6WGShamu6HiE",
-  },
-  {
     title: "Instagram Viral Hook Bundle",
     description: "Collection of trending Instagram hooks, text overlays, and templates to boost engagement and create viral Reels content.",
     category: "Social Media",
@@ -317,7 +317,7 @@ const allResources = [
     title: "Memes Pack",
     description: "Curated collection of trending memes and viral content templates. Perfect for social media creators and content marketers.",
     category: "Content",
-    image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=800&auto=format&fit=crop",
+    image: memesPackImg,
     link: "https://drive.google.com/drive/folders/1O8Tz_6Ida0mrzgY83v_XF8B3kF4A1JdD",
   },
   {
@@ -343,11 +343,37 @@ const allResources = [
   },
 ];
 
+// All ebooks data
+const allEbooks = [
+  {
+    title: "Ebook Abdellah",
+    description: "Comprehensive educational ebook covering essential topics and strategies. Learn from expert insights and practical knowledge.",
+    category: "Education",
+    image: ebookDefaultImg,
+    link: "https://drive.google.com/drive/folders/1PWV29Q0NH4-2jqA8hYNw6WGShamu6HiE",
+  },
+  {
+    title: "How to Become Video Editor Full Ebook",
+    description: "Complete guide to becoming a professional video editor. Learn editing techniques, software workflows, and industry best practices.",
+    category: "Video Editing",
+    image: videoEditorEbookImg,
+    link: "https://t.me/nextupfilebot?start=BQADAQADXQ4AAr-PsUdMDZZ5OgvUFBYE",
+  },
+  {
+    title: "VIP Ebook Pack",
+    description: "50+ exclusive videos with coaching, 50,000+ international suppliers, 100,000+ editable Reels & templates. Includes influence strategies, logistics, taxation, Shopify pages, viral hooks, and tutorials.",
+    category: "Business",
+    image: vipEbookPackImg,
+    link: "https://drive.google.com/drive/folders/1PWV29Q0NH4-2jqA8hYNw6WGShamu6HiE?usp=drive_link",
+  },
+];
+
 const Favorites = () => {
   const { getFavoritesByType, clearFavorites, totalCount } = useFavorites();
 
   const favoriteCourseIds = getFavoritesByType("course");
   const favoriteResourceIds = getFavoritesByType("resource");
+  const favoriteEbookIds = getFavoritesByType("ebook");
 
   const favoriteCourses = allCourses.filter((course) =>
     favoriteCourseIds.includes(generateId(course.title))
@@ -355,6 +381,10 @@ const Favorites = () => {
 
   const favoriteResources = allResources.filter((resource) =>
     favoriteResourceIds.includes(generateId(resource.title))
+  );
+
+  const favoriteEbooks = allEbooks.filter((ebook) =>
+    favoriteEbookIds.includes(generateId(ebook.title))
   );
 
   return (
@@ -375,7 +405,7 @@ const Favorites = () => {
               Your Favorites
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Access all your saved courses and resources in one place
+              Access all your saved courses, resources, and ebooks in one place
             </p>
             
             {totalCount > 0 && (
@@ -399,7 +429,7 @@ const Favorites = () => {
                   No favorites yet
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  Start exploring and save courses and resources you're interested in!
+                  Start exploring and save courses, resources, and ebooks you're interested in!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Button variant="glassPrimary" asChild>
@@ -408,12 +438,15 @@ const Favorites = () => {
                   <Button variant="glass" asChild>
                     <Link to="/resources">Browse Resources</Link>
                   </Button>
+                  <Button variant="glass" asChild>
+                    <Link to="/ebooks">View Ebooks</Link>
+                  </Button>
                 </div>
               </div>
             </div>
           ) : (
             <Tabs defaultValue="courses" className="w-full">
-              <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
+              <TabsList className="grid w-full max-w-lg mx-auto grid-cols-3 mb-8">
                 <TabsTrigger value="courses" className="flex items-center gap-2">
                   Courses
                   <span className="glass-button px-2 py-0.5 rounded-full text-xs">
@@ -424,6 +457,12 @@ const Favorites = () => {
                   Resources
                   <span className="glass-button px-2 py-0.5 rounded-full text-xs">
                     {favoriteResources.length}
+                  </span>
+                </TabsTrigger>
+                <TabsTrigger value="ebooks" className="flex items-center gap-2">
+                  Ebooks
+                  <span className="glass-button px-2 py-0.5 rounded-full text-xs">
+                    {favoriteEbooks.length}
                   </span>
                 </TabsTrigger>
               </TabsList>
@@ -470,6 +509,30 @@ const Favorites = () => {
                         style={{ animationDelay: `${index * 0.1}s` }}
                       >
                         <ResourceCard {...resource} />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </TabsContent>
+
+              <TabsContent value="ebooks">
+                {favoriteEbooks.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="glass-heavy rounded-2xl p-8 max-w-md mx-auto">
+                      <p className="text-muted-foreground">
+                        No favorite ebooks yet. Start exploring!
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {favoriteEbooks.map((ebook, index) => (
+                      <div
+                        key={ebook.title}
+                        className="animate-fade-in-up"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      >
+                        <EbookCard {...ebook} />
                       </div>
                     ))}
                   </div>

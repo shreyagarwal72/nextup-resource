@@ -9,6 +9,7 @@ import bmwRawClipsImg from "@/assets/resources/bmw-raw-clips.jpg";
 import instagramHooksImg from "@/assets/resources/instagram-hooks.jpg";
 import motivationReelsImg from "@/assets/resources/motivation-reels.jpg";
 import promptCollectionImg from "@/assets/resources/prompt-collection.jpg";
+import memesPackImg from "@/assets/resources/memes-pack.jpg";
 
 const ResourcesSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -71,14 +72,6 @@ const ResourcesSection = () => {
       link: "https://drive.google.com/drive/folders/1CqKEg7q-zwcq3wXehZbMBx2LJ6LPnwrl",
     },
     {
-      title: "Ebook Abdellah",
-      description:
-        "Comprehensive educational ebook covering essential topics and strategies. Learn from expert insights and practical knowledge.",
-      category: "Ebook",
-      image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&auto=format&fit=crop",
-      link: "https://drive.google.com/drive/folders/1PWV29Q0NH4-2jqA8hYNw6WGShamu6HiE",
-    },
-    {
       title: "Instagram Viral Hook Bundle",
       description:
         "Collection of trending Instagram hooks, text overlays, and templates to boost engagement and create viral Reels content.",
@@ -107,7 +100,7 @@ const ResourcesSection = () => {
       description:
         "Curated collection of trending memes and viral content templates. Perfect for social media creators and content marketers.",
       category: "Content",
-      image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=800&auto=format&fit=crop",
+      image: memesPackImg,
       link: "https://drive.google.com/drive/folders/1O8Tz_6Ida0mrzgY83v_XF8B3kF4A1JdD",
     },
     {

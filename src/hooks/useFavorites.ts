@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "@/hooks/use-toast";
 
-type FavoriteType = "course" | "resource";
+type FavoriteType = "course" | "resource" | "ebook";
 
 interface FavoriteItem {
   id: string;
@@ -45,17 +45,18 @@ export const useFavorites = () => {
   const toggleFavorite = useCallback(
     (id: string, type: FavoriteType) => {
       const exists = favorites.some((fav) => fav.id === id && fav.type === type);
+      const typeLabel = type === "course" ? "Course" : type === "resource" ? "Resource" : "Ebook";
       if (exists) {
         saveFavorites(favorites.filter((fav) => !(fav.id === id && fav.type === type)));
         toast({
           title: "Removed from favorites",
-          description: `${type === "course" ? "Course" : "Resource"} removed from your favorites`,
+          description: `${typeLabel} removed from your favorites`,
         });
       } else {
         saveFavorites([...favorites, { id, type }]);
         toast({
           title: "Added to favorites",
-          description: `${type === "course" ? "Course" : "Resource"} saved to your favorites`,
+          description: `${typeLabel} saved to your favorites`,
         });
       }
     },
