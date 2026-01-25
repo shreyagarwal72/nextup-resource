@@ -10,9 +10,11 @@ import Index from "./pages/Index";
 import Courses from "./pages/Courses";
 import Resources from "./pages/Resources";
 import Ebooks from "./pages/Ebooks";
+import Apps from "./pages/Apps";
 import Favorites from "./pages/Favorites";
 import Contact from "./pages/Contact";
 import Install from "./pages/Install";
+import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,9 +53,11 @@ const App = () => {
               <Route path="/courses" element={<Courses />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/ebooks" element={<Ebooks />} />
+              <Route path="/apps" element={<Apps />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/install" element={<Install />} />
+              <Route path="/faq" element={<FAQ />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

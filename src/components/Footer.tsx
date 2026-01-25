@@ -40,10 +40,16 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="border-t border-border/30 mt-10 pt-8 text-center">
+          <div className="border-t border-border/30 mt-10 pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <p className="text-muted-foreground text-sm">
               © {new Date().getFullYear()} Nextup Resources. All rights reserved.
             </p>
+            <Link 
+              to="/faq" 
+              className="text-muted-foreground text-sm hover:text-primary transition-colors"
+            >
+              FAQ
+            </Link>
           </div>
         </div>
       </div>
