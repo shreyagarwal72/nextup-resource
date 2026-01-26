@@ -17,6 +17,7 @@ import instagramHooksImg from "@/assets/resources/instagram-hooks.jpg";
 import motivationReelsImg from "@/assets/resources/motivation-reels.jpg";
 import promptCollectionImg from "@/assets/resources/prompt-collection.jpg";
 import memesPackImg from "@/assets/resources/memes-pack.jpg";
+import aiToolsInfographicImg from "@/assets/resources/ai-tools-infographic.jpg";
 
 // Import ebook images
 import ebookDefaultImg from "@/assets/ebooks/ebook-default.jpg";
@@ -472,6 +473,13 @@ const resourcesData: Resource[] = [
     image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
     link: "https://drive.google.com/drive/folders/1tF0AUt9RIZdENTDJJa1fktPtzTdGslN6",
   },
+  {
+    title: "50+ Best AI Tools Infographic",
+    description: "Comprehensive infographic showcasing 50+ AI tools to replace entire teams. Covers Image, Video, Code, Websites, SEO, Chatbots, Writing Tools, and Idea & Research categories.",
+    category: "AI Prompts",
+    image: aiToolsInfographicImg,
+    link: "https://zunar-bookmarks-bar-0.vercel.app/",
+  },
 ];
 
 // All ebooks (will be sorted alphabetically)
@@ -619,6 +627,13 @@ const appsData: App[] = [
     category: "Utility",
     image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&auto=format&fit=crop",
     link: "https://github.com/AnsahMohammad/shots-studio/releases/tag/v1.9.70",
+  },
+  {
+    title: "Pro Gym Workout",
+    description: "Professional gym workout app with structured training programs, exercise tutorials, and progress tracking for your fitness journey.",
+    category: "Health & Fitness",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADHwsAAjPcuUcqJrltGUIwYhYE",
   },
 ];
 
