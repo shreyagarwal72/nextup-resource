@@ -68,7 +68,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           {showSplash && !hasShownSplash && (
-            <PencilLoader onComplete={handleSplashComplete} duration={1600} />
+            <PencilLoader onComplete={handleSplashComplete} duration={2600} />
           )}
           <Toaster />
           <Sonner />

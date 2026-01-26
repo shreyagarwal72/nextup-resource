@@ -5,7 +5,7 @@ interface PencilLoaderProps {
   duration?: number;
 }
 
-const PencilLoader = ({ onComplete, duration = 1600 }: PencilLoaderProps) => {
+const PencilLoader = ({ onComplete, duration = 2600 }: PencilLoaderProps) => {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
@@ -25,15 +25,20 @@ const PencilLoader = ({ onComplete, duration = 1600 }: PencilLoaderProps) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center transition-all duration-500 ease-out ${
+      className={`fixed inset-0 z-[100] flex items-center justify-center transition-all duration-700 ease-out ${
         isExiting ? "opacity-0 scale-150" : "opacity-100 scale-100"
       }`}
-      style={{
-        background: "linear-gradient(135deg, hsl(223, 90%, 90%) 0%, hsl(223, 90%, 85%) 100%)",
-      }}
     >
+      {/* Blur backdrop */}
+      <div className="absolute inset-0 backdrop-blur-xl bg-background/80" />
+      {/* Gradient overlay with parallax zoom effect */}
+      <div 
+        className={`absolute inset-0 bg-gradient-to-br from-primary/20 via-background/60 to-primary/10 transition-transform duration-700 ease-out ${
+          isExiting ? "scale-125" : "scale-100"
+        }`}
+      />
       <svg
-        className="pencil-loader block w-40 h-40 animate-scale-in"
+        className="pencil-loader block w-40 h-40 animate-scale-in relative z-10"
         viewBox="0 0 200 200"
         width="200px"
         height="200px"
