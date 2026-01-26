@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ResourceCard from "./ResourceCard";
-import LoadingSkeleton from "./LoadingSkeleton";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { allResources } from "@/data/content";
 
 const ResourcesSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading time for skeleton demonstration
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
+  // Removed artificial loading delay for better performance
 
   const filteredResources = allResources.filter((resource) =>
     resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -40,9 +33,7 @@ const ResourcesSection = () => {
           />
         </div>
 
-        {isLoading ? (
-          <LoadingSkeleton type="resource" count={6} />
-        ) : filteredResources.length > 0 ? (
+        {filteredResources.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredResources.map((resource, index) => (
               <div

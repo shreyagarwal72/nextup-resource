@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AppCard from "./AppCard";
-import LoadingSkeleton from "./LoadingSkeleton";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { allApps } from "@/data/content";
 
 const AppsSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading time for skeleton demonstration
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
+  // Removed artificial loading delay for better performance
 
   const filteredApps = allApps.filter((app) =>
     app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -40,9 +33,7 @@ const AppsSection = () => {
           />
         </div>
 
-        {isLoading ? (
-          <LoadingSkeleton type="resource" count={3} />
-        ) : filteredApps.length > 0 ? (
+        {filteredApps.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredApps.map((app, index) => (
               <div

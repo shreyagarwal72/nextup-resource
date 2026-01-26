@@ -57,8 +57,13 @@ export interface App {
   link: string;
 }
 
-// All courses sorted alphabetically by title
-export const allCourses: Course[] = [
+// Helper function to sort arrays alphabetically by title
+const sortAlphabetically = <T extends { title: string }>(arr: T[]): T[] => {
+  return [...arr].sort((a, b) => a.title.localeCompare(b.title));
+};
+
+// All courses (will be sorted alphabetically)
+const coursesData: Course[] = [
   {
     title: "1000+ Udemy Courses Collection",
     description: "Massive collection of premium Udemy courses covering programming, business, design, marketing, and personal development.",
@@ -222,6 +227,15 @@ export const allCourses: Course[] = [
     link: "https://drive.google.com/drive/folders/1I48C4OmwkAYgohpZne3OUUS8tz5xew6x",
   },
   {
+    title: "Live A Zero Competition Life Course",
+    description: "Learn strategies to create your own niche and dominate without competition. Build unique value propositions and stand out in any market.",
+    category: "Personal Development",
+    duration: "6 weeks",
+    students: "3.2K",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop",
+    link: "https://t.me/+nIgRCScYWktiMmQ1",
+  },
+  {
     title: "Make Viral Crime Story",
     description: "Learn to create engaging true crime content for YouTube. Master storytelling, editing techniques, and audience engagement strategies.",
     category: "Content Creation",
@@ -358,8 +372,8 @@ export const allCourses: Course[] = [
   },
 ];
 
-// All resources sorted alphabetically by title
-export const allResources: Resource[] = [
+// All resources (will be sorted alphabetically)
+const resourcesData: Resource[] = [
   {
     title: "1000+ LUTs Bundle",
     description: "Massive collection of color grading LUTs for video editing. Transform your footage with cinematic, vintage, and creative color looks.",
@@ -460,8 +474,8 @@ export const allResources: Resource[] = [
   },
 ];
 
-// All ebooks sorted alphabetically by title
-export const allEbooks: Ebook[] = [
+// All ebooks (will be sorted alphabetically)
+const ebooksData: Ebook[] = [
   {
     title: "Ebook Abdellah",
     description: "Comprehensive educational ebook covering essential topics and strategies. Learn from expert insights and practical knowledge.",
@@ -485,8 +499,8 @@ export const allEbooks: Ebook[] = [
   },
 ];
 
-// All apps for the Apps section (sorted alphabetically, categorized)
-export const allApps: App[] = [
+// All apps for the Apps section (will be sorted alphabetically)
+const appsData: App[] = [
   // Development
   {
     title: "Hopweb",
@@ -501,6 +515,14 @@ export const allApps: App[] = [
     category: "Development",
     image: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=800&auto=format&fit=crop",
     link: "https://github.com/thedjchi/Shizuku",
+  },
+  // Education
+  {
+    title: "Duolingo",
+    description: "Premium language learning app with all features unlocked. Learn languages through fun, gamified lessons and practice exercises.",
+    category: "Education",
+    image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQAD7QoAAjPcuUegBIBpi3X0DRYE",
   },
   // Entertainment
   {
@@ -524,6 +546,20 @@ export const allApps: App[] = [
     category: "Media & Music",
     image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&auto=format&fit=crop",
     link: "https://github.com/HemantKArya/BloomeeTunes/releases/tag/v2.13.3%2B188",
+  },
+  {
+    title: "CapCut",
+    description: "Professional video editing app with premium features unlocked. Create stunning videos with advanced effects, transitions, and music.",
+    category: "Media & Music",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQAD2goAAjPcuUfYw5TvmnYBtxYE",
+  },
+  {
+    title: "Lightroom",
+    description: "Premium photo editing app with all features unlocked. Professional-grade tools for photo enhancement, color grading, and presets.",
+    category: "Media & Music",
+    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQAD0AoAAjPcuUeLI2HSOp0_ahYE",
   },
   {
     title: "YouTube Pro",
@@ -550,6 +586,13 @@ export const allApps: App[] = [
   },
   // Utility
   {
+    title: "Chat Smith AI",
+    description: "Open-source AI chat assistant with advanced conversational capabilities. Get intelligent responses and assistance for various tasks.",
+    category: "Utility",
+    image: "https://images.unsplash.com/photo-1677756119517-756a188d2d94?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQAD5woAAjPcuUf2l0pLBcJ-5xYE",
+  },
+  {
     title: "Image Toolbox",
     description: "ImageToolbox is a versatile image editing tool designed for efficient photo manipulation with advanced features.",
     category: "Utility",
@@ -564,6 +607,13 @@ export const allApps: App[] = [
     link: "https://play.google.com/store/apps/details?id=com.snitl.omnitools",
   },
   {
+    title: "Pika Super Wallpaper",
+    description: "Stunning collection of high-quality wallpapers with live wallpaper support and automatic wallpaper changer features.",
+    category: "Utility",
+    image: "https://images.unsplash.com/photo-1557683316-973673baf926?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADxgoAAjPcuUdFEF7NmYAsGxYE",
+  },
+  {
     title: "Shots Studio",
     description: "A Screenshot Manager to declutter your gallery. Organize, edit, and manage your screenshots efficiently.",
     category: "Utility",
@@ -571,3 +621,9 @@ export const allApps: App[] = [
     link: "https://github.com/AnsahMohammad/shots-studio/releases/tag/v1.9.70",
   },
 ];
+
+// Export sorted arrays
+export const allCourses: Course[] = sortAlphabetically(coursesData);
+export const allResources: Resource[] = sortAlphabetically(resourcesData);
+export const allEbooks: Ebook[] = sortAlphabetically(ebooksData);
+export const allApps: App[] = sortAlphabetically(appsData);
