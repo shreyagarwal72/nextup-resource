@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import EbookCard from "./EbookCard";
-import LoadingSkeleton from "./LoadingSkeleton";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { allEbooks } from "@/data/content";
 
 const EbooksSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading time for skeleton demonstration
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
+  // Removed artificial loading delay for better performance
 
   const filteredEbooks = allEbooks.filter((ebook) =>
     ebook.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -40,9 +33,7 @@ const EbooksSection = () => {
           />
         </div>
 
-        {isLoading ? (
-          <LoadingSkeleton type="resource" count={3} />
-        ) : filteredEbooks.length > 0 ? (
+        {filteredEbooks.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredEbooks.map((ebook, index) => (
               <div

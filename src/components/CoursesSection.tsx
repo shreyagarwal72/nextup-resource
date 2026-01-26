@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CourseCard from "./CourseCard";
-import LoadingSkeleton from "./LoadingSkeleton";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { allCourses } from "@/data/content";
 
 const CoursesSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading time for skeleton demonstration
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
+  // Removed artificial loading delay for better performance
 
   const filteredCourses = allCourses.filter((course) =>
     course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -50,9 +43,7 @@ const CoursesSection = () => {
           />
         </div>
 
-        {isLoading ? (
-          <LoadingSkeleton type="course" count={6} />
-        ) : filteredCourses.length > 0 ? (
+        {filteredCourses.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredCourses.map((course, index) => (
               <div

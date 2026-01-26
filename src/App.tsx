@@ -1,23 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import SplashScreen from "@/components/SplashScreen";
-import Index from "./pages/Index";
-import Courses from "./pages/Courses";
-import Resources from "./pages/Resources";
-import Ebooks from "./pages/Ebooks";
-import Apps from "./pages/Apps";
-import Favorites from "./pages/Favorites";
-import Contact from "./pages/Contact";
-import Install from "./pages/Install";
-import FAQ from "./pages/FAQ";
-import NotFound from "./pages/NotFound";
+import SupermanLoader from "@/components/SupermanLoader";
 
-const queryClient = new QueryClient();
+// Lazy load pages for better performance
+const Index = lazy(() => import("./pages/Index"));
+const Courses = lazy(() => import("./pages/Courses"));
+const Resources = lazy(() => import("./pages/Resources"));
+const Ebooks = lazy(() => import("./pages/Ebooks"));
+const Apps = lazy(() => import("./pages/Apps"));
+const Favorites = lazy(() => import("./pages/Favorites"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Install = lazy(() => import("./pages/Install"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      gcTime: 1000 * 60 * 30, // 30 minutes (formerly cacheTime)
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -38,28 +48,45 @@ const App = () => {
     sessionStorage.setItem("splashShown", "true");
   };
 
+  // Page loading fallback
+  const PageLoader = () => (
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="flex gap-2">
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className="w-3 h-3 rounded-full bg-primary animate-bounce"
+            style={{ animationDelay: `${i * 0.1}s` }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           {showSplash && !hasShownSplash && (
-            <SplashScreen onComplete={handleSplashComplete} minDuration={2500} />
+            <SupermanLoader onComplete={handleSplashComplete} duration={1800} />
           )}
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/courses" element={<Courses />} />
-              <Route path="/resources" element={<Resources />} />
-              <Route path="/ebooks" element={<Ebooks />} />
-              <Route path="/apps" element={<Apps />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/install" element={<Install />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/resources" element={<Resources />} />
+                <Route path="/ebooks" element={<Ebooks />} />
+                <Route path="/apps" element={<Apps />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/install" element={<Install />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
