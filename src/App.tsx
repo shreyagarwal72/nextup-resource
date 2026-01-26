@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import SupermanLoader from "@/components/SupermanLoader";
+import PencilLoader from "@/components/PencilLoader";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -68,7 +68,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           {showSplash && !hasShownSplash && (
-            <SupermanLoader onComplete={handleSplashComplete} duration={1800} />
+            <PencilLoader onComplete={handleSplashComplete} duration={1600} />
           )}
           <Toaster />
           <Sonner />
