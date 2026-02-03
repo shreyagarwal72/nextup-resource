@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Download, Smartphone } from "lucide-react";
 import PlatformBadge from "./PlatformBadge";
+import NewBadge from "./NewBadge";
 
 interface AppCardProps {
   title: string;
@@ -9,9 +10,10 @@ interface AppCardProps {
   category: string;
   image: string;
   link: string;
+  dateAdded?: string;
 }
 
-const AppCard = ({ title, description, category, image, link }: AppCardProps) => {
+const AppCard = ({ title, description, category, image, link, dateAdded }: AppCardProps) => {
   return (
     <a
       href={link}
@@ -34,11 +36,12 @@ const AppCard = ({ title, description, category, image, link }: AppCardProps) =>
               Download App
             </span>
           </div>
-          <div className="absolute top-3 left-3">
+          <div className="absolute top-3 left-3 flex items-center gap-2">
             <Badge className="glass-heavy text-xs font-medium px-3 py-1 flex items-center gap-1">
               <Smartphone className="w-3 h-3" />
               {category}
             </Badge>
+            <NewBadge dateAdded={dateAdded} />
           </div>
           <PlatformBadge link={link} className="bottom-3 right-3" />
         </div>

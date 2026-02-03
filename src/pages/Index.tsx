@@ -3,9 +3,13 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 
 const Index = () => {
   useEffect(() => {
+    // Update SEO meta tags
+    updatePageMeta(pageSEOConfigs.home);
+    
     // Add JSON-LD structured data for SEO
     const script = document.createElement("script");
     script.type = "application/ld+json";

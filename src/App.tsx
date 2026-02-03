@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import PencilLoader from "@/components/PencilLoader";
+import { useBetaUI } from "@/hooks/useBetaUI";
+import Material3Layout from "@/components/beta/Material3Layout";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -19,6 +21,11 @@ const Install = lazy(() => import("./pages/Install"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+// Beta pages
+const BetaIndex = lazy(() => import("./pages/beta/BetaIndex"));
+const BetaCourses = lazy(() => import("./pages/beta/BetaCourses"));
+const BetaResources = lazy(() => import("./pages/beta/BetaResources"));
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -29,7 +36,8 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => {
+const AppContent = () => {
+  const { isBetaEnabled, disableBetaUI } = useBetaUI();
   const [showSplash, setShowSplash] = useState(true);
   const [hasShownSplash, setHasShownSplash] = useState(false);
 
@@ -63,31 +71,63 @@ const App = () => {
     </div>
   );
 
+  // Material 3 Beta UI
+  if (isBetaEnabled) {
+    return (
+      <BrowserRouter>
+        <Material3Layout onExitBeta={disableBetaUI}>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<BetaIndex />} />
+              <Route path="/courses" element={<BetaCourses />} />
+              <Route path="/resources" element={<BetaResources />} />
+              <Route path="/ebooks" element={<Ebooks />} />
+              <Route path="/apps" element={<Apps />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/install" element={<Install />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </Material3Layout>
+      </BrowserRouter>
+    );
+  }
+
+  return (
+    <>
+      {showSplash && !hasShownSplash && (
+        <PencilLoader onComplete={handleSplashComplete} duration={2600} />
+      )}
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/ebooks" element={<Ebooks />} />
+            <Route path="/apps" element={<Apps />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/install" element={<Install />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </>
+  );
+};
+
+const App = () => {
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          {showSplash && !hasShownSplash && (
-            <PencilLoader onComplete={handleSplashComplete} duration={2600} />
-          )}
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Suspense fallback={<PageLoader />}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/courses" element={<Courses />} />
-                <Route path="/resources" element={<Resources />} />
-                <Route path="/ebooks" element={<Ebooks />} />
-                <Route path="/apps" element={<Apps />} />
-                <Route path="/favorites" element={<Favorites />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/install" element={<Install />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
+          <AppContent />
         </TooltipProvider>
       </QueryClientProvider>
     </ThemeProvider>

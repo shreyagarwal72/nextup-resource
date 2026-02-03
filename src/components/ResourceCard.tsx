@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Download } from "lucide-react";
 import FavoriteButton from "./FavoriteButton";
 import PlatformBadge from "./PlatformBadge";
+import NewBadge from "./NewBadge";
 import { useFavorites, generateId } from "@/hooks/useFavorites";
 
 interface ResourceCardProps {
@@ -11,6 +12,7 @@ interface ResourceCardProps {
   category: string;
   image: string;
   link: string;
+  dateAdded?: string;
 }
 
 const ResourceCard = ({
@@ -19,6 +21,7 @@ const ResourceCard = ({
   category,
   image,
   link,
+  dateAdded,
 }: ResourceCardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const resourceId = generateId(title);
@@ -40,10 +43,11 @@ const ResourceCard = ({
             className="w-full h-full object-cover transition-transform duration-600 ease-apple-overshoot group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent transition-opacity duration-300 group-hover:from-foreground/40" />
-          <div className="absolute top-4 left-4">
+          <div className="absolute top-4 left-4 flex items-center gap-2">
             <Badge className="glass-button border-0 text-foreground animate-ios-pop">
               {category}
             </Badge>
+            <NewBadge dateAdded={dateAdded} />
           </div>
           <div className="absolute top-4 right-4 z-20">
             <FavoriteButton

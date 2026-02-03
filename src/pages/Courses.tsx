@@ -3,17 +3,11 @@ import CoursesSection from "@/components/CoursesSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useEffect } from "react";
+import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 
 const Courses = () => {
   useEffect(() => {
-    document.title = "All Courses - Nextup Resources";
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute(
-        "content",
-        "Browse all available courses including AI, data science, web development, and more. Quality education for everyone at Nextup Resources."
-      );
-    }
+    updatePageMeta(pageSEOConfigs.courses);
   }, []);
 
   return (
