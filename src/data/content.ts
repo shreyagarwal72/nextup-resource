@@ -371,6 +371,33 @@ const coursesData: Course[] = [
     image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&auto=format&fit=crop",
     link: "https://drive.google.com/drive/folders/1JT6504E_J3Jggcbp53mvSkxeFjyyj6lc",
   },
+  {
+    title: "Amazon Seller Mastery Course",
+    description: "Complete guide to becoming a successful Amazon seller. Learn product research, listing optimization, FBA strategies, and scaling your e-commerce business.",
+    category: "E-Commerce",
+    duration: "10 weeks",
+    students: "4.8K",
+    image: "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1yAEND1Q72gEQO8ZVYEL_MUGxlDuyQuk6",
+  },
+  {
+    title: "Full Paper Animation Course",
+    description: "Master the art of paper animation and stop-motion techniques. Learn to create stunning paper-based animations from concept to final render.",
+    category: "Animation",
+    duration: "8 weeks",
+    students: "2.3K",
+    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1DDljCZaBZk41bMT_QJyGHrz6aI5vGrqa",
+  },
+  {
+    title: "How to Create Pixar-Style Cartoons in 60 Minutes",
+    description: "Learn to create $50,000-quality Pixar-style 3D cartoons in under 60 minutes using AI tools and professional animation techniques.",
+    category: "AI & Animation",
+    duration: "4 weeks",
+    students: "5.2K",
+    image: "https://images.unsplash.com/photo-1626379953822-baec19c3accd?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1LECDIY3EdV-zr2fuFBW1tdqiFz603rzV",
+  },
 ];
 
 // All resources (will be sorted alphabetically)
@@ -479,6 +506,20 @@ const resourcesData: Resource[] = [
     category: "AI Prompts",
     image: aiToolsInfographicImg,
     link: "https://zunar-bookmarks-bar-0.vercel.app/",
+  },
+  {
+    title: "Copyright Free Thumbnail Graff",
+    description: "High-quality copyright-free graffiti graphics and elements for YouTube thumbnails. Perfect for creating eye-catching thumbnails without copyright issues.",
+    category: "Graphics",
+    image: "https://images.unsplash.com/photo-1561059488-916d69792237?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1PkafkS7lSRAk7R2Ekrhw2QOQ7LXMRm5P",
+  },
+  {
+    title: "Luxurious Reels Bundle",
+    description: "Premium collection of luxurious aesthetic reels templates, transitions, and effects. Create high-end, visually stunning content for Instagram and TikTok.",
+    category: "Video",
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1HwPJbP6Fe6m-NHs_L0-q7jBL1k2ThBhr",
   },
 ];
 
@@ -634,6 +675,28 @@ const appsData: App[] = [
     category: "Health & Fitness",
     image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop",
     link: "https://t.me/nextupfilebot?start=BQADAQADHwsAAjPcuUcqJrltGUIwYhYE",
+  },
+  // Gaming
+  {
+    title: "Best 10 Free PC Games",
+    description: "Curated collection of the best 10 free PC games. Download and enjoy high-quality gaming experiences without spending a penny.",
+    category: "Gaming",
+    image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADvQwAAiJEGUSSSIOZCq9R1RYE",
+  },
+  {
+    title: "Best PC Games Part 2",
+    description: "Second collection of amazing free PC games. Continue your gaming journey with more exciting titles and experiences.",
+    category: "Gaming",
+    image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQAD3gwAAiJEGUSB7Otq9Ms7SBYE",
+  },
+  {
+    title: "Resident Evil Survival Unit",
+    description: "Survival horror game inspired by the Resident Evil series. Experience intense gameplay with zombies, puzzles, and action-packed survival mechanics.",
+    category: "Gaming",
+    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADyQwAAiJEGUSgN2T7h6ZI4xYE",
   },
 ];
 
