@@ -3,17 +3,11 @@ import AppsSection from "@/components/AppsSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useEffect } from "react";
+import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 
 const Apps = () => {
   useEffect(() => {
-    document.title = "Free Apps - Nextup Resources";
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute(
-        "content",
-        "Download free premium apps including modified apps, utility tools, and more. Quality apps for Android users at Nextup Resources."
-      );
-    }
+    updatePageMeta(pageSEOConfigs.apps);
   }, []);
 
   return (

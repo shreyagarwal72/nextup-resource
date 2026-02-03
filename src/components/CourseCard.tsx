@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import FavoriteButton from "./FavoriteButton";
 import PlatformBadge from "./PlatformBadge";
+import NewBadge from "./NewBadge";
 import { useFavorites, generateId } from "@/hooks/useFavorites";
 
 interface CourseCardProps {
@@ -14,9 +15,10 @@ interface CourseCardProps {
   students: string;
   image: string;
   link: string;
+  dateAdded?: string;
 }
 
-const CourseCard = ({ title, description, category, duration, students, image, link }: CourseCardProps) => {
+const CourseCard = ({ title, description, category, duration, students, image, link, dateAdded }: CourseCardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const courseId = generateId(title);
   const isCourseFavorite = isFavorite(courseId, "course");
@@ -36,9 +38,12 @@ const CourseCard = ({ title, description, category, duration, students, image, l
           className="w-full h-full object-cover transition-transform duration-600 ease-apple-overshoot group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent transition-opacity duration-300 group-hover:from-foreground/30" />
-        <Badge className="absolute top-3 left-3 glass-button border-0 text-foreground animate-ios-pop">
-          {category}
-        </Badge>
+        <div className="absolute top-3 left-3 flex items-center gap-2">
+          <Badge className="glass-button border-0 text-foreground animate-ios-pop">
+            {category}
+          </Badge>
+          <NewBadge dateAdded={dateAdded} />
+        </div>
         <div className="absolute top-3 right-3 z-20">
           <FavoriteButton
             isFavorite={isCourseFavorite}

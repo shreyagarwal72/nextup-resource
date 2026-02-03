@@ -1,0 +1,474 @@
+/* Material 3 Expressive Theme - Inspired by PixelPlayer */
+
+.material3-theme {
+  /* Material 3 Color System */
+  --md-sys-color-primary: 83 100% 43%;
+  --md-sys-color-on-primary: 0 0% 100%;
+  --md-sys-color-primary-container: 83 100% 90%;
+  --md-sys-color-on-primary-container: 83 100% 10%;
+  
+  --md-sys-color-secondary: 200 100% 50%;
+  --md-sys-color-on-secondary: 0 0% 100%;
+  --md-sys-color-secondary-container: 200 100% 92%;
+  --md-sys-color-on-secondary-container: 200 100% 10%;
+  
+  --md-sys-color-tertiary: 280 80% 60%;
+  --md-sys-color-on-tertiary: 0 0% 100%;
+  --md-sys-color-tertiary-container: 280 100% 92%;
+  --md-sys-color-on-tertiary-container: 280 100% 10%;
+  
+  --md-sys-color-error: 0 75% 55%;
+  --md-sys-color-on-error: 0 0% 100%;
+  --md-sys-color-error-container: 0 100% 92%;
+  --md-sys-color-on-error-container: 0 100% 15%;
+  
+  --md-sys-color-surface: 60 20% 98%;
+  --md-sys-color-on-surface: 60 10% 10%;
+  --md-sys-color-surface-variant: 60 15% 92%;
+  --md-sys-color-on-surface-variant: 60 5% 35%;
+  
+  --md-sys-color-outline: 60 5% 50%;
+  --md-sys-color-outline-variant: 60 10% 80%;
+  
+  --md-sys-color-inverse-surface: 60 10% 15%;
+  --md-sys-color-inverse-on-surface: 60 10% 95%;
+  
+  /* Material 3 Shape */
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full: 9999px;
+  
+  /* Material 3 Elevation */
+  --md-sys-elevation-level0: none;
+  --md-sys-elevation-level1: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level2: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level4: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level5: 0 8px 12px 6px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.3);
+  
+  /* Material 3 Motion */
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
+}
+
+.material3-theme.dark {
+  --md-sys-color-primary: 83 100% 70%;
+  --md-sys-color-on-primary: 83 100% 15%;
+  --md-sys-color-primary-container: 83 50% 25%;
+  --md-sys-color-on-primary-container: 83 100% 90%;
+  
+  --md-sys-color-secondary: 200 100% 75%;
+  --md-sys-color-on-secondary: 200 100% 15%;
+  --md-sys-color-secondary-container: 200 50% 25%;
+  --md-sys-color-on-secondary-container: 200 100% 90%;
+  
+  --md-sys-color-tertiary: 280 80% 75%;
+  --md-sys-color-on-tertiary: 280 100% 15%;
+  --md-sys-color-tertiary-container: 280 50% 25%;
+  --md-sys-color-on-tertiary-container: 280 100% 90%;
+  
+  --md-sys-color-surface: 60 10% 8%;
+  --md-sys-color-on-surface: 60 10% 90%;
+  --md-sys-color-surface-variant: 60 10% 15%;
+  --md-sys-color-on-surface-variant: 60 10% 70%;
+  
+  --md-sys-color-outline: 60 5% 50%;
+  --md-sys-color-outline-variant: 60 10% 25%;
+}
+
+/* Material 3 Components */
+.md3-surface {
+  background: hsl(var(--md-sys-color-surface));
+  color: hsl(var(--md-sys-color-on-surface));
+}
+
+.md3-surface-container {
+  background: hsl(var(--md-sys-color-surface-variant));
+  color: hsl(var(--md-sys-color-on-surface-variant));
+}
+
+.md3-card {
+  background: hsl(var(--md-sys-color-surface));
+  border-radius: var(--md-sys-shape-corner-large);
+  box-shadow: var(--md-sys-elevation-level1);
+  transition: box-shadow var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+              transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+}
+
+.md3-card:hover {
+  box-shadow: var(--md-sys-elevation-level3);
+  transform: translateY(-4px);
+}
+
+.md3-card:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+.md3-filled-button {
+  background: hsl(var(--md-sys-color-primary));
+  color: hsl(var(--md-sys-color-on-primary));
+  border-radius: var(--md-sys-shape-corner-full);
+  padding: 10px 24px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.1px;
+  box-shadow: none;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.md3-filled-button:hover {
+  box-shadow: var(--md-sys-elevation-level1);
+  filter: brightness(1.1);
+}
+
+.md3-filled-button:active {
+  transform: scale(0.98);
+}
+
+.md3-outlined-button {
+  background: transparent;
+  color: hsl(var(--md-sys-color-primary));
+  border: 1px solid hsl(var(--md-sys-color-outline));
+  border-radius: var(--md-sys-shape-corner-full);
+  padding: 10px 24px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.1px;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.md3-outlined-button:hover {
+  background: hsl(var(--md-sys-color-primary) / 0.08);
+}
+
+.md3-tonal-button {
+  background: hsl(var(--md-sys-color-secondary-container));
+  color: hsl(var(--md-sys-color-on-secondary-container));
+  border-radius: var(--md-sys-shape-corner-full);
+  padding: 10px 24px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.1px;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.md3-tonal-button:hover {
+  box-shadow: var(--md-sys-elevation-level1);
+  filter: brightness(0.95);
+}
+
+.md3-fab {
+  background: hsl(var(--md-sys-color-primary-container));
+  color: hsl(var(--md-sys-color-on-primary-container));
+  border-radius: var(--md-sys-shape-corner-large);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--md-sys-elevation-level3);
+  transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+}
+
+.md3-fab:hover {
+  box-shadow: var(--md-sys-elevation-level4);
+  transform: scale(1.05);
+}
+
+.md3-fab:active {
+  transform: scale(0.95);
+}
+
+.md3-extended-fab {
+  background: hsl(var(--md-sys-color-primary-container));
+  color: hsl(var(--md-sys-color-on-primary-container));
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--md-sys-elevation-level3);
+  font-weight: 500;
+  transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+}
+
+.md3-chip {
+  background: hsl(var(--md-sys-color-surface-variant));
+  color: hsl(var(--md-sys-color-on-surface-variant));
+  border-radius: var(--md-sys-shape-corner-small);
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+}
+
+.md3-chip:hover {
+  background: hsl(var(--md-sys-color-outline-variant));
+}
+
+.md3-chip.selected {
+  background: hsl(var(--md-sys-color-secondary-container));
+  color: hsl(var(--md-sys-color-on-secondary-container));
+}
+
+.md3-navigation-bar {
+  background: hsl(var(--md-sys-color-surface));
+  box-shadow: var(--md-sys-elevation-level2);
+  border-radius: var(--md-sys-shape-corner-extra-large) var(--md-sys-shape-corner-extra-large) 0 0;
+}
+
+.md3-navigation-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+  color: hsl(var(--md-sys-color-on-surface-variant));
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.md3-navigation-item.active {
+  color: hsl(var(--md-sys-color-on-secondary-container));
+}
+
+.md3-navigation-item.active .md3-nav-indicator {
+  background: hsl(var(--md-sys-color-secondary-container));
+}
+
+.md3-nav-indicator {
+  position: absolute;
+  width: 64px;
+  height: 32px;
+  border-radius: var(--md-sys-shape-corner-full);
+  background: transparent;
+  transition: all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+}
+
+.md3-search-bar {
+  background: hsl(var(--md-sys-color-surface-variant));
+  border-radius: var(--md-sys-shape-corner-full);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+
+.md3-search-bar:focus-within {
+  background: hsl(var(--md-sys-color-surface));
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+/* Material 3 Expressive Animations */
+@keyframes md3-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes md3-emphasis-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes md3-emphasis-exit {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+}
+
+@keyframes md3-container-transform {
+  0% {
+    clip-path: circle(0% at 50% 50%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    clip-path: circle(150% at 50% 50%);
+    opacity: 1;
+  }
+}
+
+@keyframes md3-fade-through-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes md3-shared-axis-x {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.md3-animate-enter {
+  animation: md3-emphasis-enter var(--md-sys-motion-duration-medium3) var(--md-sys-motion-easing-emphasized-decelerate) forwards;
+}
+
+.md3-animate-fade-through {
+  animation: md3-fade-through-enter var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized) forwards;
+}
+
+.md3-animate-shared-axis {
+  animation: md3-shared-axis-x var(--md-sys-motion-duration-medium3) var(--md-sys-motion-easing-emphasized) forwards;
+}
+
+/* Material 3 Typography */
+.md3-display-large {
+  font-size: 57px;
+  line-height: 64px;
+  letter-spacing: -0.25px;
+  font-weight: 400;
+}
+
+.md3-display-medium {
+  font-size: 45px;
+  line-height: 52px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+.md3-display-small {
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+.md3-headline-large {
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+.md3-headline-medium {
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+.md3-headline-small {
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+.md3-title-large {
+  font-size: 22px;
+  line-height: 28px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+.md3-title-medium {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  font-weight: 500;
+}
+
+.md3-title-small {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  font-weight: 500;
+}
+
+.md3-body-large {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
+
+.md3-body-medium {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  font-weight: 400;
+}
+
+.md3-body-small {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+  font-weight: 400;
+}
+
+.md3-label-large {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  font-weight: 500;
+}
+
+.md3-label-medium {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.md3-label-small {
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* Staggered animations */
+.md3-stagger-1 { animation-delay: 50ms; }
+.md3-stagger-2 { animation-delay: 100ms; }
+.md3-stagger-3 { animation-delay: 150ms; }
+.md3-stagger-4 { animation-delay: 200ms; }
+.md3-stagger-5 { animation-delay: 250ms; }
+.md3-stagger-6 { animation-delay: 300ms; }

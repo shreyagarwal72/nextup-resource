@@ -32,6 +32,7 @@ export interface Course {
   students: string;
   image: string;
   link: string;
+  dateAdded?: string;
 }
 
 export interface Resource {
@@ -40,6 +41,7 @@ export interface Resource {
   category: string;
   image: string;
   link: string;
+  dateAdded?: string;
 }
 
 export interface Ebook {
@@ -48,6 +50,7 @@ export interface Ebook {
   category: string;
   image: string;
   link: string;
+  dateAdded?: string;
 }
 
 export interface App {
@@ -56,6 +59,7 @@ export interface App {
   category: string;
   image: string;
   link: string;
+  dateAdded?: string;
 }
 
 // Helper function to sort arrays alphabetically by title
@@ -379,6 +383,7 @@ const coursesData: Course[] = [
     students: "4.8K",
     image: "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&auto=format&fit=crop",
     link: "https://drive.google.com/drive/folders/1yAEND1Q72gEQO8ZVYEL_MUGxlDuyQuk6",
+    dateAdded: "2026-02-03",
   },
   {
     title: "Full Paper Animation Course",
@@ -388,6 +393,7 @@ const coursesData: Course[] = [
     students: "2.3K",
     image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&auto=format&fit=crop",
     link: "https://drive.google.com/drive/folders/1DDljCZaBZk41bMT_QJyGHrz6aI5vGrqa",
+    dateAdded: "2026-02-03",
   },
   {
     title: "How to Create Pixar-Style Cartoons in 60 Minutes",
@@ -397,6 +403,7 @@ const coursesData: Course[] = [
     students: "5.2K",
     image: "https://images.unsplash.com/photo-1626379953822-baec19c3accd?w=800&auto=format&fit=crop",
     link: "https://drive.google.com/drive/folders/1LECDIY3EdV-zr2fuFBW1tdqiFz603rzV",
+    dateAdded: "2026-02-03",
   },
 ];
 
@@ -506,6 +513,7 @@ const resourcesData: Resource[] = [
     category: "AI Prompts",
     image: aiToolsInfographicImg,
     link: "https://zunar-bookmarks-bar-0.vercel.app/",
+    dateAdded: "2026-02-02",
   },
   {
     title: "Copyright Free Thumbnail Graff",
@@ -513,6 +521,7 @@ const resourcesData: Resource[] = [
     category: "Graphics",
     image: "https://images.unsplash.com/photo-1561059488-916d69792237?w=800&auto=format&fit=crop",
     link: "https://drive.google.com/drive/folders/1PkafkS7lSRAk7R2Ekrhw2QOQ7LXMRm5P",
+    dateAdded: "2026-02-03",
   },
   {
     title: "Luxurious Reels Bundle",
@@ -520,6 +529,7 @@ const resourcesData: Resource[] = [
     category: "Video",
     image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop",
     link: "https://drive.google.com/drive/folders/1HwPJbP6Fe6m-NHs_L0-q7jBL1k2ThBhr",
+    dateAdded: "2026-02-03",
   },
 ];
 
@@ -675,6 +685,7 @@ const appsData: App[] = [
     category: "Health & Fitness",
     image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop",
     link: "https://t.me/nextupfilebot?start=BQADAQADHwsAAjPcuUcqJrltGUIwYhYE",
+    dateAdded: "2026-02-02",
   },
   // Gaming
   {
@@ -683,6 +694,7 @@ const appsData: App[] = [
     category: "Gaming",
     image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop",
     link: "https://t.me/nextupfilebot?start=BQADAQADvQwAAiJEGUSSSIOZCq9R1RYE",
+    dateAdded: "2026-02-03",
   },
   {
     title: "Best PC Games Part 2",
@@ -690,6 +702,7 @@ const appsData: App[] = [
     category: "Gaming",
     image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&auto=format&fit=crop",
     link: "https://t.me/nextupfilebot?start=BQADAQAD3gwAAiJEGUSB7Otq9Ms7SBYE",
+    dateAdded: "2026-02-03",
   },
   {
     title: "Resident Evil Survival Unit",
@@ -697,6 +710,7 @@ const appsData: App[] = [
     category: "Gaming",
     image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&auto=format&fit=crop",
     link: "https://t.me/nextupfilebot?start=BQADAQADyQwAAiJEGUSgN2T7h6ZI4xYE",
+    dateAdded: "2026-02-03",
   },
 ];
 

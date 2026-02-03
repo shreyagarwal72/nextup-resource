@@ -3,17 +3,11 @@ import ResourcesSection from "@/components/ResourcesSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useEffect } from "react";
+import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 
 const Resources = () => {
   useEffect(() => {
-    document.title = "Free Resources - Nextup Resources";
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute(
-        "content",
-        "Download free resources including sound effects, editing packs, and eBooks. Quality content for creators at Nextup Resources."
-      );
-    }
+    updatePageMeta(pageSEOConfigs.resources);
   }, []);
 
   return (
