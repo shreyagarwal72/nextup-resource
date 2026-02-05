@@ -1,10 +1,12 @@
 /* Material 3 Expressive Theme - Inspired by PixelPlayer */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 .material3-theme {
+  font-family: 'Plus Jakarta Sans', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  
   /* Material 3 Color System */
   --md-sys-color-primary: 83 100% 43%;
   --md-sys-color-on-primary: 0 0% 100%;
-  --md-sys-color-primary-container: 83 100% 90%;
   --md-sys-color-on-primary-container: 83 100% 10%;
   
   --md-sys-color-secondary: 200 100% 50%;
@@ -472,3 +474,65 @@
 .md3-stagger-4 { animation-delay: 200ms; }
 .md3-stagger-5 { animation-delay: 250ms; }
 .md3-stagger-6 { animation-delay: 300ms; }
+
+/* ======================== */
+/* Material 3 Study Mode Theme */
+/* ======================== */
+
+.material3-theme.study-mode {
+  /* Study-focused color palette - calm greens and warm neutrals */
+  --md-sys-color-primary: 152 60% 40%;
+  --md-sys-color-on-primary: 0 0% 100%;
+  --md-sys-color-primary-container: 152 50% 90%;
+  --md-sys-color-on-primary-container: 152 60% 15%;
+  
+  --md-sys-color-secondary: 45 50% 55%;
+  --md-sys-color-on-secondary: 0 0% 100%;
+  --md-sys-color-secondary-container: 45 60% 92%;
+  --md-sys-color-on-secondary-container: 45 60% 15%;
+  
+  --md-sys-color-tertiary: 200 45% 50%;
+  --md-sys-color-on-tertiary: 0 0% 100%;
+  --md-sys-color-tertiary-container: 200 50% 92%;
+  --md-sys-color-on-tertiary-container: 200 50% 15%;
+  
+  --md-sys-color-surface: 45 20% 98%;
+  --md-sys-color-on-surface: 45 15% 12%;
+  --md-sys-color-surface-variant: 45 15% 94%;
+  --md-sys-color-on-surface-variant: 45 10% 35%;
+}
+
+.material3-theme.dark.study-mode {
+  --md-sys-color-primary: 152 55% 60%;
+  --md-sys-color-on-primary: 152 60% 12%;
+  --md-sys-color-primary-container: 152 40% 22%;
+  --md-sys-color-on-primary-container: 152 60% 90%;
+  
+  --md-sys-color-secondary: 45 50% 70%;
+  --md-sys-color-on-secondary: 45 60% 12%;
+  --md-sys-color-secondary-container: 45 40% 22%;
+  --md-sys-color-on-secondary-container: 45 60% 90%;
+  
+  --md-sys-color-tertiary: 200 45% 70%;
+  --md-sys-color-on-tertiary: 200 50% 12%;
+  --md-sys-color-tertiary-container: 200 40% 22%;
+  --md-sys-color-on-tertiary-container: 200 50% 90%;
+  
+  --md-sys-color-surface: 45 12% 10%;
+  --md-sys-color-on-surface: 45 10% 88%;
+  --md-sys-color-surface-variant: 45 10% 16%;
+  --md-sys-color-on-surface-variant: 45 10% 65%;
+}
+
+/* Study mode indicator chip */
+.md3-study-indicator {
+  background: hsl(var(--md-sys-color-primary-container));
+  color: hsl(var(--md-sys-color-on-primary-container));
+  padding: 4px 12px;
+  border-radius: var(--md-sys-shape-corner-full);
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

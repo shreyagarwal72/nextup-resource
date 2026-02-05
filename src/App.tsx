@@ -25,6 +25,9 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const BetaIndex = lazy(() => import("./pages/beta/BetaIndex"));
 const BetaCourses = lazy(() => import("./pages/beta/BetaCourses"));
 const BetaResources = lazy(() => import("./pages/beta/BetaResources"));
+const BetaEbooks = lazy(() => import("./pages/beta/BetaEbooks"));
+const BetaApps = lazy(() => import("./pages/beta/BetaApps"));
+const BetaFAQ = lazy(() => import("./pages/beta/BetaFAQ"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -81,12 +84,12 @@ const AppContent = () => {
               <Route path="/" element={<BetaIndex />} />
               <Route path="/courses" element={<BetaCourses />} />
               <Route path="/resources" element={<BetaResources />} />
-              <Route path="/ebooks" element={<Ebooks />} />
-              <Route path="/apps" element={<Apps />} />
+              <Route path="/ebooks" element={<BetaEbooks />} />
+              <Route path="/apps" element={<BetaApps />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/install" element={<Install />} />
-              <Route path="/faq" element={<FAQ />} />
+              <Route path="/faq" element={<BetaFAQ />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

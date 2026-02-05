@@ -1,7 +1,9 @@
 import { ReactNode, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, BookOpen, Package, BookText, Smartphone, Heart, Menu, X, Search, Sun, Moon } from "lucide-react";
+import { Home, BookOpen, Package, BookText, Smartphone, Heart, Menu, X, Search, Sun, Moon, HelpCircle } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useStudyMode } from "@/hooks/useStudyMode";
+import { StudyModeToggle } from "@/components/StudyModeToggle";
 import "@/styles/material3.css";
 
 interface Material3LayoutProps {
@@ -16,16 +18,18 @@ const navItems = [
   { path: "/ebooks", icon: BookText, label: "Ebooks" },
   { path: "/apps", icon: Smartphone, label: "Apps" },
   { path: "/favorites", icon: Heart, label: "Favorites" },
+  { path: "/faq", icon: HelpCircle, label: "FAQ" },
 ];
 
 const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
+  const { isStudyMode } = useStudyMode();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className={`material3-theme ${theme === "dark" ? "dark" : ""} min-h-screen md3-surface`}>
+    <div className={`material3-theme ${theme === "dark" ? "dark" : ""} ${isStudyMode ? "study-mode" : ""} min-h-screen md3-surface`}>
       {/* Top App Bar */}
       <header className="sticky top-0 z-50 md3-surface" style={{ boxShadow: "var(--md-sys-elevation-level2)" }}>
         <div className="container mx-auto px-4">
@@ -48,6 +52,14 @@ const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
                   Nextup
                 </span>
               </Link>
+              
+              {/* Study Mode Indicator */}
+              {isStudyMode && (
+                <div className="hidden md:flex md3-study-indicator">
+                  <BookOpen className="w-3.5 h-3.5" />
+                  Study Mode
+                </div>
+              )}
             </div>
 
             {/* Search Bar - Desktop */}
@@ -67,6 +79,7 @@ const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
 
             {/* Trailing */}
             <div className="flex items-center gap-2">
+              <StudyModeToggle variant="material3" />
               <button 
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="md3-tonal-button p-2 rounded-full"
@@ -163,6 +176,13 @@ const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
                 <X className="w-5 h-5" />
               </button>
             </div>
+            
+            {isStudyMode && (
+              <div className="md3-study-indicator mb-6 justify-center">
+                <BookOpen className="w-4 h-4" />
+                Study Mode Active
+              </div>
+            )}
             
             <div className="space-y-2">
               {navItems.map((item, index) => {
