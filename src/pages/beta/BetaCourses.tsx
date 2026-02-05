@@ -1,13 +1,25 @@
 import { useState } from "react";
-import { Search } from "lucide-react";
-import { allCourses } from "@/data/content";
+import { Search, BookOpen } from "lucide-react";
+import { allCourses, studyCategories } from "@/data/content";
 import Material3CourseCard from "@/components/beta/Material3CourseCard";
+import { useStudyMode } from "@/hooks/useStudyMode";
 import "@/styles/material3.css";
 
 const BetaCourses = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const { isStudyMode } = useStudyMode();
 
-  const filteredCourses = allCourses.filter((course) =>
+  // Filter by study mode first
+  const studyFilteredCourses = isStudyMode
+    ? allCourses.filter(course => 
+        studyCategories.some(cat => 
+          course.category.toLowerCase().includes(cat.toLowerCase())
+        )
+      )
+    : allCourses;
+
+  // Then filter by search query
+  const filteredCourses = studyFilteredCourses.filter((course) =>
     course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     course.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
     course.category.toLowerCase().includes(searchQuery.toLowerCase())
@@ -21,13 +33,23 @@ const BetaCourses = () => {
         style={{ background: "linear-gradient(135deg, hsl(var(--md-sys-color-primary-container)) 0%, hsl(var(--md-sys-color-surface)) 100%)" }}
       >
         <div className="container mx-auto max-w-5xl">
-          <h1 className="md3-display-small mb-4 md3-animate-enter"
-              style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>
-            All Courses
-          </h1>
+          <div className="flex items-center gap-3 mb-4">
+            {isStudyMode && (
+              <div className="w-12 h-12 rounded-full flex items-center justify-center md3-animate-enter"
+                   style={{ background: "hsl(var(--md-sys-color-primary))" }}>
+                <BookOpen className="w-6 h-6 text-white" />
+              </div>
+            )}
+            <h1 className="md3-display-small md3-animate-enter"
+                style={{ color: "hsl(var(--md-sys-color-on-surface))", fontWeight: 600 }}>
+              {isStudyMode ? "Study Courses" : "All Courses"}
+            </h1>
+          </div>
           <p className="md3-body-large mb-8 md3-animate-enter md3-stagger-1"
              style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
-            Discover our complete collection of premium courses
+            {isStudyMode 
+              ? "Focused educational courses for productive learning"
+              : "Discover our complete collection of premium courses"}
           </p>
           
           {/* Search */}
@@ -59,8 +81,11 @@ const BetaCourses = () => {
           ) : (
             <div className="text-center py-16">
               <div className="md3-card p-8 max-w-md mx-auto">
+                <BookOpen className="w-12 h-12 mx-auto mb-4" style={{ color: "hsl(var(--md-sys-color-outline))" }} />
                 <p className="md3-body-large" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
-                  No courses found matching "{searchQuery}"
+                  {searchQuery 
+                    ? `No courses found matching "${searchQuery}"`
+                    : "No study-related courses found. Toggle off Study Mode to see all content."}
                 </p>
               </div>
             </div>

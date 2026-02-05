@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
+import { StudyModeToggle } from "./StudyModeToggle";
 import { useFavorites } from "@/hooks/useFavorites";
 
 const Header = () => {
@@ -77,6 +78,7 @@ const Header = () => {
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-3">
+              <StudyModeToggle />
               <ThemeToggle />
               
               <div className="hidden md:block">

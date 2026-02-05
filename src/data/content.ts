@@ -34,6 +34,7 @@ export interface Course {
   image: string;
   link: string;
   dateAdded?: string;
+  isStudyContent?: boolean;
 }
 
 export interface Resource {
@@ -43,6 +44,7 @@ export interface Resource {
   image: string;
   link: string;
   dateAdded?: string;
+  isStudyContent?: boolean;
 }
 
 export interface Ebook {
@@ -52,6 +54,7 @@ export interface Ebook {
   image: string;
   link: string;
   dateAdded?: string;
+  isStudyContent?: boolean;
 }
 
 export interface App {
@@ -61,7 +64,15 @@ export interface App {
   image: string;
   link: string;
   dateAdded?: string;
+  isStudyContent?: boolean;
 }
+
+// Categories that are considered "study" content
+export const studyCategories = [
+  "Education", "Language", "Technology", "AI", "Web Development", 
+  "Security", "Data Science", "Productivity", "Career", "Development",
+  "Cybersecurity", "App Development", "No-Code", "Finance", "Professional"
+];
 
 // Helper function to sort arrays alphabetically by title
 const sortAlphabetically = <T extends { title: string }>(arr: T[]): T[] => {
@@ -744,7 +755,13 @@ const appsData: App[] = [
 ];
 
 // Export sorted arrays
-export const allCourses: Course[] = sortAlphabetically(coursesData);
-export const allResources: Resource[] = sortAlphabetically(resourcesData);
-export const allEbooks: Ebook[] = sortAlphabetically(ebooksData);
-export const allApps: App[] = sortAlphabetically(appsData);
+export const courses: Course[] = sortAlphabetically(coursesData);
+export const resources: Resource[] = sortAlphabetically(resourcesData);
+export const ebooks: Ebook[] = sortAlphabetically(ebooksData);
+export const apps: App[] = sortAlphabetically(appsData);
+
+// Alias exports for backward compatibility
+export const allCourses = courses;
+export const allResources = resources;
+export const allEbooks = ebooks;
+export const allApps = apps;

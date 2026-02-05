@@ -1,33 +1,36 @@
 import { Link } from "react-router-dom";
-import { BookOpen, Package, BookText, Smartphone, ArrowRight, Sparkles } from "lucide-react";
+import { BookOpen, Package, BookText, Smartphone, ArrowRight, Sparkles, GraduationCap } from "lucide-react";
+import { useStudyMode } from "@/hooks/useStudyMode";
 import "@/styles/material3.css";
 
 const BetaIndex = () => {
+  const { isStudyMode } = useStudyMode();
+  
   const categories = [
     { 
       title: "Courses", 
-      description: "Premium courses on AI, development, and more",
+      description: isStudyMode ? "Educational courses for focused learning" : "Premium courses on AI, development, and more",
       icon: BookOpen,
       path: "/courses",
       color: "primary"
     },
     { 
       title: "Resources", 
-      description: "Free assets, templates, and tools",
+      description: isStudyMode ? "Study materials and learning tools" : "Free assets, templates, and tools",
       icon: Package,
       path: "/resources",
       color: "secondary"
     },
     { 
       title: "Ebooks", 
-      description: "Educational ebooks and guides",
+      description: isStudyMode ? "Educational guides and textbooks" : "Educational ebooks and guides",
       icon: BookText,
       path: "/ebooks",
       color: "tertiary"
     },
     { 
       title: "Apps", 
-      description: "Curated mobile applications",
+      description: isStudyMode ? "Productivity and learning apps" : "Curated mobile applications",
       icon: Smartphone,
       path: "/apps",
       color: "primary"
@@ -39,28 +42,40 @@ const BetaIndex = () => {
       {/* Hero Section */}
       <section 
         className="relative py-20 px-4"
-        style={{ background: "linear-gradient(135deg, hsl(var(--md-sys-color-primary-container)) 0%, hsl(var(--md-sys-color-surface)) 100%)" }}
+        style={{ background: `linear-gradient(135deg, hsl(var(--md-sys-color-primary-container)) 0%, hsl(var(--md-sys-color-surface)) 100%)` }}
       >
         <div className="container mx-auto max-w-4xl text-center">
           <div className="inline-flex items-center gap-2 mb-6 md3-chip md3-animate-enter"
                style={{ background: "hsl(var(--md-sys-color-tertiary-container))", color: "hsl(var(--md-sys-color-on-tertiary-container))" }}>
-            <Sparkles className="w-4 h-4" />
-            <span className="md3-label-large">Material 3 Beta</span>
+            {isStudyMode ? <GraduationCap className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
+            <span className="md3-label-large">{isStudyMode ? "Study Mode" : "Material 3 Beta"}</span>
           </div>
           
-          <h1 className="md3-display-medium mb-6 md3-animate-enter md3-stagger-1" 
-              style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>
-            Quality Education<br />for Everyone
+          <h1 className="mb-6 md3-animate-enter md3-stagger-1" 
+              style={{ 
+                color: "hsl(var(--md-sys-color-on-surface))",
+                fontSize: "clamp(2.5rem, 8vw, 4rem)",
+                lineHeight: 1.1,
+                fontWeight: 700,
+                letterSpacing: "-0.02em"
+              }}>
+            {isStudyMode ? (
+              <>Focused Learning<br />for Success</>
+            ) : (
+              <>Quality Education<br />for Everyone</>
+            )}
           </h1>
           
           <p className="md3-body-large mb-8 max-w-2xl mx-auto md3-animate-enter md3-stagger-2"
              style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
-            Discover premium courses, free resources, ebooks, and apps to accelerate your learning journey.
+            {isStudyMode 
+              ? "Distraction-free learning environment with curated educational content to accelerate your growth."
+              : "Discover premium courses, free resources, ebooks, and apps to accelerate your learning journey."}
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 md3-animate-enter md3-stagger-3">
             <Link to="/courses" className="md3-filled-button flex items-center gap-2">
-              Explore Courses
+              {isStudyMode ? "Start Studying" : "Explore Courses"}
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link to="/resources" className="md3-tonal-button">
@@ -74,8 +89,8 @@ const BetaIndex = () => {
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
           <h2 className="md3-headline-medium mb-8 text-center"
-              style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>
-            Browse Categories
+              style={{ color: "hsl(var(--md-sys-color-on-surface))", fontWeight: 600 }}>
+            {isStudyMode ? "Study Categories" : "Browse Categories"}
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -95,7 +110,7 @@ const BetaIndex = () => {
                   />
                 </div>
                 <h3 className="md3-title-medium mb-2"
-                    style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>
+                    style={{ color: "hsl(var(--md-sys-color-on-surface))", fontWeight: 600 }}>
                   {category.title}
                 </h3>
                 <p className="md3-body-small"
@@ -122,8 +137,13 @@ const BetaIndex = () => {
               { value: "Free", label: "Forever" },
             ].map((stat, index) => (
               <div key={stat.label} className={`md3-animate-enter md3-stagger-${index + 1}`}>
-                <div className="md3-display-small mb-2"
-                     style={{ color: "hsl(var(--md-sys-color-primary))" }}>
+                <div className="mb-2"
+                     style={{ 
+                       color: "hsl(var(--md-sys-color-primary))",
+                       fontSize: "2.5rem",
+                       fontWeight: 700,
+                       lineHeight: 1
+                     }}>
                   {stat.value}
                 </div>
                 <div className="md3-label-large"
