@@ -98,7 +98,7 @@ const AppContent = () => {
   return (
     <>
       {showSplash && !hasShownSplash && (
-        <PencilLoader onComplete={handleSplashComplete} duration={2600} />
+        <PencilLoader onComplete={handleSplashComplete} duration={1800} />
       )}
       <Toaster />
       <Sonner />

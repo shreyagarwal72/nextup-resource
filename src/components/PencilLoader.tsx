@@ -5,7 +5,7 @@ interface PencilLoaderProps {
   duration?: number;
 }
 
-const PencilLoader = ({ onComplete, duration = 2600 }: PencilLoaderProps) => {
+const PencilLoader = ({ onComplete, duration = 1800 }: PencilLoaderProps) => {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
