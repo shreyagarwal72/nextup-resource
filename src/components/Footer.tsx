@@ -1,7 +1,26 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Instagram, Youtube } from "lucide-react";
+import { useBetaUI } from "@/hooks/useBetaUI";
 
 const Footer = () => {
+  const { isBetaEnabled, toggleBetaUI } = useBetaUI();
+  const [tapCount, setTapCount] = useState(0);
+
+  // Secret tap handler - 5 taps to toggle beta UI
+  const handleSecretTap = () => {
+    const newCount = tapCount + 1;
+    setTapCount(newCount);
+    
+    if (newCount >= 5) {
+      toggleBetaUI();
+      setTapCount(0);
+    }
+    
+    // Reset after 2 seconds of inactivity
+    setTimeout(() => setTapCount(0), 2000);
+  };
+
   return (
     <footer className="relative overflow-hidden py-16">
       {/* Subtle background blob */}
@@ -41,8 +60,12 @@ const Footer = () => {
           </div>
 
           <div className="border-t border-border/30 mt-10 pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <p className="text-muted-foreground text-sm">
+            <p 
+              className="text-muted-foreground text-sm cursor-default select-none"
+              onClick={handleSecretTap}
+            >
               © {new Date().getFullYear()} Nextup Resources. All rights reserved.
+              {isBetaEnabled && <span className="ml-2 text-xs text-primary/60">(β)</span>}
             </p>
             <Link 
               to="/faq" 

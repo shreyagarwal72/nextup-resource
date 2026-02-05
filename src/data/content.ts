@@ -18,6 +18,7 @@ import motivationReelsImg from "@/assets/resources/motivation-reels.jpg";
 import promptCollectionImg from "@/assets/resources/prompt-collection.jpg";
 import memesPackImg from "@/assets/resources/memes-pack.jpg";
 import aiToolsInfographicImg from "@/assets/resources/ai-tools-infographic.jpg";
+import funnyViralReelsImg from "@/assets/resources/funny-viral-reels.jpg";
 
 // Import ebook images
 import ebookDefaultImg from "@/assets/ebooks/ebook-default.jpg";
@@ -405,6 +406,26 @@ const coursesData: Course[] = [
     link: "https://drive.google.com/drive/folders/1LECDIY3EdV-zr2fuFBW1tdqiFz603rzV",
     dateAdded: "2026-02-03",
   },
+  {
+    title: "5 Days to Confidence on Camera",
+    description: "Master the art of being confident on camera in just 5 days. Learn presentation skills, body language, and techniques to look natural on video.",
+    category: "Content Creation",
+    duration: "5 days",
+    students: "3.2K",
+    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&auto=format&fit=crop",
+    link: "https://t.me/+92nej6vlnnZiOGM1",
+    dateAdded: "2026-02-05",
+  },
+  {
+    title: "Vedic Astrology Complete Course",
+    description: "Comprehensive Vedic astrology course covering birth charts, planetary influences, predictions, and ancient astrological wisdom for modern life.",
+    category: "Spirituality",
+    duration: "12 weeks",
+    students: "2.7K",
+    image: "https://images.unsplash.com/photo-1532968961962-8a0ff256bdb2?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1a769Ah3IUJPu7JgcUK6dnRL9UjRDxTN7",
+    dateAdded: "2026-02-05",
+  },
 ];
 
 // All resources (will be sorted alphabetically)
@@ -531,6 +552,14 @@ const resourcesData: Resource[] = [
     link: "https://drive.google.com/drive/folders/1HwPJbP6Fe6m-NHs_L0-q7jBL1k2ThBhr",
     dateAdded: "2026-02-03",
   },
+  {
+    title: "Funny Viral Reels",
+    description: "Collection of hilarious viral reel templates and content. Perfect for creating entertaining, shareable content that gets engagement.",
+    category: "Entertainment",
+    image: funnyViralReelsImg,
+    link: "https://drive.google.com/drive/u/0/mobile/folders/1yuOoZ2f7P3tdj8ubF_J-hLEkts0jXmW3",
+    dateAdded: "2026-02-05",
+  },
 ];
 
 // All ebooks (will be sorted alphabetically)
@@ -625,7 +654,7 @@ const appsData: App[] = [
     description: "All premium features like background playback, video download in any resolution. Note: Micro G is required to run it.",
     category: "Media & Music",
     image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&auto=format&fit=crop",
-    link: "https://t.me/nextupfilebot?start=BQADAQADGBQAAr-PuUe18UOGhjvsNBYE",
+    link: "https://t.me/nextupfilebot?start=BQADAQADSx0AAs-2KUR0SmO_nsToyRYE",
   },
   // Messaging
   {
