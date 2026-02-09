@@ -437,6 +437,36 @@ const coursesData: Course[] = [
     link: "https://drive.google.com/drive/folders/1a769Ah3IUJPu7JgcUK6dnRL9UjRDxTN7",
     dateAdded: "2026-02-05",
   },
+  {
+    title: "Capcut Mastery Course",
+    description: "Master CapCut video editing from basics to advanced. Learn professional editing techniques, effects, transitions, and workflow optimization.",
+    category: "Video Editing",
+    duration: "6 weeks",
+    students: "4.5K",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
+    link: "https://t.me/+yU83JGCUfN42MGE1",
+    dateAdded: "2026-02-09",
+  },
+  {
+    title: "Premiere Pro Basic to Advance Full Course",
+    description: "Complete Adobe Premiere Pro course from beginner to advanced. Master professional video editing, color grading, audio mixing, and export settings.",
+    category: "Video Editing",
+    duration: "14 weeks",
+    students: "5.1K",
+    image: "https://images.unsplash.com/photo-1535016120720-40c646be5580?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1EAHGsraFk_baIAe8uuPHSSP0VnZbzldB",
+    dateAdded: "2026-02-09",
+  },
+  {
+    title: "11 Days Abundance Challenge",
+    description: "Transform your mindset and attract abundance in just 11 days. Daily guided exercises for manifesting prosperity, gratitude, and positive energy.",
+    category: "Personal Development",
+    duration: "11 days",
+    students: "3.8K",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop",
+    link: "https://t.me/+nIgRCScYWktiMmQ1",
+    dateAdded: "2026-02-09",
+  },
 ];
 
 // All resources (will be sorted alphabetically)
@@ -570,6 +600,30 @@ const resourcesData: Resource[] = [
     image: funnyViralReelsImg,
     link: "https://drive.google.com/drive/u/0/mobile/folders/1yuOoZ2f7P3tdj8ubF_J-hLEkts0jXmW3",
     dateAdded: "2026-02-05",
+  },
+  {
+    title: "Premium Motion Backgrounds",
+    description: "High-quality animated motion backgrounds for video editing and presentations. Elevate your productions with stunning visual backdrops.",
+    category: "Video",
+    image: "https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADuRYAAiuQSUQ6wTnJyqGHVxYE",
+    dateAdded: "2026-02-09",
+  },
+  {
+    title: "Editing Essentials",
+    description: "Essential editing assets including transitions, overlays, sound effects, and templates. Everything you need to create professional content.",
+    category: "Video",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADwRYAAiuQSURzNm7ju_0KhRYE",
+    dateAdded: "2026-02-09",
+  },
+  {
+    title: "Background Music Pack",
+    description: "Royalty-free background music collection for videos, podcasts, and presentations. Multiple genres and moods to set the perfect tone.",
+    category: "Audio",
+    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1mh0caUZlKyjC1ywqC0BxmfS7qS29yKhM",
+    dateAdded: "2026-02-09",
   },
 ];
 
@@ -752,7 +806,53 @@ const appsData: App[] = [
     link: "https://t.me/nextupfilebot?start=BQADAQADyQwAAiJEGUSgN2T7h6ZI4xYE",
     dateAdded: "2026-02-03",
   },
+  {
+    title: "Best All In One App",
+    description: "Ultimate all-in-one utility app combining multiple tools. File manager, calculator, converter, and more in a single powerful application.",
+    category: "Utility",
+    image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADzBYAAiuQSUSdQoiz4HdnaRYE",
+    dateAdded: "2026-02-09",
+  },
 ];
+
+// Sort by preference utility
+export type SortPreference = 'alphabetical' | 'category' | 'newest';
+
+export const sortByPreference = <T extends { title: string; category: string; dateAdded?: string }>(
+  items: T[],
+  preference: SortPreference
+): T[] => {
+  const sorted = [...items];
+  switch (preference) {
+    case 'newest':
+      return sorted.sort((a, b) => {
+        // Items with dateAdded come first (newest first), then alphabetical
+        if (a.dateAdded && b.dateAdded) return b.dateAdded.localeCompare(a.dateAdded);
+        if (a.dateAdded) return -1;
+        if (b.dateAdded) return 1;
+        return a.title.localeCompare(b.title);
+      });
+    case 'category':
+      return sorted.sort((a, b) => {
+        const catCompare = a.category.localeCompare(b.category);
+        if (catCompare !== 0) return catCompare;
+        return a.title.localeCompare(b.title);
+      });
+    case 'alphabetical':
+    default:
+      return sortAlphabetically(sorted);
+  }
+};
+
+// Group items by category
+export const groupByCategory = <T extends { category: string }>(items: T[]): Record<string, T[]> => {
+  return items.reduce((acc, item) => {
+    if (!acc[item.category]) acc[item.category] = [];
+    acc[item.category].push(item);
+    return acc;
+  }, {} as Record<string, T[]>);
+};
 
 // Export sorted arrays
 export const courses: Course[] = sortAlphabetically(coursesData);

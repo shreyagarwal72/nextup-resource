@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Settings } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import { StudyModeToggle } from "./StudyModeToggle";
@@ -80,6 +80,13 @@ const Header = () => {
             <div className="flex items-center gap-2 sm:gap-3">
               <StudyModeToggle />
               <ThemeToggle />
+              <Link
+                to="/settings"
+                className="p-2 rounded-xl glass-button press-feedback text-muted-foreground hover:text-primary transition-colors hidden md:flex"
+                aria-label="Settings"
+              >
+                <Settings className="w-5 h-5" />
+              </Link>
               
               <div className="hidden md:block">
                 <Button variant="glassPrimary" size="default" asChild className="hover-spring">
@@ -144,13 +151,26 @@ const Header = () => {
                 </span>
               </Link>
             ))}
+            <div className="flex gap-2 mt-2">
+              <Link
+                to="/settings"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/5 press-feedback"
+                style={{ 
+                  transitionDelay: isMenuOpen ? `${navLinks.length * 60}ms` : "0ms"
+                }}
+              >
+                <Settings className="w-4 h-4" />
+                Settings
+              </Link>
+            </div>
             <Button 
               variant="glassPrimary" 
               size="default" 
               className="mt-2 press-feedback" 
               asChild
               style={{ 
-                transitionDelay: isMenuOpen ? `${navLinks.length * 60}ms` : "0ms"
+                transitionDelay: isMenuOpen ? `${(navLinks.length + 1) * 60}ms` : "0ms"
               }}
             >
               <Link to="/courses" onClick={() => setIsMenuOpen(false)}>

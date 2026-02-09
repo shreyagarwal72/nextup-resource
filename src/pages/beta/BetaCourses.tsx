@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { Search, BookOpen } from "lucide-react";
-import { allCourses, studyCategories } from "@/data/content";
+import { allCourses, studyCategories, sortByPreference, groupByCategory } from "@/data/content";
 import Material3CourseCard from "@/components/beta/Material3CourseCard";
 import { useStudyMode } from "@/hooks/useStudyMode";
+import { useSortPreference } from "@/hooks/useSortPreference";
 import "@/styles/material3.css";
 
 const BetaCourses = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { isStudyMode } = useStudyMode();
+  const { sortPreference } = useSortPreference();
 
-  // Filter by study mode first
   const studyFilteredCourses = isStudyMode
     ? allCourses.filter(course => 
         studyCategories.some(cat => 
@@ -18,16 +19,18 @@ const BetaCourses = () => {
       )
     : allCourses;
 
-  // Then filter by search query
-  const filteredCourses = studyFilteredCourses.filter((course) =>
+  const searchFiltered = studyFilteredCourses.filter((course) =>
     course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     course.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
     course.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const filteredCourses = sortByPreference(searchFiltered, sortPreference);
+  const isCategoryView = sortPreference === 'category' && !searchQuery;
+  const grouped = isCategoryView ? groupByCategory(filteredCourses) : null;
+
   return (
     <div className="min-h-screen">
-      {/* Header */}
       <section 
         className="py-12 px-4"
         style={{ background: "linear-gradient(135deg, hsl(var(--md-sys-color-primary-container)) 0%, hsl(var(--md-sys-color-surface)) 100%)" }}
@@ -52,7 +55,6 @@ const BetaCourses = () => {
               : "Discover our complete collection of premium courses"}
           </p>
           
-          {/* Search */}
           <div className="md3-search-bar max-w-xl md3-animate-enter md3-stagger-2">
             <Search className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }} />
             <input
@@ -67,17 +69,33 @@ const BetaCourses = () => {
         </div>
       </section>
 
-      {/* Courses Grid */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           {filteredCourses.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredCourses.map((course, index) => (
-                <div key={course.title} className={`md3-animate-enter md3-stagger-${(index % 6) + 1}`}>
-                  <Material3CourseCard {...course} />
+            isCategoryView && grouped ? (
+              Object.entries(grouped).map(([category, items]) => (
+                <div key={category} className="mb-10">
+                  <h2 className="md3-headline-small mb-6" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>
+                    {category}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {items.map((course, index) => (
+                      <div key={course.title} className={`md3-animate-enter md3-stagger-${(index % 6) + 1}`}>
+                        <Material3CourseCard {...course} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
+              ))
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredCourses.map((course, index) => (
+                  <div key={course.title} className={`md3-animate-enter md3-stagger-${(index % 6) + 1}`}>
+                    <Material3CourseCard {...course} />
+                  </div>
+                ))}
+              </div>
+            )
           ) : (
             <div className="text-center py-16">
               <div className="md3-card p-8 max-w-md mx-auto">

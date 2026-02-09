@@ -65,7 +65,7 @@ const Footer = () => {
               onClick={handleSecretTap}
             >
               © {new Date().getFullYear()} Nextup Resources. All rights reserved.
-              {isBetaEnabled && <span className="ml-2 text-xs text-primary/60">(β)</span>}
+              {isBetaEnabled && <span className="ml-2 text-xs text-primary/60">(M3)</span>}
             </p>
             <Link 
               to="/faq" 
