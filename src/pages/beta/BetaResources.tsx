@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Search, Package } from "lucide-react";
-import { allResources } from "@/data/content";
+import { allResources, sortByPreference, groupByCategory } from "@/data/content";
 import Material3ResourceCard from "@/components/beta/Material3ResourceCard";
 import { useStudyMode } from "@/hooks/useStudyMode";
+import { useSortPreference } from "@/hooks/useSortPreference";
 import "@/styles/material3.css";
 
-// Study-related resource categories
 const studyResourceCategories = ["Education", "Templates", "Tools", "AI", "Productivity", "Learning"];
 
 const BetaResources = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { isStudyMode } = useStudyMode();
+  const { sortPreference } = useSortPreference();
 
-  // Filter by study mode first
   const studyFilteredResources = isStudyMode
     ? allResources.filter(resource => 
         studyResourceCategories.some(cat => 
@@ -21,16 +21,18 @@ const BetaResources = () => {
       )
     : allResources;
 
-  // Then filter by search query
-  const filteredResources = studyFilteredResources.filter((resource) =>
+  const searchFiltered = studyFilteredResources.filter((resource) =>
     resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     resource.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
     resource.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const filteredResources = sortByPreference(searchFiltered, sortPreference);
+  const isCategoryView = sortPreference === 'category' && !searchQuery;
+  const grouped = isCategoryView ? groupByCategory(filteredResources) : null;
+
   return (
     <div className="min-h-screen">
-      {/* Header */}
       <section 
         className="py-12 px-4"
         style={{ background: "linear-gradient(135deg, hsl(var(--md-sys-color-secondary-container)) 0%, hsl(var(--md-sys-color-surface)) 100%)" }}
@@ -55,7 +57,6 @@ const BetaResources = () => {
               : "Download premium resources completely free"}
           </p>
           
-          {/* Search */}
           <div className="md3-search-bar max-w-xl md3-animate-enter md3-stagger-2">
             <Search className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }} />
             <input
@@ -70,17 +71,33 @@ const BetaResources = () => {
         </div>
       </section>
 
-      {/* Resources Grid */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           {filteredResources.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredResources.map((resource, index) => (
-                <div key={resource.title} className={`md3-animate-enter md3-stagger-${(index % 6) + 1}`}>
-                  <Material3ResourceCard {...resource} />
+            isCategoryView && grouped ? (
+              Object.entries(grouped).map(([category, items]) => (
+                <div key={category} className="mb-10">
+                  <h2 className="md3-headline-small mb-6" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>
+                    {category}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {items.map((resource, index) => (
+                      <div key={resource.title} className={`md3-animate-enter md3-stagger-${(index % 6) + 1}`}>
+                        <Material3ResourceCard {...resource} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
+              ))
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredResources.map((resource, index) => (
+                  <div key={resource.title} className={`md3-animate-enter md3-stagger-${(index % 6) + 1}`}>
+                    <Material3ResourceCard {...resource} />
+                  </div>
+                ))}
+              </div>
+            )
           ) : (
             <div className="text-center py-16">
               <div className="md3-card p-8 max-w-md mx-auto">

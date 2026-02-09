@@ -48,7 +48,7 @@ const BetaIndex = () => {
           <div className="inline-flex items-center gap-2 mb-6 md3-chip md3-animate-enter"
                style={{ background: "hsl(var(--md-sys-color-tertiary-container))", color: "hsl(var(--md-sys-color-on-tertiary-container))" }}>
             {isStudyMode ? <GraduationCap className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
-            <span className="md3-label-large">{isStudyMode ? "Study Mode" : "Material 3 Beta"}</span>
+            <span className="md3-label-large">{isStudyMode ? "Study Mode" : "Material 3"}</span>
           </div>
           
           <h1 className="mb-6 md3-animate-enter md3-stagger-1" 

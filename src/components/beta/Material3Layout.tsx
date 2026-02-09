@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, BookOpen, Package, BookText, Smartphone, Heart, Menu, X, Search, Sun, Moon, HelpCircle } from "lucide-react";
+import { Home, BookOpen, Package, BookText, Smartphone, Heart, Menu, X, Search, Sun, Moon, HelpCircle, Settings } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { StudyModeToggle } from "@/components/StudyModeToggle";
@@ -19,6 +19,7 @@ const navItems = [
   { path: "/apps", icon: Smartphone, label: "Apps" },
   { path: "/favorites", icon: Heart, label: "Favorites" },
   { path: "/faq", icon: HelpCircle, label: "FAQ" },
+  { path: "/settings", icon: Settings, label: "Settings" },
 ];
 
 const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
@@ -86,12 +87,12 @@ const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
               >
                 {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              <button 
-                onClick={onExitBeta}
-                className="md3-outlined-button text-sm px-3 py-1"
+              <Link
+                to="/settings"
+                className="md3-tonal-button text-sm px-3 py-1"
               >
-                Exit Beta
-              </button>
+                Switch Theme
+              </Link>
             </div>
           </div>
         </div>
@@ -211,10 +212,10 @@ const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
 
             <div className="absolute bottom-6 left-6 right-6">
               <p className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
-                Material 3 Expressive Beta
+                Material 3 Expressive
               </p>
               <p className="md3-body-small mt-1" style={{ color: "hsl(var(--md-sys-color-outline))" }}>
-                Type "material3beta" to toggle
+                Go to Settings to switch theme
               </p>
             </div>
           </div>

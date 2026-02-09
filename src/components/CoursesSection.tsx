@@ -2,12 +2,14 @@ import { useState } from "react";
 import CourseCard from "./CourseCard";
 import { Input } from "@/components/ui/input";
 import { Search, BookOpen } from "lucide-react";
-import { allCourses, studyCategories } from "@/data/content";
+import { allCourses, studyCategories, sortByPreference, groupByCategory } from "@/data/content";
 import { useStudyMode } from "@/hooks/useStudyMode";
+import { useSortPreference } from "@/hooks/useSortPreference";
 
 const CoursesSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { isStudyMode } = useStudyMode();
+  const { sortPreference } = useSortPreference();
 
   // Filter by study mode first
   const studyFilteredCourses = isStudyMode
@@ -19,15 +21,19 @@ const CoursesSection = () => {
     : allCourses;
 
   // Then filter by search query
-  const filteredCourses = studyFilteredCourses.filter((course) =>
+  const searchFiltered = studyFilteredCourses.filter((course) =>
     course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     course.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
     course.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // Apply sort preference
+  const filteredCourses = sortByPreference(searchFiltered, sortPreference);
+  const isCategoryView = sortPreference === 'category' && !searchQuery;
+  const grouped = isCategoryView ? groupByCategory(filteredCourses) : null;
+
   return (
     <section id="courses" className="py-20 relative overflow-hidden">
-      {/* Subtle background blobs */}
       <div className="liquid-blob w-80 h-80 bg-primary/10 -top-20 -right-40" />
       <div className="liquid-blob w-96 h-96 bg-purple-400/10 -bottom-40 -left-48" style={{ animationDelay: "-3s" }} />
       
@@ -64,17 +70,28 @@ const CoursesSection = () => {
         </div>
 
         {filteredCourses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredCourses.map((course, index) => (
-              <div
-                key={index}
-                className="animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CourseCard {...course} />
+          isCategoryView && grouped ? (
+            Object.entries(grouped).map(([category, items]) => (
+              <div key={category} className="mb-10">
+                <h3 className="text-xl font-semibold text-foreground mb-5 px-1">{category}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {items.map((course, index) => (
+                    <div key={index} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <CourseCard {...course} />
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
+            ))
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredCourses.map((course, index) => (
+                <div key={index} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <CourseCard {...course} />
+                </div>
+              ))}
+            </div>
+          )
         ) : (
           <div className="text-center py-12">
             <div className="glass-heavy rounded-2xl p-8 max-w-md mx-auto">

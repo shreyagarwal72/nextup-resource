@@ -1,13 +1,14 @@
-import { allApps as apps, App } from "@/data/content";
-import { Download, Smartphone, ExternalLink } from "lucide-react";
+import { allApps as apps, App, sortByPreference, groupByCategory } from "@/data/content";
+import { Smartphone, ExternalLink } from "lucide-react";
 import { useStudyMode } from "@/hooks/useStudyMode";
+import { useSortPreference } from "@/hooks/useSortPreference";
 import "@/styles/material3.css";
 
-// Study-related categories for filtering apps
 const studyCategories = ["Development", "Utility", "Productivity", "Education"];
 
 const BetaApps = () => {
   const { isStudyMode } = useStudyMode();
+  const { sortPreference } = useSortPreference();
   
   const filteredApps = isStudyMode
     ? apps.filter(app => 
@@ -17,18 +18,11 @@ const BetaApps = () => {
       )
     : apps;
 
-  // Group apps by category
-  const groupedApps = filteredApps.reduce((acc, app) => {
-    if (!acc[app.category]) {
-      acc[app.category] = [];
-    }
-    acc[app.category].push(app);
-    return acc;
-  }, {} as Record<string, App[]>);
+  const sortedApps = sortByPreference(filteredApps, sortPreference);
+  const groupedApps = groupByCategory(sortedApps);
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
       <section 
         className="relative py-16 px-4"
         style={{ background: "linear-gradient(135deg, hsl(var(--md-sys-color-primary-container)) 0%, hsl(var(--md-sys-color-surface)) 100%)" }}
@@ -53,7 +47,6 @@ const BetaApps = () => {
         </div>
       </section>
 
-      {/* Apps by Category */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           {Object.keys(groupedApps).length === 0 ? (
