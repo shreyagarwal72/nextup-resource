@@ -467,6 +467,16 @@ const coursesData: Course[] = [
     link: "https://t.me/+nIgRCScYWktiMmQ1",
     dateAdded: "2026-02-09",
   },
+  {
+    title: "Prime AI/ML",
+    description: "Comprehensive AI and Machine Learning course covering neural networks, deep learning, NLP, and practical AI applications with hands-on projects.",
+    category: "AI",
+    duration: "16 weeks",
+    students: "4.7K",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop",
+    link: "https://t.me/+0OJBUTnwSI4xMzNl",
+    dateAdded: "2026-02-10",
+  },
 ];
 
 // All resources (will be sorted alphabetically)
@@ -808,11 +818,19 @@ const appsData: App[] = [
   },
   {
     title: "Best All In One App",
-    description: "Ultimate all-in-one utility app combining multiple tools. File manager, calculator, converter, and more in a single powerful application.",
-    category: "Utility",
-    image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&auto=format&fit=crop",
+    description: "Ultimate all-in-one entertainment app with movies, anime, and streaming support. Watch your favorite content all in one place.",
+    category: "Entertainment",
+    image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&auto=format&fit=crop",
     link: "https://t.me/nextupfilebot?start=BQADAQADzBYAAiuQSUSdQoiz4HdnaRYE",
     dateAdded: "2026-02-09",
+  },
+  {
+    title: "Best OTT App",
+    description: "Premium OTT streaming app with access to movies, TV shows, and exclusive content. Stream your favorite entertainment anytime, anywhere.",
+    category: "Entertainment",
+    image: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADTw4AAu5NWET6NTXbH4tbgxYE",
+    dateAdded: "2026-02-10",
   },
 ];
 

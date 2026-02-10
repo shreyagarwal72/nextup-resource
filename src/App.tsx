@@ -6,10 +6,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import PencilLoader from "@/components/PencilLoader";
+import Material3Loader from "@/components/Material3Loader";
 import { useBetaUI } from "@/hooks/useBetaUI";
 import Material3Layout from "@/components/beta/Material3Layout";
 
-// Lazy load pages for better performance
+// Lazy load pages
 const Index = lazy(() => import("./pages/Index"));
 const Courses = lazy(() => import("./pages/Courses"));
 const Resources = lazy(() => import("./pages/Resources"));
@@ -22,7 +23,7 @@ const FAQ = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Settings = lazy(() => import("./pages/Settings"));
 
-// Beta pages
+// Material 3 pages
 const BetaIndex = lazy(() => import("./pages/beta/BetaIndex"));
 const BetaCourses = lazy(() => import("./pages/beta/BetaCourses"));
 const BetaResources = lazy(() => import("./pages/beta/BetaResources"));
@@ -30,11 +31,12 @@ const BetaEbooks = lazy(() => import("./pages/beta/BetaEbooks"));
 const BetaApps = lazy(() => import("./pages/beta/BetaApps"));
 const BetaFAQ = lazy(() => import("./pages/beta/BetaFAQ"));
 const BetaSettings = lazy(() => import("./pages/beta/BetaSettings"));
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      gcTime: 1000 * 60 * 30, // 30 minutes (formerly cacheTime)
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 30,
       refetchOnWindowFocus: false,
     },
   },
@@ -46,7 +48,6 @@ const AppContent = () => {
   const [hasShownSplash, setHasShownSplash] = useState(false);
 
   useEffect(() => {
-    // Check if splash was already shown in this session
     const splashShown = sessionStorage.getItem("splashShown");
     if (splashShown) {
       setShowSplash(false);
@@ -60,43 +61,43 @@ const AppContent = () => {
     sessionStorage.setItem("splashShown", "true");
   };
 
-  // Page loading fallback
   const PageLoader = () => (
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="flex gap-2">
         {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="w-3 h-3 rounded-full bg-primary animate-bounce"
-            style={{ animationDelay: `${i * 0.1}s` }}
-          />
+          <div key={i} className="w-3 h-3 rounded-full bg-primary animate-bounce" style={{ animationDelay: `${i * 0.1}s` }} />
         ))}
       </div>
     </div>
   );
 
-  // Material 3 Beta UI
+  // Material 3 UI
   if (isBetaEnabled) {
     return (
-      <BrowserRouter>
-        <Material3Layout onExitBeta={disableBetaUI}>
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<BetaIndex />} />
-              <Route path="/courses" element={<BetaCourses />} />
-              <Route path="/resources" element={<BetaResources />} />
-              <Route path="/ebooks" element={<BetaEbooks />} />
-              <Route path="/apps" element={<BetaApps />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/install" element={<Install />} />
-              <Route path="/faq" element={<BetaFAQ />} />
-              <Route path="/settings" element={<BetaSettings />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </Material3Layout>
-      </BrowserRouter>
+      <>
+        {showSplash && !hasShownSplash && (
+          <Material3Loader onComplete={handleSplashComplete} duration={1800} />
+        )}
+        <BrowserRouter>
+          <Material3Layout onExitBeta={disableBetaUI}>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<BetaIndex />} />
+                <Route path="/courses" element={<BetaCourses />} />
+                <Route path="/resources" element={<BetaResources />} />
+                <Route path="/ebooks" element={<BetaEbooks />} />
+                <Route path="/apps" element={<BetaApps />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/install" element={<Install />} />
+                <Route path="/faq" element={<BetaFAQ />} />
+                <Route path="/settings" element={<BetaSettings />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </Material3Layout>
+        </BrowserRouter>
+      </>
     );
   }
 
