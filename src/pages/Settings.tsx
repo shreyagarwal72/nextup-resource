@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap } from "lucide-react";
+import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Bell } from "lucide-react";
 import { useBetaUI } from "@/hooks/useBetaUI";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { useSortPreference, SortPreference } from "@/hooks/useSortPreference";
@@ -21,13 +21,6 @@ const themes = [
     icon: Layers,
     gradient: "from-violet-500/20 via-pink-500/20 to-orange-500/20",
   },
-  {
-    id: "study",
-    name: "Study Mode",
-    description: "Calm, focused theme with filtered educational content only",
-    icon: GraduationCap,
-    gradient: "from-emerald-500/20 via-green-500/20 to-teal-500/20",
-  },
 ] as const;
 
 const sortOptions: { id: SortPreference; label: string; description: string }[] = [
@@ -38,23 +31,17 @@ const sortOptions: { id: SortPreference; label: string; description: string }[] 
 
 const Settings = () => {
   const { isBetaEnabled, enableBetaUI, disableBetaUI } = useBetaUI();
-  const { isStudyMode, enableStudyMode, disableStudyMode } = useStudyMode();
+  const { isStudyMode, toggleStudyMode } = useStudyMode();
   const { sortPreference, setSortPreference } = useSortPreference();
 
-  const activeTheme = isStudyMode ? "study" : isBetaEnabled ? "material3" : "glass";
+  const activeTheme = isBetaEnabled ? "material3" : "glass";
 
   const handleThemeChange = (themeId: string) => {
-    // First disable everything
-    if (isBetaEnabled) disableBetaUI();
-    if (isStudyMode) disableStudyMode();
-
-    // Then enable the selected theme
-    if (themeId === "material3") {
+    if (themeId === "material3" && !isBetaEnabled) {
       enableBetaUI();
-    } else if (themeId === "study") {
-      enableStudyMode();
+    } else if (themeId === "glass" && isBetaEnabled) {
+      disableBetaUI();
     }
-    // "glass" = default, nothing to enable
   };
 
   return (
@@ -83,7 +70,7 @@ const Settings = () => {
               <Palette className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold text-foreground">Theme</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {themes.map((theme) => {
                 const isActive = activeTheme === theme.id;
                 return (
@@ -112,6 +99,43 @@ const Settings = () => {
             </div>
           </section>
 
+          {/* Study Mode Toggle */}
+          <section className="mb-10">
+            <div className="flex items-center gap-2 mb-5">
+              <GraduationCap className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-semibold text-foreground">Study Mode</h2>
+            </div>
+            <div className="glass-heavy rounded-2xl p-5 liquid-border">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isStudyMode ? "bg-emerald-500/20" : "bg-muted"}`}>
+                    <GraduationCap className={`w-5 h-5 ${isStudyMode ? "text-emerald-500" : "text-muted-foreground"}`} />
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground">Focus Mode</p>
+                    <p className="text-xs text-muted-foreground">Show only educational content with calm theme</p>
+                  </div>
+                </div>
+                <button
+                  onClick={toggleStudyMode}
+                  className={`relative w-12 h-7 rounded-full transition-all duration-300 ${
+                    isStudyMode ? "bg-emerald-500" : "bg-muted-foreground/30"
+                  }`}
+                >
+                  <div
+                    className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md transition-all duration-300 ${
+                      isStudyMode ? "left-[22px]" : "left-0.5"
+                    }`}
+                  />
+                </button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-3 flex items-start gap-1.5">
+                <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                Works with both Liquid Glass and Material 3 themes
+              </p>
+            </div>
+          </section>
+
           {/* Sort Preference */}
           <section className="mb-10">
             <div className="flex items-center gap-2 mb-5">
@@ -125,17 +149,11 @@ const Settings = () => {
                   onClick={() => setSortPreference(option.id)}
                   className={`w-full flex items-center gap-4 px-5 py-4 text-left transition-all duration-200 ${
                     index < sortOptions.length - 1 ? "border-b border-border/30" : ""
-                  } ${
-                    sortPreference === option.id
-                      ? "bg-primary/5"
-                      : "hover:bg-primary/5"
-                  }`}
+                  } ${sortPreference === option.id ? "bg-primary/5" : "hover:bg-primary/5"}`}
                 >
                   <div
                     className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
-                      sortPreference === option.id
-                        ? "border-primary bg-primary"
-                        : "border-muted-foreground/40"
+                      sortPreference === option.id ? "border-primary bg-primary" : "border-muted-foreground/40"
                     }`}
                   >
                     {sortPreference === option.id && (
@@ -148,6 +166,28 @@ const Settings = () => {
                   </div>
                 </button>
               ))}
+            </div>
+          </section>
+
+          {/* About */}
+          <section className="mb-10">
+            <div className="flex items-center gap-2 mb-5">
+              <Globe className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-semibold text-foreground">About</h2>
+            </div>
+            <div className="glass-heavy rounded-2xl p-5 liquid-border space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Version</span>
+                <span className="text-sm font-medium text-foreground">2.0.0</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Content Items</span>
+                <span className="text-sm font-medium text-foreground">50+</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">PWA Support</span>
+                <span className="text-sm font-medium text-emerald-500">Enabled</span>
+              </div>
             </div>
           </section>
         </div>

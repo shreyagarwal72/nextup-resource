@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { BookOpen, Package, BookText, Smartphone, ArrowRight, Sparkles, GraduationCap } from "lucide-react";
 import { useStudyMode } from "@/hooks/useStudyMode";
+import { useTypewriter } from "@/hooks/useTypewriter";
+import "@/styles/material3.css";
 import "@/styles/material3.css";
 
 const BetaIndex = () => {
   const { isStudyMode } = useStudyMode();
+  const typewriterText = useTypewriter(["Courses", "Resources", "Ebooks", "Apps"], 120, 80, 2000);
   
   const categories = [
     { 
@@ -62,7 +65,11 @@ const BetaIndex = () => {
             {isStudyMode ? (
               <>Focused Learning<br />for Success</>
             ) : (
-              <>Quality Education<br />for Everyone</>
+              <>Explore{" "}
+                <span style={{ color: "hsl(var(--md-sys-color-primary))" }}>
+                  {typewriterText}<span className="animate-pulse">|</span>
+                </span>
+              </>
             )}
           </h1>
           
