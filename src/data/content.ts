@@ -477,6 +477,16 @@ const coursesData: Course[] = [
     link: "https://t.me/+0OJBUTnwSI4xMzNl",
     dateAdded: "2026-02-10",
   },
+  {
+    title: "Dhruv Rathee Video Editing Course",
+    description: "Learn professional video editing techniques inspired by Dhruv Rathee's content style. Master storytelling, pacing, and visual effects for YouTube.",
+    category: "Video Editing",
+    duration: "8 weeks",
+    students: "5.5K",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1dD3rNAgNM0EgIwamttcPzgc0vyx7ySKS",
+    dateAdded: "2026-02-12",
+  },
 ];
 
 // All resources (will be sorted alphabetically)
@@ -831,6 +841,22 @@ const appsData: App[] = [
     image: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=800&auto=format&fit=crop",
     link: "https://t.me/nextupfilebot?start=BQADAQADTw4AAu5NWET6NTXbH4tbgxYE",
     dateAdded: "2026-02-10",
+  },
+  {
+    title: "Red Dead Redemption",
+    description: "Experience the epic open-world action-adventure game on mobile. Explore the Wild West with stunning visuals and immersive gameplay.",
+    category: "Gaming",
+    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&auto=format&fit=crop",
+    link: "https://shortli.org/5ahcOU#",
+    dateAdded: "2026-02-12",
+  },
+  {
+    title: "GTA Vice City Definitive Edition",
+    description: "The definitive edition of the classic GTA Vice City with enhanced graphics, improved controls, and remastered gameplay for mobile devices.",
+    category: "Gaming",
+    image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADBxAAArBhaUQrqKqmRHeb8RYE",
+    dateAdded: "2026-02-12",
   },
 ];
 

@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, BookOpen, Package, BookText, Smartphone, Heart, Menu, X, Search, Sun, Moon, HelpCircle, Settings } from "lucide-react";
+import { Home, BookOpen, Package, BookText, Smartphone, Heart, Menu, X, Search, Sun, Moon, HelpCircle, Settings, Bot } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { StudyModeToggle } from "@/components/StudyModeToggle";
@@ -17,6 +17,7 @@ const navItems = [
   { path: "/resources", icon: Package, label: "Resources" },
   { path: "/ebooks", icon: BookText, label: "Ebooks" },
   { path: "/apps", icon: Smartphone, label: "Apps" },
+  { path: "/ai", icon: Bot, label: "AI" },
   { path: "/favorites", icon: Heart, label: "Favorites" },
   { path: "/faq", icon: HelpCircle, label: "FAQ" },
   { path: "/settings", icon: Settings, label: "Settings" },
@@ -138,7 +139,7 @@ const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
       {/* Navigation Bar - Mobile */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 md3-navigation-bar">
         <div className="flex justify-around py-2">
-          {navItems.slice(0, 5).map((item) => {
+          {navItems.slice(0, 6).map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <Link

@@ -22,6 +22,7 @@ const Install = lazy(() => import("./pages/Install"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Settings = lazy(() => import("./pages/Settings"));
+const AI = lazy(() => import("./pages/AI"));
 
 // Material 3 pages
 const BetaIndex = lazy(() => import("./pages/beta/BetaIndex"));
@@ -31,6 +32,7 @@ const BetaEbooks = lazy(() => import("./pages/beta/BetaEbooks"));
 const BetaApps = lazy(() => import("./pages/beta/BetaApps"));
 const BetaFAQ = lazy(() => import("./pages/beta/BetaFAQ"));
 const BetaSettings = lazy(() => import("./pages/beta/BetaSettings"));
+const BetaAI = lazy(() => import("./pages/beta/BetaAI"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -92,6 +94,7 @@ const AppContent = () => {
                 <Route path="/install" element={<Install />} />
                 <Route path="/faq" element={<BetaFAQ />} />
                 <Route path="/settings" element={<BetaSettings />} />
+                <Route path="/ai" element={<BetaAI />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
@@ -121,6 +124,7 @@ const AppContent = () => {
             <Route path="/install" element={<Install />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/ai" element={<AI />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

@@ -57,19 +57,22 @@ const BetaIndex = () => {
           <h1 className="mb-6 md3-animate-enter md3-stagger-1" 
               style={{ 
                 color: "hsl(var(--md-sys-color-on-surface))",
-                fontSize: "clamp(2.5rem, 8vw, 4rem)",
-                lineHeight: 1.1,
+                fontSize: "clamp(1.75rem, 6vw, 4rem)",
+                lineHeight: 1.15,
                 fontWeight: 700,
-                letterSpacing: "-0.02em"
+                letterSpacing: "-0.02em",
+                wordBreak: "break-word",
+                overflowWrap: "break-word",
               }}>
             {isStudyMode ? (
               <>Focused Learning<br />for Success</>
             ) : (
-              <>Explore{" "}
-                <span style={{ color: "hsl(var(--md-sys-color-primary))" }}>
+              <span className="inline-flex flex-wrap items-baseline justify-center gap-x-3">
+                <span>Explore</span>
+                <span style={{ color: "hsl(var(--md-sys-color-primary))", whiteSpace: "nowrap" }}>
                   {typewriterText}<span className="animate-pulse">|</span>
                 </span>
-              </>
+              </span>
             )}
           </h1>
           
