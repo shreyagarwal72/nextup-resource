@@ -23,6 +23,15 @@ const navItems = [
   { path: "/settings", icon: Settings, label: "Settings" },
 ];
 
+// Mobile bottom nav: Home, Courses, AI, Apps, Favorites (5 items, well-spaced)
+const mobileNavItems = [
+  { path: "/", icon: Home, label: "Home" },
+  { path: "/courses", icon: BookOpen, label: "Courses" },
+  { path: "/ai", icon: Bot, label: "AI" },
+  { path: "/apps", icon: Smartphone, label: "Apps" },
+  { path: "/favorites", icon: Heart, label: "Favorites" },
+];
+
 const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
@@ -139,7 +148,7 @@ const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
       {/* Navigation Bar - Mobile */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 md3-navigation-bar">
         <div className="flex justify-around py-2">
-          {navItems.slice(0, 6).map((item) => {
+          {mobileNavItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <Link
