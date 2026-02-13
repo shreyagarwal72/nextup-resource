@@ -33,6 +33,7 @@ const BetaApps = lazy(() => import("./pages/beta/BetaApps"));
 const BetaFAQ = lazy(() => import("./pages/beta/BetaFAQ"));
 const BetaSettings = lazy(() => import("./pages/beta/BetaSettings"));
 const BetaAI = lazy(() => import("./pages/beta/BetaAI"));
+const BetaFavorites = lazy(() => import("./pages/beta/BetaFavorites"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -89,7 +90,7 @@ const AppContent = () => {
                 <Route path="/resources" element={<BetaResources />} />
                 <Route path="/ebooks" element={<BetaEbooks />} />
                 <Route path="/apps" element={<BetaApps />} />
-                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/favorites" element={<BetaFavorites />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/install" element={<Install />} />
                 <Route path="/faq" element={<BetaFAQ />} />
