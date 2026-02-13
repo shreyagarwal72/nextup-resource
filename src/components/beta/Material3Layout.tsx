@@ -23,13 +23,13 @@ const navItems = [
   { path: "/settings", icon: Settings, label: "Settings" },
 ];
 
-// Mobile bottom nav: Home, Courses, AI, Apps, Favorites (5 items, well-spaced)
+// Mobile bottom nav: Home, Courses, AI, Apps, Resources (5 items, well-spaced)
 const mobileNavItems = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/courses", icon: BookOpen, label: "Courses" },
   { path: "/ai", icon: Bot, label: "AI" },
   { path: "/apps", icon: Smartphone, label: "Apps" },
-  { path: "/favorites", icon: Heart, label: "Favorites" },
+  { path: "/resources", icon: Package, label: "Resources" },
 ];
 
 const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
