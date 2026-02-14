@@ -507,6 +507,17 @@ const coursesData: Course[] = [
     link: "https://t.me/+yU83JGCUfN42MGE1",
     dateAdded: "2026-02-13",
   },
+  {
+    title: "Improve your English Conversation",
+    description: "Enhance your English speaking skills with practical conversation techniques, pronunciation tips, and real-world dialogue practice.",
+    category: "Language",
+    duration: "8 weeks",
+    students: "5.6K",
+    image: englishCourseImg,
+    link: "https://t.me/+nIgRCScYWktiMmQ1",
+    dateAdded: "2026-02-14",
+    isStudyContent: true,
+  },
 ];
 
 // All resources (will be sorted alphabetically)
@@ -697,6 +708,14 @@ const ebooksData: Ebook[] = [
     category: "Business",
     image: vipEbookPackImg,
     link: "https://drive.google.com/drive/folders/1PWV29Q0NH4-2jqA8hYNw6WGShamu6HiE?usp=drive_link",
+  },
+  {
+    title: "Youtube Automation",
+    description: "Complete ebook guide to building and automating a profitable YouTube channel. Covers content strategy, growth hacking, and monetization.",
+    category: "Business",
+    image: ebookDefaultImg,
+    link: "https://t.me/nextupfilebot?start=BQADAQAD9gwAArNriES59xQuAsbHExYE",
+    dateAdded: "2026-02-14",
   },
 ];
 

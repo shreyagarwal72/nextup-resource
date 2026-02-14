@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, BookOpen, Package, BookText, Smartphone, Heart, Menu, X, Search, Sun, Moon, HelpCircle, Settings, Bot } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -32,12 +32,24 @@ const mobileNavItems = [
   { path: "/resources", icon: Package, label: "Resources" },
 ];
 
+const MagicIndicator = ({ activeIndex }: { activeIndex: number }) => (
+  <div 
+    className="magic-indicator"
+    style={{ transform: `translateX(calc(70px * ${activeIndex}))` }}
+  />
+);
+
 const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
   const { isStudyMode } = useStudyMode();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const activeNavIndex = useMemo(() => {
+    const idx = mobileNavItems.findIndex(item => item.path === location.pathname);
+    return idx >= 0 ? idx : 0;
+  }, [location.pathname]);
 
   return (
     <div className={`material3-theme ${theme === "dark" ? "dark" : ""} ${isStudyMode ? "study-mode" : ""} min-h-screen md3-surface`}>
@@ -145,23 +157,25 @@ const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
         </div>
       </main>
 
-      {/* Navigation Bar - Mobile */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 md3-navigation-bar">
-        <div className="flex justify-around py-2">
-          {mobileNavItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`md3-navigation-item relative ${isActive ? "active" : ""}`}
-              >
-                {isActive && <div className="md3-nav-indicator" />}
-                <item.icon className="w-6 h-6 relative z-10" />
-                <span className="md3-label-small relative z-10">{item.label}</span>
-              </Link>
-            );
-          })}
+      {/* Magic Navigation Bar - Mobile */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50">
+        <div className="magic-nav">
+          <ul className="magic-nav-list">
+            {mobileNavItems.map((item, index) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <li key={item.path} className={`magic-nav-item ${isActive ? "active" : ""}`}>
+                  <Link to={item.path} className="magic-nav-link">
+                    <span className="magic-nav-icon">
+                      <item.icon className="w-6 h-6" />
+                    </span>
+                    <span className="magic-nav-text">{item.label}</span>
+                  </Link>
+                </li>
+              );
+            })}
+            <MagicIndicator activeIndex={activeNavIndex} />
+          </ul>
         </div>
       </nav>
 
