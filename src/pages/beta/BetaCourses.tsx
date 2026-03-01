@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, BookOpen } from "lucide-react";
+import { Search, BookOpen, Clock, Users, ExternalLink } from "lucide-react";
 import { allCourses, studyCategories, sortByPreference, groupByCategory } from "@/data/content";
 import Material3CourseCard from "@/components/beta/Material3CourseCard";
 import { useStudyMode } from "@/hooks/useStudyMode";
@@ -31,31 +31,33 @@ const BetaCourses = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Hero */}
       <section 
-        className="py-12 px-4"
-        style={{ background: "linear-gradient(135deg, hsl(var(--md-sys-color-primary-container)) 0%, hsl(var(--md-sys-color-surface)) 100%)" }}
+        className="relative py-20 px-4 overflow-hidden"
+        style={{ background: "linear-gradient(135deg, hsl(var(--md-sys-color-primary-container)) 0%, hsl(var(--md-sys-color-secondary-container)) 50%, hsl(var(--md-sys-color-surface)) 100%)" }}
       >
-        <div className="container mx-auto max-w-5xl">
-          <div className="flex items-center gap-3 mb-4">
-            {isStudyMode && (
-              <div className="w-12 h-12 rounded-full flex items-center justify-center md3-animate-enter"
-                   style={{ background: "hsl(var(--md-sys-color-primary))" }}>
-                <BookOpen className="w-6 h-6 text-white" />
-              </div>
-            )}
-            <h1 className="md3-display-small md3-animate-enter"
-                style={{ color: "hsl(var(--md-sys-color-on-surface))", fontWeight: 600 }}>
-              {isStudyMode ? "Study Courses" : "All Courses"}
-            </h1>
+        <div className="absolute inset-0 opacity-20"
+             style={{ background: "radial-gradient(circle at 20% 80%, hsl(var(--md-sys-color-tertiary) / 0.3), transparent 50%)" }} />
+        
+        <div className="container mx-auto max-w-5xl relative z-10">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center md3-animate-enter"
+                 style={{ background: "hsl(var(--md-sys-color-primary))", boxShadow: "0 8px 32px hsl(var(--md-sys-color-primary) / 0.3)" }}>
+              <BookOpen className="w-8 h-8 text-white" />
+            </div>
+            <div>
+              <h1 className="md3-display-small md3-animate-enter md3-stagger-1"
+                  style={{ color: "hsl(var(--md-sys-color-on-surface))", fontWeight: 700 }}>
+                {isStudyMode ? "Study Courses" : "All Courses"}
+              </h1>
+              <p className="md3-body-large md3-animate-enter md3-stagger-2"
+                 style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
+                {filteredCourses.length} courses available
+              </p>
+            </div>
           </div>
-          <p className="md3-body-large mb-8 md3-animate-enter md3-stagger-1"
-             style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
-            {isStudyMode 
-              ? "Focused educational courses for productive learning"
-              : "Discover our complete collection of premium courses"}
-          </p>
           
-          <div className="md3-search-bar max-w-xl md3-animate-enter md3-stagger-2">
+          <div className="md3-search-bar max-w-xl md3-animate-enter md3-stagger-3">
             <Search className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }} />
             <input
               type="text"
@@ -74,10 +76,17 @@ const BetaCourses = () => {
           {filteredCourses.length > 0 ? (
             isCategoryView && grouped ? (
               Object.entries(grouped).map(([category, items]) => (
-                <div key={category} className="mb-10">
-                  <h2 className="md3-headline-small mb-6" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>
-                    {category}
-                  </h2>
+                <div key={category} className="mb-12 md3-animate-enter">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+                         style={{ background: "hsl(var(--md-sys-color-tertiary-container))" }}>
+                      <BookOpen className="w-4 h-4" style={{ color: "hsl(var(--md-sys-color-on-tertiary-container))" }} />
+                    </div>
+                    <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))", fontWeight: 600 }}>
+                      {category}
+                    </h2>
+                    <span className="md3-chip text-xs ml-auto">{items.length}</span>
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {items.map((course, index) => (
                       <div key={course.title} className={`md3-animate-enter md3-stagger-${(index % 6) + 1}`}>
