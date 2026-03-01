@@ -39,8 +39,13 @@ const BetaSettings = () => {
   const activeTheme = isBetaEnabled ? "material3" : "glass";
 
   const handleThemeChange = (themeId: string) => {
-    if (themeId === "material3" && !isBetaEnabled) enableBetaUI();
-    else if (themeId === "glass" && isBetaEnabled) disableBetaUI();
+    if (themeId === "material3" && !isBetaEnabled) {
+      enableBetaUI();
+      window.location.reload();
+    } else if (themeId === "glass" && isBetaEnabled) {
+      disableBetaUI();
+      window.location.reload();
+    }
   };
 
   const handleClearFavorites = () => {

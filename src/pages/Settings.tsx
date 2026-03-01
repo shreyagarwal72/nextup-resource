@@ -56,8 +56,10 @@ const Settings = () => {
   const handleThemeChange = (themeId: string) => {
     if (themeId === "material3" && !isBetaEnabled) {
       enableBetaUI();
+      window.location.reload();
     } else if (themeId === "glass" && isBetaEnabled) {
       disableBetaUI();
+      window.location.reload();
     }
   };
 

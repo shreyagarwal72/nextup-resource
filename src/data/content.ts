@@ -25,6 +25,9 @@ import ebookDefaultImg from "@/assets/ebooks/ebook-default.jpg";
 import videoEditorEbookImg from "@/assets/ebooks/video-editor-ebook.jpg";
 import vipEbookPackImg from "@/assets/ebooks/vip-ebook-pack.jpg";
 
+// Import app images
+import freePcGamesImg from "@/assets/apps/free-pc-games.jpg";
+
 export interface Course {
   title: string;
   description: string;
@@ -518,6 +521,16 @@ const coursesData: Course[] = [
     dateAdded: "2026-02-14",
     isStudyContent: true,
   },
+  {
+    title: "Earn from Social Media by EzSnippet",
+    description: "Learn proven strategies to monetize your social media presence. Covers content creation, audience building, brand deals, and multiple income streams.",
+    category: "Business",
+    duration: "8 weeks",
+    students: "4.3K",
+    image: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1ry86BdZSIOfDolCyXsQfX-uYOeSMlVQS",
+    dateAdded: "2026-03-01",
+  },
 ];
 
 // All resources (will be sorted alphabetically)
@@ -683,6 +696,30 @@ const resourcesData: Resource[] = [
     image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&auto=format&fit=crop",
     link: "https://drive.google.com/drive/mobile/folders/10QJQ007Ahnp1CHf6jKLi7rs4c1cDQVw8",
     dateAdded: "2026-02-13",
+  },
+  {
+    title: "All Essential Editing Pack",
+    description: "Complete editing pack with everything you need — transitions, effects, overlays, sound effects, LUTs, and templates for professional video editing.",
+    category: "Video",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1tF0AUt9RIZdENTDJJa1fktPtzTdGslN6",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "90's Evergreen Bollywood Songs Collection",
+    description: "Ultimate FLAC collection of 90's evergreen Bollywood songs. High-quality lossless audio for the best listening experience. Available via Drive and Torrent.",
+    category: "Audio",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1094dBOkA5sMuW7Q-ATnV6GvqPaL6Uq5L",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "Master Preset Bundle",
+    description: "Premium master preset bundle for photo and video editing. Professional-grade presets to transform your content with one click.",
+    category: "Video",
+    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADsQ4AAk4QCUXN0kdnxce75BYE",
+    dateAdded: "2026-03-01",
   },
 ];
 
@@ -960,6 +997,95 @@ const appsData: App[] = [
     image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&auto=format&fit=crop",
     link: "https://dl.apkvision.org/gta-vice-city-definitive/GTA-Vice-City-Definitive-v1.90.0-full-apkvision.apk",
     dateAdded: "2026-02-13",
+  },
+  // FREE PC Games Collection
+  {
+    title: "FREE PC Games Collection",
+    description: "Download 10 premium PC games for free including GTA III, Cities Skylines II, The Last of Us Part II, Forza Horizon 5, Palworld, Spider-Man, FIFA 23, Cyberpunk 2077, TEKKEN 8, and Far Cry 6.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/PK0OMw?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "GTA III - Definitive Edition (PC)",
+    description: "The classic GTA III fully remastered for PC with enhanced visuals, improved controls and modern quality-of-life features.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/PK0OMw?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "Cities: Skylines II (PC)",
+    description: "Build and manage your dream city in this next-gen city builder with improved simulation, graphics, and modding support.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/LhFyju?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "The Last of Us Part II (PC)",
+    description: "Experience the emotionally gripping sequel with stunning visuals, intense gameplay, and a deep narrative on PC.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/3FylJR?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "Forza Horizon 5 (PC)",
+    description: "Open-world racing game set in Mexico. Explore stunning landscapes and race hundreds of cars in this definitive driving experience.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/QaJLW5?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "Palworld (PC)",
+    description: "Creature-collecting survival game where you fight, farm, build, and work alongside mysterious creatures called Pals.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/D2ZMrz?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "Marvel's Spider-Man Remastered (PC)",
+    description: "Swing through Marvel's New York as Spider-Man with upgraded graphics, ray-tracing, and all DLC content included.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/A8o86m?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "FIFA 23 (PC)",
+    description: "The last FIFA-branded football game with HyperMotion2, women's club football, and cross-play for the ultimate football experience.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/weT7jM?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "Cyberpunk 2077: Phantom Liberty (PC)",
+    description: "Explore the dark future of Night City with the Phantom Liberty expansion. Featuring Keanu Reeves and a revamped RPG experience.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/9bOAXv?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "TEKKEN 8 (PC)",
+    description: "Next-gen fighting game with stunning Unreal Engine 5 graphics, new Heat system, and an expanded roster of fighters.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/I9opk8?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
+  },
+  {
+    title: "Far Cry 6 (PC)",
+    description: "Open-world FPS set on a tropical island ruled by a dictator. Features guerrilla warfare, vehicles, and a massive open world.",
+    category: "PC Gaming",
+    image: freePcGamesImg,
+    link: "https://gofile.io/d/5WzB4a?utm_source=tg&utm_campaign=pcgames_freedownload&utm_medium=content&utm_term=12159",
+    dateAdded: "2026-03-01",
   },
 ];
 

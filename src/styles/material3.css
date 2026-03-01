@@ -112,16 +112,20 @@
   border-radius: var(--md-sys-shape-corner-large);
   box-shadow: var(--md-sys-elevation-level1);
   transition: box-shadow var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
-              transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+              transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+              border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+  border: 1px solid transparent;
 }
 
 .md3-card:hover {
   box-shadow: var(--md-sys-elevation-level3);
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.01);
+  border-color: hsl(var(--md-sys-color-outline-variant));
 }
 
 .md3-card:active {
   transform: translateY(-2px) scale(0.99);
+  transition-duration: 100ms;
 }
 
 .md3-filled-button {
