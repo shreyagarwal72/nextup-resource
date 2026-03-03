@@ -531,6 +531,26 @@ const coursesData: Course[] = [
     link: "https://drive.google.com/drive/folders/1ry86BdZSIOfDolCyXsQfX-uYOeSMlVQS",
     dateAdded: "2026-03-01",
   },
+  {
+    title: "Medical Astrology",
+    description: "Learn the ancient science of medical astrology — understand how planetary positions influence health, diagnosis, and holistic healing.",
+    category: "Spirituality",
+    duration: "10 weeks",
+    students: "1.8K",
+    image: "https://images.unsplash.com/photo-1532968961962-8a0ff256bdb2?w=800&auto=format&fit=crop",
+    link: "https://t.me/+nIgRCScYWktiMmQ1",
+    dateAdded: "2026-03-03",
+  },
+  {
+    title: "Aryan Tripathi Digital Product Mastery Course",
+    description: "Master the art of creating and selling digital products. Learn product creation, marketing funnels, and scaling your digital business.",
+    category: "Business",
+    duration: "8 weeks",
+    students: "3.1K",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop",
+    link: "https://t.me/+T5873KJHbjg4ZDM1",
+    dateAdded: "2026-03-03",
+  },
 ];
 
 // All resources (will be sorted alphabetically)
@@ -720,6 +740,14 @@ const resourcesData: Resource[] = [
     image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&auto=format&fit=crop",
     link: "https://t.me/nextupfilebot?start=BQADAQADsQ4AAk4QCUXN0kdnxce75BYE",
     dateAdded: "2026-03-01",
+  },
+  {
+    title: "1500+ Premium Fonts Collection",
+    description: "Massive collection of over 1500 premium fonts for graphic design, branding, and content creation. Elevate your typography game.",
+    category: "Fonts",
+    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1Kvx6TX9NwqSEhyONIgrDPEWxXZfr9wFQ",
+    dateAdded: "2026-03-03",
   },
 ];
 
