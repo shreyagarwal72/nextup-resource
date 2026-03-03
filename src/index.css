@@ -41,7 +41,7 @@
     --glass-bg: 0 0% 100% / 0.55;
     --glass-bg-heavy: 0 0% 100% / 0.72;
     --glass-bg-ultra: 0 0% 100% / 0.85;
-    --glass-border: 0 0% 100% / 0.5;
+    --glass-border: 0 0% 100% / 0.65;
     --glass-border-subtle: 220 20% 90% / 0.6;
     --glass-shadow: 220 30% 15% / 0.06;
     --glass-shadow-lg: 220 30% 15% / 0.12;
@@ -51,18 +51,18 @@
     
     /* Liquid gradient tokens */
     --gradient-liquid: linear-gradient(135deg, 
-      hsl(211 100% 95% / 0.8) 0%, 
-      hsl(280 100% 95% / 0.6) 50%, 
-      hsl(211 100% 95% / 0.8) 100%);
+      hsl(211 100% 85% / 0.8) 0%, 
+      hsl(280 100% 85% / 0.6) 50%, 
+      hsl(211 100% 85% / 0.8) 100%);
     --gradient-shimmer: linear-gradient(120deg, 
       transparent 0%, 
       hsl(0 0% 100% / 0.6) 50%, 
       transparent 100%);
     --gradient-hero: 
-      radial-gradient(ellipse at 20% 0%, hsl(211 100% 85% / 0.5) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 100%, hsl(280 80% 85% / 0.4) 0%, transparent 50%),
-      radial-gradient(ellipse at 100% 30%, hsl(330 80% 90% / 0.3) 0%, transparent 35%),
-      radial-gradient(ellipse at 0% 80%, hsl(180 80% 90% / 0.25) 0%, transparent 40%);
+      radial-gradient(ellipse at 20% 0%, hsl(211 100% 75% / 0.65) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, hsl(280 90% 75% / 0.55) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 30%, hsl(330 85% 80% / 0.45) 0%, transparent 35%),
+      radial-gradient(ellipse at 0% 80%, hsl(180 85% 80% / 0.4) 0%, transparent 40%);
     
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -120,10 +120,10 @@
     --glass-shadow-lg: 0 0% 0% / 0.6;
     
     --gradient-hero: 
-      radial-gradient(ellipse at 20% 0%, hsl(211 100% 25% / 0.35) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 100%, hsl(280 80% 25% / 0.3) 0%, transparent 50%),
-      radial-gradient(ellipse at 100% 30%, hsl(330 80% 25% / 0.25) 0%, transparent 35%),
-      radial-gradient(ellipse at 0% 80%, hsl(180 80% 25% / 0.2) 0%, transparent 40%);
+      radial-gradient(ellipse at 20% 0%, hsl(211 100% 35% / 0.45) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, hsl(280 80% 35% / 0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 30%, hsl(330 80% 30% / 0.35) 0%, transparent 35%),
+      radial-gradient(ellipse at 0% 80%, hsl(180 80% 30% / 0.3) 0%, transparent 40%);
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -169,8 +169,8 @@
   /* iOS 26 Liquid Glass Classes - Enhanced with Apple timing */
   .glass {
     background: hsl(var(--glass-bg));
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(240%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(240%);
     border: 1px solid hsl(var(--glass-border));
     box-shadow: 
       0 8px 32px hsl(var(--glass-shadow)),
@@ -205,8 +205,8 @@
   /* iOS-style glass card with spring hover */
   .glass-card {
     background: hsl(var(--glass-bg));
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(240%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(240%);
     border: 1px solid hsl(var(--glass-border));
     border-radius: var(--radius);
     box-shadow: 
@@ -349,7 +349,7 @@
   .liquid-blob {
     position: absolute;
     filter: blur(100px);
-    opacity: 0.6;
+    opacity: 0.75;
     animation: ios-blob 18s var(--apple-standard) infinite;
     will-change: transform, border-radius;
   }
