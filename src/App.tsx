@@ -9,6 +9,10 @@ import PencilLoader from "@/components/PencilLoader";
 import Material3Loader from "@/components/Material3Loader";
 import { useBetaUI } from "@/hooks/useBetaUI";
 import Material3Layout from "@/components/beta/Material3Layout";
+import "@/styles/theme-neubrutalism.css";
+import "@/styles/theme-aurora.css";
+import "@/styles/theme-cyberpunk.css";
+import "@/styles/theme-claymorphism.css";
 
 // Lazy load pages
 const Index = lazy(() => import("./pages/Index"));
@@ -49,6 +53,17 @@ const AppContent = () => {
   const { isBetaEnabled, disableBetaUI } = useBetaUI();
   const [showSplash, setShowSplash] = useState(true);
   const [hasShownSplash, setHasShownSplash] = useState(false);
+
+  // Apply theme class on mount
+  useEffect(() => {
+    const themeClasses = ['theme-neubrutalism', 'theme-aurora', 'theme-cyberpunk', 'theme-claymorphism'];
+    const stored = localStorage.getItem('nextup-app-theme');
+    const root = document.documentElement;
+    themeClasses.forEach(cls => root.classList.remove(cls));
+    if (stored && themeClasses.includes(`theme-${stored}`)) {
+      root.classList.add(`theme-${stored}`);
+    }
+  }, []);
 
   useEffect(() => {
     const splashShown = sessionStorage.getItem("splashShown");

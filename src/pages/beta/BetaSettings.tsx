@@ -1,5 +1,5 @@
-import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun } from "lucide-react";
-import { useBetaUI } from "@/hooks/useBetaUI";
+import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun, Paintbrush, Flame, Cloud, Box } from "lucide-react";
+import { useAppTheme, AppTheme } from "@/hooks/useAppTheme";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { useSortPreference, SortPreference } from "@/hooks/useSortPreference";
 import { useAnimations, useCompactMode } from "@/hooks/useAnimations";
@@ -8,10 +8,23 @@ import { useTheme } from "next-themes";
 import { toast } from "@/hooks/use-toast";
 import "@/styles/material3.css";
 
-const themes = [
+const themes: { id: AppTheme; name: string; description: string; icon: any }[] = [
   { id: "glass", name: "Liquid Glass", description: "iOS-inspired glassmorphism with translucent surfaces", icon: Sparkles },
   { id: "material3", name: "Material 3", description: "Google's expressive design with dynamic color", icon: Layers },
-] as const;
+  { id: "neubrutalism", name: "Neubrutalism", description: "Bold borders, raw shadows, high-contrast playful style", icon: Paintbrush },
+  { id: "aurora", name: "Aurora", description: "Soft flowing mesh gradients, dreamy aesthetic", icon: Cloud },
+  { id: "cyberpunk", name: "Cyberpunk", description: "Dark neon-lit interface with glow accents", icon: Flame },
+  { id: "claymorphism", name: "Claymorphism", description: "Soft 3D-raised cards with warm pastel depth", icon: Box },
+];
+
+const themeNames: Record<AppTheme, string> = {
+  glass: "Liquid Glass",
+  material3: "Material 3",
+  neubrutalism: "Neubrutalism",
+  aurora: "Aurora",
+  cyberpunk: "Cyberpunk",
+  claymorphism: "Claymorphism",
+};
 
 const sortOptions: { id: SortPreference; label: string; description: string }[] = [
   { id: "alphabetical", label: "Alphabetical", description: "Sort items A-Z by title" },
@@ -28,25 +41,13 @@ const Md3Toggle = ({ enabled, onToggle, activeColor = "hsl(var(--md-sys-color-pr
 );
 
 const BetaSettings = () => {
-  const { isBetaEnabled, enableBetaUI, disableBetaUI } = useBetaUI();
+  const { appTheme, setAppTheme } = useAppTheme();
   const { isStudyMode, toggleStudyMode } = useStudyMode();
   const { sortPreference, setSortPreference } = useSortPreference();
   const { animationsEnabled, toggleAnimations } = useAnimations();
   const { compactMode, toggleCompactMode } = useCompactMode();
   const { clearFavorites, totalCount } = useFavorites();
   const { theme, setTheme } = useTheme();
-
-  const activeTheme = isBetaEnabled ? "material3" : "glass";
-
-  const handleThemeChange = (themeId: string) => {
-    if (themeId === "material3" && !isBetaEnabled) {
-      enableBetaUI();
-      window.location.reload();
-    } else if (themeId === "glass" && isBetaEnabled) {
-      disableBetaUI();
-      window.location.reload();
-    }
-  };
 
   const handleClearFavorites = () => {
     clearFavorites();
@@ -79,12 +80,12 @@ const BetaSettings = () => {
               <Palette className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
               <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>Theme</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {themes.map((t, index) => {
-                const isActive = activeTheme === t.id;
+                const isActive = appTheme === t.id;
                 return (
-                  <button key={t.id} onClick={() => handleThemeChange(t.id)}
-                    className={`md3-card p-5 text-left md3-animate-enter md3-stagger-${index + 1} transition-all duration-200`}
+                  <button key={t.id} onClick={() => setAppTheme(t.id)}
+                    className={`md3-card p-5 text-left md3-animate-enter md3-stagger-${(index % 6) + 1} transition-all duration-200`}
                     style={{
                       border: isActive ? "2px solid hsl(var(--md-sys-color-primary))" : "2px solid transparent",
                       background: isActive ? "hsl(var(--md-sys-color-primary-container))" : undefined,
@@ -251,10 +252,11 @@ const BetaSettings = () => {
               <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>About</h2>
             </div>
             <div className="md3-card p-5 space-y-3">
-              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Version</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>2.1.0</span></div>
+              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Version</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>2.2.0</span></div>
               <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Content Items</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>50+</span></div>
               <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>PWA Support</span><span className="md3-title-small" style={{ color: "hsl(142, 71%, 45%)" }}>Enabled</span></div>
-              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Active Theme</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-primary))" }}>Material 3</span></div>
+              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Active Theme</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-primary))" }}>{themeNames[appTheme]}</span></div>
+              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Available Themes</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>6</span></div>
             </div>
           </div>
         </div>
