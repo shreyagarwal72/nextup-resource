@@ -1,8 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun } from "lucide-react";
-import { useBetaUI } from "@/hooks/useBetaUI";
+import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun, Paintbrush, Flame, Cloud, Box } from "lucide-react";
+import { useAppTheme, AppTheme } from "@/hooks/useAppTheme";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { useSortPreference, SortPreference } from "@/hooks/useSortPreference";
 import { useAnimations, useCompactMode } from "@/hooks/useAnimations";
@@ -10,7 +10,7 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useTheme } from "next-themes";
 import { toast } from "@/hooks/use-toast";
 
-const themes = [
+const themes: { id: AppTheme; name: string; description: string; icon: any; gradient: string }[] = [
   {
     id: "glass",
     name: "Liquid Glass",
@@ -25,7 +25,44 @@ const themes = [
     icon: Layers,
     gradient: "from-violet-500/20 via-pink-500/20 to-orange-500/20",
   },
-] as const;
+  {
+    id: "neubrutalism",
+    name: "Neubrutalism",
+    description: "Bold borders, raw shadows, and high-contrast playful aesthetics",
+    icon: Paintbrush,
+    gradient: "from-purple-500/20 via-yellow-500/20 to-pink-500/20",
+  },
+  {
+    id: "aurora",
+    name: "Aurora",
+    description: "Soft flowing mesh gradients with dreamy pastel-to-vivid color shifts",
+    icon: Cloud,
+    gradient: "from-indigo-500/20 via-pink-500/20 to-teal-500/20",
+  },
+  {
+    id: "cyberpunk",
+    name: "Cyberpunk",
+    description: "Dark neon-lit interface with glow accents and scanline effects",
+    icon: Flame,
+    gradient: "from-cyan-500/20 via-pink-500/20 to-green-500/20",
+  },
+  {
+    id: "claymorphism",
+    name: "Claymorphism",
+    description: "Soft 3D-raised cards with warm pastels and inflated clay-like depth",
+    icon: Box,
+    gradient: "from-purple-500/20 via-teal-500/20 to-rose-500/20",
+  },
+];
+
+const themeNames: Record<AppTheme, string> = {
+  glass: "Liquid Glass",
+  material3: "Material 3",
+  neubrutalism: "Neubrutalism",
+  aurora: "Aurora",
+  cyberpunk: "Cyberpunk",
+  claymorphism: "Claymorphism",
+};
 
 const sortOptions: { id: SortPreference; label: string; description: string }[] = [
   { id: "alphabetical", label: "Alphabetical", description: "Sort items A-Z by title" },
@@ -43,25 +80,13 @@ const ToggleSwitch = ({ enabled, onToggle, activeColor = "bg-primary" }: { enabl
 );
 
 const Settings = () => {
-  const { isBetaEnabled, enableBetaUI, disableBetaUI } = useBetaUI();
+  const { appTheme, setAppTheme } = useAppTheme();
   const { isStudyMode, toggleStudyMode } = useStudyMode();
   const { sortPreference, setSortPreference } = useSortPreference();
   const { animationsEnabled, toggleAnimations } = useAnimations();
   const { compactMode, toggleCompactMode } = useCompactMode();
   const { clearFavorites, totalCount } = useFavorites();
   const { theme, setTheme } = useTheme();
-
-  const activeTheme = isBetaEnabled ? "material3" : "glass";
-
-  const handleThemeChange = (themeId: string) => {
-    if (themeId === "material3" && !isBetaEnabled) {
-      enableBetaUI();
-      window.location.reload();
-    } else if (themeId === "glass" && isBetaEnabled) {
-      disableBetaUI();
-      window.location.reload();
-    }
-  };
 
   const handleClearFavorites = () => {
     clearFavorites();
@@ -94,24 +119,24 @@ const Settings = () => {
               <Palette className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold text-foreground">Theme</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {themes.map((theme) => {
-                const isActive = activeTheme === theme.id;
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {themes.map((t) => {
+                const isActive = appTheme === t.id;
                 return (
                   <button
-                    key={theme.id}
-                    onClick={() => handleThemeChange(theme.id)}
+                    key={t.id}
+                    onClick={() => setAppTheme(t.id)}
                     className={`glass-heavy rounded-2xl p-5 text-left transition-all duration-300 ease-apple-spring hover-spring liquid-border ${
                       isActive ? "ring-2 ring-primary shadow-glass-lg scale-[1.02]" : "hover:shadow-glass"
                     }`}
                   >
-                    <div className={`w-full h-16 rounded-xl bg-gradient-to-br ${theme.gradient} mb-4 flex items-center justify-center`}>
-                      <theme.icon className={`w-7 h-7 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
+                    <div className={`w-full h-14 rounded-xl bg-gradient-to-br ${t.gradient} mb-3 flex items-center justify-center`}>
+                      <t.icon className={`w-6 h-6 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
                     </div>
-                    <h3 className="font-semibold text-foreground mb-1">{theme.name}</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{theme.description}</p>
+                    <h3 className="font-semibold text-foreground mb-1 text-sm">{t.name}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{t.description}</p>
                     {isActive && (
-                      <div className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full animate-ios-pop">Active</div>
+                      <div className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full animate-ios-pop">Active</div>
                     )}
                   </button>
                 );
@@ -140,7 +165,7 @@ const Settings = () => {
               </div>
               <p className="text-xs text-muted-foreground mt-3 flex items-start gap-1.5">
                 <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                Synced across Liquid Glass and Material 3 themes
+                Synced across all themes
               </p>
             </div>
           </section>
@@ -267,7 +292,7 @@ const Settings = () => {
             <div className="glass-heavy rounded-2xl p-5 liquid-border space-y-3">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Version</span>
-                <span className="text-sm font-medium text-foreground">2.1.0</span>
+                <span className="text-sm font-medium text-foreground">2.2.0</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Content Items</span>
@@ -279,7 +304,11 @@ const Settings = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Active Theme</span>
-                <span className="text-sm font-medium text-primary">{activeTheme === "material3" ? "Material 3" : "Liquid Glass"}</span>
+                <span className="text-sm font-medium text-primary">{themeNames[appTheme]}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Available Themes</span>
+                <span className="text-sm font-medium text-foreground">6</span>
               </div>
             </div>
           </section>

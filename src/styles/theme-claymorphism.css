@@ -1,0 +1,183 @@
+/* ============================================
+   CLAYMORPHISM / 3D SOFT THEME
+   Soft 3D-raised cards, warm pastels, inflated
+   ============================================ */
+
+.theme-claymorphism {
+  --background: 30 30% 97%;
+  --foreground: 30 20% 15%;
+  --card: 30 25% 98%;
+  --card-foreground: 30 20% 15%;
+  --popover: 30 25% 98%;
+  --popover-foreground: 30 20% 15%;
+  --primary: 262 60% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 180 45% 55%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 30 20% 92%;
+  --muted-foreground: 30 10% 45%;
+  --accent: 340 55% 60%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 70% 55%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 30 15% 82%;
+  --input: 30 15% 88%;
+  --ring: 262 60% 55%;
+  --radius: 1.75rem;
+
+  --glass-bg: 30 25% 98% / 0.9;
+  --glass-bg-heavy: 30 25% 98% / 0.95;
+  --glass-bg-ultra: 30 25% 98% / 1;
+  --glass-border: 30 15% 85% / 0.6;
+  --glass-border-subtle: 30 15% 88% / 0.4;
+  --glass-shadow: 30 20% 50% / 0.12;
+  --glass-shadow-lg: 30 20% 50% / 0.2;
+  --glass-blur: 0px;
+  --glass-blur-heavy: 0px;
+  --glass-blur-ultra: 0px;
+
+  --gradient-hero:
+    radial-gradient(ellipse at 30% 0%, hsl(262 60% 90% / 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, hsl(180 45% 88% / 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 30%, hsl(340 55% 90% / 0.4) 0%, transparent 40%);
+}
+
+.dark.theme-claymorphism {
+  --background: 30 15% 8%;
+  --foreground: 30 15% 92%;
+  --card: 30 15% 12%;
+  --card-foreground: 30 15% 92%;
+  --popover: 30 15% 12%;
+  --popover-foreground: 30 15% 92%;
+  --primary: 262 60% 65%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 180 45% 55%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 30 10% 18%;
+  --muted-foreground: 30 10% 60%;
+  --accent: 340 55% 60%;
+  --accent-foreground: 0 0% 100%;
+  --border: 30 10% 25%;
+  --input: 30 10% 22%;
+  --ring: 262 60% 65%;
+
+  --glass-bg: 30 15% 12% / 0.9;
+  --glass-bg-heavy: 30 15% 14% / 0.95;
+  --glass-bg-ultra: 30 15% 16% / 1;
+  --glass-border: 30 10% 22% / 0.6;
+  --glass-shadow: 30 10% 5% / 0.3;
+  --glass-shadow-lg: 30 10% 5% / 0.45;
+
+  --gradient-hero:
+    radial-gradient(ellipse at 30% 0%, hsl(262 60% 25% / 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, hsl(180 45% 20% / 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 30%, hsl(340 55% 22% / 0.3) 0%, transparent 40%);
+}
+
+/* Claymorphism 3D card effect */
+.theme-claymorphism .glass,
+.theme-claymorphism .glass-heavy,
+.theme-claymorphism .glass-ultra {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-radius: 1.75rem !important;
+  box-shadow:
+    8px 8px 16px hsl(var(--glass-shadow-lg)),
+    -4px -4px 12px hsl(0 0% 100% / 0.6),
+    inset 2px 2px 4px hsl(0 0% 100% / 0.4),
+    inset -1px -1px 3px hsl(var(--glass-shadow)) !important;
+}
+
+.theme-claymorphism .glass-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-radius: 1.75rem !important;
+  box-shadow:
+    6px 6px 14px hsl(var(--glass-shadow-lg)),
+    -3px -3px 10px hsl(0 0% 100% / 0.5),
+    inset 2px 2px 4px hsl(0 0% 100% / 0.35),
+    inset -1px -1px 2px hsl(var(--glass-shadow)) !important;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease !important;
+}
+
+.theme-claymorphism .glass-card:hover {
+  transform: translateY(-6px) scale(1.02) !important;
+  box-shadow:
+    10px 10px 20px hsl(var(--glass-shadow-lg)),
+    -5px -5px 15px hsl(0 0% 100% / 0.6),
+    inset 3px 3px 6px hsl(0 0% 100% / 0.4),
+    inset -2px -2px 4px hsl(var(--glass-shadow)) !important;
+}
+
+.theme-claymorphism .glass-card:active {
+  transform: translateY(-1px) scale(0.99) !important;
+  box-shadow:
+    3px 3px 8px hsl(var(--glass-shadow-lg)),
+    -2px -2px 6px hsl(0 0% 100% / 0.4),
+    inset 1px 1px 3px hsl(0 0% 100% / 0.3),
+    inset -1px -1px 2px hsl(var(--glass-shadow)) !important;
+}
+
+.theme-claymorphism .glass-button {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-radius: 1.5rem !important;
+  box-shadow:
+    4px 4px 10px hsl(var(--glass-shadow-lg)),
+    -2px -2px 8px hsl(0 0% 100% / 0.5),
+    inset 1px 1px 3px hsl(0 0% 100% / 0.3) !important;
+}
+
+.theme-claymorphism .glass-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    6px 6px 14px hsl(var(--glass-shadow-lg)),
+    -3px -3px 10px hsl(0 0% 100% / 0.6),
+    inset 2px 2px 4px hsl(0 0% 100% / 0.35) !important;
+}
+
+.theme-claymorphism .glass-input {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-radius: 1.25rem !important;
+  box-shadow:
+    inset 3px 3px 8px hsl(var(--glass-shadow)),
+    inset -2px -2px 6px hsl(0 0% 100% / 0.4) !important;
+}
+
+.theme-claymorphism .liquid-blob {
+  opacity: 0.35 !important;
+  filter: blur(130px) !important;
+}
+
+.theme-claymorphism .liquid-border::before {
+  display: none !important;
+}
+
+.theme-claymorphism .liquid-shimmer::after {
+  display: none !important;
+}
+
+/* Dark mode adjustments for clay shadows */
+.dark.theme-claymorphism .glass,
+.dark.theme-claymorphism .glass-heavy,
+.dark.theme-claymorphism .glass-ultra,
+.dark.theme-claymorphism .glass-card {
+  box-shadow:
+    6px 6px 14px hsl(var(--glass-shadow-lg)),
+    -3px -3px 10px hsl(0 0% 100% / 0.04),
+    inset 2px 2px 4px hsl(0 0% 100% / 0.05),
+    inset -1px -1px 2px hsl(var(--glass-shadow)) !important;
+}
+
+.dark.theme-claymorphism .glass-card:hover {
+  box-shadow:
+    10px 10px 20px hsl(var(--glass-shadow-lg)),
+    -5px -5px 15px hsl(0 0% 100% / 0.06),
+    inset 3px 3px 6px hsl(0 0% 100% / 0.06),
+    inset -2px -2px 4px hsl(var(--glass-shadow)) !important;
+}
