@@ -61,7 +61,7 @@ const ResourcesSection = () => {
             Object.entries(grouped).map(([category, items]) => (
               <div key={category} className="mb-10">
                 <h3 className="text-xl font-semibold text-foreground mb-5 px-1">{category}</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 glass-stagger-reveal">
                   {items.map((resource, index) => (
                     <div key={index} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                       <ResourceCard {...resource} />
@@ -71,7 +71,7 @@ const ResourcesSection = () => {
               </div>
             ))
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 glass-stagger-reveal">
               {filteredResources.map((resource, index) => (
                 <div key={index} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                   <ResourceCard {...resource} />

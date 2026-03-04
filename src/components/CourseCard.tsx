@@ -30,7 +30,7 @@ const CourseCard = ({ title, description, category, duration, students, image, l
   };
 
   return (
-    <Card className="group h-full flex flex-col transition-all duration-500 ease-apple-spring hover:shadow-glass-xl">
+    <Card className="group h-full flex flex-col transition-all duration-500 ease-apple-spring hover:shadow-glass-xl depth-press shimmer-on-hover">
       <div className="relative h-48 overflow-hidden rounded-t-xl">
         <img
           src={image}

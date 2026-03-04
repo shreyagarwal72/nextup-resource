@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun, Paintbrush, Flame, Cloud, Box } from "lucide-react";
+import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun } from "lucide-react";
 import { useAppTheme, AppTheme } from "@/hooks/useAppTheme";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { useSortPreference, SortPreference } from "@/hooks/useSortPreference";
@@ -25,43 +25,11 @@ const themes: { id: AppTheme; name: string; description: string; icon: any; grad
     icon: Layers,
     gradient: "from-violet-500/20 via-pink-500/20 to-orange-500/20",
   },
-  {
-    id: "neubrutalism",
-    name: "Neubrutalism",
-    description: "Bold borders, raw shadows, and high-contrast playful aesthetics",
-    icon: Paintbrush,
-    gradient: "from-purple-500/20 via-yellow-500/20 to-pink-500/20",
-  },
-  {
-    id: "aurora",
-    name: "Aurora",
-    description: "Soft flowing mesh gradients with dreamy pastel-to-vivid color shifts",
-    icon: Cloud,
-    gradient: "from-indigo-500/20 via-pink-500/20 to-teal-500/20",
-  },
-  {
-    id: "cyberpunk",
-    name: "Cyberpunk",
-    description: "Dark neon-lit interface with glow accents and scanline effects",
-    icon: Flame,
-    gradient: "from-cyan-500/20 via-pink-500/20 to-green-500/20",
-  },
-  {
-    id: "claymorphism",
-    name: "Claymorphism",
-    description: "Soft 3D-raised cards with warm pastels and inflated clay-like depth",
-    icon: Box,
-    gradient: "from-purple-500/20 via-teal-500/20 to-rose-500/20",
-  },
 ];
 
 const themeNames: Record<AppTheme, string> = {
   glass: "Liquid Glass",
   material3: "Material 3",
-  neubrutalism: "Neubrutalism",
-  aurora: "Aurora",
-  cyberpunk: "Cyberpunk",
-  claymorphism: "Claymorphism",
 };
 
 const sortOptions: { id: SortPreference; label: string; description: string }[] = [
@@ -103,7 +71,7 @@ const Settings = () => {
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-3xl">
           {/* Page Header */}
-          <div className="flex items-center gap-3 mb-10">
+          <div className="flex items-center gap-3 mb-10 animate-slide-up-ios">
             <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center animate-ios-pop">
               <SettingsIcon className="w-6 h-6 text-primary" />
             </div>
@@ -114,21 +82,22 @@ const Settings = () => {
           </div>
 
           {/* Theme Selection */}
-          <section className="mb-10">
+          <section className="mb-10 animate-fade-in-up delay-100">
             <div className="flex items-center gap-2 mb-5">
               <Palette className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold text-foreground">Theme</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {themes.map((t) => {
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {themes.map((t, index) => {
                 const isActive = appTheme === t.id;
                 return (
                   <button
                     key={t.id}
                     onClick={() => setAppTheme(t.id)}
-                    className={`glass-heavy rounded-2xl p-5 text-left transition-all duration-300 ease-apple-spring hover-spring liquid-border ${
+                    className={`glass-heavy rounded-2xl p-5 text-left transition-all duration-500 ease-apple-spring hover-spring liquid-border ${
                       isActive ? "ring-2 ring-primary shadow-glass-lg scale-[1.02]" : "hover:shadow-glass"
                     }`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className={`w-full h-14 rounded-xl bg-gradient-to-br ${t.gradient} mb-3 flex items-center justify-center`}>
                       <t.icon className={`w-6 h-6 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
@@ -145,7 +114,7 @@ const Settings = () => {
           </section>
 
           {/* Dark Mode Toggle */}
-          <section className="mb-10">
+          <section className="mb-10 animate-fade-in-up delay-200">
             <div className="flex items-center gap-2 mb-5">
               <Moon className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold text-foreground">Appearance</h2>
@@ -153,7 +122,7 @@ const Settings = () => {
             <div className="glass-heavy rounded-2xl p-5 liquid-border">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${theme === "dark" ? "bg-indigo-500/20" : "bg-muted"}`}>
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ${theme === "dark" ? "bg-indigo-500/20" : "bg-muted"}`}>
                     {theme === "dark" ? <Moon className="w-5 h-5 text-indigo-400" /> : <Sun className="w-5 h-5 text-amber-500" />}
                   </div>
                   <div>
@@ -171,7 +140,7 @@ const Settings = () => {
           </section>
 
           {/* Study Mode Toggle */}
-          <section className="mb-10">
+          <section className="mb-10 animate-fade-in-up delay-250">
             <div className="flex items-center gap-2 mb-5">
               <GraduationCap className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold text-foreground">Study Mode</h2>
@@ -179,7 +148,7 @@ const Settings = () => {
             <div className="glass-heavy rounded-2xl p-5 liquid-border">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isStudyMode ? "bg-emerald-500/20" : "bg-muted"}`}>
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ${isStudyMode ? "bg-emerald-500/20" : "bg-muted"}`}>
                     <GraduationCap className={`w-5 h-5 ${isStudyMode ? "text-emerald-500" : "text-muted-foreground"}`} />
                   </div>
                   <div>
@@ -193,7 +162,7 @@ const Settings = () => {
           </section>
 
           {/* Accessibility */}
-          <section className="mb-10">
+          <section className="mb-10 animate-fade-in-up delay-300">
             <div className="flex items-center gap-2 mb-5">
               <Zap className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold text-foreground">Accessibility</h2>
@@ -201,7 +170,7 @@ const Settings = () => {
             <div className="glass-heavy rounded-2xl liquid-border divide-y divide-border/30">
               <div className="flex items-center justify-between p-5">
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${animationsEnabled ? "bg-orange-500/20" : "bg-muted"}`}>
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ${animationsEnabled ? "bg-orange-500/20" : "bg-muted"}`}>
                     <Zap className={`w-5 h-5 ${animationsEnabled ? "text-orange-500" : "text-muted-foreground"}`} />
                   </div>
                   <div>
@@ -213,7 +182,7 @@ const Settings = () => {
               </div>
               <div className="flex items-center justify-between p-5">
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${compactMode ? "bg-cyan-500/20" : "bg-muted"}`}>
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ${compactMode ? "bg-cyan-500/20" : "bg-muted"}`}>
                     <LayoutGrid className={`w-5 h-5 ${compactMode ? "text-cyan-500" : "text-muted-foreground"}`} />
                   </div>
                   <div>
@@ -227,7 +196,7 @@ const Settings = () => {
           </section>
 
           {/* Sort Preference */}
-          <section className="mb-10">
+          <section className="mb-10 animate-fade-in-up delay-400">
             <div className="flex items-center gap-2 mb-5">
               <ArrowUpDown className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold text-foreground">Content Sorting</h2>
@@ -237,7 +206,7 @@ const Settings = () => {
                 <button
                   key={option.id}
                   onClick={() => setSortPreference(option.id)}
-                  className={`w-full flex items-center gap-4 px-5 py-4 text-left transition-all duration-200 ${
+                  className={`w-full flex items-center gap-4 px-5 py-4 text-left transition-all duration-300 ${
                     index < sortOptions.length - 1 ? "border-b border-border/30" : ""
                   } ${sortPreference === option.id ? "bg-primary/5" : "hover:bg-primary/5"}`}
                 >
@@ -256,7 +225,7 @@ const Settings = () => {
           </section>
 
           {/* Data Management */}
-          <section className="mb-10">
+          <section className="mb-10 animate-fade-in-up delay-500">
             <div className="flex items-center gap-2 mb-5">
               <Trash2 className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold text-foreground">Data</h2>
@@ -284,7 +253,7 @@ const Settings = () => {
           </section>
 
           {/* About */}
-          <section className="mb-10">
+          <section className="mb-10 animate-fade-in-up delay-600">
             <div className="flex items-center gap-2 mb-5">
               <Globe className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-semibold text-foreground">About</h2>
@@ -292,7 +261,7 @@ const Settings = () => {
             <div className="glass-heavy rounded-2xl p-5 liquid-border space-y-3">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Version</span>
-                <span className="text-sm font-medium text-foreground">2.2.0</span>
+                <span className="text-sm font-medium text-foreground">2.3.0</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Content Items</span>
@@ -308,7 +277,7 @@ const Settings = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Available Themes</span>
-                <span className="text-sm font-medium text-foreground">6</span>
+                <span className="text-sm font-medium text-foreground">2</span>
               </div>
             </div>
           </section>

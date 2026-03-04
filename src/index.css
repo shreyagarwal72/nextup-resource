@@ -566,6 +566,195 @@
     55% { transform: translateY(6px) scale(1.01); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
   }
+
+  /* ======================== */
+  /* NEW: Enhanced Liquid Glass Animations */
+  /* ======================== */
+
+  /* Parallax tilt on hover (3D perspective) */
+  .glass-tilt {
+    perspective: 800px;
+    transform-style: preserve-3d;
+  }
+
+  .glass-tilt:hover {
+    transform: rotateX(-2deg) rotateY(3deg) translateY(-6px);
+    transition: transform 0.6s var(--apple-spring);
+  }
+
+  /* Liquid morphing border glow */
+  .liquid-glow {
+    position: relative;
+  }
+
+  .liquid-glow::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(
+      var(--liquid-glow-angle, 135deg),
+      hsl(var(--primary) / 0.4),
+      hsl(280 80% 60% / 0.3),
+      hsl(330 85% 60% / 0.2),
+      hsl(var(--primary) / 0.4)
+    );
+    z-index: -1;
+    filter: blur(12px);
+    opacity: 0;
+    transition: opacity 0.5s var(--apple-ease);
+    animation: liquid-glow-rotate 6s linear infinite;
+  }
+
+  .liquid-glow:hover::after {
+    opacity: 1;
+  }
+
+  @keyframes liquid-glow-rotate {
+    0% { --liquid-glow-angle: 0deg; }
+    100% { --liquid-glow-angle: 360deg; }
+  }
+
+  @property --liquid-glow-angle {
+    syntax: '<angle>';
+    initial-value: 135deg;
+    inherits: false;
+  }
+
+  /* Staggered card reveal on scroll */
+  .glass-stagger-reveal > * {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+    animation: glass-card-reveal 0.6s var(--apple-overshoot) forwards;
+  }
+
+  .glass-stagger-reveal > *:nth-child(1) { animation-delay: 0.05s; }
+  .glass-stagger-reveal > *:nth-child(2) { animation-delay: 0.1s; }
+  .glass-stagger-reveal > *:nth-child(3) { animation-delay: 0.15s; }
+  .glass-stagger-reveal > *:nth-child(4) { animation-delay: 0.2s; }
+  .glass-stagger-reveal > *:nth-child(5) { animation-delay: 0.25s; }
+  .glass-stagger-reveal > *:nth-child(6) { animation-delay: 0.3s; }
+  .glass-stagger-reveal > *:nth-child(7) { animation-delay: 0.35s; }
+  .glass-stagger-reveal > *:nth-child(8) { animation-delay: 0.4s; }
+  .glass-stagger-reveal > *:nth-child(9) { animation-delay: 0.45s; }
+
+  @keyframes glass-card-reveal {
+    0% { opacity: 0; transform: translateY(24px) scale(0.96); }
+    60% { transform: translateY(-3px) scale(1.01); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* iOS-style magnetic hover */
+  .magnetic-hover {
+    transition: transform 0.3s var(--apple-spring);
+  }
+
+  .magnetic-hover:hover {
+    transform: translateY(-4px);
+  }
+
+  .magnetic-hover:active {
+    transform: translateY(-1px) scale(0.98);
+    transition-duration: 0.1s;
+  }
+
+  /* Liquid gradient text animation */
+  .liquid-text {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--primary)),
+      hsl(280 80% 55%),
+      hsl(330 85% 55%),
+      hsl(var(--primary))
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: liquid-text-flow 5s ease-in-out infinite;
+  }
+
+  @keyframes liquid-text-flow {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+  }
+
+  /* Glass skeleton loading */
+  .glass-skeleton {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted) / 0.5) 25%,
+      hsl(var(--muted) / 0.8) 50%,
+      hsl(var(--muted) / 0.5) 75%
+    );
+    background-size: 200% 100%;
+    animation: glass-skeleton-shimmer 1.5s var(--apple-ease) infinite;
+    border-radius: var(--radius);
+  }
+
+  @keyframes glass-skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Section entrance with blur */
+  .animate-section-enter {
+    animation: section-enter 0.7s var(--apple-overshoot) forwards;
+    opacity: 0;
+  }
+
+  @keyframes section-enter {
+    0% { opacity: 0; transform: translateY(40px); filter: blur(8px); }
+    70% { filter: blur(0); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+
+  /* iOS depth press */
+  .depth-press {
+    transition: transform 0.3s var(--apple-spring), box-shadow 0.3s var(--apple-ease);
+  }
+
+  .depth-press:hover {
+    transform: translateY(-6px);
+    box-shadow: 
+      0 20px 40px hsl(var(--glass-shadow-lg)),
+      0 8px 16px hsl(var(--glass-shadow));
+  }
+
+  .depth-press:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 
+      0 4px 12px hsl(var(--glass-shadow)),
+      0 2px 6px hsl(var(--glass-shadow));
+    transition-duration: 0.1s;
+  }
+
+  /* Floating action shimmer */
+  .shimmer-on-hover {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-on-hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(0 0% 100% / 0.25),
+      transparent
+    );
+    transition: left 0.6s var(--apple-ease);
+    pointer-events: none;
+  }
+
+  .shimmer-on-hover:hover::after {
+    left: 150%;
+  }
 }
 
 /* iOS-style fade animations */

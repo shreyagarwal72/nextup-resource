@@ -32,27 +32,36 @@ const Material3Loader = ({ onComplete, duration = 1800 }: Material3LoaderProps) 
       style={{ background: "hsl(var(--md-sys-color-surface, 0 0% 98%))" }}
     >
       <div className="flex flex-col items-center gap-8">
-        {/* Material 3 Logo */}
-        <div
-          className="w-24 h-24 rounded-[28px] flex items-center justify-center relative"
-          style={{
-            background: "hsl(var(--md-sys-color-primary, 262 80% 50%))",
-            boxShadow: "0 8px 32px hsl(var(--md-sys-color-primary, 262 80% 50%) / 0.3)",
-          }}
-        >
-          <span className="text-5xl font-bold text-white">N</span>
-          {/* Ripple effect */}
+        {/* Material 3 Logo with ripple */}
+        <div className="relative">
           <div
-            className="absolute inset-0 rounded-[28px] animate-ping"
+            className="w-24 h-24 rounded-[28px] flex items-center justify-center relative md3-container-transform-enter"
             style={{
-              background: "hsl(var(--md-sys-color-primary, 262 80% 50%) / 0.15)",
-              animationDuration: "1.5s",
+              background: "hsl(var(--md-sys-color-primary, 262 80% 50%))",
+              boxShadow: "0 8px 32px hsl(var(--md-sys-color-primary, 262 80% 50%) / 0.3)",
+            }}
+          >
+            <span className="text-5xl font-bold text-white">N</span>
+          </div>
+          {/* Ripple rings */}
+          <div
+            className="absolute inset-0 rounded-[28px]"
+            style={{
+              border: "2px solid hsl(var(--md-sys-color-primary, 262 80% 50%) / 0.3)",
+              animation: "md3-loader-ripple 1.5s ease-out infinite",
+            }}
+          />
+          <div
+            className="absolute inset-0 rounded-[28px]"
+            style={{
+              border: "2px solid hsl(var(--md-sys-color-primary, 262 80% 50%) / 0.15)",
+              animation: "md3-loader-ripple 1.5s ease-out 0.5s infinite",
             }}
           />
         </div>
 
         {/* Brand */}
-        <div className="text-center">
+        <div className="text-center md3-animate-enter md3-stagger-2">
           <h1
             className="text-3xl font-semibold mb-1"
             style={{ color: "hsl(var(--md-sys-color-on-surface, 0 0% 10%))", letterSpacing: "-0.01em" }}
@@ -67,17 +76,21 @@ const Material3Loader = ({ onComplete, duration = 1800 }: Material3LoaderProps) 
           </p>
         </div>
 
-        {/* Material 3 Linear Progress Indicator */}
-        <div className="w-48 h-1 rounded-full overflow-hidden" style={{ background: "hsl(var(--md-sys-color-surface-variant, 0 0% 90%))" }}>
+        {/* Material 3 Linear Progress */}
+        <div className="w-48 md3-linear-progress">
           <div
-            className="h-full rounded-full transition-all duration-100 ease-out"
-            style={{
-              width: `${progress}%`,
-              background: "hsl(var(--md-sys-color-primary, 262 80% 50%))",
-            }}
+            className="md3-linear-progress-indicator"
+            style={{ width: `${progress}%` }}
           />
         </div>
       </div>
+
+      <style>{`
+        @keyframes md3-loader-ripple {
+          0% { transform: scale(1); opacity: 1; }
+          100% { transform: scale(1.6); opacity: 0; }
+        }
+      `}</style>
     </div>
   );
 };
