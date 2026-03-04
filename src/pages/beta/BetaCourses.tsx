@@ -87,7 +87,7 @@ const BetaCourses = () => {
                     </h2>
                     <span className="md3-chip text-xs ml-auto">{items.length}</span>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md3-grid-stagger">
                     {items.map((course, index) => (
                       <div key={course.title} className={`md3-animate-enter md3-stagger-${(index % 6) + 1}`}>
                         <Material3CourseCard {...course} />
@@ -97,7 +97,7 @@ const BetaCourses = () => {
                 </div>
               ))
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md3-grid-stagger">
                 {filteredCourses.map((course, index) => (
                   <div key={course.title} className={`md3-animate-enter md3-stagger-${(index % 6) + 1}`}>
                     <Material3CourseCard {...course} />

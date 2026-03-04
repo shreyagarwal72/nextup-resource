@@ -1,4 +1,4 @@
-import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun, Paintbrush, Flame, Cloud, Box } from "lucide-react";
+import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun } from "lucide-react";
 import { useAppTheme, AppTheme } from "@/hooks/useAppTheme";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { useSortPreference, SortPreference } from "@/hooks/useSortPreference";
@@ -11,19 +11,11 @@ import "@/styles/material3.css";
 const themes: { id: AppTheme; name: string; description: string; icon: any }[] = [
   { id: "glass", name: "Liquid Glass", description: "iOS-inspired glassmorphism with translucent surfaces", icon: Sparkles },
   { id: "material3", name: "Material 3", description: "Google's expressive design with dynamic color", icon: Layers },
-  { id: "neubrutalism", name: "Neubrutalism", description: "Bold borders, raw shadows, high-contrast playful style", icon: Paintbrush },
-  { id: "aurora", name: "Aurora", description: "Soft flowing mesh gradients, dreamy aesthetic", icon: Cloud },
-  { id: "cyberpunk", name: "Cyberpunk", description: "Dark neon-lit interface with glow accents", icon: Flame },
-  { id: "claymorphism", name: "Claymorphism", description: "Soft 3D-raised cards with warm pastel depth", icon: Box },
 ];
 
 const themeNames: Record<AppTheme, string> = {
   glass: "Liquid Glass",
   material3: "Material 3",
-  neubrutalism: "Neubrutalism",
-  aurora: "Aurora",
-  cyberpunk: "Cyberpunk",
-  claymorphism: "Claymorphism",
 };
 
 const sortOptions: { id: SortPreference; label: string; description: string }[] = [
@@ -61,7 +53,7 @@ const BetaSettings = () => {
         style={{ background: "linear-gradient(135deg, hsl(var(--md-sys-color-primary-container)) 0%, hsl(var(--md-sys-color-surface)) 100%)" }}
       >
         <div className="container mx-auto max-w-4xl text-center">
-          <div className="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center md3-animate-enter"
+          <div className="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center md3-animate-enter md3-ripple-on-click"
                style={{ background: "hsl(var(--md-sys-color-primary))" }}>
             <SettingsIcon className="w-8 h-8 text-white" />
           </div>
@@ -75,17 +67,17 @@ const BetaSettings = () => {
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-3xl">
           {/* Theme Selection */}
-          <div className="mb-12">
+          <div className="mb-12 md3-animate-enter md3-stagger-1">
             <div className="flex items-center gap-2 mb-6">
               <Palette className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
               <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>Theme</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {themes.map((t, index) => {
                 const isActive = appTheme === t.id;
                 return (
                   <button key={t.id} onClick={() => setAppTheme(t.id)}
-                    className={`md3-card p-5 text-left md3-animate-enter md3-stagger-${(index % 6) + 1} transition-all duration-200`}
+                    className={`md3-card md3-ripple-on-click p-5 text-left md3-animate-enter md3-stagger-${index + 1} transition-all duration-200`}
                     style={{
                       border: isActive ? "2px solid hsl(var(--md-sys-color-primary))" : "2px solid transparent",
                       background: isActive ? "hsl(var(--md-sys-color-primary-container))" : undefined,
@@ -97,7 +89,7 @@ const BetaSettings = () => {
                     <h3 className="md3-title-medium mb-1" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>{t.name}</h3>
                     <p className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>{t.description}</p>
                     {isActive && (
-                      <div className="mt-3 md3-chip text-xs" style={{ background: "hsl(var(--md-sys-color-primary))", color: "hsl(var(--md-sys-color-on-primary))" }}>Active</div>
+                      <div className="mt-3 md3-chip text-xs md3-animate-enter" style={{ background: "hsl(var(--md-sys-color-primary))", color: "hsl(var(--md-sys-color-on-primary))" }}>Active</div>
                     )}
                   </button>
                 );
@@ -105,8 +97,8 @@ const BetaSettings = () => {
             </div>
           </div>
 
-          {/* Appearance (Dark Mode) */}
-          <div className="mb-12">
+          {/* Appearance */}
+          <div className="mb-12 md3-animate-enter md3-stagger-2">
             <div className="flex items-center gap-2 mb-6">
               <Moon className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
               <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>Appearance</h2>
@@ -114,7 +106,7 @@ const BetaSettings = () => {
             <div className="md3-card p-5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center"
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-400"
                     style={{ background: theme === "dark" ? "hsl(240 60% 60% / 0.2)" : "hsl(var(--md-sys-color-surface-variant))" }}>
                     {theme === "dark" ? <Moon className="w-5 h-5" style={{ color: "hsl(240, 60%, 60%)" }} /> : <Sun className="w-5 h-5" style={{ color: "hsl(40, 90%, 50%)" }} />}
                   </div>
@@ -129,7 +121,7 @@ const BetaSettings = () => {
           </div>
 
           {/* Study Mode */}
-          <div className="mb-12">
+          <div className="mb-12 md3-animate-enter md3-stagger-3">
             <div className="flex items-center gap-2 mb-6">
               <GraduationCap className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
               <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>Study Mode</h2>
@@ -137,7 +129,7 @@ const BetaSettings = () => {
             <div className="md3-card p-5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center"
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-400"
                     style={{ background: isStudyMode ? "hsl(142 71% 45% / 0.2)" : "hsl(var(--md-sys-color-surface-variant))" }}>
                     <GraduationCap className="w-5 h-5" style={{ color: isStudyMode ? "hsl(142, 71%, 45%)" : "hsl(var(--md-sys-color-on-surface-variant))" }} />
                   </div>
@@ -152,7 +144,7 @@ const BetaSettings = () => {
           </div>
 
           {/* Accessibility */}
-          <div className="mb-12">
+          <div className="mb-12 md3-animate-enter md3-stagger-4">
             <div className="flex items-center gap-2 mb-6">
               <Zap className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
               <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>Accessibility</h2>
@@ -160,7 +152,7 @@ const BetaSettings = () => {
             <div className="md3-card overflow-hidden">
               <div className="flex items-center justify-between p-5" style={{ borderBottom: "1px solid hsl(var(--md-sys-color-outline-variant))" }}>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center"
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-400"
                     style={{ background: animationsEnabled ? "hsl(30 90% 50% / 0.2)" : "hsl(var(--md-sys-color-surface-variant))" }}>
                     <Zap className="w-5 h-5" style={{ color: animationsEnabled ? "hsl(30, 90%, 50%)" : "hsl(var(--md-sys-color-on-surface-variant))" }} />
                   </div>
@@ -173,7 +165,7 @@ const BetaSettings = () => {
               </div>
               <div className="flex items-center justify-between p-5">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center"
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-400"
                     style={{ background: compactMode ? "hsl(190 80% 45% / 0.2)" : "hsl(var(--md-sys-color-surface-variant))" }}>
                     <LayoutGrid className="w-5 h-5" style={{ color: compactMode ? "hsl(190, 80%, 45%)" : "hsl(var(--md-sys-color-on-surface-variant))" }} />
                   </div>
@@ -188,7 +180,7 @@ const BetaSettings = () => {
           </div>
 
           {/* Sort Preference */}
-          <div className="mb-12">
+          <div className="mb-12 md3-animate-enter md3-stagger-5">
             <div className="flex items-center gap-2 mb-6">
               <ArrowUpDown className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
               <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>Content Sorting</h2>
@@ -196,17 +188,17 @@ const BetaSettings = () => {
             <div className="md3-card overflow-hidden">
               {sortOptions.map((option, index) => (
                 <button key={option.id} onClick={() => setSortPreference(option.id)}
-                  className="w-full flex items-center gap-4 px-5 py-4 text-left transition-all duration-200"
+                  className="w-full flex items-center gap-4 px-5 py-4 text-left transition-all duration-200 md3-ripple-on-click"
                   style={{
                     borderBottom: index < sortOptions.length - 1 ? "1px solid hsl(var(--md-sys-color-outline-variant))" : undefined,
                     background: sortPreference === option.id ? "hsl(var(--md-sys-color-primary-container) / 0.4)" : undefined,
                   }}>
-                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all"
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-300"
                     style={{
                       borderColor: sortPreference === option.id ? "hsl(var(--md-sys-color-primary))" : "hsl(var(--md-sys-color-outline))",
                       background: sortPreference === option.id ? "hsl(var(--md-sys-color-primary))" : "transparent",
                     }}>
-                    {sortPreference === option.id && <div className="w-2 h-2 rounded-full bg-white" />}
+                    {sortPreference === option.id && <div className="w-2 h-2 rounded-full bg-white md3-animate-enter" />}
                   </div>
                   <div>
                     <p className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>{option.label}</p>
@@ -218,7 +210,7 @@ const BetaSettings = () => {
           </div>
 
           {/* Data Management */}
-          <div className="mb-12">
+          <div className="mb-12 md3-animate-enter md3-stagger-6">
             <div className="flex items-center gap-2 mb-6">
               <Trash2 className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-error))" }} />
               <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>Data</h2>
@@ -246,17 +238,17 @@ const BetaSettings = () => {
           </div>
 
           {/* About */}
-          <div>
+          <div className="md3-animate-enter md3-stagger-6">
             <div className="flex items-center gap-2 mb-6">
               <Globe className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
               <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>About</h2>
             </div>
             <div className="md3-card p-5 space-y-3">
-              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Version</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>2.2.0</span></div>
+              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Version</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>2.3.0</span></div>
               <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Content Items</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>50+</span></div>
               <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>PWA Support</span><span className="md3-title-small" style={{ color: "hsl(142, 71%, 45%)" }}>Enabled</span></div>
               <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Active Theme</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-primary))" }}>{themeNames[appTheme]}</span></div>
-              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Available Themes</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>6</span></div>
+              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Available Themes</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>2</span></div>
             </div>
           </div>
         </div>

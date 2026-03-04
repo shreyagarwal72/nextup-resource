@@ -35,7 +35,7 @@ const ResourceCard = ({
 
   return (
     <a href={link} target="_blank" rel="noopener noreferrer" className="block">
-      <Card className="group overflow-hidden cursor-pointer h-full transition-all duration-500 ease-apple-spring hover:shadow-glass-xl">
+      <Card className="group overflow-hidden cursor-pointer h-full transition-all duration-500 ease-apple-spring hover:shadow-glass-xl depth-press shimmer-on-hover">
         <div className="relative h-48 overflow-hidden">
           <img
             src={image}

@@ -103,7 +103,7 @@ const BetaIndex = () => {
             {isStudyMode ? "Study Categories" : "Browse Categories"}
           </h2>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md3-grid-stagger">
             {categories.map((category, index) => (
               <Link
                 key={category.path}
