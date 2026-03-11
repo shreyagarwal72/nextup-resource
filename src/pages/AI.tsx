@@ -10,6 +10,7 @@ import { Search, ExternalLink, Bot, Sparkles, Filter } from "lucide-react";
 const AI = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedTool, setSelectedTool] = useState<AITool | null>(null);
 
   const categories = useMemo(() => {
     const cats = new Set(aiTools.map(t => t.category));
