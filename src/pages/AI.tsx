@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { aiTools } from "@/data/aiTools";
+import AIToolBottomSheet from "@/components/AIToolBottomSheet";
+import { aiTools, AITool } from "@/data/aiTools";
 import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, ExternalLink, Bot, Sparkles, Filter } from "lucide-react";
