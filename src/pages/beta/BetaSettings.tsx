@@ -1,4 +1,4 @@
-import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun } from "lucide-react";
+import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun, CircleDot } from "lucide-react";
 import { useAppTheme, AppTheme } from "@/hooks/useAppTheme";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { useSortPreference, SortPreference } from "@/hooks/useSortPreference";
@@ -11,11 +11,13 @@ import "@/styles/material3.css";
 const themes: { id: AppTheme; name: string; description: string; icon: any }[] = [
   { id: "glass", name: "Liquid Glass", description: "iOS-inspired glassmorphism with translucent surfaces", icon: Sparkles },
   { id: "material3", name: "Material 3", description: "Google's expressive design with dynamic color", icon: Layers },
+  { id: "nothing", name: "Nothing", description: "Dot-matrix industrial with monospace & red accents", icon: CircleDot },
 ];
 
 const themeNames: Record<AppTheme, string> = {
   glass: "Liquid Glass",
   material3: "Material 3",
+  nothing: "Nothing",
 };
 
 const sortOptions: { id: SortPreference; label: string; description: string }[] = [
