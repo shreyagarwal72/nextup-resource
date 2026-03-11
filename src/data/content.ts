@@ -833,11 +833,20 @@ const appsData: App[] = [
     link: "https://github.com/HemantKArya/BloomeeTunes/releases/tag/v2.13.3%2B188",
   },
   {
-    title: "CapCut",
-    description: "Professional video editing app with premium features unlocked. Create stunning videos with advanced effects, transitions, and music.",
+    title: "CapCut (Works 95% Without VPN)",
+    description: "Professional video editing app that works without VPN in most regions. Create stunning videos with advanced effects, transitions, and music.",
     category: "Media & Music",
     image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
-    link: "https://t.me/nextupfilebot?start=BQADAQAD2goAAjPcuUfYw5TvmnYBtxYE",
+    link: "https://t.me/nextupfilebot?start=BQADAQAD_hgAAtuAeUUIE7xb0eoP7RYE",
+    dateAdded: "2026-03-11",
+  },
+  {
+    title: "AdGuard Premium",
+    description: "Premium ad blocker with advanced protection against ads, trackers, and malware. Enjoy a cleaner, faster browsing experience.",
+    category: "Utility",
+    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQAD-AoAAtqEkUXyZU3WjTt_4xYE",
+    dateAdded: "2026-03-11",
   },
   {
     title: "Lightroom",
