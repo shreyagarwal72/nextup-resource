@@ -1,6 +1,7 @@
-import { aiTools } from "@/data/aiTools";
+import { aiTools, AITool } from "@/data/aiTools";
 import { useState, useMemo } from "react";
 import { Search, ExternalLink, Bot, Sparkles, Filter, X, Grid3X3, List } from "lucide-react";
+import AIToolBottomSheet from "@/components/AIToolBottomSheet";
 import "@/styles/material3.css";
 
 const BetaAI = () => {
