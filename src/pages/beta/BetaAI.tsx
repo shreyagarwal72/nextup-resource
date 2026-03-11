@@ -214,8 +214,8 @@ const BetaAI = () => {
           )}
         </div>
       </section>
+      <AIToolBottomSheet tool={selectedTool} open={!!selectedTool} onClose={() => setSelectedTool(null)} />
     </div>
   );
 };
-
 export default BetaAI;
