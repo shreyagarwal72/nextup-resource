@@ -147,12 +147,10 @@ const BetaAI = () => {
                 {viewMode === "grid" ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md3-grid-stagger">
                     {tools.map((tool, index) => (
-                      <a
+                      <button
                         key={tool.name}
-                        href={tool.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`md3-card p-5 group md3-animate-enter md3-stagger-${Math.min(index + 1, 4)}`}
+                        onClick={() => setSelectedTool(tool)}
+                        className={`md3-card p-5 group md3-animate-enter md3-stagger-${Math.min(index + 1, 4)} text-left w-full`}
                       >
                         <div className="flex items-start justify-between mb-3">
                           <div className="flex items-center gap-3">
@@ -170,7 +168,7 @@ const BetaAI = () => {
                         <p className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
                           {tool.description}
                         </p>
-                      </a>
+                      </button>
                     ))}
                   </div>
                 ) : (
