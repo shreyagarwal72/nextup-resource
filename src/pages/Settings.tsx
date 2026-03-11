@@ -267,13 +267,13 @@ const Settings = () => {
               <h2 className="text-xl font-semibold text-foreground">About</h2>
             </div>
             <div className="glass-heavy rounded-2xl p-5 liquid-border space-y-3">
-              <div className="flex justify-between items-center">
+               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Version</span>
-                <span className="text-sm font-medium text-foreground">2.3.0</span>
+                <span className="text-sm font-medium text-foreground">2.4.0</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Content Items</span>
-                <span className="text-sm font-medium text-foreground">50+</span>
+                <span className="text-sm font-medium text-foreground">55+</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">PWA Support</span>
@@ -285,7 +285,7 @@ const Settings = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Available Themes</span>
-                <span className="text-sm font-medium text-foreground">2</span>
+                <span className="text-sm font-medium text-foreground">3</span>
               </div>
             </div>
           </section>
