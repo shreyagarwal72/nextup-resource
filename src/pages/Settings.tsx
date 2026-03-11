@@ -25,11 +25,19 @@ const themes: { id: AppTheme; name: string; description: string; icon: any; grad
     icon: Layers,
     gradient: "from-violet-500/20 via-pink-500/20 to-orange-500/20",
   },
+  {
+    id: "nothing",
+    name: "Nothing",
+    description: "Dot-matrix industrial aesthetic with monospace type and red accents",
+    icon: CircleDot,
+    gradient: "from-red-500/20 via-neutral-500/20 to-black/20",
+  },
 ];
 
 const themeNames: Record<AppTheme, string> = {
   glass: "Liquid Glass",
   material3: "Material 3",
+  nothing: "Nothing",
 };
 
 const sortOptions: { id: SortPreference; label: string; description: string }[] = [
