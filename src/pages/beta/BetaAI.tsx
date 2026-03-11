@@ -1,12 +1,14 @@
-import { aiTools } from "@/data/aiTools";
+import { aiTools, AITool } from "@/data/aiTools";
 import { useState, useMemo } from "react";
 import { Search, ExternalLink, Bot, Sparkles, Filter, X, Grid3X3, List } from "lucide-react";
+import AIToolBottomSheet from "@/components/AIToolBottomSheet";
 import "@/styles/material3.css";
 
 const BetaAI = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [selectedTool, setSelectedTool] = useState<AITool | null>(null);
 
   const categories = useMemo(() => {
     const cats = new Set(aiTools.map(t => t.category));
@@ -145,12 +147,10 @@ const BetaAI = () => {
                 {viewMode === "grid" ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md3-grid-stagger">
                     {tools.map((tool, index) => (
-                      <a
+                      <button
                         key={tool.name}
-                        href={tool.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`md3-card p-5 group md3-animate-enter md3-stagger-${Math.min(index + 1, 4)}`}
+                        onClick={() => setSelectedTool(tool)}
+                        className={`md3-card p-5 group md3-animate-enter md3-stagger-${Math.min(index + 1, 4)} text-left w-full`}
                       >
                         <div className="flex items-start justify-between mb-3">
                           <div className="flex items-center gap-3">
@@ -168,7 +168,7 @@ const BetaAI = () => {
                         <p className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
                           {tool.description}
                         </p>
-                      </a>
+                      </button>
                     ))}
                   </div>
                 ) : (
@@ -214,8 +214,8 @@ const BetaAI = () => {
           )}
         </div>
       </section>
+      <AIToolBottomSheet tool={selectedTool} open={!!selectedTool} onClose={() => setSelectedTool(null)} />
     </div>
   );
 };
-
 export default BetaAI;

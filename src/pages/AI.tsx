@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { aiTools } from "@/data/aiTools";
+import AIToolBottomSheet from "@/components/AIToolBottomSheet";
+import { aiTools, AITool } from "@/data/aiTools";
 import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, ExternalLink, Bot, Sparkles, Filter } from "lucide-react";
@@ -9,6 +10,7 @@ import { Search, ExternalLink, Bot, Sparkles, Filter } from "lucide-react";
 const AI = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedTool, setSelectedTool] = useState<AITool | null>(null);
 
   const categories = useMemo(() => {
     const cats = new Set(aiTools.map(t => t.category));
@@ -104,12 +106,10 @@ const AI = () => {
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {tools.map((tool, index) => (
-                      <a
+                      <button
                         key={tool.name}
-                        href={tool.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="glass-heavy rounded-2xl p-6 liquid-border hover-spring press-feedback group animate-fade-in-up flex flex-col"
+                        onClick={() => setSelectedTool(tool)}
+                        className="glass-heavy rounded-2xl p-6 liquid-border hover-spring press-feedback group animate-fade-in-up flex flex-col text-left w-full"
                         style={{ animationDelay: `${index * 0.05}s` }}
                       >
                         <div className="flex items-start justify-between mb-3">
@@ -119,7 +119,7 @@ const AI = () => {
                           <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-1" />
                         </div>
                         <p className="text-muted-foreground text-sm">{tool.description}</p>
-                      </a>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -141,6 +141,7 @@ const AI = () => {
       </main>
       <Footer />
       <ScrollToTop />
+      <AIToolBottomSheet tool={selectedTool} open={!!selectedTool} onClose={() => setSelectedTool(null)} />
     </div>
   );
 };
