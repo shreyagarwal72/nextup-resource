@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun } from "lucide-react";
+import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun, CircleDot } from "lucide-react";
 import { useAppTheme, AppTheme } from "@/hooks/useAppTheme";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { useSortPreference, SortPreference } from "@/hooks/useSortPreference";
@@ -25,11 +25,19 @@ const themes: { id: AppTheme; name: string; description: string; icon: any; grad
     icon: Layers,
     gradient: "from-violet-500/20 via-pink-500/20 to-orange-500/20",
   },
+  {
+    id: "nothing",
+    name: "Nothing",
+    description: "Dot-matrix industrial aesthetic with monospace type and red accents",
+    icon: CircleDot,
+    gradient: "from-red-500/20 via-neutral-500/20 to-black/20",
+  },
 ];
 
 const themeNames: Record<AppTheme, string> = {
   glass: "Liquid Glass",
   material3: "Material 3",
+  nothing: "Nothing",
 };
 
 const sortOptions: { id: SortPreference; label: string; description: string }[] = [
@@ -259,13 +267,13 @@ const Settings = () => {
               <h2 className="text-xl font-semibold text-foreground">About</h2>
             </div>
             <div className="glass-heavy rounded-2xl p-5 liquid-border space-y-3">
-              <div className="flex justify-between items-center">
+               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Version</span>
-                <span className="text-sm font-medium text-foreground">2.3.0</span>
+                <span className="text-sm font-medium text-foreground">2.4.0</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Content Items</span>
-                <span className="text-sm font-medium text-foreground">50+</span>
+                <span className="text-sm font-medium text-foreground">55+</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">PWA Support</span>
@@ -277,7 +285,7 @@ const Settings = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Available Themes</span>
-                <span className="text-sm font-medium text-foreground">2</span>
+                <span className="text-sm font-medium text-foreground">3</span>
               </div>
             </div>
           </section>

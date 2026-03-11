@@ -1,4 +1,4 @@
-import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun } from "lucide-react";
+import { Settings as SettingsIcon, Palette, ArrowUpDown, Sparkles, Layers, GraduationCap, Info, Globe, Zap, LayoutGrid, Trash2, Moon, Sun, CircleDot } from "lucide-react";
 import { useAppTheme, AppTheme } from "@/hooks/useAppTheme";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { useSortPreference, SortPreference } from "@/hooks/useSortPreference";
@@ -11,11 +11,13 @@ import "@/styles/material3.css";
 const themes: { id: AppTheme; name: string; description: string; icon: any }[] = [
   { id: "glass", name: "Liquid Glass", description: "iOS-inspired glassmorphism with translucent surfaces", icon: Sparkles },
   { id: "material3", name: "Material 3", description: "Google's expressive design with dynamic color", icon: Layers },
+  { id: "nothing", name: "Nothing", description: "Dot-matrix industrial with monospace & red accents", icon: CircleDot },
 ];
 
 const themeNames: Record<AppTheme, string> = {
   glass: "Liquid Glass",
   material3: "Material 3",
+  nothing: "Nothing",
 };
 
 const sortOptions: { id: SortPreference; label: string; description: string }[] = [
@@ -244,11 +246,11 @@ const BetaSettings = () => {
               <h2 className="md3-headline-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>About</h2>
             </div>
             <div className="md3-card p-5 space-y-3">
-              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Version</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>2.3.0</span></div>
-              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Content Items</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>50+</span></div>
+              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Version</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>2.4.0</span></div>
+              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Content Items</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>55+</span></div>
               <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>PWA Support</span><span className="md3-title-small" style={{ color: "hsl(142, 71%, 45%)" }}>Enabled</span></div>
               <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Active Theme</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-primary))" }}>{themeNames[appTheme]}</span></div>
-              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Available Themes</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>2</span></div>
+              <div className="flex justify-between"><span className="md3-body-small" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Available Themes</span><span className="md3-title-small" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>3</span></div>
             </div>
           </div>
         </div>

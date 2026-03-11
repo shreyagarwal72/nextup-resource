@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import { StudyModeToggle } from "./StudyModeToggle";
 import { useFavorites } from "@/hooks/useFavorites";
+import NotificationCenter from "./NotificationCenter";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -79,6 +80,7 @@ const Header = () => {
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-3">
+              <NotificationCenter />
               <StudyModeToggle />
               <ThemeToggle />
               <Link
