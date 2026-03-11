@@ -8,6 +8,7 @@ const BetaAI = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [selectedTool, setSelectedTool] = useState<AITool | null>(null);
 
   const categories = useMemo(() => {
     const cats = new Set(aiTools.map(t => t.category));
