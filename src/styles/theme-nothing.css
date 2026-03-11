@@ -1,0 +1,213 @@
+/* Nothing OS Theme - Dot Matrix / Industrial Minimal */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+.theme-nothing {
+  /* Core palette */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 5%;
+  --card: 0 0% 97%;
+  --card-foreground: 0 0% 5%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 5%;
+  --primary: 0 100% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 92%;
+  --secondary-foreground: 0 0% 10%;
+  --muted: 0 0% 94%;
+  --muted-foreground: 0 0% 40%;
+  --accent: 0 100% 50%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 100% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 85%;
+  --input: 0 0% 85%;
+  --ring: 0 100% 50%;
+  --radius: 0px;
+
+  /* Typography */
+  font-family: 'Space Mono', 'JetBrains Mono', monospace !important;
+}
+
+.theme-nothing.dark {
+  --background: 0 0% 3%;
+  --foreground: 0 0% 95%;
+  --card: 0 0% 7%;
+  --card-foreground: 0 0% 95%;
+  --popover: 0 0% 5%;
+  --popover-foreground: 0 0% 95%;
+  --primary: 0 100% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 12%;
+  --secondary-foreground: 0 0% 90%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 0 0% 55%;
+  --accent: 0 100% 50%;
+  --accent-foreground: 0 0% 100%;
+  --border: 0 0% 18%;
+  --input: 0 0% 18%;
+  --ring: 0 100% 50%;
+}
+
+/* Override all fonts to monospace */
+.theme-nothing * {
+  font-family: 'Space Mono', 'JetBrains Mono', monospace !important;
+  border-radius: 0 !important;
+}
+
+/* Preserve icon rendering */
+.theme-nothing svg {
+  border-radius: 0 !important;
+}
+
+/* Nothing-style dotted borders */
+.theme-nothing .glass-heavy,
+.theme-nothing .glass-ultra,
+.theme-nothing .glass-button {
+  background: hsl(var(--card)) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px dashed hsl(var(--border)) !important;
+  box-shadow: none !important;
+}
+
+.theme-nothing .glass-heavy:hover,
+.theme-nothing .glass-ultra:hover {
+  border-color: hsl(var(--primary)) !important;
+}
+
+/* Nothing dot pattern background */
+.theme-nothing .liquid-blob {
+  display: none !important;
+}
+
+.theme-nothing::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.03;
+  background-image: radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+/* Nothing cards */
+.theme-nothing .hover-spring {
+  transform: none !important;
+}
+
+.theme-nothing .hover-spring:hover {
+  transform: none !important;
+  border-color: hsl(var(--primary)) !important;
+}
+
+.theme-nothing .hover-spring:active {
+  transform: scale(0.98) !important;
+}
+
+/* Nothing buttons */
+.theme-nothing button,
+.theme-nothing a[class*="button"],
+.theme-nothing [class*="Button"] {
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+  font-size: 0.75rem !important;
+}
+
+/* Red accent elements */
+.theme-nothing .text-primary {
+  color: hsl(0, 100%, 50%) !important;
+}
+
+.theme-nothing .bg-primary {
+  background-color: hsl(0, 100%, 50%) !important;
+}
+
+.theme-nothing .bg-primary\/10,
+.theme-nothing .bg-primary\/20 {
+  background-color: hsl(0 100% 50% / 0.08) !important;
+}
+
+/* Nothing-style progress/loading bars */
+.theme-nothing .animate-pulse {
+  animation: nth-blink 1s step-start infinite !important;
+}
+
+@keyframes nth-blink {
+  50% { opacity: 0; }
+}
+
+/* Nothing glyph-style section headers */
+.theme-nothing h1,
+.theme-nothing h2,
+.theme-nothing h3 {
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+/* Nothing-style badges */
+.theme-nothing .animate-ios-pop {
+  animation: none !important;
+}
+
+/* Scanline effect (subtle) */
+.theme-nothing::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    hsl(var(--foreground) / 0.015) 2px,
+    hsl(var(--foreground) / 0.015) 4px
+  );
+}
+
+/* Nothing-style nav items */
+.theme-nothing .nav-link {
+  border: 1px solid transparent !important;
+}
+.theme-nothing .nav-link:hover {
+  border: 1px dashed hsl(var(--primary)) !important;
+  background: transparent !important;
+}
+
+/* Nothing-style scrollbar */
+.theme-nothing ::-webkit-scrollbar {
+  width: 4px;
+}
+.theme-nothing ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.theme-nothing ::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+}
+
+/* Remove all rounded corners aggressively */
+.theme-nothing [class*="rounded"] {
+  border-radius: 0 !important;
+}
+
+/* Nothing-style liquid border override */
+.theme-nothing .liquid-border::before {
+  display: none !important;
+}
+
+/* Nothing input styles */
+.theme-nothing input,
+.theme-nothing textarea,
+.theme-nothing select {
+  border: 1px dashed hsl(var(--border)) !important;
+  background: hsl(var(--card)) !important;
+  border-radius: 0 !important;
+}
+
+.theme-nothing input:focus,
+.theme-nothing textarea:focus {
+  border-color: hsl(var(--primary)) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 1px hsl(var(--primary)) !important;
+}
