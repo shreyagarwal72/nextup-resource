@@ -141,6 +141,7 @@ const AI = () => {
       </main>
       <Footer />
       <ScrollToTop />
+      <AIToolBottomSheet tool={selectedTool} open={!!selectedTool} onClose={() => setSelectedTool(null)} />
     </div>
   );
 };
