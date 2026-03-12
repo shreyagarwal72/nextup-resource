@@ -37,6 +37,9 @@ const BetaSettings = lazy(() => import("./pages/beta/BetaSettings"));
 const BetaAI = lazy(() => import("./pages/beta/BetaAI"));
 const BetaFavorites = lazy(() => import("./pages/beta/BetaFavorites"));
 
+// Nothing pages
+const NothingIndex = lazy(() => import("./pages/nothing/NothingIndex"));
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -52,11 +55,9 @@ const AppContent = () => {
   const [showSplash, setShowSplash] = useState(true);
   const [hasShownSplash, setHasShownSplash] = useState(false);
 
-  // Determine active theme
   const storedTheme = typeof window !== 'undefined' ? localStorage.getItem('nextup-app-theme') : null;
   const isNothingTheme = storedTheme === 'nothing';
 
-  // Apply Nothing theme class
   useEffect(() => {
     if (isNothingTheme) {
       document.documentElement.classList.add('theme-nothing');
@@ -83,13 +84,12 @@ const AppContent = () => {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="flex gap-2">
         {[0, 1, 2].map((i) => (
-          <div key={i} className="w-3 h-3 rounded-full bg-primary animate-bounce" style={{ animationDelay: `${i * 0.1}s` }} />
+          <div key={i} className="w-3 h-3 bg-primary" style={{ animation: `nth-dot-pulse 0.8s ${i * 0.15}s ease infinite` }} />
         ))}
       </div>
     </div>
   );
 
-  // Determine which loader to show
   const renderLoader = () => {
     if (!showSplash || hasShownSplash) return null;
     if (isNothingTheme) return <NothingLoader onComplete={handleSplashComplete} duration={2000} />;
@@ -126,7 +126,36 @@ const AppContent = () => {
     );
   }
 
-  // Liquid Glass (default) or Nothing theme (uses same layout)
+  // Nothing theme - uses NothingIndex for homepage, shared pages for rest
+  if (isNothingTheme) {
+    return (
+      <>
+        {renderLoader()}
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<NothingIndex />} />
+              <Route path="/courses" element={<Courses />} />
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/ebooks" element={<Ebooks />} />
+              <Route path="/apps" element={<Apps />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/install" element={<Install />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/ai" element={<AI />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </>
+    );
+  }
+
+  // Liquid Glass (default)
   return (
     <>
       {renderLoader()}

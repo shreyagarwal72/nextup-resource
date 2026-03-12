@@ -1,20 +1,23 @@
-/* Nothing OS Theme - Dot Matrix / Industrial Minimal */
+/* Nothing OS Theme — 2030 Futuristic Dot-Matrix Industrial Design */
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 
+/* ========================================
+   1. COLOR SYSTEM & TOKENS
+   ======================================== */
+
 .theme-nothing {
-  /* Core palette */
   --background: 0 0% 100%;
-  --foreground: 0 0% 5%;
-  --card: 0 0% 97%;
-  --card-foreground: 0 0% 5%;
+  --foreground: 0 0% 3%;
+  --card: 0 0% 96%;
+  --card-foreground: 0 0% 3%;
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 5%;
+  --popover-foreground: 0 0% 3%;
   --primary: 0 100% 50%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 92%;
+  --secondary: 0 0% 93%;
   --secondary-foreground: 0 0% 10%;
   --muted: 0 0% 94%;
-  --muted-foreground: 0 0% 40%;
+  --muted-foreground: 0 0% 42%;
   --accent: 0 100% 50%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 100% 50%;
@@ -24,133 +27,79 @@
   --ring: 0 100% 50%;
   --radius: 0px;
 
-  /* Typography */
+  /* Nothing-specific tokens */
+  --nth-red: 0 100% 50%;
+  --nth-glow: 0 100% 50% / 0.15;
+  --nth-grid-size: 20px;
+  --nth-scanline-opacity: 0.02;
+
   font-family: 'Space Mono', 'JetBrains Mono', monospace !important;
 }
 
 .theme-nothing.dark {
-  --background: 0 0% 3%;
-  --foreground: 0 0% 95%;
-  --card: 0 0% 7%;
-  --card-foreground: 0 0% 95%;
-  --popover: 0 0% 5%;
-  --popover-foreground: 0 0% 95%;
+  --background: 0 0% 2%;
+  --foreground: 0 0% 96%;
+  --card: 0 0% 6%;
+  --card-foreground: 0 0% 96%;
+  --popover: 0 0% 4%;
+  --popover-foreground: 0 0% 96%;
   --primary: 0 100% 50%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 12%;
-  --secondary-foreground: 0 0% 90%;
-  --muted: 0 0% 10%;
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 92%;
+  --muted: 0 0% 8%;
   --muted-foreground: 0 0% 55%;
   --accent: 0 100% 50%;
   --accent-foreground: 0 0% 100%;
-  --border: 0 0% 18%;
-  --input: 0 0% 18%;
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
   --ring: 0 100% 50%;
+  --nth-scanline-opacity: 0.025;
 }
 
-/* Override all fonts to monospace */
+/* ========================================
+   2. GLOBAL TYPOGRAPHY OVERRIDE
+   ======================================== */
+
+.theme-nothing,
 .theme-nothing * {
   font-family: 'Space Mono', 'JetBrains Mono', monospace !important;
   border-radius: 0 !important;
 }
 
-/* Preserve icon rendering */
-.theme-nothing svg {
-  border-radius: 0 !important;
+.theme-nothing h1,
+.theme-nothing h2,
+.theme-nothing h3,
+.theme-nothing h4 {
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-weight: 700 !important;
 }
 
-/* Nothing-style dotted borders */
-.theme-nothing .glass-heavy,
-.theme-nothing .glass-ultra,
-.theme-nothing .glass-button {
-  background: hsl(var(--card)) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px dashed hsl(var(--border)) !important;
-  box-shadow: none !important;
+/* Dot-matrix text effect for hero headings */
+.theme-nothing .nth-dotted-text {
+  text-shadow:
+    0 0 1px hsl(var(--foreground) / 0.8),
+    0 0 10px hsl(var(--nth-red) / 0.3);
 }
 
-.theme-nothing .glass-heavy:hover,
-.theme-nothing .glass-ultra:hover {
-  border-color: hsl(var(--primary)) !important;
-}
+/* ========================================
+   3. BACKGROUNDS & GRID SYSTEM
+   ======================================== */
 
-/* Nothing dot pattern background */
-.theme-nothing .liquid-blob {
-  display: none !important;
-}
-
+/* Dot grid pattern background */
 .theme-nothing::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: -1;
-  opacity: 0.03;
-  background-image: radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px);
-  background-size: 20px 20px;
+  z-index: 0;
   pointer-events: none;
+  opacity: 0.04;
+  background-image: radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px);
+  background-size: var(--nth-grid-size) var(--nth-grid-size);
 }
 
-/* Nothing cards */
-.theme-nothing .hover-spring {
-  transform: none !important;
-}
-
-.theme-nothing .hover-spring:hover {
-  transform: none !important;
-  border-color: hsl(var(--primary)) !important;
-}
-
-.theme-nothing .hover-spring:active {
-  transform: scale(0.98) !important;
-}
-
-/* Nothing buttons */
-.theme-nothing button,
-.theme-nothing a[class*="button"],
-.theme-nothing [class*="Button"] {
-  text-transform: uppercase !important;
-  letter-spacing: 0.15em !important;
-  font-size: 0.75rem !important;
-}
-
-/* Red accent elements */
-.theme-nothing .text-primary {
-  color: hsl(0, 100%, 50%) !important;
-}
-
-.theme-nothing .bg-primary {
-  background-color: hsl(0, 100%, 50%) !important;
-}
-
-.theme-nothing .bg-primary\/10,
-.theme-nothing .bg-primary\/20 {
-  background-color: hsl(0 100% 50% / 0.08) !important;
-}
-
-/* Nothing-style progress/loading bars */
-.theme-nothing .animate-pulse {
-  animation: nth-blink 1s step-start infinite !important;
-}
-
-@keyframes nth-blink {
-  50% { opacity: 0; }
-}
-
-/* Nothing glyph-style section headers */
-.theme-nothing h1,
-.theme-nothing h2,
-.theme-nothing h3 {
-  text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
-}
-
-/* Nothing-style badges */
-.theme-nothing .animate-ios-pop {
-  animation: none !important;
-}
-
-/* Scanline effect (subtle) */
+/* Scanline overlay */
 .theme-nothing::after {
   content: '';
   position: fixed;
@@ -161,42 +110,92 @@
     0deg,
     transparent,
     transparent 2px,
-    hsl(var(--foreground) / 0.015) 2px,
-    hsl(var(--foreground) / 0.015) 4px
+    hsl(var(--foreground) / var(--nth-scanline-opacity)) 2px,
+    hsl(var(--foreground) / var(--nth-scanline-opacity)) 4px
   );
+  mix-blend-mode: multiply;
 }
 
-/* Nothing-style nav items */
-.theme-nothing .nav-link {
-  border: 1px solid transparent !important;
-}
-.theme-nothing .nav-link:hover {
-  border: 1px dashed hsl(var(--primary)) !important;
-  background: transparent !important;
+/* Kill all liquid blobs */
+.theme-nothing .liquid-blob {
+  display: none !important;
 }
 
-/* Nothing-style scrollbar */
-.theme-nothing ::-webkit-scrollbar {
-  width: 4px;
-}
-.theme-nothing ::-webkit-scrollbar-track {
-  background: transparent;
-}
-.theme-nothing ::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary));
+/* Hero gradient override */
+.theme-nothing .bg-hero-gradient {
+  background: none !important;
 }
 
-/* Remove all rounded corners aggressively */
-.theme-nothing [class*="rounded"] {
-  border-radius: 0 !important;
+/* ========================================
+   4. GLASS → NOTHING SURFACE OVERRIDES
+   ======================================== */
+
+.theme-nothing .glass,
+.theme-nothing .glass-heavy,
+.theme-nothing .glass-ultra,
+.theme-nothing .glass-card,
+.theme-nothing .glass-button,
+.theme-nothing .glass-input {
+  background: hsl(var(--card)) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px dashed hsl(var(--border)) !important;
+  box-shadow: none !important;
 }
 
-/* Nothing-style liquid border override */
+.theme-nothing .glass-heavy:hover,
+.theme-nothing .glass-ultra:hover,
+.theme-nothing .glass-card:hover {
+  border-color: hsl(var(--primary)) !important;
+  box-shadow: 0 0 20px hsl(var(--nth-glow)) !important;
+}
+
+.theme-nothing .glass-card:hover {
+  transform: none !important;
+}
+
+.theme-nothing .glass-card:active {
+  transform: scale(0.98) !important;
+}
+
+/* ========================================
+   5. LIQUID BORDER OVERRIDE
+   ======================================== */
+
 .theme-nothing .liquid-border::before {
   display: none !important;
 }
 
-/* Nothing input styles */
+/* ========================================
+   6. NAVIGATION
+   ======================================== */
+
+.theme-nothing .nav-link::after {
+  background: hsl(var(--primary)) !important;
+  height: 1px !important;
+  bottom: 4px !important;
+}
+
+.theme-nothing .nav-link:hover {
+  color: hsl(var(--primary)) !important;
+}
+
+/* ========================================
+   7. BUTTONS
+   ======================================== */
+
+.theme-nothing button,
+.theme-nothing a[class*="button"],
+.theme-nothing [class*="Button"] {
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  font-size: 0.75rem !important;
+}
+
+/* ========================================
+   8. FORM INPUTS
+   ======================================== */
+
 .theme-nothing input,
 .theme-nothing textarea,
 .theme-nothing select {
@@ -209,5 +208,354 @@
 .theme-nothing textarea:focus {
   border-color: hsl(var(--primary)) !important;
   outline: none !important;
-  box-shadow: 0 0 0 1px hsl(var(--primary)) !important;
+  box-shadow: 0 0 0 1px hsl(var(--primary)), 0 0 12px hsl(var(--nth-glow)) !important;
+}
+
+/* ========================================
+   9. ANIMATION OVERRIDES
+   ======================================== */
+
+/* Kill all spring/bounce - Nothing is precise, mechanical */
+.theme-nothing .hover-spring {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  transform: none !important;
+}
+
+.theme-nothing .hover-spring:hover {
+  transform: none !important;
+  border-color: hsl(var(--primary)) !important;
+}
+
+.theme-nothing .hover-spring:active {
+  transform: scale(0.98) !important;
+}
+
+.theme-nothing .animate-ios-pop {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+.theme-nothing .animate-ios-pulse {
+  animation: nth-blink 1.2s step-start infinite !important;
+}
+
+@keyframes nth-blink {
+  50% { opacity: 0; }
+}
+
+/* Nothing stagger reveal - sharp, no bounce */
+.theme-nothing .animate-slide-up-ios,
+.theme-nothing .animate-macos-open,
+.theme-nothing .animate-section-enter {
+  animation: nth-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  opacity: 0;
+}
+
+@keyframes nth-reveal {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Nothing fade in */
+.theme-nothing .animate-fade-in-up {
+  animation: nth-fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  opacity: 0;
+}
+
+@keyframes nth-fade-in {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================
+   10. SCROLLBAR
+   ======================================== */
+
+.theme-nothing ::-webkit-scrollbar {
+  width: 3px;
+}
+
+.theme-nothing ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.theme-nothing ::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+}
+
+/* ========================================
+   11. ROUNDED CORNERS NUKE
+   ======================================== */
+
+.theme-nothing [class*="rounded"] {
+  border-radius: 0 !important;
+}
+
+/* ========================================
+   12. NOTHING-SPECIFIC COMPONENTS
+   ======================================== */
+
+/* Nothing Toggle Switch */
+.nth-toggle {
+  position: relative;
+  width: 44px;
+  height: 22px;
+  border: 1px dashed hsl(var(--border));
+  background: hsl(var(--card));
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.nth-toggle.active {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.1);
+}
+
+.nth-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  background: hsl(var(--muted-foreground));
+  transition: all 0.15s ease;
+}
+
+.nth-toggle.active::after {
+  left: 25px;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 8px hsl(var(--nth-glow));
+}
+
+/* Nothing Slider */
+.nth-slider {
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: hsl(var(--border));
+  outline: none;
+}
+
+.nth-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: hsl(var(--primary));
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 8px hsl(var(--nth-glow));
+}
+
+/* Nothing Progress Bar */
+.nth-progress {
+  width: 100%;
+  height: 2px;
+  background: hsl(var(--border));
+  position: relative;
+  overflow: hidden;
+}
+
+.nth-progress-fill {
+  height: 100%;
+  background: hsl(var(--primary));
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.nth-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 6px;
+  height: 6px;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 8px hsl(var(--nth-glow));
+}
+
+/* Nothing Card */
+.nth-card {
+  border: 1px dashed hsl(var(--border));
+  background: hsl(var(--card));
+  padding: 1.5rem;
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nth-card:hover {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 20px hsl(var(--nth-glow));
+}
+
+/* Corner dots decoration */
+.nth-card::before,
+.nth-card::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: hsl(var(--primary));
+}
+
+.nth-card::before { top: -2px; left: -2px; }
+.nth-card::after { top: -2px; right: -2px; }
+
+/* Nothing Badge */
+.nth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid hsl(var(--border));
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: hsl(var(--muted-foreground));
+  font-family: 'Space Mono', monospace !important;
+}
+
+.nth-badge.accent {
+  border-color: hsl(var(--primary));
+  color: hsl(var(--primary));
+}
+
+/* Nothing Dot Separator */
+.nth-dot-sep {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  background: hsl(var(--muted-foreground));
+  margin: 0 0.75rem;
+}
+
+/* Nothing Glow Text */
+.nth-glow-text {
+  color: hsl(var(--primary));
+  text-shadow: 0 0 10px hsl(var(--nth-glow)), 0 0 30px hsl(var(--primary) / 0.1);
+}
+
+/* Nothing Button */
+.nth-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid hsl(var(--foreground));
+  background: transparent;
+  color: hsl(var(--foreground));
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-family: 'Space Mono', monospace !important;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nth-btn:hover {
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+}
+
+.nth-btn.primary {
+  border-color: hsl(var(--primary));
+  color: hsl(var(--primary));
+}
+
+.nth-btn.primary:hover {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 0 20px hsl(var(--nth-glow));
+}
+
+/* Magnetic hover effect */
+.nth-magnetic {
+  transition: transform 0.2s ease;
+}
+
+/* Nothing Animated Counter */
+.nth-counter {
+  font-variant-numeric: tabular-nums;
+  font-family: 'Space Mono', monospace !important;
+  letter-spacing: 0.05em;
+}
+
+/* Nothing Section Divider */
+.nth-divider {
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    hsl(var(--border)) 0px,
+    hsl(var(--border)) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  margin: 3rem 0;
+}
+
+/* ========================================
+   13. NOTHING LOADER ANIMATION
+   ======================================== */
+
+@keyframes nth-scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes nth-dot-pulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+@keyframes nth-glitch {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+}
+
+/* ========================================
+   14. RESPONSIVE NOTHING ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+  .theme-nothing {
+    --nth-grid-size: 16px;
+  }
+}
+
+/* ========================================
+   15. NOTHING-SPECIFIC TEXT GRADIENT
+   ======================================== */
+
+/* Override any colorful gradients */
+.theme-nothing .bg-gradient-to-r,
+.theme-nothing [class*="bg-gradient"] {
+  background: none !important;
+  -webkit-text-fill-color: hsl(var(--foreground)) !important;
+}
+
+.theme-nothing .bg-clip-text {
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+}
+
+/* Red accent gradient text override */
+.theme-nothing .nth-glow-text {
+  -webkit-text-fill-color: hsl(var(--primary)) !important;
+}
+
+/* ========================================
+   16. PRINT STYLES
+   ======================================== */
+
+@media print {
+  .theme-nothing::before,
+  .theme-nothing::after {
+    display: none !important;
+  }
 }
