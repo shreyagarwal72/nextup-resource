@@ -1,28 +1,28 @@
 import { Link } from "react-router-dom";
-import { BookOpen, Package, BookText, Smartphone, ArrowRight, Sparkles, GraduationCap, Bot, TrendingUp, Star, Zap, Users } from "lucide-react";
+import { BookOpen, Package, BookText, Smartphone, ArrowRight, Sparkles, GraduationCap, Bot, TrendingUp, Star, Zap, Globe, Heart } from "lucide-react";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { useTypewriter } from "@/hooks/useTypewriter";
-import { allCourses, allResources, allEbooks } from "@/data/content";
+import { allCourses, allResources, allEbooks, allWebsites } from "@/data/content";
 import { aiTools } from "@/data/aiTools";
 import "@/styles/material3.css";
 
 const BetaIndex = () => {
   const { isStudyMode } = useStudyMode();
-  const typewriterText = useTypewriter(["Courses", "Resources", "Ebooks", "Apps", "AI Tools"], 120, 80, 2000);
+  const typewriterText = useTypewriter(["Courses", "Resources", "Ebooks", "Apps & Websites", "AI Tools"], 120, 80, 2000);
   
   const categories = [
     { title: "Courses", description: isStudyMode ? "Educational courses for focused learning" : "Premium courses on AI, development, and more", icon: BookOpen, path: "/courses", color: "primary", count: allCourses.length },
     { title: "Resources", description: isStudyMode ? "Study materials and learning tools" : "Free assets, templates, and tools", icon: Package, path: "/resources", color: "secondary", count: allResources.length },
     { title: "Ebooks", description: isStudyMode ? "Educational guides and textbooks" : "Educational ebooks and guides", icon: BookText, path: "/ebooks", color: "tertiary", count: allEbooks.length },
-    { title: "Apps", description: isStudyMode ? "Productivity and learning apps" : "Curated mobile applications", icon: Smartphone, path: "/apps", color: "primary", count: 15 },
+    { title: "Apps & Websites", description: isStudyMode ? "Productivity and learning apps" : "Curated apps and learning websites", icon: Smartphone, path: "/apps", color: "primary", count: 15 + allWebsites.length },
     { title: "AI Tools", description: "Curated collection of powerful AI tools", icon: Bot, path: "/ai", color: "secondary", count: aiTools.length },
   ];
 
   const quickActions = [
     { label: "Browse Courses", path: "/courses", icon: BookOpen },
     { label: "AI Tools", path: "/ai", icon: Bot },
-    { label: "Free Resources", path: "/resources", icon: Package },
-    { label: "Favorites", path: "/favorites", icon: Star },
+    { label: "Websites", path: "/apps", icon: Globe },
+    { label: "Favorites", path: "/favorites", icon: Heart },
   ];
 
   return (
@@ -32,7 +32,6 @@ const BetaIndex = () => {
         className="relative py-24 px-4 overflow-hidden"
         style={{ background: `linear-gradient(135deg, hsl(var(--md-sys-color-primary-container)) 0%, hsl(var(--md-sys-color-tertiary-container)) 50%, hsl(var(--md-sys-color-surface)) 100%)` }}
       >
-        {/* Decorative circles */}
         <div className="absolute top-10 right-10 w-64 h-64 rounded-full opacity-10 md3-hero-float"
              style={{ background: "hsl(var(--md-sys-color-primary))" }} />
         <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full opacity-10 md3-hero-float"
@@ -71,7 +70,7 @@ const BetaIndex = () => {
              style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
             {isStudyMode 
               ? "Distraction-free learning environment with curated educational content to accelerate your growth."
-              : "Discover premium courses, free resources, ebooks, apps, and AI tools — all in one place."}
+              : "Discover premium courses, free resources, ebooks, apps, websites, and AI tools — all in one place."}
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 md3-animate-enter md3-stagger-3">
@@ -90,7 +89,7 @@ const BetaIndex = () => {
         </div>
       </section>
 
-      {/* Quick Actions - Suggestion Chips */}
+      {/* Quick Actions */}
       <section className="py-6 px-4"
                style={{ background: "hsl(var(--md-sys-color-surface-container-low, var(--md-sys-color-surface)))" }}>
         <div className="container mx-auto max-w-4xl">
@@ -120,36 +119,20 @@ const BetaIndex = () => {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md3-grid-stagger">
             {categories.map((category, index) => (
-              <Link
-                key={category.path}
-                to={category.path}
-                className={`md3-card p-6 group md3-animate-enter md3-stagger-${index + 1}`}
-              >
+              <Link key={category.path} to={category.path}
+                className={`md3-card p-6 group md3-animate-enter md3-stagger-${index + 1}`}>
                 <div className="flex items-start justify-between mb-4">
-                  <div 
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-                    style={{ background: `hsl(var(--md-sys-color-${category.color}-container))` }}
-                  >
-                    <category.icon 
-                      className="w-7 h-7" 
-                      style={{ color: `hsl(var(--md-sys-color-on-${category.color}-container))` }}
-                    />
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                    style={{ background: `hsl(var(--md-sys-color-${category.color}-container))` }}>
+                    <category.icon className="w-7 h-7" style={{ color: `hsl(var(--md-sys-color-on-${category.color}-container))` }} />
                   </div>
-                  <span className="md3-badge-large"
-                        style={{ background: "hsl(var(--md-sys-color-primary))", color: "hsl(var(--md-sys-color-on-primary))" }}>
+                  <span className="md3-badge-large" style={{ background: "hsl(var(--md-sys-color-primary))", color: "hsl(var(--md-sys-color-on-primary))" }}>
                     {category.count}
                   </span>
                 </div>
-                <h3 className="md3-title-medium mb-2"
-                    style={{ color: "hsl(var(--md-sys-color-on-surface))", fontWeight: 600 }}>
-                  {category.title}
-                </h3>
-                <p className="md3-body-small mb-4"
-                   style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
-                  {category.description}
-                </p>
-                <div className="flex items-center gap-1 md3-text-button p-0"
-                     style={{ color: "hsl(var(--md-sys-color-primary))" }}>
+                <h3 className="md3-title-medium mb-2" style={{ color: "hsl(var(--md-sys-color-on-surface))", fontWeight: 600 }}>{category.title}</h3>
+                <p className="md3-body-small mb-4" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>{category.description}</p>
+                <div className="flex items-center gap-1 md3-text-button p-0" style={{ color: "hsl(var(--md-sys-color-primary))" }}>
                   <span className="md3-label-large">Explore</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </div>
@@ -160,13 +143,9 @@ const BetaIndex = () => {
       </section>
 
       {/* Stats Section */}
-      <section 
-        className="py-16 px-4"
-        style={{ background: "hsl(var(--md-sys-color-surface-variant))" }}
-      >
+      <section className="py-16 px-4" style={{ background: "hsl(var(--md-sys-color-surface-variant))" }}>
         <div className="container mx-auto max-w-4xl">
-          <h2 className="md3-title-large text-center mb-10"
-              style={{ color: "hsl(var(--md-sys-color-on-surface))", fontWeight: 600 }}>
+          <h2 className="md3-title-large text-center mb-10" style={{ color: "hsl(var(--md-sys-color-on-surface))", fontWeight: 600 }}>
             <Zap className="w-5 h-5 inline-block mr-2" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
             Platform Stats
           </h2>
@@ -179,26 +158,15 @@ const BetaIndex = () => {
             ].map((stat, index) => (
               <div key={stat.label} className={`md3-card-filled p-6 md3-animate-enter md3-stagger-${index + 1}`}>
                 <stat.icon className="w-6 h-6 mx-auto mb-3" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
-                <div className="mb-2"
-                     style={{ 
-                       color: "hsl(var(--md-sys-color-primary))",
-                       fontSize: "2rem",
-                       fontWeight: 700,
-                       lineHeight: 1
-                     }}>
-                  {stat.value}
-                </div>
-                <div className="md3-label-large"
-                     style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
-                  {stat.label}
-                </div>
+                <div className="mb-2" style={{ color: "hsl(var(--md-sys-color-primary))", fontSize: "2rem", fontWeight: 700, lineHeight: 1 }}>{stat.value}</div>
+                <div className="md3-label-large" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured AI Tools Section */}
+      {/* Featured AI Tools */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
           <div className="flex items-center justify-between mb-8">
@@ -207,15 +175,10 @@ const BetaIndex = () => {
                 <TrendingUp className="w-5 h-5 inline-block mr-2" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
                 Trending AI Tools
               </h2>
-              <p className="md3-body-small mt-1" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
-                Most popular tools this week
-              </p>
+              <p className="md3-body-small mt-1" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>Most popular tools this week</p>
             </div>
-            <Link to="/ai" className="md3-text-button flex items-center gap-1">
-              View All <ArrowRight className="w-4 h-4" />
-            </Link>
+            <Link to="/ai" className="md3-text-button flex items-center gap-1">View All <ArrowRight className="w-4 h-4" /></Link>
           </div>
-          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md3-grid-stagger">
             {aiTools.slice(0, 8).map((tool, i) => (
               <a key={tool.name} href={tool.url} target="_blank" rel="noopener noreferrer"
@@ -226,20 +189,24 @@ const BetaIndex = () => {
                     <Bot className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-on-primary-container))" }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="md3-title-small truncate" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>
-                      {tool.name}
-                    </h4>
+                    <h4 className="md3-title-small truncate" style={{ color: "hsl(var(--md-sys-color-on-surface))" }}>{tool.name}</h4>
                   </div>
                 </div>
-                <p className="md3-body-small line-clamp-1" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
-                  {tool.description}
-                </p>
-                <span className="md3-chip text-xs mt-3 inline-block"
-                      style={{ background: "hsl(var(--md-sys-color-surface-variant))", fontSize: "11px", padding: "2px 10px" }}>
-                  {tool.category}
-                </span>
+                <p className="md3-body-small line-clamp-1" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>{tool.description}</p>
+                <span className="md3-chip text-xs mt-3 inline-block" style={{ background: "hsl(var(--md-sys-color-surface-variant))", fontSize: "11px", padding: "2px 10px" }}>{tool.category}</span>
               </a>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Special Thanks */}
+      <section className="py-8 px-4">
+        <div className="container mx-auto max-w-4xl text-center">
+          <div className="md3-card-filled p-6 md3-animate-enter">
+            <p className="md3-body-medium" style={{ color: "hsl(var(--md-sys-color-on-surface-variant))" }}>
+              Special thanks to <span style={{ color: "hsl(var(--md-sys-color-primary))", fontWeight: 600 }}>@techinsiderashish</span> for contributing most of the content ❤️
+            </p>
           </div>
         </div>
       </section>
