@@ -16,7 +16,7 @@ const navItems = [
   { path: "/courses", icon: BookOpen, label: "Courses" },
   { path: "/resources", icon: Package, label: "Resources" },
   { path: "/ebooks", icon: BookText, label: "Ebooks" },
-  { path: "/apps", icon: Smartphone, label: "Apps" },
+  { path: "/apps", icon: Smartphone, label: "Apps & Web" },
   { path: "/ai", icon: Bot, label: "AI" },
   { path: "/favorites", icon: Heart, label: "Favorites" },
   { path: "/faq", icon: HelpCircle, label: "FAQ" },
