@@ -819,6 +819,14 @@ const resourcesData: Resource[] = [
     link: "https://drive.google.com/drive/folders/1Kvx6TX9NwqSEhyONIgrDPEWxXZfr9wFQ",
     dateAdded: "2026-03-03",
   },
+  {
+    title: "Master Editing Pack",
+    description: "Complete master editing pack with premium transitions, effects, presets, and assets for professional video and photo editing.",
+    category: "Video",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1Dbgiqt-qyTf_xRQ7l_HHP9PvaspfUE_y",
+    dateAdded: "2026-04-01",
+  },
 ];
 
 // All ebooks (will be sorted alphabetically)
