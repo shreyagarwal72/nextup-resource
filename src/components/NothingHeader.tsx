@@ -23,7 +23,7 @@ const NothingHeader = () => {
     { to: "/courses", label: "Courses" },
     { to: "/resources", label: "Resources" },
     { to: "/ebooks", label: "Ebooks" },
-    { to: "/apps", label: "Apps" },
+    { to: "/apps", label: "Apps & Web" },
     { to: "/ai", label: "AI" },
     { to: "/favorites", label: "Favorites" },
     { to: "/contact", label: "Contact" },

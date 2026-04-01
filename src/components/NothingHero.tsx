@@ -190,6 +190,13 @@ const NothingHero = () => {
         <ChevronDown className="w-5 h-5 text-muted-foreground" />
       </div>
 
+      {/* Special Thanks */}
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20">
+        <p className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground text-center">
+          Content by <span className="text-primary font-bold">@techinsiderashish</span>
+        </p>
+      </div>
+
       <style>{`
         @keyframes nth-scanline {
           0% { top: -1%; }

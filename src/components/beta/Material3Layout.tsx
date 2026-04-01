@@ -16,7 +16,7 @@ const navItems = [
   { path: "/courses", icon: BookOpen, label: "Courses" },
   { path: "/resources", icon: Package, label: "Resources" },
   { path: "/ebooks", icon: BookText, label: "Ebooks" },
-  { path: "/apps", icon: Smartphone, label: "Apps" },
+  { path: "/apps", icon: Smartphone, label: "Apps & Web" },
   { path: "/ai", icon: Bot, label: "AI" },
   { path: "/favorites", icon: Heart, label: "Favorites" },
   { path: "/faq", icon: HelpCircle, label: "FAQ" },
@@ -111,9 +111,9 @@ const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
               </button>
               <Link
                 to="/settings"
-                className="md3-tonal-button text-sm px-3 py-1"
+                className="md3-tonal-button p-2 rounded-full"
               >
-                Switch Theme
+                <Settings className="w-5 h-5" />
               </Link>
             </div>
           </div>

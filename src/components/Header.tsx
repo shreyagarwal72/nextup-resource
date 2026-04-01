@@ -27,7 +27,7 @@ const Header = () => {
     { to: "/courses", label: "Courses" },
     { to: "/resources", label: "Resources" },
     { to: "/ebooks", label: "Ebooks" },
-    { to: "/apps", label: "Apps" },
+    { to: "/apps", label: "Apps & Websites" },
     { to: "/ai", label: "AI" },
     { to: "/favorites", label: "Favorites" },
     { to: "/contact", label: "Contact" },

@@ -1,15 +1,18 @@
+import { allCourses, allResources } from "@/data/content";
+import { aiTools } from "@/data/aiTools";
+
 const stats = [
   {
-    value: "50+",
+    value: `${allCourses.length}+`,
     label: "Expert Courses",
   },
   {
-    value: "10K+",
-    label: "Active Learners",
+    value: `${allResources.length}+`,
+    label: "Free Resources",
   },
   {
-    value: "95%",
-    label: "Satisfaction Rate",
+    value: `${aiTools.length}+`,
+    label: "AI Tools",
   },
 ];
 

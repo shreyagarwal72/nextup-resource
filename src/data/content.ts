@@ -611,6 +611,16 @@ const coursesData: Course[] = [
     link: "https://t.me/+T5873KJHbjg4ZDM1",
     dateAdded: "2026-03-03",
   },
+  {
+    title: "All IN ONE AI PLUS BUNDLE",
+    description: "Platinum Bundle 2.0 — massive all-in-one AI course collection covering every major AI tool, workflow, and technique for creators and professionals.",
+    category: "AI",
+    duration: "Self-paced",
+    students: "6.2K",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop",
+    link: "https://closed-hyacinth-b7f.notion.site/Platinum-Bundle-2-0-92c34bd92b2c48ceab940bace31a0f86",
+    dateAdded: "2026-04-01",
+  },
 ];
 
 // All resources (will be sorted alphabetically)
@@ -809,6 +819,14 @@ const resourcesData: Resource[] = [
     link: "https://drive.google.com/drive/folders/1Kvx6TX9NwqSEhyONIgrDPEWxXZfr9wFQ",
     dateAdded: "2026-03-03",
   },
+  {
+    title: "Master Editing Pack",
+    description: "Complete master editing pack with premium transitions, effects, presets, and assets for professional video and photo editing.",
+    category: "Video",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/drive/folders/1Dbgiqt-qyTf_xRQ7l_HHP9PvaspfUE_y",
+    dateAdded: "2026-04-01",
+  },
 ];
 
 // All ebooks (will be sorted alphabetically)
@@ -844,7 +862,39 @@ const ebooksData: Ebook[] = [
   },
 ];
 
-// All apps for the Apps section (will be sorted alphabetically)
+// Website resources for the Apps & Websites section
+export interface Website {
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  link: string;
+  emoji: string;
+  dateAdded?: string;
+}
+
+const websitesData: Website[] = [
+  { title: "HTML - W3Schools", description: "Learn HTML with tutorials, references, and examples", emoji: "🌐", category: "Web Development", image: "https://images.unsplash.com/photo-1621839673705-6617adf9e890?w=800&auto=format&fit=crop", link: "https://w3schools.com" },
+  { title: "CSS - web.dev", description: "Learn CSS with Google's web.dev comprehensive course", emoji: "💅", category: "Web Development", image: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=800&auto=format&fit=crop", link: "https://web.dev/learn/css" },
+  { title: "JavaScript - javascript.info", description: "The modern JavaScript tutorial from basics to advanced", emoji: "🔥", category: "Web Development", image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800&auto=format&fit=crop", link: "https://javascript.info" },
+  { title: "Git & GitHub - git-scm.com", description: "Official Git documentation and learning resources", emoji: "🐙", category: "Development", image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&auto=format&fit=crop", link: "https://git-scm.com" },
+  { title: "Free APIs Collection", description: "Huge collection of free public APIs for developers", emoji: "📚", category: "Development", image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop", link: "https://free-apis.github.io/#/" },
+  { title: "Python - learnpython.org", description: "Interactive Python tutorials for beginners", emoji: "🐍", category: "Programming", image: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800&auto=format&fit=crop", link: "https://learnpython.org" },
+  { title: "React - react-tutorial.app", description: "Interactive React tutorial with hands-on exercises", emoji: "⚛️", category: "Web Development", image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop", link: "https://react-tutorial.app" },
+  { title: "Laravel - Laracasts", description: "Video tutorials for Laravel and modern PHP", emoji: "🎡", category: "Web Development", image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop", link: "https://laracasts.com" },
+  { title: "VueJS - LearnVue", description: "Vue.js tutorials and guides", emoji: "🌟", category: "Web Development", image: "https://images.unsplash.com/photo-1537884944318-390069bb8665?w=800&auto=format&fit=crop", link: "https://learnvue.co" },
+  { title: "SQL - SQLBolt", description: "Interactive SQL lessons and exercises", emoji: "🔍", category: "Data", image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&auto=format&fit=crop", link: "https://SQLbolt.com" },
+  { title: "Tailwind CSS", description: "Utility-first CSS framework documentation", emoji: "🌈", category: "Web Development", image: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=800&auto=format&fit=crop", link: "https://tailwindcss.com" },
+  { title: "Go - Go By Example", description: "Hands-on introduction to Go using examples", emoji: "🚀", category: "Programming", image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop", link: "https://gobyexample.com" },
+  { title: "Docker - Docker Curriculum", description: "Comprehensive Docker tutorial for beginners", emoji: "🐳", category: "DevOps", image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&auto=format&fit=crop", link: "https://docker-curriculum.com" },
+  { title: "Flutter - flutter.dev/learn", description: "Official Flutter learning resources & tutorials", emoji: "🦋", category: "Mobile Development", image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&auto=format&fit=crop", link: "https://flutter.dev/learn" },
+  { title: "Rust - rust-lang.org/learn", description: "Official Rust programming language learning resources", emoji: "🦀", category: "Programming", image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop", link: "https://rust-lang.org/learn" },
+  { title: "AI/ML - fast.ai", description: "Practical deep learning courses for coders", emoji: "🧠", category: "AI & ML", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop", link: "https://fast.ai" },
+  { title: "DevOps - roadmap.sh", description: "DevOps roadmap and learning path", emoji: "⚙️", category: "DevOps", image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&auto=format&fit=crop", link: "https://roadmap.sh/devops" },
+  { title: "TypeScript - Codecademy", description: "Learn TypeScript with interactive exercises", emoji: "🧩", category: "Programming", image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800&auto=format&fit=crop", link: "https://www.codecademy.com/learn/learn-typescript" },
+];
+
+// All apps for the Apps & Websites section (will be sorted alphabetically)
 const appsData: App[] = [
   // Development
   {
@@ -1229,9 +1279,11 @@ export const courses: Course[] = sortAlphabetically(coursesData);
 export const resources: Resource[] = sortAlphabetically(resourcesData);
 export const ebooks: Ebook[] = sortAlphabetically(ebooksData);
 export const apps: App[] = sortAlphabetically(appsData);
+export const websites: Website[] = sortAlphabetically(websitesData);
 
 // Alias exports for backward compatibility
 export const allCourses = courses;
 export const allResources = resources;
 export const allEbooks = ebooks;
 export const allApps = apps;
+export const allWebsites = websites;
