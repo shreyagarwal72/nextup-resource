@@ -611,6 +611,16 @@ const coursesData: Course[] = [
     link: "https://t.me/+T5873KJHbjg4ZDM1",
     dateAdded: "2026-03-03",
   },
+  {
+    title: "All IN ONE AI PLUS BUNDLE",
+    description: "Platinum Bundle 2.0 — massive all-in-one AI course collection covering every major AI tool, workflow, and technique for creators and professionals.",
+    category: "AI",
+    duration: "Self-paced",
+    students: "6.2K",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop",
+    link: "https://closed-hyacinth-b7f.notion.site/Platinum-Bundle-2-0-92c34bd92b2c48ceab940bace31a0f86",
+    dateAdded: "2026-04-01",
+  },
 ];
 
 // All resources (will be sorted alphabetically)
