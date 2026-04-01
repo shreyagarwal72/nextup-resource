@@ -1279,9 +1279,11 @@ export const courses: Course[] = sortAlphabetically(coursesData);
 export const resources: Resource[] = sortAlphabetically(resourcesData);
 export const ebooks: Ebook[] = sortAlphabetically(ebooksData);
 export const apps: App[] = sortAlphabetically(appsData);
+export const websites: Website[] = sortAlphabetically(websitesData);
 
 // Alias exports for backward compatibility
 export const allCourses = courses;
 export const allResources = resources;
 export const allEbooks = ebooks;
 export const allApps = apps;
+export const allWebsites = websites;
