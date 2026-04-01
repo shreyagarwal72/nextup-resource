@@ -111,9 +111,9 @@ const Material3Layout = ({ children, onExitBeta }: Material3LayoutProps) => {
               </button>
               <Link
                 to="/settings"
-                className="md3-tonal-button text-sm px-3 py-1"
+                className="md3-tonal-button p-2 rounded-full"
               >
-                Switch Theme
+                <Settings className="w-5 h-5" />
               </Link>
             </div>
           </div>
