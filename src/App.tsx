@@ -1,13 +1,10 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import PencilLoader from "@/components/PencilLoader";
-import Material3Loader from "@/components/Material3Loader";
-import NothingLoader from "@/components/NothingLoader";
 import { useBetaUI } from "@/hooks/useBetaUI";
 import Material3Layout from "@/components/beta/Material3Layout";
 import "@/styles/theme-nothing.css";
@@ -52,9 +49,6 @@ const queryClient = new QueryClient({
 
 const AppContent = () => {
   const { isBetaEnabled, disableBetaUI } = useBetaUI();
-  const [showSplash, setShowSplash] = useState(true);
-  const [hasShownSplash, setHasShownSplash] = useState(false);
-
   const storedTheme = typeof window !== 'undefined' ? localStorage.getItem('nextup-app-theme') : null;
   const isNothingTheme = storedTheme === 'nothing';
 
@@ -66,20 +60,6 @@ const AppContent = () => {
     }
   }, [isNothingTheme]);
 
-  useEffect(() => {
-    const splashShown = sessionStorage.getItem("splashShown");
-    if (splashShown) {
-      setShowSplash(false);
-      setHasShownSplash(true);
-    }
-  }, []);
-
-  const handleSplashComplete = () => {
-    setShowSplash(false);
-    setHasShownSplash(true);
-    sessionStorage.setItem("splashShown", "true");
-  };
-
   const PageLoader = () => (
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="flex gap-2">
@@ -90,18 +70,11 @@ const AppContent = () => {
     </div>
   );
 
-  const renderLoader = () => {
-    if (!showSplash || hasShownSplash) return null;
-    if (isNothingTheme) return <NothingLoader onComplete={handleSplashComplete} duration={2000} />;
-    if (isBetaEnabled) return <Material3Loader onComplete={handleSplashComplete} duration={1800} />;
-    return <PencilLoader onComplete={handleSplashComplete} duration={1800} />;
-  };
-
   // Material 3 UI
   if (isBetaEnabled && !isNothingTheme) {
     return (
       <>
-        {renderLoader()}
+        
         <BrowserRouter>
           <Material3Layout onExitBeta={disableBetaUI}>
             <Suspense fallback={<PageLoader />}>
@@ -130,7 +103,7 @@ const AppContent = () => {
   if (isNothingTheme) {
     return (
       <>
-        {renderLoader()}
+        
         <Toaster />
         <Sonner />
         <BrowserRouter>
@@ -158,7 +131,7 @@ const AppContent = () => {
   // Liquid Glass (default)
   return (
     <>
-      {renderLoader()}
+      
       <Toaster />
       <Sonner />
       <BrowserRouter>
