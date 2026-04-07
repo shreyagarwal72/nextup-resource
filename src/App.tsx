@@ -74,7 +74,6 @@ const AppContent = () => {
   if (isBetaEnabled && !isNothingTheme) {
     return (
       <>
-        
         <BrowserRouter>
           <Material3Layout onExitBeta={disableBetaUI}>
             <Suspense fallback={<PageLoader />}>
@@ -103,7 +102,6 @@ const AppContent = () => {
   if (isNothingTheme) {
     return (
       <>
-        
         <Toaster />
         <Sonner />
         <BrowserRouter>
@@ -131,7 +129,6 @@ const AppContent = () => {
   // Liquid Glass (default)
   return (
     <>
-      
       <Toaster />
       <Sonner />
       <BrowserRouter>
