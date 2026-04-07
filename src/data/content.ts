@@ -85,6 +85,16 @@ const sortAlphabetically = <T extends { title: string }>(arr: T[]): T[] => {
 // All courses (will be sorted alphabetically)
 const coursesData: Course[] = [
   {
+    title: "Aziraj Complete GST Course",
+    description: "Comprehensive GST course covering all aspects of Goods and Services Tax including registration, filing, invoicing, and compliance.",
+    category: "Finance",
+    duration: "Self-paced",
+    students: "1K+",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400",
+    link: "https://t.me/+PfWEc2ceKm8zZGI9",
+    dateAdded: "2026-04-07",
+  },
+  {
     title: "1000+ Udemy Courses Collection",
     description: "Massive collection of premium Udemy courses covering programming, business, design, marketing, and personal development.",
     category: "Education",
