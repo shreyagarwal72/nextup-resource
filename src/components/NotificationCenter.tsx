@@ -73,7 +73,7 @@ const NotificationCenter = () => {
 
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 z-[60] transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[9998] transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         style={{ background: "rgba(0,0,0,0.4)" }}
@@ -82,7 +82,7 @@ const NotificationCenter = () => {
 
       {/* Panel */}
       <div
-        className={`fixed top-0 right-0 bottom-0 z-[60] w-full max-w-sm transition-transform duration-500 ease-[cubic-bezier(0.05,0.7,0.1,1)] ${
+        className={`fixed top-0 right-0 bottom-0 z-[9999] w-full max-w-sm transition-transform duration-500 ease-[cubic-bezier(0.05,0.7,0.1,1)] ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
