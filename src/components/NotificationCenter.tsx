@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { createPortal } from "react-dom";
 import { Bell, X, BookOpen, Package, Smartphone, Clock } from "lucide-react";
 import { courses, resources, ebooks, apps } from "@/data/content";
 
