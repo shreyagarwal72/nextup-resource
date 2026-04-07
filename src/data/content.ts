@@ -1117,6 +1117,14 @@ const coursesData: Course[] = [
 // All resources (will be sorted alphabetically)
 const resourcesData: Resource[] = [
   {
+    title: "10 Special AI Prompts Collection",
+    description: "Curated set of 10 powerful AI prompts for productivity, creativity, coding, marketing, and more. Ready to use with ChatGPT, Claude, and other AI tools.",
+    category: "AI",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400",
+    link: "https://t.me/nextupfilebot?start=BQADAQADchsAAlQyqEZqvpo7KuLL3hYE",
+    dateAdded: "2026-04-07",
+  },
+  {
     title: "1000+ LUTs Bundle",
     description: "Massive collection of color grading LUTs for video editing. Transform your footage with cinematic, vintage, and creative color looks.",
     category: "Video",
