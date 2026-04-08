@@ -28,7 +28,7 @@
 - 📦 **Free Resources** — Downloadable assets, templates, and tools
 - 📖 **Ebooks** — Educational ebooks on various topics
 - 📱 **Apps** — Curated collection of useful mobile applications
-- ❤️ **Favorites System** — Save courses and resources for quick access
+- ❤️ **Favorite System** — Save courses and resources for quick access
 - ✨ **New Badge** — Visual indicator for recently added content (within 7 days)
 - 🏷️ **Platform Badges** — Auto-detected source indicators (Google Drive, Telegram, Mega)
 - 🌙 **Dark Mode** — Beautiful light and dark themes
