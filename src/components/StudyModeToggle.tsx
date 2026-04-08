@@ -6,54 +6,28 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-interface StudyModeToggleProps {
-  variant?: "default" | "material3";
-}
-
-export const StudyModeToggle = ({ variant = "default" }: StudyModeToggleProps) => {
+export const StudyModeToggle = () => {
   const { isStudyMode, toggleStudyMode } = useStudyMode();
-
-  if (variant === "material3") {
-    return (
-      <button
-        onClick={toggleStudyMode}
-        className="md3-tonal-button p-2 rounded-full relative"
-        aria-label={isStudyMode ? "Exit Study Mode" : "Enter Study Mode"}
-      >
-        {isStudyMode ? (
-          <BookOpenCheck className="w-5 h-5" style={{ color: "hsl(var(--md-sys-color-primary))" }} />
-        ) : (
-          <GraduationCap className="w-5 h-5" />
-        )}
-        {isStudyMode && (
-          <span 
-            className="absolute -top-1 -right-1 w-2 h-2 rounded-full"
-            style={{ background: "hsl(var(--md-sys-color-primary))" }}
-          />
-        )}
-      </button>
-    );
-  }
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <button
           onClick={toggleStudyMode}
-          className={`relative p-2 sm:p-2.5 rounded-xl transition-all duration-300 ease-apple-spring ${
+          className={`relative p-2 rounded-full border-2 border-foreground/80 transition-all duration-300 ease-bounce shadow-pop hover:shadow-pop-hover hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-pop-active active:translate-x-0.5 active:translate-y-0.5 ${
             isStudyMode
-              ? "bg-primary/20 text-primary glass-button border-primary/30"
-              : "glass-button text-muted-foreground hover:text-foreground"
+              ? "bg-primary text-primary-foreground"
+              : "bg-card text-muted-foreground hover:text-foreground"
           }`}
           aria-label={isStudyMode ? "Exit Study Mode" : "Enter Study Mode"}
         >
           {isStudyMode ? (
-            <BookOpenCheck className="h-5 w-5" />
+            <BookOpenCheck className="h-5 w-5" strokeWidth={2.5} />
           ) : (
-            <GraduationCap className="h-5 w-5" />
+            <GraduationCap className="h-5 w-5" strokeWidth={2.5} />
           )}
           {isStudyMode && (
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-tertiary border-2 border-foreground/80" />
           )}
         </button>
       </TooltipTrigger>

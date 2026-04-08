@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Settings } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import { StudyModeToggle } from "./StudyModeToggle";
@@ -13,11 +13,8 @@ const Header = () => {
   const location = useLocation();
   const { totalCount } = useFavorites();
 
-  // iOS-style scroll blur effect
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -36,23 +33,20 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    // pointer-events-none prevents the fixed header container from blocking taps/clicks on content below
-    // while still allowing interaction on the actual header UI via pointer-events-auto.
     <header className="fixed top-0 left-0 right-0 z-50 w-full pointer-events-none">
       <div className="mx-3 sm:mx-4 mt-3 sm:mt-4 pointer-events-auto">
-        <div 
-          className={`rounded-2xl liquid-border transition-all duration-500 ease-apple-overshoot ${
-            isScrolled 
-              ? "glass-ultra shadow-glass-lg" 
-              : "glass-heavy"
+        <div
+          className={`bg-card border-2 border-foreground/80 rounded-2xl transition-all duration-300 ${
+            isScrolled ? "shadow-pop" : "shadow-pop-soft"
           }`}
         >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex h-14 sm:h-16 items-center justify-between">
+            {/* Logo */}
             <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
-              <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-primary/90 backdrop-blur-sm shadow-lg transition-all duration-500 ease-apple-spring group-hover:scale-110 group-hover:rotate-3 group-active:scale-95">
-                <span className="text-base sm:text-lg font-bold text-primary-foreground">N</span>
+              <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-primary border-2 border-foreground/80 shadow-pop transition-all duration-300 ease-bounce group-hover:shadow-pop-hover group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
+                <span className="text-base sm:text-lg font-extrabold text-primary-foreground font-heading">N</span>
               </div>
-              <span className="text-sm sm:text-lg font-semibold text-foreground transition-opacity duration-300">
+              <span className="text-sm sm:text-lg font-bold text-foreground font-heading">
                 Nextup Resources
               </span>
             </Link>
@@ -63,15 +57,15 @@ const Header = () => {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`nav-link px-4 py-2 rounded-xl text-sm font-medium relative hover-spring ${
+                  className={`nav-pill relative ${
                     isActive(link.to)
-                      ? "glass-button text-primary"
+                      ? "bg-tertiary text-tertiary-foreground font-bold border-2 border-foreground/80"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {link.label}
                   {link.to === "/favorites" && totalCount > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-destructive-foreground text-xs rounded-full flex items-center justify-center animate-ios-pop">
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-destructive-foreground text-xs font-bold rounded-full flex items-center justify-center border-2 border-foreground/80 animate-pop-in">
                       {totalCount > 9 ? "9+" : totalCount}
                     </span>
                   )}
@@ -83,31 +77,24 @@ const Header = () => {
               <NotificationCenter />
               <StudyModeToggle />
               <ThemeToggle />
-              <Link
-                to="/settings"
-                className="p-2 rounded-xl glass-button press-feedback text-muted-foreground hover:text-primary transition-colors hidden md:flex"
-                aria-label="Settings"
-              >
-                <Settings className="w-5 h-5" />
-              </Link>
-              
+
               <div className="hidden md:block">
-                <Button variant="glassPrimary" size="default" asChild className="hover-spring">
+                <Button size="default" asChild>
                   <Link to="/courses">Get Started</Link>
                 </Button>
               </div>
 
-              {/* Mobile Menu Button with iOS spring animation */}
+              {/* Mobile Menu Button */}
               <button
-                className="md:hidden p-2 rounded-xl glass-button press-feedback"
+                className="md:hidden p-2 rounded-xl border-2 border-foreground/80 bg-card shadow-pop active:shadow-pop-active active:translate-x-0.5 active:translate-y-0.5 transition-all duration-300"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
               >
                 <div className="relative w-6 h-6">
-                  <Menu className={`absolute inset-0 h-6 w-6 text-foreground transition-all duration-400 ease-apple-spring ${
+                  <Menu className={`absolute inset-0 h-6 w-6 text-foreground transition-all duration-300 ease-bounce ${
                     isMenuOpen ? "rotate-90 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
                   }`} />
-                  <X className={`absolute inset-0 h-6 w-6 text-foreground transition-all duration-400 ease-apple-spring ${
+                  <X className={`absolute inset-0 h-6 w-6 text-foreground transition-all duration-300 ease-bounce ${
                     isMenuOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0"
                   }`} />
                 </div>
@@ -117,65 +104,43 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation with iOS spring animation */}
-      <div 
-        className={`md:hidden mx-3 sm:mx-4 mt-2 transition-all duration-500 ease-apple-spring ${
-          isMenuOpen 
-            ? "opacity-100 translate-y-0 scale-100 pointer-events-auto" 
+      {/* Mobile Navigation */}
+      <div
+        className={`md:hidden mx-3 sm:mx-4 mt-2 transition-all duration-300 ease-bounce ${
+          isMenuOpen
+            ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
             : "opacity-0 -translate-y-6 scale-95 pointer-events-none"
         }`}
       >
-        <div className="glass-ultra rounded-2xl overflow-hidden liquid-border shadow-glass-lg">
+        <div className="bg-card border-2 border-foreground/80 rounded-2xl overflow-hidden shadow-pop">
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
             {navLinks.map((link, index) => (
               <Link
                 key={link.to}
                 to={link.to}
                 onClick={() => setIsMenuOpen(false)}
-                className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ease-apple-overshoot press-feedback ${
+                className={`px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
                   isActive(link.to)
-                    ? "glass-button text-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+                    ? "bg-tertiary text-tertiary-foreground border-2 border-foreground/80"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
-                style={{ 
-                  transitionDuration: "400ms",
-                  transitionDelay: isMenuOpen ? `${index * 60}ms` : "0ms",
+                style={{
+                  transitionDelay: isMenuOpen ? `${index * 50}ms` : "0ms",
                   transform: isMenuOpen ? "translateX(0)" : "translateX(-24px)",
-                  opacity: isMenuOpen ? 1 : 0
+                  opacity: isMenuOpen ? 1 : 0,
                 }}
               >
                 <span className="flex items-center justify-between">
                   {link.label}
                   {link.to === "/favorites" && totalCount > 0 && (
-                    <span className="w-5 h-5 bg-destructive text-destructive-foreground text-xs rounded-full flex items-center justify-center">
+                    <span className="w-5 h-5 bg-destructive text-destructive-foreground text-xs font-bold rounded-full flex items-center justify-center border-2 border-foreground/80">
                       {totalCount > 9 ? "9+" : totalCount}
                     </span>
                   )}
                 </span>
               </Link>
             ))}
-            <div className="flex gap-2 mt-2">
-              <Link
-                to="/settings"
-                onClick={() => setIsMenuOpen(false)}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/5 press-feedback"
-                style={{ 
-                  transitionDelay: isMenuOpen ? `${navLinks.length * 60}ms` : "0ms"
-                }}
-              >
-                <Settings className="w-4 h-4" />
-                Settings
-              </Link>
-            </div>
-            <Button 
-              variant="glassPrimary" 
-              size="default" 
-              className="mt-2 press-feedback" 
-              asChild
-              style={{ 
-                transitionDelay: isMenuOpen ? `${(navLinks.length + 1) * 60}ms` : "0ms"
-              }}
-            >
+            <Button size="default" className="mt-2" asChild>
               <Link to="/courses" onClick={() => setIsMenuOpen(false)}>
                 Get Started
               </Link>
