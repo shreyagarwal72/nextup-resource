@@ -15,7 +15,7 @@ const LoadingSkeleton = ({ type, count = 6 }: LoadingSkeletonProps) => {
         {Array.from({ length: count }).map((_, index) => (
           <div
             key={index}
-            className="glass-heavy rounded-2xl overflow-hidden animate-pulse"
+            className="bg-card border-2 border-foreground/20 rounded-2xl overflow-hidden animate-pulse"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
             {/* Image skeleton */}
