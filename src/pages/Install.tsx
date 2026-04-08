@@ -16,167 +16,113 @@ const Install = () => {
   const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
-    // Check if already installed
-    const checkStandalone = window.matchMedia("(display-mode: standalone)").matches;
-    setIsStandalone(checkStandalone);
+    setIsStandalone(window.matchMedia("(display-mode: standalone)").matches);
+    setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
 
-    // Check if iOS
-    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    setIsIOS(iOS);
-
-    // Listen for beforeinstallprompt event
     const handleBeforeInstall = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
     };
-
     window.addEventListener("beforeinstallprompt", handleBeforeInstall);
-
-    // Listen for app installed event
     window.addEventListener("appinstalled", () => {
       setIsInstalled(true);
       setDeferredPrompt(null);
     });
-
-    return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
-    };
+    return () => window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
   }, []);
 
   const handleInstall = async () => {
     if (!deferredPrompt) return;
-
     await deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
-
-    if (outcome === "accepted") {
-      setIsInstalled(true);
-    }
+    if (outcome === "accepted") setIsInstalled(true);
     setDeferredPrompt(null);
   };
 
   const features = [
-    { icon: <Smartphone className="w-5 h-5" />, text: "Works offline" },
-    { icon: <Download className="w-5 h-5" />, text: "Fast loading" },
-    { icon: <Monitor className="w-5 h-5" />, text: "Full screen experience" },
-    { icon: <CheckCircle className="w-5 h-5" />, text: "Auto updates" },
+    { icon: <Smartphone className="w-5 h-5" strokeWidth={2.5} />, text: "Works offline", color: "border-t-primary" },
+    { icon: <Download className="w-5 h-5" strokeWidth={2.5} />, text: "Fast loading", color: "border-t-secondary" },
+    { icon: <Monitor className="w-5 h-5" strokeWidth={2.5} />, text: "Full screen", color: "border-t-tertiary" },
+    { icon: <CheckCircle className="w-5 h-5" strokeWidth={2.5} />, text: "Auto updates", color: "border-t-quaternary" },
   ];
 
   return (
     <div className="min-h-screen">
       <Header />
-      <main className="pt-32 pb-20 relative overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-hero-gradient" />
-        <div className="liquid-blob w-80 h-80 bg-primary/20 top-20 -left-40" />
-        <div className="liquid-blob w-72 h-72 bg-purple-400/20 bottom-20 -right-36" style={{ animationDelay: "-3s" }} />
-
+      <main className="pt-32 pb-20 relative overflow-hidden dot-grid">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-2xl mx-auto text-center">
             {/* App Icon */}
-            <div className="glass-heavy w-24 h-24 rounded-3xl mx-auto mb-8 flex items-center justify-center animate-fade-in">
-              <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center">
-                <span className="text-3xl font-bold text-primary-foreground">N</span>
-              </div>
+            <div className="w-24 h-24 rounded-2xl mx-auto mb-8 flex items-center justify-center bg-primary border-2 border-foreground/80 shadow-pop animate-fade-in">
+              <span className="text-3xl font-extrabold text-primary-foreground font-heading">N</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4 font-heading animate-fade-in delay-100">
               Install Nextup Resources
             </h1>
-
-            <p className="text-lg text-muted-foreground mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              Get the full app experience on your device. Access courses and resources anytime, even offline.
+            <p className="text-lg text-muted-foreground mb-8 animate-fade-in delay-200">
+              Get the full app experience on your device.
             </p>
 
             {/* Features */}
-            <div className="grid grid-cols-2 gap-4 mb-10 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+            <div className="grid grid-cols-2 gap-4 mb-10 animate-fade-in delay-300">
               {features.map((feature, index) => (
-                <div key={index} className="glass-button rounded-xl p-4 flex items-center gap-3">
+                <div key={index} className={`bg-card border-2 border-foreground/80 rounded-xl p-4 flex items-center gap-3 shadow-pop-soft border-t-4 ${feature.color}`}>
                   <div className="text-primary">{feature.icon}</div>
-                  <span className="text-sm font-medium text-foreground">{feature.text}</span>
+                  <span className="text-sm font-bold text-foreground">{feature.text}</span>
                 </div>
               ))}
             </div>
 
-            {/* Install Status */}
             {isStandalone || isInstalled ? (
-              <div className="glass-heavy rounded-2xl p-8 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-                <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                <h2 className="text-2xl font-semibold text-foreground mb-2">Already Installed!</h2>
-                <p className="text-muted-foreground">
-                  You're using the installed version of Nextup Resources.
-                </p>
+              <div className="bg-card border-2 border-foreground/80 rounded-2xl p-8 shadow-pop-soft animate-fade-in delay-400">
+                <CheckCircle className="w-16 h-16 text-quaternary mx-auto mb-4" strokeWidth={2.5} />
+                <h2 className="text-2xl font-bold text-foreground mb-2 font-heading">Already Installed!</h2>
+                <p className="text-muted-foreground">You're using the installed version.</p>
               </div>
             ) : isIOS ? (
-              <div className="glass-heavy rounded-2xl p-8 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-                <h2 className="text-xl font-semibold text-foreground mb-4">Install on iOS</h2>
+              <div className="bg-card border-2 border-foreground/80 rounded-2xl p-8 shadow-pop-soft animate-fade-in delay-400">
+                <h2 className="text-xl font-bold text-foreground mb-4 font-heading">Install on iOS</h2>
                 <div className="space-y-4 text-left">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-sm font-semibold text-primary">1</span>
+                  {[
+                    { step: "1", title: "Tap the Share button", desc: <span className="flex items-center gap-1">Look for <Share className="w-4 h-4" /> at the bottom of Safari</span> },
+                    { step: "2", title: 'Select "Add to Home Screen"', desc: "Scroll down in the share menu" },
+                    { step: "3", title: 'Tap "Add"', desc: "The app will appear on your home screen" },
+                  ].map((item) => (
+                    <div key={item.step} className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0 border-2 border-foreground/80 font-bold text-sm">
+                        {item.step}
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground">{item.title}</p>
+                        <p className="text-sm text-muted-foreground">{item.desc}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-foreground">Tap the Share button</p>
-                      <p className="text-sm text-muted-foreground flex items-center gap-1">
-                        Look for <Share className="w-4 h-4" /> at the bottom of Safari
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-sm font-semibold text-primary">2</span>
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">Select "Add to Home Screen"</p>
-                      <p className="text-sm text-muted-foreground">Scroll down in the share menu</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-sm font-semibold text-primary">3</span>
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">Tap "Add"</p>
-                      <p className="text-sm text-muted-foreground">The app will appear on your home screen</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             ) : deferredPrompt ? (
-              <Button
-                variant="glassPrimary"
-                size="xl"
-                onClick={handleInstall}
-                className="animate-fade-in"
-                style={{ animationDelay: "0.4s" }}
-              >
-                <Download className="w-5 h-5 mr-2" />
-                Install App
+              <Button size="xl" onClick={handleInstall} className="animate-fade-in delay-400">
+                <Download className="w-5 h-5 mr-2" strokeWidth={2.5} /> Install App
               </Button>
             ) : (
-              <div className="glass-heavy rounded-2xl p-8 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-                <h2 className="text-xl font-semibold text-foreground mb-4">Install on Android</h2>
+              <div className="bg-card border-2 border-foreground/80 rounded-2xl p-8 shadow-pop-soft animate-fade-in delay-400">
+                <h2 className="text-xl font-bold text-foreground mb-4 font-heading">Install on Android</h2>
                 <div className="space-y-4 text-left">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-sm font-semibold text-primary">1</span>
+                  {[
+                    { step: "1", title: "Tap the menu button", desc: <span className="flex items-center gap-1">Look for <MoreVertical className="w-4 h-4" /> in Chrome</span> },
+                    { step: "2", title: 'Select "Install app"', desc: "Follow the prompts to install" },
+                  ].map((item) => (
+                    <div key={item.step} className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0 border-2 border-foreground/80 font-bold text-sm">
+                        {item.step}
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground">{item.title}</p>
+                        <p className="text-sm text-muted-foreground">{item.desc}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-foreground">Tap the menu button</p>
-                      <p className="text-sm text-muted-foreground flex items-center gap-1">
-                        Look for <MoreVertical className="w-4 h-4" /> in Chrome
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-sm font-semibold text-primary">2</span>
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">Select "Install app" or "Add to Home Screen"</p>
-                      <p className="text-sm text-muted-foreground">Follow the prompts to install</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             )}
