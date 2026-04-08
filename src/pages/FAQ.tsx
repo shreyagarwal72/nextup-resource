@@ -18,7 +18,7 @@ const faqData = [
   { question: "How often is new content added?", answer: "We regularly update our library. Follow us on Instagram and YouTube to stay updated." },
   { question: "Do I need to create an account?", answer: "No account is required! All content is freely accessible without any registration." },
   { question: "Can I save my favorite items?", answer: "Yes! Use the heart icon on courses, ebooks, and resources to add them to your favorites." },
-  { question: "Is there a mobile app available?", answer: "Our website is a Progressive Web App (PWA). You can install it on your device for offline access." },
+  { question: "Is there a mobile app available?", answer: "Our website is a Progressive Web App(PWA). You can install it on your device for offline access." },
   { question: "How can I support Nextup Resources?", answer: "Share our platform with friends, follow us on social media, and provide feedback." },
 ];
 
