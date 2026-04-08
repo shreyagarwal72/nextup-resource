@@ -14,14 +14,13 @@ const NewBadge = ({ dateAdded, className = "" }: NewBadgeProps) => {
   const diffTime = now.getTime() - addedDate.getTime();
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  // Only show badge if added within the last 7 days
   if (diffDays > 7) return null;
 
   return (
-    <Badge 
-      className={`bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-0 text-xs font-semibold px-2 py-0.5 flex items-center gap-1 animate-pulse ${className}`}
+    <Badge
+      className={`bg-quaternary text-quaternary-foreground border-2 border-foreground/80 text-xs font-bold px-2 py-0.5 flex items-center gap-1 rounded-full ${className}`}
     >
-      <Sparkles className="w-3 h-3" />
+      <Sparkles className="w-3 h-3" strokeWidth={2.5} />
       New
     </Badge>
   );

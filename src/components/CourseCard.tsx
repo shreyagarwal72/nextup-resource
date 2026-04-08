@@ -1,5 +1,4 @@
 import { Clock, Users, ExternalLink } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import FavoriteButton from "./FavoriteButton";
@@ -18,10 +17,13 @@ interface CourseCardProps {
   dateAdded?: string;
 }
 
+const categoryColors = ["bg-primary", "bg-secondary", "bg-tertiary", "bg-quaternary"];
+
 const CourseCard = ({ title, description, category, duration, students, image, link, dateAdded }: CourseCardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const courseId = generateId(title);
   const isCourseFavorite = isFavorite(courseId, "course");
+  const colorIndex = category.length % categoryColors.length;
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -30,59 +32,44 @@ const CourseCard = ({ title, description, category, duration, students, image, l
   };
 
   return (
-    <Card className="group h-full flex flex-col transition-all duration-500 ease-apple-spring hover:shadow-glass-xl depth-press shimmer-on-hover">
-      <div className="relative h-48 overflow-hidden rounded-t-xl">
+    <div className="pop-card group h-full flex flex-col overflow-hidden">
+      <div className="relative h-48 overflow-hidden rounded-t-lg">
         <img
           src={image}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-600 ease-apple-overshoot group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-500 ease-bounce group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent transition-opacity duration-300 group-hover:from-foreground/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent" />
         <div className="absolute top-3 left-3 flex items-center gap-2">
-          <Badge className="glass-button border-0 text-foreground animate-ios-pop">
+          <Badge className={`${categoryColors[colorIndex]} text-white border-2 border-foreground/80 font-bold text-xs rounded-full`}>
             {category}
           </Badge>
           <NewBadge dateAdded={dateAdded} />
         </div>
         <div className="absolute top-3 right-3 z-20">
-          <FavoriteButton
-            isFavorite={isCourseFavorite}
-            onToggle={handleFavoriteClick}
-          />
+          <FavoriteButton isFavorite={isCourseFavorite} onToggle={handleFavoriteClick} />
         </div>
         <PlatformBadge link={link} />
       </div>
-      <CardHeader className="pb-2">
-        <h3 className="text-xl font-semibold text-foreground line-clamp-2 transition-colors duration-300 ease-apple-ease group-hover:text-primary">
+      <div className="p-5 flex-1 flex flex-col">
+        <h3 className="text-lg font-bold text-foreground line-clamp-2 mb-2 font-heading group-hover:text-primary transition-colors duration-300">
           {title}
         </h3>
-      </CardHeader>
-      <CardContent className="pb-4 flex-1">
-        <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
-          {description}
-        </p>
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1.5 glass-button px-2.5 py-1 rounded-lg text-xs transition-transform duration-300 ease-apple-spring hover:scale-105">
-            <Clock className="h-3.5 w-3.5" />
-            <span>{duration}</span>
-          </div>
-          <div className="flex items-center gap-1.5 glass-button px-2.5 py-1 rounded-lg text-xs transition-transform duration-300 ease-apple-spring hover:scale-105">
-            <Users className="h-3.5 w-3.5" />
-            <span>{students}</span>
-          </div>
+        <p className="text-muted-foreground text-sm line-clamp-3 mb-4 flex-1">{description}</p>
+        <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border-2 border-foreground/30 text-xs font-medium">
+            <Clock className="h-3.5 w-3.5" strokeWidth={2.5} /> {duration}
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border-2 border-foreground/30 text-xs font-medium">
+            <Users className="h-3.5 w-3.5" strokeWidth={2.5} /> {students}
+          </span>
         </div>
-      </CardContent>
-      <CardFooter>
-        <Button 
-          className="w-full hover-spring" 
-          variant="glassPrimary"
-          onClick={() => window.open(link, "_blank")}
-        >
-          <ExternalLink className="h-4 w-4 mr-2" />
+        <Button className="w-full" onClick={() => window.open(link, "_blank")}>
+          <ExternalLink className="h-4 w-4 mr-2" strokeWidth={2.5} />
           Access Course
         </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 };
 

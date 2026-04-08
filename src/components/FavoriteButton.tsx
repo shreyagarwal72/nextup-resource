@@ -25,7 +25,7 @@ const FavoriteButton = forwardRef<HTMLButtonElement, FavoriteButtonProps>(
         ref={ref}
         onClick={handleClick}
         className={cn(
-          "w-9 h-9 rounded-xl glass-heavy flex items-center justify-center transition-all duration-400 ease-apple-spring hover:scale-110 active:scale-95",
+          "w-9 h-9 rounded-full bg-card border-2 border-foreground/80 shadow-pop flex items-center justify-center transition-all duration-300 ease-bounce hover:shadow-pop-hover hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-pop-active active:translate-x-0.5 active:translate-y-0.5",
           isFavorite ? "text-destructive" : "text-muted-foreground hover:text-destructive/80",
           className
         )}
@@ -33,10 +33,11 @@ const FavoriteButton = forwardRef<HTMLButtonElement, FavoriteButtonProps>(
       >
         <Heart
           className={cn(
-            "w-5 h-5 transition-all duration-400 ease-apple-spring",
+            "w-4 h-4 transition-all duration-300",
             isFavorite && "fill-current",
             isAnimating && "heart-beat"
           )}
+          strokeWidth={2.5}
         />
       </button>
     );
