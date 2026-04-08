@@ -13,26 +13,10 @@ const NotFound = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background relative overflow-hidden">
-      {/* Desktop Image */}
-      <img 
-        src={desktopImage} 
-        alt="404 Error - Page Not Found" 
-        className="hidden md:block absolute inset-0 w-full h-full object-cover"
-      />
-      {/* Mobile Image */}
-      <img 
-        src={mobileImage} 
-        alt="404 Error - Page Not Found" 
-        className="block md:hidden absolute inset-0 w-full h-full object-cover"
-      />
-      
-      {/* Content Overlay */}
+      <img src={desktopImage} alt="404 Error" className="hidden md:block absolute inset-0 w-full h-full object-cover" />
+      <img src={mobileImage} alt="404 Error" className="block md:hidden absolute inset-0 w-full h-full object-cover" />
       <div className="relative z-10 text-center px-4">
-        <Button 
-          onClick={() => window.location.href = '/'} 
-          size="lg"
-          className="bg-foreground hover:bg-foreground/90 text-background font-semibold px-8 py-6 text-lg rounded-full shadow-lg"
-        >
+        <Button onClick={() => window.location.href = '/'} size="lg">
           Back to home
         </Button>
       </div>
