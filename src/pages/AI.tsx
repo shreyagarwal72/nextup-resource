@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import BottomNav from "@/components/BottomNav";
+import SquigglyUnderline from "@/components/SquigglyUnderline";
 import AIToolBottomSheet from "@/components/AIToolBottomSheet";
 import { aiTools, AITool } from "@/data/aiTools";
 import { useState, useMemo } from "react";
@@ -32,7 +34,7 @@ const AI = () => {
   }, {} as Record<string, typeof aiTools>);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Header />
       <main>
         <section className="pt-32 pb-12 dot-grid">
@@ -42,8 +44,9 @@ const AI = () => {
                 <Bot className="w-4 h-4" strokeWidth={2.5} />
                 <span>AI Tools Collection</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-4 font-heading">AI Tools</h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-2">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">AI Tools</h1>
+              <SquigglyUnderline color="hsl(var(--primary))" width={160} />
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-4">
                 Curated collection of {aiTools.length}+ powerful AI tools
               </p>
             </div>
@@ -57,7 +60,6 @@ const AI = () => {
               <Input type="text" placeholder="Search AI tools..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-12" />
             </div>
 
-            {/* Category filter chips */}
             <div className="flex flex-wrap justify-center gap-2 mb-10">
               <button
                 onClick={() => setSelectedCategory(null)}
@@ -130,6 +132,7 @@ const AI = () => {
       </main>
       <Footer />
       <ScrollToTop />
+      <BottomNav />
       <AIToolBottomSheet tool={selectedTool} open={!!selectedTool} onClose={() => setSelectedTool(null)} />
     </div>
   );

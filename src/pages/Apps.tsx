@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import AppsSection from "@/components/AppsSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import BottomNav from "@/components/BottomNav";
+import SquigglyUnderline from "@/components/SquigglyUnderline";
 import { useEffect, useState } from "react";
 import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 import { useStudyMode } from "@/hooks/useStudyMode";
@@ -17,7 +19,7 @@ const Apps = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Header />
       <main>
         <section className="pt-32 pb-12 dot-grid">
@@ -29,16 +31,16 @@ const Apps = () => {
                   <span>Study Mode Active</span>
                 </div>
               )}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-4 font-heading">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
                 {isStudyMode ? "Productivity Apps" : "Apps & Websites"}
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+              <SquigglyUnderline color="hsl(var(--primary))" width={260} />
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-4 mb-8">
                 {isStudyMode
                   ? "Productivity and utility apps for focused work sessions"
                   : "Download premium apps and explore curated learning websites."}
               </p>
 
-              {/* Tab Switcher */}
               <div className="inline-flex gap-2 bg-card border-2 border-foreground/80 rounded-full p-1.5 shadow-pop-soft">
                 <button
                   onClick={() => setActiveTab("apps")}
@@ -100,6 +102,7 @@ const Apps = () => {
       </main>
       <Footer />
       <ScrollToTop />
+      <BottomNav />
     </div>
   );
 };

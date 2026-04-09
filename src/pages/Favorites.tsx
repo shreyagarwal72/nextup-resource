@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import BottomNav from "@/components/BottomNav";
+import SquigglyUnderline from "@/components/SquigglyUnderline";
 import CourseCard from "@/components/CourseCard";
 import ResourceCard from "@/components/ResourceCard";
 import EbookCard from "@/components/EbookCard";
@@ -29,7 +31,7 @@ const Favorites = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
       <Header />
       <main className="pt-28 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,8 +40,9 @@ const Favorites = () => {
               <Heart className="w-5 h-5 text-destructive fill-current" strokeWidth={2.5} />
               <span className="text-sm font-bold text-foreground">{totalCount} Saved Items</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-foreground mb-4 font-heading">Your Favorites</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-foreground mb-1 font-heading">Your Favorites</h1>
+            <SquigglyUnderline color="hsl(var(--destructive))" width={220} />
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-4">
               Access all your saved courses, resources, and ebooks in one place
             </p>
             {totalCount > 0 && (
@@ -123,6 +126,7 @@ const Favorites = () => {
       </main>
       <Footer />
       <ScrollToTop />
+      <BottomNav />
     </div>
   );
 };

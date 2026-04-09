@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import BottomNav from "@/components/BottomNav";
+import SquigglyUnderline from "@/components/SquigglyUnderline";
 import { useEffect } from "react";
 import {
   Accordion,
@@ -18,7 +20,7 @@ const faqData = [
   { question: "How often is new content added?", answer: "We regularly update our library. Follow us on Instagram and YouTube to stay updated." },
   { question: "Do I need to create an account?", answer: "No account is required! All content is freely accessible without any registration." },
   { question: "Can I save my favorite items?", answer: "Yes! Use the heart icon on courses, ebooks, and resources to add them to your favorites." },
-  { question: "Is there a mobile app available?", answer: "Our website is a Progressive Web App(PWA). You can install it on your device for offline access." },
+  { question: "Is there a mobile app available?", answer: "Our website is a Progressive Web App (PWA). You can install it on your device for offline access." },
   { question: "How can I support Nextup Resources?", answer: "Share our platform with friends, follow us on social media, and provide feedback." },
 ];
 
@@ -28,16 +30,17 @@ const FAQ = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Header />
       <main>
         <section className="pt-32 pb-12 dot-grid">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center animate-fade-in">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-4 font-heading">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
                 Frequently Asked Questions
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <SquigglyUnderline color="hsl(var(--secondary))" width={280} />
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-4">
                 Got questions? We've got answers.
               </p>
             </div>
@@ -65,6 +68,7 @@ const FAQ = () => {
       </main>
       <Footer />
       <ScrollToTop />
+      <BottomNav />
     </div>
   );
 };

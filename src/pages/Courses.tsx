@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import CoursesSection from "@/components/CoursesSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import BottomNav from "@/components/BottomNav";
+import SquigglyUnderline from "@/components/SquigglyUnderline";
 import { useEffect } from "react";
 import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 import { useStudyMode } from "@/hooks/useStudyMode";
@@ -15,7 +17,7 @@ const Courses = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Header />
       <main>
         <section className="pt-32 pb-12 dot-grid">
@@ -27,10 +29,11 @@ const Courses = () => {
                   <span>Study Mode Active</span>
                 </div>
               )}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-4 font-heading">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
                 {isStudyMode ? "Study Courses" : "All Courses"}
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <SquigglyUnderline color="hsl(var(--tertiary))" width={220} />
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-4">
                 {isStudyMode
                   ? "Focused educational courses for productive learning sessions"
                   : "Discover our complete collection of premium courses across various categories"}
@@ -42,6 +45,7 @@ const Courses = () => {
       </main>
       <Footer />
       <ScrollToTop />
+      <BottomNav />
     </div>
   );
 };

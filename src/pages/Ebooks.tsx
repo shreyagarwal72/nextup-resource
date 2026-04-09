@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import EbooksSection from "@/components/EbooksSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import BottomNav from "@/components/BottomNav";
+import SquigglyUnderline from "@/components/SquigglyUnderline";
 import { useEffect } from "react";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { GraduationCap } from "lucide-react";
@@ -14,7 +16,7 @@ const Ebooks = () => {
   }, [isStudyMode]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Header />
       <main>
         <section className="pt-32 pb-12 dot-grid">
@@ -26,10 +28,11 @@ const Ebooks = () => {
                   <span>Study Mode Active</span>
                 </div>
               )}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-4 font-heading">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
                 {isStudyMode ? "Study Ebooks" : "Free Ebooks"}
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <SquigglyUnderline color="hsl(var(--quaternary))" width={200} />
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-4">
                 {isStudyMode
                   ? "Educational ebooks and guides for focused learning"
                   : "Download premium ebooks completely free."}
@@ -41,6 +44,7 @@ const Ebooks = () => {
       </main>
       <Footer />
       <ScrollToTop />
+      <BottomNav />
     </div>
   );
 };
