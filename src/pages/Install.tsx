@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Download, Smartphone, Monitor, CheckCircle, Share, MoreVertical } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BottomNav from "@/components/BottomNav";
+import SquigglyUnderline from "@/components/SquigglyUnderline";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -47,7 +49,7 @@ const Install = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Header />
       <main className="pt-32 pb-20 relative overflow-hidden dot-grid">
         <div className="container mx-auto px-4 relative z-10">
@@ -57,10 +59,11 @@ const Install = () => {
               <span className="text-3xl font-extrabold text-primary-foreground font-heading">N</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4 font-heading animate-fade-in delay-100">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-1 font-heading animate-fade-in delay-100">
               Install Nextup Resources
             </h1>
-            <p className="text-lg text-muted-foreground mb-8 animate-fade-in delay-200">
+            <SquigglyUnderline color="hsl(var(--quaternary))" width={260} />
+            <p className="text-lg text-muted-foreground mb-8 mt-4 animate-fade-in delay-200">
               Get the full app experience on your device.
             </p>
 
@@ -130,6 +133,7 @@ const Install = () => {
         </div>
       </main>
       <Footer />
+      <BottomNav />
     </div>
   );
 };

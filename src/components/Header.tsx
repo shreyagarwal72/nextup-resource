@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import { StudyModeToggle } from "./StudyModeToggle";
@@ -8,7 +7,6 @@ import { useFavorites } from "@/hooks/useFavorites";
 import NotificationCenter from "./NotificationCenter";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { totalCount } = useFavorites();
@@ -83,69 +81,8 @@ const Header = () => {
                   <Link to="/courses">Get Started</Link>
                 </Button>
               </div>
-
-              {/* Mobile Menu Button */}
-              <button
-                className="md:hidden p-2 rounded-xl border-2 border-foreground/80 bg-card shadow-pop active:shadow-pop-active active:translate-x-0.5 active:translate-y-0.5 transition-all duration-300"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                aria-label="Toggle menu"
-              >
-                <div className="relative w-6 h-6">
-                  <Menu className={`absolute inset-0 h-6 w-6 text-foreground transition-all duration-300 ease-bounce ${
-                    isMenuOpen ? "rotate-90 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
-                  }`} />
-                  <X className={`absolute inset-0 h-6 w-6 text-foreground transition-all duration-300 ease-bounce ${
-                    isMenuOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0"
-                  }`} />
-                </div>
-              </button>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      <div
-        className={`md:hidden mx-3 sm:mx-4 mt-2 transition-all duration-300 ease-bounce ${
-          isMenuOpen
-            ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-            : "opacity-0 -translate-y-6 scale-95 pointer-events-none"
-        }`}
-      >
-        <div className="bg-card border-2 border-foreground/80 rounded-2xl overflow-hidden shadow-pop">
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
-            {navLinks.map((link, index) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={() => setIsMenuOpen(false)}
-                className={`px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
-                  isActive(link.to)
-                    ? "bg-tertiary text-tertiary-foreground border-2 border-foreground/80"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
-                style={{
-                  transitionDelay: isMenuOpen ? `${index * 50}ms` : "0ms",
-                  transform: isMenuOpen ? "translateX(0)" : "translateX(-24px)",
-                  opacity: isMenuOpen ? 1 : 0,
-                }}
-              >
-                <span className="flex items-center justify-between">
-                  {link.label}
-                  {link.to === "/favorites" && totalCount > 0 && (
-                    <span className="w-5 h-5 bg-destructive text-destructive-foreground text-xs font-bold rounded-full flex items-center justify-center border-2 border-foreground/80">
-                      {totalCount > 9 ? "9+" : totalCount}
-                    </span>
-                  )}
-                </span>
-              </Link>
-            ))}
-            <Button size="default" className="mt-2" asChild>
-              <Link to="/courses" onClick={() => setIsMenuOpen(false)}>
-                Get Started
-              </Link>
-            </Button>
-          </nav>
         </div>
       </div>
     </header>

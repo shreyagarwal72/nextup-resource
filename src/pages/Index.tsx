@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import BottomNav from "@/components/BottomNav";
 import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 
 const Index = () => {
   useEffect(() => {
-    // Update SEO meta tags
     updatePageMeta(pageSEOConfigs.home);
     
-    // Add JSON-LD structured data for SEO
     const script = document.createElement("script");
     script.type = "application/ld+json";
     script.innerHTML = JSON.stringify({
@@ -33,13 +33,15 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Header />
       <main>
         <Hero />
+        <Marquee />
       </main>
       <Footer />
       <ScrollToTop />
+      <BottomNav />
     </div>
   );
 };
