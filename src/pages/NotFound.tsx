@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import BottomNav from "@/components/BottomNav";
 import desktopImage from "@/assets/404-desktop.webp";
 import mobileImage from "@/assets/404-mobile.webp";
 
@@ -12,7 +13,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background relative overflow-hidden">
+    <div className="flex min-h-screen items-center justify-center bg-background relative overflow-hidden pb-20 md:pb-0">
       <img src={desktopImage} alt="404 Error" className="hidden md:block absolute inset-0 w-full h-full object-cover" />
       <img src={mobileImage} alt="404 Error" className="block md:hidden absolute inset-0 w-full h-full object-cover" />
       <div className="relative z-10 text-center px-4">
@@ -20,6 +21,7 @@ const NotFound = () => {
           Back to home
         </Button>
       </div>
+      <BottomNav />
     </div>
   );
 };
