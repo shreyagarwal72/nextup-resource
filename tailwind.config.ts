@@ -132,6 +132,10 @@ export default {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -142,6 +146,7 @@ export default {
         "fade-in": "fade-in 0.5s cubic-bezier(0.34, 1.3, 0.64, 1)",
         "scale-in": "scale-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
         float: "float 6s ease-in-out infinite",
+        marquee: "marquee 20s linear infinite",
       },
     },
   },
