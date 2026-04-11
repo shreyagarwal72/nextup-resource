@@ -4,261 +4,84 @@
 
 <h1 align="center">Nextup Resources</h1>
 
-<p align="center">
-  <strong>Quality Education for Everyone</strong>
-</p>
+<p align="center">Premium courses, free resources, ebooks, apps, and AI tools — all in one place.</p>
 
 <p align="center">
-  A curated collection of free courses, resources, ebooks, and apps to help you learn new skills and grow your career.
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React">
-  <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
-  <img src="https://img.shields.io/badge/Vite-5.0-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite">
-  <img src="https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
-  <img src="https://img.shields.io/badge/PWA-Ready-5A0FC8?style=flat-square&logo=pwa&logoColor=white" alt="PWA Ready">
+  <a href="https://nextupresources.com">Live Site</a> •
+  <a href="https://www.instagram.com/nextup.resources/">Instagram</a> •
+  <a href="https://www.youtube.com/@NextupResources">YouTube</a>
 </p>
 
 ---
 
-## ✨ Features
+## Overview
 
-- 📚 **Curated Courses** — Hand-picked courses covering AI, ethical hacking, business, and more
-- 📦 **Free Resources** — Downloadable assets, templates, and tools
-- 📖 **Ebooks** — Educational ebooks on various topics
-- 📱 **Apps** — Curated collection of useful mobile applications
-- ❤️ **Favorite System** — Save courses and resources for quick access
-- ✨ **New Badge** — Visual indicator for recently added content (within 7 days)
-- 🏷️ **Platform Badges** — Auto-detected source indicators (Google Drive, Telegram, Mega)
-- 🌙 **Dark Mode** — Beautiful light and dark themes
-- 📱 **PWA Support** — Install as a native app on any device
-- 🎨 **Liquid Glass UI** — Modern iOS/macOS-inspired design
-- 🎨 **Material 3 Beta** — Hidden experimental Material Design 3 expressive theme
-- ⚡ **Blazing Fast** — Built with Vite for instant page loads
-- 🔒 **Privacy First** — No tracking, no analytics, your data stays local
+Nextup Resources is a curated learning platform that aggregates high-quality educational content across multiple categories. Built with a bold **Playful Geometric** design system inspired by Memphis Group aesthetics, it delivers a premium, human-crafted experience on every device.
 
----
+## Features
 
-## 🛠️ Tech Stack
+- **50+ Premium Courses** — AI, web development, trading, cybersecurity, and more
+- **Free Resources** — Downloadable packs, templates, and creative assets
+- **Ebooks Library** — Curated ebooks for self-improvement and professional growth
+- **Apps & Websites** — Handpicked productivity tools and entertainment apps
+- **AI Tools Directory** — Discover and explore 50+ AI-powered tools
+- **Favorites System** — Bookmark content across all categories with persistent storage
+- **Study Mode** — Focus-oriented UI with a calming green palette
+- **Dark Mode** — Full light/dark theme support with refined contrast
+- **PWA Support** — Install as a native app on any device for offline access
+- **Responsive Design** — Mobile-first with adaptive bottom navigation
 
-| Category | Technology |
-|----------|------------|
-| **Framework** | React 18 with TypeScript |
-| **Build Tool** | Vite |
-| **Styling** | Tailwind CSS + shadcn/ui |
-| **Routing** | React Router v6 |
-| **State** | TanStack Query |
-| **Animations** | CSS Animations + Apple Spring Curves |
-| **PWA** | vite-plugin-pwa |
+## Tech Stack
 
----
+| Layer       | Technology                          |
+| ----------- | ----------------------------------- |
+| Framework   | React 18 + TypeScript 5             |
+| Build Tool  | Vite 5                              |
+| Styling     | Tailwind CSS 3 + shadcn/ui          |
+| Routing     | React Router 6                      |
+| State       | TanStack React Query + Custom Hooks |
+| Fonts       | Outfit + Plus Jakarta Sans          |
+| Design      | Playful Geometric (Memphis-inspired)|
+| PWA         | vite-plugin-pwa                     |
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+ or Bun
-- npm, yarn, or bun package manager
-
-### Installation
+## Getting Started
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone <repo-url>
 cd nextup-resources
 
 # Install dependencies
 npm install
-# or
-bun install
 
 # Start development server
 npm run dev
-# or
-bun dev
-```
 
-The app will be available at `http://localhost:5173`
-
-### Build for Production
-
-```bash
+# Build for production
 npm run build
-npm run preview
 ```
 
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
-├── assets/           # Images and static assets
-│   ├── courses/      # Course thumbnail images
-│   ├── resources/    # Resource thumbnail images
-│   └── ebooks/       # Ebook thumbnail images
-├── components/       # Reusable UI components
-│   ├── ui/           # shadcn/ui components
-│   ├── beta/         # Material 3 beta UI components
-│   ├── Header.tsx    # Navigation header
-│   ├── Hero.tsx      # Landing page hero section
-│   ├── CourseCard.tsx
-│   ├── ResourceCard.tsx
-│   ├── NewBadge.tsx  # New content indicator
-│   └── ...
-├── hooks/            # Custom React hooks
-│   ├── useFavorites.ts
-│   ├── useBetaUI.ts  # Material 3 beta toggle
-│   └── use-mobile.tsx
-├── styles/           # Additional CSS files
-│   └── material3.css # Material 3 design tokens
-├── lib/              # Utility functions
-├── pages/            # Route pages
-│   ├── Index.tsx     # Home page
-│   ├── Courses.tsx   # Courses listing
-│   ├── Resources.tsx # Resources listing
-│   ├── Ebooks.tsx    # Ebooks listing
-│   ├── Apps.tsx      # Apps listing
-│   ├── Favorites.tsx # Saved items
-│   ├── Contact.tsx   # Contact form
-│   └── Install.tsx   # PWA installation guide
-├── data/
-│   └── content.ts    # All content data
-├── App.tsx           # Root component with routing
-├── main.tsx          # Application entry point
-└── index.css         # Global styles and design tokens
+├── components/     # Reusable UI components
+├── data/           # Static content data (courses, resources, etc.)
+├── hooks/          # Custom React hooks
+├── lib/            # Utilities and helpers
+├── pages/          # Route-level page components
+└── assets/         # Static images and icons
 ```
 
----
+## Design System
 
-## 🔐 Hidden Features
+The app uses a **Playful Geometric** design language featuring:
+- Warm cream backgrounds with high-contrast slate text
+- Chunky 2px borders with hard offset shadows (no blur)
+- Bouncy `cubic-bezier(0.34, 1.56, 0.64, 1)` animations
+- Vibrant accent palette: Violet, Pink, Amber, Emerald
+- Outfit headings + Plus Jakarta Sans body typography
 
-### Material 3 Beta UI
+## License
 
-Type `material3beta` anywhere on the site to toggle the experimental Material Design 3 expressive theme.
-
-Features:
-- Material 3 color system with expressive colors
-- Emphasized motion and transitions
-- Navigation rail (desktop) and bottom navigation (mobile)
-- Material 3 typography scale
-- Elevated cards with proper shadows
-
----
-
-## 📱 PWA Installation
-
-### iOS (Safari)
-1. Open the website in Safari
-2. Tap the Share button
-3. Select "Add to Home Screen"
-
-### Android (Chrome)
-1. Open the website in Chrome
-2. Tap the menu (⋮)
-3. Select "Add to Home Screen" or "Install App"
-
-### Desktop (Chrome/Edge)
-1. Look for the install icon in the address bar
-2. Click "Install"
-
----
-
-## 🎨 Design System
-
-The app uses a custom "Liquid Glass" design system inspired by iOS and macOS:
-
-- **Glass morphism** — Translucent surfaces with backdrop blur
-- **Spring animations** — Physics-based motion that feels natural
-- **Semantic colors** — All colors defined as CSS custom properties
-- **Dark mode** — Automatic theme switching with smooth transitions
-
-### Color Tokens
-
-```css
---background    /* Page background */
---foreground    /* Primary text */
---primary       /* Brand color */
---secondary     /* Secondary surfaces */
---muted         /* Subdued elements */
---accent        /* Highlights */
---destructive   /* Error states */
-```
-
-### Animation Curves
-
-```css
---apple-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
---apple-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
---apple-overshoot: cubic-bezier(0.34, 1.3, 0.64, 1);
-```
-
----
-
-## 📊 SEO Features
-
-- ✅ Meta tags (title, description, keywords)
-- ✅ Open Graph tags for social sharing
-- ✅ Twitter Card support
-- ✅ JSON-LD structured data
-- ✅ Google Site Verification
-- ✅ Semantic HTML structure
-- ✅ Proper heading hierarchy
-
----
-
-## 📝 Adding Content
-
-All content is managed in `src/data/content.ts`. Add new items with the following structure:
-
-### Courses
-
-```typescript
-{
-  title: "Course Title",
-  description: "Course description",
-  category: "Category Name",
-  duration: "10 weeks",
-  students: "5K+",
-  image: "image-url-or-import",
-  link: "https://...",
-  dateAdded: "2026-02-03" // For 'New' badge
-}
-```
-
-### Resources
-
-```typescript
-{
-  title: "Resource Title",
-  description: "Resource description",
-  category: "Category Name",
-  image: "image-url-or-import",
-  link: "https://...",
-  dateAdded: "2026-02-03" // For 'New' badge
-}
-```
-
----
-
-## 🔐 Privacy
-
-This application:
-- ✅ Stores favorites locally in your browser
-- ✅ Uses session storage for UI state only
-- ❌ Does NOT track users
-- ❌ Does NOT use analytics
-- ❌ Does NOT collect personal data
-
----
-
-## 📄 License
-
-This project is for educational purposes.
-
----
-
-<p align="center">
-  Made with ❤️ for learners everywhere
-</p>
+© 2026 Nextup Resources. All rights reserved.
