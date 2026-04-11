@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, BookOpen, FolderOpen, Bot, Heart, MoreHorizontal } from "lucide-react";
+import { Home, BookOpen, FolderOpen, Bot, BookText, MoreHorizontal } from "lucide-react";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useState } from "react";
 
@@ -8,12 +8,12 @@ const primaryLinks = [
   { to: "/courses", icon: BookOpen, label: "Courses" },
   { to: "/resources", icon: FolderOpen, label: "Resources" },
   { to: "/ai", icon: Bot, label: "AI" },
-  { to: "/favorites", icon: Heart, label: "Favorites" },
+  { to: "/ebooks", icon: BookText, label: "Ebooks" },
 ];
 
 const moreLinks = [
-  { to: "/ebooks", label: "Ebooks" },
   { to: "/apps", label: "Apps & Websites" },
+  { to: "/favorites", label: "Favorites" },
   { to: "/contact", label: "Contact" },
   { to: "/faq", label: "FAQ" },
   { to: "/install", label: "Install App" },
@@ -32,7 +32,7 @@ const BottomNav = () => {
       {showMore && (
         <div className="fixed inset-0 z-40 bg-foreground/20" onClick={() => setShowMore(false)}>
           <div
-            className="absolute bottom-20 left-3 right-3 bg-card border-2 border-foreground/80 rounded-2xl shadow-pop p-3 animate-scale-in"
+            className="absolute bottom-[4.5rem] left-3 right-3 bg-card border-2 border-foreground/80 rounded-2xl shadow-pop p-3 animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="grid grid-cols-2 gap-2">
@@ -41,13 +41,18 @@ const BottomNav = () => {
                   key={link.to}
                   to={link.to}
                   onClick={() => setShowMore(false)}
-                  className={`px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 text-center ${
+                  className={`px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 text-center relative ${
                     isActive(link.to)
                       ? "bg-tertiary text-tertiary-foreground border-2 border-foreground/80"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                 >
                   {link.label}
+                  {link.to === "/favorites" && totalCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full flex items-center justify-center border border-foreground/80">
+                      {totalCount > 9 ? "9+" : totalCount}
+                    </span>
+                  )}
                 </Link>
               ))}
             </div>
@@ -66,38 +71,35 @@ const BottomNav = () => {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`relative flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-300 ${
-                    active
-                      ? "text-primary"
-                      : "text-muted-foreground"
+                  className={`relative flex flex-col items-center justify-center px-3 py-1.5 rounded-xl transition-all duration-200 ${
+                    active ? "text-primary" : "text-muted-foreground"
                   }`}
                 >
                   {active && (
                     <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-1 rounded-full bg-primary" />
                   )}
-                  <div className="relative">
-                    <Icon className="w-5 h-5" strokeWidth={active ? 2.5 : 2} />
-                    {link.to === "/favorites" && totalCount > 0 && (
-                      <span className="absolute -top-1.5 -right-2 w-4 h-4 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full flex items-center justify-center border border-foreground/80">
-                        {totalCount > 9 ? "9+" : totalCount}
-                      </span>
-                    )}
-                  </div>
-                  <span className={`text-[10px] font-bold ${active ? "text-primary" : ""}`}>
-                    {link.label}
-                  </span>
+                  <Icon className="w-5 h-5" strokeWidth={active ? 2.5 : 2} />
+                  {active && (
+                    <span className="text-[10px] font-bold text-primary mt-0.5 animate-fade-in">
+                      {link.label}
+                    </span>
+                  )}
                 </Link>
               );
             })}
             {/* More button */}
             <button
               onClick={() => setShowMore(!showMore)}
-              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-300 ${
+              className={`flex flex-col items-center justify-center px-3 py-1.5 rounded-xl transition-all duration-200 ${
                 showMore ? "text-primary" : "text-muted-foreground"
               }`}
             >
               <MoreHorizontal className="w-5 h-5" strokeWidth={showMore ? 2.5 : 2} />
-              <span className="text-[10px] font-bold">More</span>
+              {showMore && (
+                <span className="text-[10px] font-bold text-primary mt-0.5 animate-fade-in">
+                  More
+                </span>
+              )}
             </button>
           </div>
         </div>

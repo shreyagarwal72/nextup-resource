@@ -65,53 +65,53 @@
   }
 
   .dark {
-    --background: 222 47% 8%;
-    --foreground: 210 20% 95%;
+    --background: 225 30% 6%;
+    --foreground: 210 25% 92%;
 
-    --card: 222 40% 12%;
-    --card-foreground: 210 20% 95%;
+    --card: 225 25% 10%;
+    --card-foreground: 210 25% 92%;
 
-    --popover: 222 40% 12%;
-    --popover-foreground: 210 20% 95%;
+    --popover: 225 25% 10%;
+    --popover-foreground: 210 25% 92%;
 
     --primary: 262 83% 72%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 225 30% 6%;
 
-    --secondary: 330 86% 75%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 330 80% 72%;
+    --secondary-foreground: 225 30% 6%;
 
-    --muted: 222 25% 16%;
-    --muted-foreground: 215 15% 60%;
+    --muted: 225 20% 15%;
+    --muted-foreground: 215 15% 55%;
 
     --accent: 262 83% 72%;
-    --accent-foreground: 0 0% 100%;
+    --accent-foreground: 225 30% 6%;
 
-    --tertiary: 43 96% 56%;
-    --tertiary-foreground: 215 45% 17%;
+    --tertiary: 43 90% 52%;
+    --tertiary-foreground: 225 30% 6%;
 
-    --quaternary: 160 64% 52%;
-    --quaternary-foreground: 0 0% 100%;
+    --quaternary: 160 60% 48%;
+    --quaternary-foreground: 225 30% 6%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 20% 95%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 25% 92%;
 
-    --border: 222 20% 22%;
-    --input: 222 20% 18%;
+    --border: 225 15% 18%;
+    --input: 225 20% 14%;
     --ring: 262 83% 72%;
 
-    --pop-shadow-color: 0 0% 0%;
-    --pop-shadow: 4px 4px 0px 0px hsl(var(--pop-shadow-color) / 0.5);
+    --pop-shadow-color: 262 60% 50%;
+    --pop-shadow: 4px 4px 0px 0px hsl(var(--pop-shadow-color) / 0.4);
     --pop-shadow-hover: 6px 6px 0px 0px hsl(var(--pop-shadow-color) / 0.5);
-    --pop-shadow-active: 2px 2px 0px 0px hsl(var(--pop-shadow-color) / 0.5);
-    --pop-shadow-soft: 8px 8px 0px 0px hsl(var(--border));
+    --pop-shadow-active: 2px 2px 0px 0px hsl(var(--pop-shadow-color) / 0.3);
+    --pop-shadow-soft: 6px 6px 0px 0px hsl(var(--border));
 
-    --sidebar-background: 222 47% 10%;
-    --sidebar-foreground: 210 20% 95%;
+    --sidebar-background: 225 30% 8%;
+    --sidebar-foreground: 210 25% 92%;
     --sidebar-primary: 262 83% 72%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 25% 16%;
-    --sidebar-accent-foreground: 210 20% 95%;
-    --sidebar-border: 222 20% 22%;
+    --sidebar-primary-foreground: 225 30% 6%;
+    --sidebar-accent: 225 20% 15%;
+    --sidebar-accent-foreground: 210 25% 92%;
+    --sidebar-border: 225 15% 18%;
     --sidebar-ring: 262 83% 72%;
   }
 }
@@ -154,14 +154,15 @@
   }
 
   .dark .dot-grid {
-    background-image: radial-gradient(circle, hsl(var(--foreground) / 0.04) 1px, transparent 1px);
+    background-image: radial-gradient(circle, hsl(var(--foreground) / 0.03) 1px, transparent 1px);
   }
 
   /* Pop card - the sticker card style */
   .pop-card {
     @apply bg-card border-2 border-foreground/80 rounded-xl relative;
     box-shadow: var(--pop-shadow-soft);
-    transition: all 0.3s var(--bounce);
+    transition: transform 0.3s var(--bounce), box-shadow 0.3s var(--bounce);
+    will-change: transform;
   }
 
   .pop-card:hover {
@@ -172,7 +173,8 @@
   /* Pop shadow utility */
   .pop-shadow {
     box-shadow: var(--pop-shadow);
-    transition: all 0.3s var(--bounce);
+    transition: transform 0.3s var(--bounce), box-shadow 0.3s var(--bounce);
+    will-change: transform;
   }
 
   .pop-shadow:hover {
@@ -189,7 +191,8 @@
   .candy-btn {
     @apply inline-flex items-center justify-center gap-2 font-bold rounded-full border-2 border-foreground/80 px-6 py-3;
     box-shadow: var(--pop-shadow);
-    transition: all 0.3s var(--bounce);
+    transition: transform 0.3s var(--bounce), box-shadow 0.3s var(--bounce);
+    will-change: transform;
   }
 
   .candy-btn:hover {
@@ -251,8 +254,8 @@
 
   /* Nav link pill hover */
   .nav-pill {
-    @apply relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300;
-    transition-timing-function: var(--bounce);
+    @apply relative px-4 py-2 rounded-full text-sm font-medium;
+    transition: background-color 0.3s var(--bounce), color 0.2s ease, transform 0.2s var(--bounce);
   }
 
   .nav-pill:hover {
@@ -271,6 +274,38 @@
     45% { transform: scale(1.18); }
     60% { transform: scale(1); }
     100% { transform: scale(1); }
+  }
+
+  /* Confetti burst for favorite */
+  .confetti-burst {
+    position: relative;
+  }
+
+  .confetti-burst::before,
+  .confetti-burst::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    animation: confetti-pop 0.6s var(--bounce) forwards;
+    pointer-events: none;
+  }
+
+  .confetti-burst::before {
+    background: hsl(var(--tertiary));
+    top: 0; left: 50%;
+  }
+
+  .confetti-burst::after {
+    background: hsl(var(--secondary));
+    top: 50%; left: 0;
+  }
+
+  @keyframes confetti-pop {
+    0% { transform: scale(0) translate(0, 0); opacity: 1; }
+    50% { opacity: 1; }
+    100% { transform: scale(1.5) translate(var(--x, 12px), var(--y, -14px)); opacity: 0; }
   }
 }
 
