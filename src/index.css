@@ -381,19 +381,50 @@
   --card-foreground: 60 15% 15%;
   --muted: 60 10% 94%;
   --muted-foreground: 60 8% 45%;
+  --secondary: 142 50% 60%;
+  --secondary-foreground: 0 0% 100%;
+  --tertiary: 80 60% 50%;
+  --tertiary-foreground: 60 15% 15%;
+  --quaternary: 160 50% 45%;
+  --quaternary-foreground: 0 0% 100%;
+  --border: 60 10% 85%;
+  --input: 60 10% 99%;
+  --pop-shadow-color: 60 15% 15%;
+  --pop-shadow: 4px 4px 0px 0px hsl(var(--pop-shadow-color));
+  --pop-shadow-hover: 6px 6px 0px 0px hsl(var(--pop-shadow-color));
+  --pop-shadow-active: 2px 2px 0px 0px hsl(var(--pop-shadow-color));
+  --pop-shadow-soft: 8px 8px 0px 0px hsl(var(--border));
+  --destructive: 0 72% 55%;
+  --destructive-foreground: 0 0% 100%;
 }
 
 .dark.study-mode {
   --primary: 142 71% 55%;
-  --primary-foreground: 0 0% 100%;
+  --primary-foreground: 225 30% 6%;
   --accent: 142 71% 55%;
+  --accent-foreground: 225 30% 6%;
   --ring: 142 71% 55%;
-  --background: 60 15% 8%;
-  --foreground: 60 10% 92%;
-  --card: 60 12% 11%;
-  --card-foreground: 60 10% 92%;
-  --muted: 60 10% 15%;
-  --muted-foreground: 60 8% 55%;
+  --background: 150 20% 7%;
+  --foreground: 142 15% 90%;
+  --card: 150 18% 10%;
+  --card-foreground: 142 15% 90%;
+  --muted: 150 12% 15%;
+  --muted-foreground: 142 10% 55%;
+  --secondary: 142 40% 50%;
+  --secondary-foreground: 225 30% 6%;
+  --tertiary: 80 50% 48%;
+  --tertiary-foreground: 225 30% 6%;
+  --quaternary: 160 45% 42%;
+  --quaternary-foreground: 225 30% 6%;
+  --border: 150 12% 18%;
+  --input: 150 15% 12%;
+  --pop-shadow-color: 142 50% 40%;
+  --pop-shadow: 4px 4px 0px 0px hsl(var(--pop-shadow-color) / 0.4);
+  --pop-shadow-hover: 6px 6px 0px 0px hsl(var(--pop-shadow-color) / 0.5);
+  --pop-shadow-active: 2px 2px 0px 0px hsl(var(--pop-shadow-color) / 0.3);
+  --pop-shadow-soft: 6px 6px 0px 0px hsl(var(--border));
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 142 15% 90%;
 }
 
 /* Compact mode */

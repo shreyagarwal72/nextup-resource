@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, BookOpen, FolderOpen, Bot, BookText, MoreHorizontal } from "lucide-react";
+import { Home, BookOpen, FolderOpen, Bot, Globe, BookText, Heart, Mail, HelpCircle, Download, MoreHorizontal } from "lucide-react";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useState } from "react";
 
@@ -8,16 +8,18 @@ const primaryLinks = [
   { to: "/courses", icon: BookOpen, label: "Courses" },
   { to: "/resources", icon: FolderOpen, label: "Resources" },
   { to: "/ai", icon: Bot, label: "AI" },
-  { to: "/ebooks", icon: BookText, label: "Ebooks" },
+  { to: "/apps", icon: Globe, label: "Apps" },
 ];
 
 const moreLinks = [
-  { to: "/apps", label: "Apps & Websites" },
-  { to: "/favorites", label: "Favorites" },
-  { to: "/contact", label: "Contact" },
-  { to: "/faq", label: "FAQ" },
-  { to: "/install", label: "Install App" },
+  { to: "/ebooks", icon: BookText, label: "Ebooks" },
+  { to: "/favorites", icon: Heart, label: "Favorites" },
+  { to: "/contact", icon: Mail, label: "Contact" },
+  { to: "/faq", icon: HelpCircle, label: "FAQs" },
+  { to: "/install", icon: Download, label: "Install" },
 ];
+
+const morePaths = moreLinks.map((l) => l.to);
 
 const BottomNav = () => {
   const location = useLocation();
@@ -25,6 +27,49 @@ const BottomNav = () => {
   const [showMore, setShowMore] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
+  const isOnMorePage = morePaths.includes(location.pathname);
+
+  // When on a "More" page, render the secondary nav instead
+  if (isOnMorePage) {
+    return (
+      <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
+        <div className="mx-2 mb-2 bg-card border-2 border-foreground/80 rounded-2xl shadow-pop">
+          <div className="flex items-center justify-around px-1 py-1.5" style={{ paddingBottom: 'max(0.375rem, env(safe-area-inset-bottom))' }}>
+            {moreLinks.map((link) => {
+              const Icon = link.icon;
+              const active = isActive(link.to);
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`relative flex flex-col items-center justify-center px-2 py-1.5 rounded-xl transition-all duration-200 ${
+                    active ? "text-primary" : "text-muted-foreground"
+                  }`}
+                >
+                  {active && (
+                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-1 rounded-full bg-primary" />
+                  )}
+                  <div className="relative">
+                    <Icon className="w-5 h-5" strokeWidth={active ? 2.5 : 2} />
+                    {link.to === "/favorites" && totalCount > 0 && (
+                      <span className="absolute -top-1.5 -right-2 w-4 h-4 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full flex items-center justify-center border border-foreground/80">
+                        {totalCount > 9 ? "9+" : totalCount}
+                      </span>
+                    )}
+                  </div>
+                  {active && (
+                    <span className="text-[10px] font-bold text-primary mt-0.5 animate-fade-in">
+                      {link.label}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </nav>
+    );
+  }
 
   return (
     <>

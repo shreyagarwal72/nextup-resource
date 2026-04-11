@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import ResourcesSection from "@/components/ResourcesSection";
+import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
@@ -41,6 +42,7 @@ const Resources = () => {
             </div>
           </div>
         </section>
+        <Marquee />
         <ResourcesSection />
       </main>
       <Footer />
