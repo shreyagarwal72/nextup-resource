@@ -1573,6 +1573,14 @@ const appsData: App[] = [
     dateAdded: "2026-02-10",
   },
   {
+    title: "Unlimited Live Cricket App",
+    description: "Watch unlimited live cricket matches for free. Stream IPL, international matches, and all major cricket tournaments in HD quality.",
+    category: "Entertainment",
+    image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&auto=format&fit=crop",
+    link: "https://t.me/nextupfilebot?start=BQADAQADShsAArpk0UZycEVgp2wofBYE",
+    dateAdded: "2026-04-11",
+  },
+  {
     title: "Red Dead Redemption",
     description: "Experience the epic open-world action-adventure game on mobile. Explore the Wild West with stunning visuals and immersive gameplay.",
     category: "Gaming",
