@@ -42,6 +42,7 @@ const Resources = () => {
             </div>
           </div>
         </section>
+        <Marquee />
         <ResourcesSection />
       </main>
       <Footer />
