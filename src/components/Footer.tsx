@@ -19,8 +19,8 @@ const Footer = () => {
             </p>
             <div className="flex gap-3">
               {[
-                { href: "https://www.instagram.com/nextup.resources/", icon: Instagram, color: "bg-secondary" },
-                { href: "https://www.youtube.com/@NextupResources", icon: Youtube, color: "bg-destructive" },
+                { href: "https://www.instagram.com/here_your_champion/", icon: Instagram, color: "bg-secondary" },
+                { href: "https://www.youtube.com/@nextupstudioyt", icon: Youtube, color: "bg-destructive" },
               ].map(({ href, icon: Icon, color }) => (
                 <a
                   key={href}
