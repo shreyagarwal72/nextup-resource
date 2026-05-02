@@ -54,6 +54,12 @@ const AI = () => {
           </div>
         </section>
 
+        <FeaturedCollections
+          title="AI Tool Cheat Sheets"
+          subtitle="Pick the perfect AI tool for any task — curated bundles."
+          filterSlugs={["ai-tools-everyone", "ai-tools-for-everything"]}
+        />
+
         <section className="py-20 relative overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-md mx-auto mb-8 relative">
