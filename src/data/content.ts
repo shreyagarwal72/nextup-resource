@@ -1112,6 +1112,36 @@ const coursesData: Course[] = [
     link: "https://t.me/+PfWEc2ceKm8zZGI9",
     dateAdded: "2026-04-06",
   },
+  {
+    title: "SIGMA Binary Course",
+    description: "Premium SIGMA binary trading course. Learn proven strategies for binary options trading, risk management, and consistent profitability.",
+    category: "Finance",
+    duration: "Self-paced",
+    students: "1K+",
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop",
+    link: "https://t.me/+nIgRCScYWktiMmQ1",
+    dateAdded: "2026-05-02",
+  },
+  {
+    title: "Money & Career Sector",
+    description: "Comprehensive guide to building wealth and accelerating your career. Practical playbook covering income, investing, networking, and growth.",
+    category: "Career",
+    duration: "Self-paced",
+    students: "2K+",
+    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&auto=format&fit=crop",
+    link: "https://drive.google.com/file/d/1HX9JocX9buWFDI94yRJZwhOvUMD2fz5e/view?usp=drivesdk",
+    dateAdded: "2026-05-02",
+  },
+  {
+    title: "Special Courses — All Company Paid Placement Material 💖👽",
+    description: "Massive bundle of paid placement material for top companies — TCS, CTS, TEK Systems, Tech Mahindra, Infosys, Mindtree, Value Labs, Mphasis, ZenQ, EPAM, GATE, AMCAT, eLitmus, Talent Battle, sample C programs, and TR & HR prep. Tap to view all materials.",
+    category: "Career",
+    duration: "Bundle",
+    students: "10K+",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop",
+    link: "/collection/placement-material",
+    dateAdded: "2026-05-02",
+  },
 ];
 
 // All resources (will be sorted alphabetically)
