@@ -7,7 +7,7 @@
 <p align="center">Premium courses, free resources, ebooks, apps, and AI tools — all in one place.</p>
 
 <p align="center">
-  <a href="https://nextupresources.com">Live Site</a> •
+  <a href="https://nextup-resource.vercel.app">Live Site</a> •
   <a href="https://www.instagram.com/here_your_champion/">Instagram</a> •
   <a href="https://www.youtube.com/@nextupstudioyt">YouTube</a>
 </p>
