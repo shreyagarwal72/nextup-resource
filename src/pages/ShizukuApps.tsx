@@ -8,7 +8,7 @@ import SquigglyUnderline from "@/components/SquigglyUnderline";
 import SearchBox from "@/components/SearchBox";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ExternalLink, Github, Sparkles, User, Zap } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Sparkles, User, Zap, SearchX } from "lucide-react";
 import { shizukuApps } from "@/data/shizukuApps";
 import { useDebounced } from "@/hooks/useDebounced";
 
