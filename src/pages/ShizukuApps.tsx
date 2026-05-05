@@ -167,6 +167,7 @@ const ShizukuApps = () => {
                         href={app.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => toast.success("Opening repo…")}
                         className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-secondary text-secondary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform text-sm"
                       >
                         <ExternalLink className="w-4 h-4" strokeWidth={2.5} />
@@ -179,16 +180,31 @@ const ShizukuApps = () => {
               </div>
             )}
 
-            {visible < filtered.length && (
-              <div className="text-center mt-10">
+            <div className="text-center mt-10">
+              {visible < filtered.length ? (
                 <button
-                  onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-secondary text-secondary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
+                  onClick={handleLoadMore}
+                  disabled={loadingMore}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-secondary text-secondary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform disabled:opacity-70 disabled:translate-y-0 disabled:cursor-wait"
                 >
-                  Load more ({filtered.length - visible} remaining)
+                  {loadingMore ? (
+                    <>
+                      <span className="w-4 h-4 rounded-full border-2 border-foreground/80 border-t-transparent animate-spin" />
+                      Loading…
+                    </>
+                  ) : (
+                    <>Load more ({filtered.length - visible} remaining)</>
+                  )}
                 </button>
-              </div>
-            )}
+              ) : filtered.length > PAGE_SIZE ? (
+                <button
+                  disabled
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-muted text-muted-foreground font-bold border-2 border-foreground/30 cursor-not-allowed"
+                >
+                  ✓ All {filtered.length} apps shown
+                </button>
+              ) : null}
+            </div>
 
             <div className="max-w-3xl mx-auto mt-12 p-6 bg-card border-2 border-foreground/80 rounded-2xl shadow-pop text-center">
               <p className="text-base font-bold text-foreground font-heading">
