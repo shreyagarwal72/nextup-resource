@@ -1,7 +1,9 @@
 import { ExternalLink, Github, Star, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import { useGithubRepoInfo } from "@/hooks/useGithubRepoInfo";
+import { toast } from "sonner";
 
 interface Props {
   name: string;
@@ -11,8 +13,13 @@ interface Props {
 }
 
 const FossAppCard = ({ name, author, url, category }: Props) => {
-  const isGithub = url.includes("github.com");
-  const info = useGithubRepoInfo(url, isGithub);
+  const supported =
+    /github\.com|gitlab\.com|codeberg\.org/i.test(url);
+  const { loading, info } = useGithubRepoInfo(url, supported);
+
+  const handleOpen = () => {
+    toast.success("Opening repo…");
+  };
 
   return (
     <div className="pop-card p-5 flex flex-col h-full">
@@ -33,7 +40,7 @@ const FossAppCard = ({ name, author, url, category }: Props) => {
         </div>
       </div>
       <h3 className="text-lg font-bold text-foreground font-heading mb-1 break-words">{name}</h3>
-      <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-2">
+      <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-2 flex-wrap">
         <User className="w-3.5 h-3.5" strokeWidth={2.5} />
         <span className="font-semibold">{author}</span>
         {info?.language && (
@@ -42,9 +49,23 @@ const FossAppCard = ({ name, author, url, category }: Props) => {
           </span>
         )}
       </div>
-      {info?.description && (
+
+      {loading ? (
+        <div className="space-y-2 mb-3">
+          <Skeleton className="h-3 w-full" />
+          <Skeleton className="h-3 w-5/6" />
+          <Skeleton className="h-3 w-2/3" />
+        </div>
+      ) : info?.description ? (
         <p className="text-sm text-muted-foreground mb-3 line-clamp-3">{info.description}</p>
+      ) : (
+        <p className="text-sm text-muted-foreground mb-3 italic">
+          {supported
+            ? "No description available."
+            : "External source — open the repo for details."}
+        </p>
       )}
+
       {info?.topics && info.topics.length > 0 && (
         <div className="flex flex-wrap gap-1 mb-3">
           {info.topics.slice(0, 4).map((t) => (
@@ -62,6 +83,7 @@ const FossAppCard = ({ name, author, url, category }: Props) => {
           href={url}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={handleOpen}
           className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-tertiary text-tertiary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform text-sm"
         >
           <ExternalLink className="w-4 h-4" strokeWidth={2.5} />
