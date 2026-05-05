@@ -88,12 +88,13 @@ const NavItem = ({
       )}
     </div>
     {active && (
-      <span className={`text-[10px] font-bold text-${accent} mt-0.5 animate-fade-in`}>
+      <span className={`text-[10px] font-bold ${textCls} mt-0.5 animate-fade-in`}>
         {label}
       </span>
     )}
   </Link>
-);
+  );
+};
 
 const BottomNav = () => {
   const location = useLocation();
