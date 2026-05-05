@@ -56,15 +56,28 @@ const NavItem = ({
   active: boolean;
   badge?: number;
   accent?: "primary" | "secondary" | "tertiary";
-}) => (
+}) => {
+  const textCls =
+    accent === "secondary"
+      ? "text-secondary"
+      : accent === "tertiary"
+      ? "text-tertiary"
+      : "text-primary";
+  const bgCls =
+    accent === "secondary"
+      ? "bg-secondary"
+      : accent === "tertiary"
+      ? "bg-tertiary"
+      : "bg-primary";
+  return (
   <Link
     to={to}
     className={`relative flex flex-col items-center justify-center px-2 py-1.5 rounded-xl transition-all duration-200 ${
-      active ? `text-${accent}` : "text-muted-foreground"
+      active ? textCls : "text-muted-foreground"
     }`}
   >
     {active && (
-      <div className={`absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-1 rounded-full bg-${accent}`} />
+      <div className={`absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-1 rounded-full ${bgCls}`} />
     )}
     <div className="relative">
       <Icon className="w-5 h-5" strokeWidth={active ? 2.5 : 2} />
