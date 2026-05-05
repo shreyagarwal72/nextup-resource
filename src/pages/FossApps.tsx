@@ -53,7 +53,7 @@ const FossApps = () => {
     <div className="min-h-screen pb-20 md:pb-0">
       <Header />
       <main>
-        <section className="pt-32 pb-8 dot-grid">
+        <section className="pt-32 pb-8 dot-grid violet-haze">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto animate-fade-in">
               <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-tertiary text-tertiary-foreground border-2 border-foreground/80 shadow-pop font-bold text-sm">
