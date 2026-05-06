@@ -1,6 +1,5 @@
 import { ExternalLink, Github, Star, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import { useGithubRepoInfo } from "@/hooks/useGithubRepoInfo";
 import { toast } from "sonner";
@@ -13,13 +12,13 @@ interface Props {
 }
 
 const FossAppCard = ({ name, author, url, category }: Props) => {
-  const supported =
-    /github\.com|gitlab\.com|codeberg\.org/i.test(url);
-  const { loading, info } = useGithubRepoInfo(url, supported);
+  const supported = /github\.com|gitlab\.com|codeberg\.org/i.test(url);
+  const { info } = useGithubRepoInfo(url, supported);
 
   const handleOpen = () => {
     toast.success("Opening repo…");
   };
+
 
   return (
     <div className="pop-card p-5 flex flex-col h-full">
