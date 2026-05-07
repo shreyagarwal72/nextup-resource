@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import IntroModal from "@/components/IntroModal";
 
 const Index = lazy(() => import("./pages/Index"));
 const Courses = lazy(() => import("./pages/Courses"));
@@ -22,6 +23,7 @@ const SpecialCourses = lazy(() => import("./pages/SpecialCourses"));
 const FossApps = lazy(() => import("./pages/FossApps"));
 const ShizukuApps = lazy(() => import("./pages/ShizukuApps"));
 const Morphe = lazy(() => import("./pages/Morphe"));
+const MaterialYou = lazy(() => import("./pages/MaterialYou"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -76,9 +78,11 @@ const App = () => {
                 <Route path="/foss-apps" element={<FossApps />} />
                 <Route path="/shizuku-apps" element={<ShizukuApps />} />
                 <Route path="/morphe" element={<Morphe />} />
+                <Route path="/material-you" element={<MaterialYou />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
+            <IntroModal />
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>

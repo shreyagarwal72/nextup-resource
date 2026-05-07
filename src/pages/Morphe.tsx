@@ -41,26 +41,35 @@ const Morphe = () => {
   const { loading, error, apps, latestBuild, totalReleases } = useMorpheReleases();
   const [query, setQuery] = useState("");
   const debounced = useDebounced(query, 200);
+  const [activeVariant, setActiveVariant] = useState<string>("All");
   const [visible, setVisible] = useState(PAGE_SIZE);
 
   useEffect(() => {
     document.title = "Morphe — Patched Android Apps by nullcpy/rvb";
   }, []);
 
+  const variants = useMemo(() => {
+    const set = new Set<string>();
+    apps.forEach((a) => set.add(a.variant));
+    return ["All", ...Array.from(set).sort()];
+  }, [apps]);
+
   const filtered = useMemo(() => {
     const q = debounced.trim().toLowerCase();
-    if (!q) return apps;
-    return apps.filter(
-      (a) =>
+    return apps.filter((a) => {
+      if (activeVariant !== "All" && a.variant !== activeVariant) return false;
+      if (!q) return true;
+      return (
         a.displayName.toLowerCase().includes(q) ||
         a.slug.toLowerCase().includes(q) ||
-        a.variant.toLowerCase().includes(q),
-    );
-  }, [debounced, apps]);
+        a.variant.toLowerCase().includes(q)
+      );
+    });
+  }, [debounced, apps, activeVariant]);
 
   useEffect(() => {
     setVisible(PAGE_SIZE);
-  }, [debounced]);
+  }, [debounced, activeVariant]);
 
   const shown = filtered.slice(0, visible);
 
@@ -99,6 +108,22 @@ const Morphe = () => {
                   placeholder="Search apps (e.g. Telegram, Reddit, Fing)..."
                   ariaLabel="Search Morphe apps"
                 />
+              </div>
+
+              <div className="mt-4 flex flex-wrap justify-center gap-2 max-h-24 overflow-y-auto px-2">
+                {variants.map((v) => (
+                  <button
+                    key={v}
+                    onClick={() => setActiveVariant(v)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold border-2 border-foreground/80 transition-all ${
+                      activeVariant === v
+                        ? "bg-secondary text-secondary-foreground shadow-pop"
+                        : "bg-card text-foreground hover:-translate-y-0.5"
+                    }`}
+                  >
+                    {variantLabel[v]?.label ?? v}
+                  </button>
+                ))}
               </div>
 
               <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs font-bold">

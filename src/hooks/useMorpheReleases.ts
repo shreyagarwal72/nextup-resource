@@ -26,8 +26,9 @@ interface State {
   totalReleases: number;
 }
 
-const CACHE_KEY = "morpheReleasesCache_v1";
-const TTL = 1000 * 60 * 60; // 1h
+const CACHE_KEY = "morpheReleasesCache_v2";
+const TTL = 1000 * 60 * 60 * 12; // 12h fresh window
+const MAX_STALE = 1000 * 60 * 60 * 24 * 7; // serve stale up to 7 days while we revalidate
 
 function parseAssetName(name: string): { slug: string; variant: string; version: string; arch: string; ext: "apk" | "zip" } | null {
   // e.g. document-scanner-morphe-v6.8.18-arm-v7a.apk
@@ -62,21 +63,28 @@ export function useMorpheReleases(): State {
 
   useEffect(() => {
     let cancelled = false;
-    const cached = (() => {
+    const { fresh, stale } = (() => {
       try {
         const raw = localStorage.getItem(CACHE_KEY);
-        if (!raw) return null;
+        if (!raw) return { fresh: null, stale: null };
         const parsed = JSON.parse(raw);
-        if (Date.now() - parsed.t < TTL) return parsed.v as State;
-        return null;
+        const age = Date.now() - parsed.t;
+        if (age < TTL) return { fresh: parsed.v as State, stale: null };
+        if (age < MAX_STALE) return { fresh: null, stale: parsed.v as State };
+        return { fresh: null, stale: null };
       } catch {
-        return null;
+        return { fresh: null, stale: null };
       }
     })();
-    if (cached) {
-      setState({ ...cached, loading: false });
+    if (fresh) {
+      setState({ ...fresh, loading: false });
       return;
     }
+    // SWR: serve stale immediately, then revalidate in background
+    if (stale) {
+      setState({ ...stale, loading: false });
+    }
+
 
     fetch("https://api.github.com/repos/nullcpy/rvb/releases?per_page=30")
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
@@ -142,6 +150,7 @@ export function useMorpheReleases(): State {
       })
       .catch((e) => {
         if (cancelled) return;
+        if (stale) return; // keep showing stale data; do not surface error
         setState({
           loading: false,
           error: e?.message || "Failed to load releases",
