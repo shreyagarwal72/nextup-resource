@@ -39,13 +39,13 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
+        <GlobalSearch />
         <Marquee />
         <FeaturedCollections />
       </main>
       <Footer />
       <ScrollToTop />
       <BottomNav />
-      <IntroModal />
     </div>
   );
 };
