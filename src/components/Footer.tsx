@@ -46,6 +46,14 @@ const Footer = () => {
             >
               FAQ
             </Link>
+            <button
+              type="button"
+              onClick={openIntroModal}
+              className="inline-flex items-center gap-1.5 text-muted-foreground text-sm font-bold hover:text-primary transition-colors"
+            >
+              <HelpCircle className="w-4 h-4" strokeWidth={2.5} />
+              Show intro
+            </button>
           </div>
         </div>
       </div>
