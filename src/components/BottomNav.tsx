@@ -15,6 +15,7 @@ import {
   Zap,
   Briefcase,
   Sparkles,
+  Layers,
 } from "lucide-react";
 import { useFavorites } from "@/hooks/useFavorites";
 
