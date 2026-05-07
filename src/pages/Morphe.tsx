@@ -110,7 +110,21 @@ const Morphe = () => {
                 />
               </div>
 
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs font-bold">
+              <div className="mt-4 flex flex-wrap justify-center gap-2 max-h-24 overflow-y-auto px-2">
+                {variants.map((v) => (
+                  <button
+                    key={v}
+                    onClick={() => setActiveVariant(v)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold border-2 border-foreground/80 transition-all ${
+                      activeVariant === v
+                        ? "bg-secondary text-secondary-foreground shadow-pop"
+                        : "bg-card text-foreground hover:-translate-y-0.5"
+                    }`}
+                  >
+                    {variantLabel[v]?.label ?? v}
+                  </button>
+                ))}
+              </div>
                 {latestBuild && (
                   <span className="px-3 py-1 rounded-full bg-card border-2 border-foreground/80 shadow-pop-soft text-foreground inline-flex items-center gap-1.5">
                     <Package className="w-3.5 h-3.5" strokeWidth={2.5} />
