@@ -6,7 +6,7 @@ import FeaturedCollections from "@/components/FeaturedCollections";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
-import IntroModal from "@/components/IntroModal";
+import GlobalSearch from "@/components/GlobalSearch";
 import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 
 const Index = () => {
