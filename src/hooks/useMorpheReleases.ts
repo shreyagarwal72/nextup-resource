@@ -26,8 +26,9 @@ interface State {
   totalReleases: number;
 }
 
-const CACHE_KEY = "morpheReleasesCache_v1";
-const TTL = 1000 * 60 * 60; // 1h
+const CACHE_KEY = "morpheReleasesCache_v2";
+const TTL = 1000 * 60 * 60 * 12; // 12h fresh window
+const MAX_STALE = 1000 * 60 * 60 * 24 * 7; // serve stale up to 7 days while we revalidate
 
 function parseAssetName(name: string): { slug: string; variant: string; version: string; arch: string; ext: "apk" | "zip" } | null {
   // e.g. document-scanner-morphe-v6.8.18-arm-v7a.apk
