@@ -8,7 +8,6 @@ import {
   BookText,
   Heart,
   Mail,
-  HelpCircle,
   Download,
   MoreHorizontal,
   Github,
