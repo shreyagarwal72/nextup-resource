@@ -147,6 +147,29 @@ const GlobalSearch = () => {
           </div>
 
           {debounced.trim().length >= 2 && (
+            <>
+              <div className="mt-4 -mx-1 overflow-x-auto no-scrollbar">
+                <div className="flex items-center gap-2 px-1 pb-1 whitespace-nowrap">
+                  {FILTERS.map((f) => {
+                    const active = filter === f;
+                    const accent = f === "All" ? "bg-foreground text-background" : (groupAccent[f] ?? "bg-card text-foreground");
+                    return (
+                      <button
+                        key={f}
+                        onClick={() => setFilter(f)}
+                        className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-bold border-2 border-foreground/80 transition-all ${
+                          active ? `${accent} shadow-pop` : "bg-card text-foreground hover:-translate-y-0.5"
+                        }`}
+                      >
+                        {f}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            <div className="mt-3 bg-card border-2 border-foreground/80 rounded-2xl shadow-pop p-4 max-h-[60vh] overflow-y-auto">
+            </>
+          )}
             <div className="mt-5 bg-card border-2 border-foreground/80 rounded-2xl shadow-pop p-4 max-h-[60vh] overflow-y-auto">
               {grouped.length === 0 ? (
                 <p className="text-sm text-muted-foreground text-center py-6">
