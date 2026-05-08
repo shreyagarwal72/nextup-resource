@@ -7,7 +7,7 @@ import { fossListApps } from "@/data/fossList";
 import { shizukuApps } from "@/data/shizukuApps";
 import { materialYouApps } from "@/data/materialYouApps";
 
-type ItemType = "course" | "resource" | "ebook" | "app" | "ai-tool" | "foss" | "shizuku" | "material-you";
+type ItemType = "course" | "resource" | "ebook" | "app" | "ai-tool" | "foss" | "shizuku" | "morphe" | "material-you";
 
 interface NotificationItem {
   title: string;
