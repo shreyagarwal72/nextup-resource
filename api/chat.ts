@@ -1,5 +1,6 @@
-// Vercel serverless function: Resourcly assistant via Lovable AI Gateway.
-// Requires LOVABLE_API_KEY env var on Vercel dashboard.
+// api/chat.ts
+// Vercel serverless function: Resourcly assistant via Bytez AI.
+// Requires BYTEZ_API_KEY env var on Vercel dashboard.
 
 const SYSTEM_PROMPT = `You are Resourcly, the helpful assistant for Nextup Resources (https://nextup-resource.vercel.app) — a curated learning platform by Nextup Studio. You help users find content across:
 - Courses (/courses): 50+ premium courses on AI, hacking, GST, English, trading, etc.
@@ -24,33 +25,46 @@ Be concise and helpful. Guide users to the right section.`;
 export default async function handler(req: any, res: any) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "content-type");
+
   if (req.method === "OPTIONS") {
     res.status(200).end();
     return;
   }
+
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
     return;
   }
+
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     const messages = Array.isArray(body?.messages) ? body.messages : [];
-    const apiKey = process.env.LOVABLE_API_KEY;
+
+    const apiKey = process.env.BYTEZ_API_KEY;
     if (!apiKey) {
-      res.status(500).json({ error: "LOVABLE_API_KEY not configured" });
+      res.status(500).json({ error: "BYTEZ_API_KEY not configured" });
       return;
     }
-    const upstream = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
-        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
-      }),
-    });
+
+    const upstream = await fetch(
+      "https://api.bytez.com/models/v2/openai/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemma-3-4b-it",
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            ...messages,
+          ],
+          max_tokens: 500,
+          temperature: 0.7,
+        }),
+      }
+    );
 
     if (!upstream.ok) {
       const t = await upstream.text();
@@ -65,6 +79,7 @@ export default async function handler(req: any, res: any) {
       res.status(500).json({ error: `Upstream error: ${t.slice(0, 200)}` });
       return;
     }
+
     const data = await upstream.json();
     const reply = data.choices?.[0]?.message?.content ?? "";
     res.status(200).json({ reply });
