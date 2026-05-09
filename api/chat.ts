@@ -1,6 +1,6 @@
 // api/chat.ts
 // Vercel serverless function: Resourcly assistant via Bytez AI.
-// Requires BYTEZ_API_KEY env var on Vercel dashboard.
+// Requires BYTEZ_API_KEY env var in Lovable project settings.
 
 const SYSTEM_PROMPT = `You are Resourcly, the helpful assistant for Nextup Resources (https://nextup-resource.vercel.app) — a curated learning platform by Nextup Studio. You help users find content across:
 - Courses (/courses): 50+ premium courses on AI, hacking, GST, English, trading, etc.
@@ -55,7 +55,7 @@ export default async function handler(req: any, res: any) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "google/gemma-3-4b-it",
+          model: "Qwen/Qwen3-4B",
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
             ...messages,
