@@ -1,6 +1,6 @@
 // api/chat.ts
-// Vercel serverless function: Resourcly assistant via Bytez AI.
-// Requires BYTEZ_API_KEY env var in Lovable project settings.
+// Vercel serverless function: Resourcly assistant via Google Gemini.
+// Requires GEMINI_API_KEY env var in Lovable project settings.
 
 const SYSTEM_PROMPT = `You are Resourcly, the helpful assistant for Nextup Resources (https://nextup-resource.vercel.app) — a curated learning platform by Nextup Studio. You help users find content across:
 - Courses (/courses): 50+ premium courses on AI, hacking, GST, English, trading, etc.
@@ -40,28 +40,34 @@ export default async function handler(req: any, res: any) {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     const messages = Array.isArray(body?.messages) ? body.messages : [];
 
-    const apiKey = process.env.BYTEZ_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      res.status(500).json({ error: "BYTEZ_API_KEY not configured" });
+      res.status(500).json({ error: "GEMINI_API_KEY not configured" });
       return;
     }
 
+    // Convert OpenAI message format to Gemini format
+    const contents = messages.map((m: any) => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content }],
+    }));
+
     const upstream = await fetch(
-      "https://api.bytez.com/models/v2/openai/v1/chat/completions",
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "Qwen/Qwen3-4B",
-          messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            ...messages,
-          ],
-          max_tokens: 500,
-          temperature: 0.7,
+          system_instruction: {
+            parts: [{ text: SYSTEM_PROMPT }],
+          },
+          contents,
+          generationConfig: {
+            maxOutputTokens: 500,
+            temperature: 0.7,
+          },
         }),
       }
     );
@@ -72,8 +78,8 @@ export default async function handler(req: any, res: any) {
         res.status(429).json({ error: "Too many requests — please slow down." });
         return;
       }
-      if (upstream.status === 402) {
-        res.status(402).json({ error: "AI quota exceeded — try again later." });
+      if (upstream.status === 403) {
+        res.status(403).json({ error: "Invalid API key." });
         return;
       }
       res.status(500).json({ error: `Upstream error: ${t.slice(0, 200)}` });
@@ -81,7 +87,7 @@ export default async function handler(req: any, res: any) {
     }
 
     const data = await upstream.json();
-    const reply = data.choices?.[0]?.message?.content ?? "";
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
     res.status(200).json({ reply });
   } catch (e: any) {
     res.status(500).json({ error: e?.message || "Unknown error" });
