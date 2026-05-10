@@ -1,6 +1,6 @@
 // api/chat.ts
-// Vercel serverless function: Resourcly assistant via Gemini (OpenAI-compatible).
-// Requires GEMINI_API_KEY env var in Lovable project settings.
+// Vercel serverless function: Resourcly assistant via OpenRouter.
+// Requires OPENROUTER_API_KEY env var in Lovable project settings.
 
 const SYSTEM_PROMPT = `You are Resourcly, the helpful assistant for Nextup Resources (https://nextup-resource.vercel.app) — a curated learning platform by Nextup Studio. You help users find content across:
 - Courses (/courses): 50+ premium courses on AI, hacking, GST, English, trading, etc.
@@ -40,22 +40,24 @@ export default async function handler(req: any, res: any) {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     const messages = Array.isArray(body?.messages) ? body.messages : [];
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
-      res.status(500).json({ error: "GEMINI_API_KEY not configured" });
+      res.status(500).json({ error: "OPENROUTER_API_KEY not configured" });
       return;
     }
 
     const upstream = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+      "https://openrouter.ai/api/v1/chat/completions",
       {
         method: "POST",
         headers: {
           Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
+          "HTTP-Referer": "https://nextup-resource.vercel.app",
+          "X-Title": "Nextup Resources",
         },
         body: JSON.stringify({
-          model: "gemini-2.0-flash",
+          model: "google/gemma-3-4b-it:free",
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
             ...messages,
