@@ -57,7 +57,7 @@ export default async function handler(req: any, res: any) {
           "X-Title": "Nextup Resources",
         },
         body: JSON.stringify({
-          model: "google/gemma-3-4b-it:free",
+          model: "meta-llama/llama-3.2-3b-instruct:free",
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
             ...messages,
