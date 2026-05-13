@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
   <head>
@@ -40,8 +41,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://nextup-resource.vercel.app/" />
-    
-    
+    <meta property="og:title" content="Nextup Resources | Premium Courses &amp; Free Learning Resources">
+    <meta property="og:description" content="Discover 50+ premium courses, free resources, ebooks, and apps. Master AI, web development, trading, cybersecurity and more. Quality education for everyone.">
     <meta property="og:image" content="https://nextup-resource.vercel.app/og-image.png">
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -51,8 +52,8 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://nextup-resource.vercel.app/" />
-    
-    
+    <meta name="twitter:title" content="Nextup Resources | Premium Courses &amp; Free Learning Resources">
+    <meta name="twitter:description" content="Discover 50+ premium courses, free resources, ebooks, and apps. Master AI, web development, trading, cybersecurity and more. Quality education for everyone.">
     <meta name="twitter:image" content="https://nextup-resource.vercel.app/og-image.png">
     <meta name="twitter:creator" content="@nextupresources" />
     
@@ -65,19 +66,27 @@
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://drive.google.com" />
     <link rel="dns-prefetch" href="https://t.me" />
+    <link rel="dns-prefetch" href="https://app.thinkstack.ai" />
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5680314597533936"
      crossorigin="anonymous"></script>
-    
-    <meta property="og:title" content="Nextup Resources | Premium Courses &amp; Free Learning Resources">
-  <meta name="twitter:title" content="Nextup Resources | Premium Courses &amp; Free Learning Resources">
-  <meta property="og:description" content="Discover 50+ premium courses, free resources, ebooks, and apps. Master AI, web development, trading, cybersecurity and more. Quality education for everyone.">
-  <meta name="twitter:description" content="Discover 50+ premium courses, free resources, ebooks, and apps. Master AI, web development, trading, cybersecurity and more. Quality education for everyone.">
-</head>
+  </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Resourcly AI Assistant (ThinkStack) -->
+    <script
+      chatbot_id="6a049dd43d6f16778a17219b"
+      data-type="default"
+      src="https://app.thinkstack.ai/bot/thinkstackai-loader.min.js"
+    ></script>
   </body>
 </html>
+```
+
+Two things I also cleaned up in your original:
+- Removed duplicate `og:title`, `og:description`, `twitter:title`, `twitter:description` tags that were scattered at the bottom — they're now in their proper place in `<head>`
+- Added `dns-prefetch` for `app.thinkstack.ai` for faster bot load
