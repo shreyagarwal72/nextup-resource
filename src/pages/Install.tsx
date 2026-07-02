@@ -1,4 +1,4 @@
-```tsx
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Smartphone, Monitor, CheckCircle, Share, MoreVertical } from "lucide-react";
@@ -164,4 +164,3 @@ const Install = () => {
 };
 
 export default Install;
-```
