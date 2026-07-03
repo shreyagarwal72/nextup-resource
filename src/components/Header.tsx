@@ -85,6 +85,45 @@ const Header = () => {
                   )}
                 </Link>
               ))}
+
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button
+                    className={`nav-pill relative inline-flex items-center gap-1 ${
+                      moreLinks.some((l) => isActive(l.to))
+                        ? "bg-tertiary text-tertiary-foreground font-bold border-2 border-foreground/80"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                    aria-label="More pages"
+                  >
+                    More <ChevronDown className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent
+                  align="end"
+                  className="w-64 p-2 bg-card border-2 border-foreground/80 shadow-pop rounded-2xl"
+                >
+                  <div className="grid grid-cols-1 gap-1 max-h-[70vh] overflow-y-auto">
+                    {moreLinks.map((link) => {
+                      const Icon = link.icon;
+                      return (
+                        <Link
+                          key={link.to}
+                          to={link.to}
+                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold transition-colors ${
+                            isActive(link.to)
+                              ? "bg-tertiary text-tertiary-foreground"
+                              : "hover:bg-muted/60 text-foreground"
+                          }`}
+                        >
+                          <Icon className="w-4 h-4" strokeWidth={2.5} />
+                          {link.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </PopoverContent>
+              </Popover>
             </nav>
 
             <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
