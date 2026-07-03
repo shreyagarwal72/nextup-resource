@@ -24,10 +24,23 @@ const Header = () => {
     { to: "/courses", label: "Courses" },
     { to: "/resources", label: "Resources" },
     { to: "/ebooks", label: "Ebooks" },
-    { to: "/apps", label: "Apps & Websites" },
+    { to: "/apps", label: "Apps" },
     { to: "/ai", label: "AI" },
-    { to: "/developer-roadmap", label: "Roadmap" },
-    { to: "/contact", label: "Contact" },
+  ];
+
+  const moreLinks = [
+    { to: "/developer-roadmap", label: "Developer Roadmap", icon: Sparkles },
+    { to: "/special-courses", label: "Placement Bundles", icon: Briefcase },
+    { to: "/morphe", label: "Morphe Builds", icon: Sparkles },
+    { to: "/material-you", label: "Material You Apps", icon: Layers },
+    { to: "/foss-apps", label: "FOSS Apps", icon: Github },
+    { to: "/shizuku-apps", label: "Shizuku Apps", icon: Zap },
+    { to: "/tv-apps", label: "Android TV Apps", icon: Tv },
+    { to: "/telegram-tweaks", label: "Telegram Tweaks", icon: Send },
+    { to: "/guru-mann-fitness", label: "Guru Mann Fitness", icon: Dumbbell },
+    { to: "/install", label: "Install App", icon: Download },
+    { to: "/faq", label: "FAQ", icon: HelpCircle },
+    { to: "/contact", label: "Contact", icon: HelpCircle },
   ];
 
   const isActive = (path: string) => location.pathname === path;
