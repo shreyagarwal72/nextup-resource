@@ -32,6 +32,7 @@ const Admin = lazy(() => import("./pages/Admin"));
 const GurMannFitnessBooks = lazy(() => import("./pages/GurMannFitnessBooks"));
 
 const DeveloperRoadmap = lazy(() => import("./pages/DeveloperRoadmap"));
+const TvApps = lazy(() => import("./pages/TvApps"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
