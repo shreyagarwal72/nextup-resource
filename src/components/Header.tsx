@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Heart } from "lucide-react";
+import { Heart, ChevronDown, Github, Zap, Sparkles, Layers, Send, Tv, Dumbbell, Briefcase, Download, HelpCircle } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { StudyModeToggle } from "./StudyModeToggle";
 import { useFavorites } from "@/hooks/useFavorites";
 import NotificationCenter from "./NotificationCenter";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,10 +24,23 @@ const Header = () => {
     { to: "/courses", label: "Courses" },
     { to: "/resources", label: "Resources" },
     { to: "/ebooks", label: "Ebooks" },
-    { to: "/apps", label: "Apps & Websites" },
+    { to: "/apps", label: "Apps" },
     { to: "/ai", label: "AI" },
-    { to: "/developer-roadmap", label: "Roadmap" },
-    { to: "/contact", label: "Contact" },
+  ];
+
+  const moreLinks = [
+    { to: "/developer-roadmap", label: "Developer Roadmap", icon: Sparkles },
+    { to: "/special-courses", label: "Placement Bundles", icon: Briefcase },
+    { to: "/morphe", label: "Morphe Builds", icon: Sparkles },
+    { to: "/material-you", label: "Material You Apps", icon: Layers },
+    { to: "/foss-apps", label: "FOSS Apps", icon: Github },
+    { to: "/shizuku-apps", label: "Shizuku Apps", icon: Zap },
+    { to: "/tv-apps", label: "Android TV Apps", icon: Tv },
+    { to: "/telegram-tweaks", label: "Telegram Tweaks", icon: Send },
+    { to: "/guru-mann-fitness", label: "Guru Mann Fitness", icon: Dumbbell },
+    { to: "/install", label: "Install App", icon: Download },
+    { to: "/faq", label: "FAQ", icon: HelpCircle },
+    { to: "/contact", label: "Contact", icon: HelpCircle },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -71,6 +85,45 @@ const Header = () => {
                   )}
                 </Link>
               ))}
+
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button
+                    className={`nav-pill relative inline-flex items-center gap-1 ${
+                      moreLinks.some((l) => isActive(l.to))
+                        ? "bg-tertiary text-tertiary-foreground font-bold border-2 border-foreground/80"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                    aria-label="More pages"
+                  >
+                    More <ChevronDown className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent
+                  align="end"
+                  className="w-64 p-2 bg-card border-2 border-foreground/80 shadow-pop rounded-2xl"
+                >
+                  <div className="grid grid-cols-1 gap-1 max-h-[70vh] overflow-y-auto">
+                    {moreLinks.map((link) => {
+                      const Icon = link.icon;
+                      return (
+                        <Link
+                          key={link.to}
+                          to={link.to}
+                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold transition-colors ${
+                            isActive(link.to)
+                              ? "bg-tertiary text-tertiary-foreground"
+                              : "hover:bg-muted/60 text-foreground"
+                          }`}
+                        >
+                          <Icon className="w-4 h-4" strokeWidth={2.5} />
+                          {link.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </PopoverContent>
+              </Popover>
             </nav>
 
             <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">

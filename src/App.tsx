@@ -32,6 +32,7 @@ const Admin = lazy(() => import("./pages/Admin"));
 const GurMannFitnessBooks = lazy(() => import("./pages/GurMannFitnessBooks"));
 
 const DeveloperRoadmap = lazy(() => import("./pages/DeveloperRoadmap"));
+const TvApps = lazy(() => import("./pages/TvApps"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -91,6 +92,7 @@ const App = () => {
                 <Route path="/telegram-tweaks" element={<TelegramTweaks />} />
                 <Route path="/guru-mann-fitness" element={<GurMannFitnessBooks />} />
                 <Route path="/developer-roadmap" element={<DeveloperRoadmap />} />
+                <Route path="/tv-apps" element={<TvApps />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="*" element={<NotFound />} />
 

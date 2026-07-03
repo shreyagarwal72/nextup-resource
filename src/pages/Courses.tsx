@@ -5,6 +5,7 @@ import FeaturedCollections from "@/components/FeaturedCollections";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
+import StudyPlanPicker from "@/components/StudyPlanPicker";
 import SquigglyUnderline from "@/components/SquigglyUnderline";
 import { useEffect } from "react";
 import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
@@ -43,6 +44,7 @@ const Courses = () => {
             </div>
           </div>
         </section>
+        <StudyPlanPicker />
         <Marquee />
         <section className="pt-4">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">

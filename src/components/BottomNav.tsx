@@ -17,6 +17,7 @@ import {
   Layers,
   Map,
   Dumbbell,
+  Tv,
 } from "lucide-react";
 
 const primaryLinks = [
@@ -44,6 +45,7 @@ const miscLinks = [
 ];
 
 const hiddenLinks = [
+  { to: "/tv-apps", icon: Tv, label: "TV Apps" },
   { to: "/guru-mann-fitness", icon: Dumbbell, label: "Fitness" },
 ];
 
@@ -177,7 +179,7 @@ const BottomNav = () => {
           />
         ))}
         <button
-          onClick={() => navigate("/guru-mann-fitness")}
+          onClick={() => navigate("/tv-apps")}
           aria-label="Switch to hidden menu"
           className="flex flex-col items-center justify-center px-2 py-1.5 rounded-xl text-muted-foreground"
         >
