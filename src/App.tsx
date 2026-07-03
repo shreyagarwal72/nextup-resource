@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import IntroModal from "@/components/IntroModal";
 import Resourcly from "@/components/Resourcly";
+import StudyBanner from "@/components/StudyBanner";
 import { Analytics } from "@vercel/analytics/react";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -68,6 +69,7 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <StudyBanner />
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 <Route path="/" element={<Index />} />
