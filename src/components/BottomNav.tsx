@@ -17,6 +17,7 @@ import {
   Layers,
   Map,
   Dumbbell,
+  Tv,
 } from "lucide-react";
 
 const primaryLinks = [
@@ -44,6 +45,7 @@ const miscLinks = [
 ];
 
 const hiddenLinks = [
+  { to: "/tv-apps", icon: Tv, label: "TV Apps" },
   { to: "/guru-mann-fitness", icon: Dumbbell, label: "Fitness" },
 ];
 
