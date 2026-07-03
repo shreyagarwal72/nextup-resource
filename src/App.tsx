@@ -92,6 +92,7 @@ const App = () => {
                 <Route path="/telegram-tweaks" element={<TelegramTweaks />} />
                 <Route path="/guru-mann-fitness" element={<GurMannFitnessBooks />} />
                 <Route path="/developer-roadmap" element={<DeveloperRoadmap />} />
+                <Route path="/tv-apps" element={<TvApps />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="*" element={<NotFound />} />
 
