@@ -22,6 +22,7 @@ const Footer = () => {
               {[
                 { href: "https://www.instagram.com/hereyourchampion/", icon: Instagram, color: "bg-secondary", label: "Instagram" },
                 { href: "https://www.youtube.com/@nextupstudioyt", icon: Youtube, color: "bg-destructive", label: "YouTube" },
+                { href: "https://t.me/hereyourchampion", icon: Send, color: "bg-tertiary", label: "Telegram" },
               ].map(({ href, icon: Icon, color, label }) => (
                 <a
                   key={href}
