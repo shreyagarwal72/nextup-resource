@@ -236,6 +236,24 @@ const TvApps = () => {
                     </div>
                   );
                 })}
+                {loadingMore && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mt-6">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={i} className="pop-card p-5 animate-pulse">
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <div className="w-11 h-11 rounded-2xl bg-muted" />
+                          <div className="w-16 h-5 rounded-full bg-muted" />
+                        </div>
+                        <div className="h-5 w-3/4 bg-muted rounded mb-3" />
+                        <div className="flex gap-1.5 mb-3">
+                          <div className="h-4 w-14 bg-muted rounded-full" />
+                          <div className="h-4 w-10 bg-muted rounded-full" />
+                        </div>
+                        <div className="h-8 w-full bg-muted rounded-full mt-4" />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
