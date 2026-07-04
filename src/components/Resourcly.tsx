@@ -10,7 +10,7 @@ type ChatMsg = { role: "user" | "assistant"; content: string };
 const GREETING: ChatMsg = {
   role: "assistant",
   content:
-    "Hey! I'm **Resourcely** — ask me about courses, FOSS apps, Material You, Morphe, ebooks, AI tools or anything on the site.",
+    "Hey, I'm **Resourcely** ✨ — your Nextup companion. Ask me about courses, FOSS apps, Material You, Morphe builds, ebooks, AI tools, or anything on the site.",
 };
 
 const Resourcly = () => {
