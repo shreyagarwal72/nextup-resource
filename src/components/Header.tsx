@@ -86,8 +86,8 @@ const Header = () => {
                 </Link>
               ))}
 
-              <Popover>
-                <PopoverTrigger asChild>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
                   <button
                     className={`nav-pill relative inline-flex items-center gap-1 ${
                       moreLinks.some((l) => isActive(l.to))
@@ -98,32 +98,32 @@ const Header = () => {
                   >
                     More <ChevronDown className="w-3.5 h-3.5" strokeWidth={2.5} />
                   </button>
-                </PopoverTrigger>
-                <PopoverContent
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
                   align="end"
-                  className="w-64 p-2 bg-card border-2 border-foreground/80 shadow-pop rounded-2xl"
+                  sideOffset={8}
+                  className="w-64 p-2 bg-card border-2 border-foreground/80 shadow-pop rounded-2xl max-h-[70vh] overflow-y-auto"
                 >
-                  <div className="grid grid-cols-1 gap-1 max-h-[70vh] overflow-y-auto">
-                    {moreLinks.map((link) => {
-                      const Icon = link.icon;
-                      return (
+                  {moreLinks.map((link) => {
+                    const Icon = link.icon;
+                    return (
+                      <DropdownMenuItem key={link.to} asChild className="focus:bg-muted/60 rounded-xl">
                         <Link
-                          key={link.to}
                           to={link.to}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold transition-colors ${
+                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold cursor-pointer ${
                             isActive(link.to)
                               ? "bg-tertiary text-tertiary-foreground"
-                              : "hover:bg-muted/60 text-foreground"
+                              : "text-foreground"
                           }`}
                         >
                           <Icon className="w-4 h-4" strokeWidth={2.5} />
                           {link.label}
                         </Link>
-                      );
-                    })}
-                  </div>
-                </PopoverContent>
-              </Popover>
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </nav>
 
             <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
