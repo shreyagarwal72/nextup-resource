@@ -20,37 +20,41 @@ import {
   Tv,
 } from "lucide-react";
 
+// Ring 1 — Primary
 const primaryLinks = [
   { to: "/", icon: Home, label: "Home" },
-  { to: "/courses", icon: BookOpen, label: "Courses" },
   { to: "/resources", icon: FolderOpen, label: "Resources" },
-  { to: "/ai", icon: Bot, label: "AI" },
+  { to: "/courses", icon: BookOpen, label: "Courses" },
+  { to: "/ebooks", icon: BookText, label: "Ebooks" },
   { to: "/apps", icon: Globe, label: "Apps" },
 ];
 
+// Ring 2 — Secondary ("more")
 const moreLinks = [
-  { to: "/ebooks", icon: BookText, label: "Ebooks" },
-  { to: "/developer-roadmap", icon: Map, label: "Roadmap" },
-  { to: "/special-courses", icon: Briefcase, label: "Placement" },
-  { to: "/contact", icon: Mail, label: "Contact" },
-  { to: "/install", icon: Download, label: "Install" },
-];
-
-const miscLinks = [
   { to: "/foss-apps", icon: Github, label: "FOSS" },
   { to: "/shizuku-apps", icon: Zap, label: "Shizuku" },
   { to: "/morphe", icon: Sparkles, label: "Morphe" },
   { to: "/material-you", icon: Layers, label: "MatYou" },
-  { to: "/telegram-tweaks", icon: Send, label: "Telegram" },
-];
-
-const hiddenLinks = [
   { to: "/tv-apps", icon: Tv, label: "TV Apps" },
-  { to: "/guru-mann-fitness", icon: Dumbbell, label: "Fitness" },
 ];
 
-const morePaths = [...moreLinks.map((l) => l.to), "/guru-mann-fitness-books"];
-const miscPaths = miscLinks.map((l) => l.to);
+// Ring 3 — Tertiary ("misc")
+const miscLinks = [
+  { to: "/ai", icon: Bot, label: "AI" },
+  { to: "/telegram-tweaks", icon: Send, label: "Telegram" },
+  { to: "/guru-mann-fitness", icon: Dumbbell, label: "Fitness" },
+  { to: "/developer-roadmap", icon: Map, label: "Roadmap" },
+  { to: "/special-courses", icon: Briefcase, label: "Placement" },
+];
+
+// Ring 4 — Quaternary ("hidden")
+const hiddenLinks = [
+  { to: "/install", icon: Download, label: "Install" },
+  { to: "/contact", icon: Mail, label: "Contact" },
+];
+
+const morePaths = moreLinks.map((l) => l.to);
+const miscPaths = [...miscLinks.map((l) => l.to), "/guru-mann-fitness-books"];
 const hiddenPaths = hiddenLinks.map((l) => l.to);
 
 const NavItem = ({
@@ -116,10 +120,8 @@ const BottomNav = () => {
   const navigate = useNavigate();
 
   const isActive = (path: string) => location.pathname === path;
-  const isOnMorePage = morePaths.includes(location.pathname);
-  const isOnMiscPage =
-    miscPaths.includes(location.pathname) ||
-    location.pathname.startsWith("/collection/");
+  const isOnMorePage = morePaths.includes(location.pathname) || location.pathname.startsWith("/collection/");
+  const isOnMiscPage = miscPaths.includes(location.pathname);
   const isOnHiddenPage = hiddenPaths.includes(location.pathname);
 
   // On desktop, only show bottom nav when the user is in a secondary/misc/hidden ring,
@@ -179,7 +181,7 @@ const BottomNav = () => {
           />
         ))}
         <button
-          onClick={() => navigate("/tv-apps")}
+          onClick={() => navigate("/install")}
           aria-label="Switch to hidden menu"
           className="flex flex-col items-center justify-center px-2 py-1.5 rounded-xl text-muted-foreground"
         >
@@ -204,7 +206,7 @@ const BottomNav = () => {
           />
         ))}
         <button
-          onClick={() => navigate("/foss-apps")}
+          onClick={() => navigate("/ai")}
           aria-label="Switch to extras menu"
           className="flex flex-col items-center justify-center px-2 py-1.5 rounded-xl text-muted-foreground"
         >
@@ -214,7 +216,7 @@ const BottomNav = () => {
     );
   }
 
-  // Primary nav — toggle goes to secondary (Ebooks)
+  // Primary nav — toggle goes to secondary
   return shell(
     <>
       {primaryLinks.map((link) => (
@@ -228,7 +230,7 @@ const BottomNav = () => {
         />
       ))}
       <button
-        onClick={() => navigate("/ebooks")}
+        onClick={() => navigate("/foss-apps")}
         aria-label="Switch to more menu"
         className="flex flex-col items-center justify-center px-2 py-1.5 rounded-xl text-muted-foreground"
       >
