@@ -10,7 +10,7 @@ type ChatMsg = { role: "user" | "assistant"; content: string };
 const GREETING: ChatMsg = {
   role: "assistant",
   content:
-    "Hey! I'm **Nextup Guide** — ask me about courses, FOSS apps, Material You, Morphe, ebooks, AI tools or anything on the site.",
+    "Hey, I'm **Resourcely** ✨ — your Nextup companion. Ask me about courses, FOSS apps, Material You, Morphe builds, ebooks, AI tools, or anything on the site.",
 };
 
 const Resourcly = () => {
@@ -51,7 +51,7 @@ const Resourcly = () => {
       if ((data as any)?.error) throw new Error((data as any).error);
       setMessages((m) => [...m, { role: "assistant", content: (data as any)?.reply || "…" }]);
     } catch (e: any) {
-      setError(e?.message || "Failed to reach Nextup Guide.");
+      setError(e?.message || "Failed to reach Resourcely.");
     } finally {
       setLoading(false);
     }
@@ -94,7 +94,7 @@ const Resourcly = () => {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          aria-label="Open Nextup Guide chat"
+          aria-label="Open Resourcely chat"
           className="fixed z-[60] right-4 bottom-[5.5rem] md:bottom-6 w-14 h-14 rounded-full bg-primary text-primary-foreground border-2 border-foreground/80 shadow-pop hover:shadow-pop-hover hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-y-0.5 active:translate-x-0.5 active:shadow-pop-active transition-all flex items-center justify-center font-heading focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}
         >
@@ -112,7 +112,7 @@ const Resourcly = () => {
             }}
             role="dialog"
             aria-modal="false"
-            aria-label="Nextup Guide chat"
+            aria-label="Resourcely chat"
           >
             {/* Header */}
             <div className="flex items-center gap-2 px-4 py-3 border-b-2 border-foreground/20 bg-tertiary text-tertiary-foreground shrink-0">
@@ -120,8 +120,8 @@ const Resourcly = () => {
                 <Sparkles className="w-4 h-4 text-primary" strokeWidth={2.5} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-extrabold font-heading leading-none">Nextup Guide</p>
-                <p className="text-[10px] font-bold opacity-80 mt-0.5">Powered by Lovable AI</p>
+                <p className="text-sm font-extrabold font-heading leading-none">Resourcely</p>
+                <p className="text-[10px] font-bold opacity-80 mt-0.5">Your Nextup companion</p>
               </div>
               <button
                 onClick={clear}
@@ -164,7 +164,7 @@ const Resourcly = () => {
                 )
               )}
               {loading && (
-                <div className="flex justify-start" aria-label="Nextup Guide is typing">
+                <div className="flex justify-start" aria-label="Resourcely is typing">
                   <div className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl rounded-bl-sm bg-card border-2 border-foreground/20 shadow-pop-soft">
                     <span className="w-1.5 h-1.5 rounded-full bg-foreground/70 animate-bounce [animation-delay:-0.3s]"></span>
                     <span className="w-1.5 h-1.5 rounded-full bg-foreground/70 animate-bounce [animation-delay:-0.15s]"></span>
@@ -198,7 +198,7 @@ const Resourcly = () => {
             <div className="border-t-2 border-foreground/20 p-2.5 bg-card shrink-0">
               <div className="flex items-end gap-2">
                 <label htmlFor="nextup-guide-input" className="sr-only">
-                  Message Nextup Guide
+                  Message Resourcely
                 </label>
                 <textarea
                   id="nextup-guide-input"

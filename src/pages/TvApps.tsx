@@ -114,20 +114,37 @@ const TvApps = () => {
                 />
               </div>
 
-              <div className="mt-5 flex flex-wrap justify-center gap-2 max-h-32 overflow-y-auto px-2">
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveCat(cat)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-bold border-2 border-foreground/80 transition-all ${
-                      activeCat === cat
-                        ? "bg-primary text-primary-foreground shadow-pop"
-                        : "bg-card text-foreground hover:-translate-y-0.5"
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
+              <div className="mt-5 -mx-4 sm:mx-0 overflow-x-auto scrollbar-hide">
+                <div className="flex sm:flex-wrap justify-start sm:justify-center gap-2 px-4 sm:px-2 pb-2 min-w-max sm:min-w-0">
+                  {categories.map((cat) => {
+                    const count =
+                      cat === "All"
+                        ? tvApps.length
+                        : tvApps.filter((a) => a.category === cat).length;
+                    const active = activeCat === cat;
+                    return (
+                      <button
+                        key={cat}
+                        onClick={() => setActiveCat(cat)}
+                        aria-pressed={active}
+                        className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border-2 border-foreground/80 transition-all ${
+                          active
+                            ? "bg-primary text-primary-foreground shadow-pop"
+                            : "bg-card text-foreground hover:-translate-y-0.5"
+                        }`}
+                      >
+                        {cat}
+                        <span
+                          className={`px-1.5 py-0.5 rounded-full text-[10px] ${
+                            active ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
+                          }`}
+                        >
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full border-2 border-foreground/30 text-xs font-bold text-muted-foreground">
@@ -219,6 +236,24 @@ const TvApps = () => {
                     </div>
                   );
                 })}
+                {loadingMore && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mt-6">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={i} className="pop-card p-5 animate-pulse">
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <div className="w-11 h-11 rounded-2xl bg-muted" />
+                          <div className="w-16 h-5 rounded-full bg-muted" />
+                        </div>
+                        <div className="h-5 w-3/4 bg-muted rounded mb-3" />
+                        <div className="flex gap-1.5 mb-3">
+                          <div className="h-4 w-14 bg-muted rounded-full" />
+                          <div className="h-4 w-10 bg-muted rounded-full" />
+                        </div>
+                        <div className="h-8 w-full bg-muted rounded-full mt-4" />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Youtube, HelpCircle, Download } from "lucide-react";
+import { Instagram, Youtube, Send, HelpCircle, Download } from "lucide-react";
 import { openIntroModal } from "@/components/IntroModal";
 
 const Footer = () => {
@@ -22,6 +22,7 @@ const Footer = () => {
               {[
                 { href: "https://www.instagram.com/hereyourchampion/", icon: Instagram, color: "bg-secondary", label: "Instagram" },
                 { href: "https://www.youtube.com/@nextupstudioyt", icon: Youtube, color: "bg-destructive", label: "YouTube" },
+                { href: "https://t.me/hereyourchampion", icon: Send, color: "bg-tertiary", label: "Telegram" },
               ].map(({ href, icon: Icon, color, label }) => (
                 <a
                   key={href}
