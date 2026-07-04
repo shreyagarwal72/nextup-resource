@@ -17,7 +17,7 @@ const guruMannBooks = [
     description:
       "A detailed nutrition guide by Guru Mann focused on managing and reducing cholesterol naturally through diet. Covers food lists, meal plans, and lifestyle tips.",
     category: "Health & Nutrition",
-    emoji: "🫀",
+    icon: Heart,
     link: "https://t.me/nextupfilebot?start=BQADAQADPA4AAmXlEEZreHLuYUZcbRYE",
     color: "hsl(var(--primary))",
   },
@@ -26,7 +26,7 @@ const guruMannBooks = [
     description:
       "Guru Mann's complete bulking nutrition plan for maximum muscle gain. Includes calorie targets, macros, meal timings, and supplement recommendations.",
     category: "Muscle Building",
-    emoji: "💪",
+    icon: TrendingUp,
     link: "https://t.me/nextupfilebot?start=BQADAQADRg4AAmXlEEZAIDwLsrJ9NBYE",
     color: "hsl(var(--secondary))",
   },
@@ -35,7 +35,7 @@ const guruMannBooks = [
     description:
       "Advanced fat loss and shredding plan by Guru Mann. Designed for those who want to go beyond basic cutting — includes carb cycling, cheat meal strategy, and cardio guidelines.",
     category: "Fat Loss",
-    emoji: "🔥",
+    icon: Flame,
     link: "https://t.me/nextupfilebot?start=BQADAQADSQ4AAmXlEEZWOb75-5SmhhYE",
     color: "hsl(var(--tertiary))",
   },
@@ -44,7 +44,7 @@ const guruMannBooks = [
     description:
       "A balanced plan for building a lean, athletic physique by Guru Mann. Focuses on clean eating, steady fat loss while preserving muscle, and sustainable habits.",
     category: "Lean Physique",
-    emoji: "⚡",
+    icon: Zap,
     link: "https://t.me/nextupfilebot?start=BQADAQADUg4AAmXlEEZDcorucoTjtBYE",
     color: "hsl(var(--quaternary))",
   },
@@ -53,7 +53,7 @@ const guruMannBooks = [
     description:
       "Guru Mann's 8-week muscular transformation plan. A structured program covering training splits, nutrition targets, and recovery protocols for building a muscular physique.",
     category: "Muscle Building",
-    emoji: "🏋️",
+    icon: Dumbbell,
     link: "https://t.me/nextupfilebot?start=BQADAQADug4AAmXlEEZDOqUsTpHrCRYE",
     color: "hsl(var(--primary))",
   },
@@ -62,7 +62,7 @@ const guruMannBooks = [
     description:
       "A complete 6-week gym training plan by Guru Mann for beginners and intermediates. Day-by-day workouts, exercise selection, sets, reps, and progression guidelines.",
     category: "Training Plan",
-    emoji: "🗓️",
+    icon: CalendarDays,
     link: "https://t.me/nextupfilebot?start=BQADAQADvA4AAmXlEEYc2CoJn6hpFhYE",
     color: "hsl(var(--secondary))",
   },
@@ -71,7 +71,7 @@ const guruMannBooks = [
     description:
       "A diet guide by Guru Mann specifically designed to help manage high blood pressure naturally. Covers foods to eat, foods to avoid, sodium control, and daily meal structuring.",
     category: "Health & Nutrition",
-    emoji: "🩺",
+    icon: HeartPulse,
     link: "https://t.me/nextupfilebot?start=BQADAQADvg4AAmXlEEYCKywrIcyu3BYE",
     color: "hsl(var(--tertiary))",
   },
@@ -80,7 +80,7 @@ const guruMannBooks = [
     description:
       "Guru Mann's 5x5 strength and size program. One of the most effective protocols for building raw strength and muscle mass using progressive overload with compound movements.",
     category: "Strength & Size",
-    emoji: "📐",
+    icon: Ruler,
     link: "https://t.me/nextupfilebot?start=BQADAQADwQ4AAmXlEEYOKo1CCxhwwRYE",
     color: "hsl(var(--quaternary))",
   },
@@ -89,7 +89,7 @@ const guruMannBooks = [
     description:
       "A comprehensive dietary guide by Guru Mann for managing and controlling diabetes through nutrition. Covers glycemic index, meal timing, portion control, and blood sugar management strategies.",
     category: "Health & Nutrition",
-    emoji: "🩸",
+    icon: Droplets,
     link: "https://t.me/nextupfilebot?start=BQADAQADxA4AAmXlEEbeT_cBZP33VRYE",
     color: "hsl(var(--primary))",
   },
@@ -181,12 +181,12 @@ const GurMannFitnessBooks = () => {
                         style={{ backgroundColor: book.color, opacity: 0.5 }}
                       />
 
-                      {/* Emoji icon */}
+                      {/* Icon preview */}
                       <div
-                        className="w-20 h-20 rounded-2xl border-2 border-foreground/80 shadow-pop flex items-center justify-center text-4xl transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
-                        style={{ backgroundColor: `${book.color}33` }}
+                        className="w-20 h-20 rounded-2xl border-2 border-foreground/80 shadow-pop flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
+                        style={{ backgroundColor: `${book.color}33`, color: book.color }}
                       >
-                        {book.emoji}
+                        <book.icon className="w-8 h-8" strokeWidth={2} />
                       </div>
 
                       {/* Hover overlay */}
