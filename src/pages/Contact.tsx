@@ -43,17 +43,27 @@ const Contact = () => {
     if (!validateForm()) return;
     setIsSubmitting(true);
     try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      const params = {
         from_name: formData.name.trim(),
         from_email: formData.email.trim(),
+        reply_to: formData.email.trim(),
         subject: formData.subject.trim(),
         message: formData.message.trim(),
-      }, EMAILJS_PUBLIC_KEY);
+        to_name: "Nextup Team",
+      };
+      const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params, {
+        publicKey: EMAILJS_PUBLIC_KEY,
+      });
+      if (res.status !== 200) throw new Error(res.text || "Send failed");
       toast({ title: "✅ Message Sent!", description: "We'll get back to you soon." });
       setFormData({ name: "", email: "", subject: "", message: "" });
       setErrors({});
-    } catch {
-      toast({ title: "Failed to send", description: "Please try again later.", variant: "destructive" });
+    } catch (err: any) {
+      toast({
+        title: "Failed to send",
+        description: err?.text || err?.message || "Please try again later.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
