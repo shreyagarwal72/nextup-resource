@@ -114,20 +114,37 @@ const TvApps = () => {
                 />
               </div>
 
-              <div className="mt-5 flex flex-wrap justify-center gap-2 max-h-32 overflow-y-auto px-2">
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveCat(cat)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-bold border-2 border-foreground/80 transition-all ${
-                      activeCat === cat
-                        ? "bg-primary text-primary-foreground shadow-pop"
-                        : "bg-card text-foreground hover:-translate-y-0.5"
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
+              <div className="mt-5 -mx-4 sm:mx-0 overflow-x-auto scrollbar-hide">
+                <div className="flex sm:flex-wrap justify-start sm:justify-center gap-2 px-4 sm:px-2 pb-2 min-w-max sm:min-w-0">
+                  {categories.map((cat) => {
+                    const count =
+                      cat === "All"
+                        ? tvApps.length
+                        : tvApps.filter((a) => a.category === cat).length;
+                    const active = activeCat === cat;
+                    return (
+                      <button
+                        key={cat}
+                        onClick={() => setActiveCat(cat)}
+                        aria-pressed={active}
+                        className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border-2 border-foreground/80 transition-all ${
+                          active
+                            ? "bg-primary text-primary-foreground shadow-pop"
+                            : "bg-card text-foreground hover:-translate-y-0.5"
+                        }`}
+                      >
+                        {cat}
+                        <span
+                          className={`px-1.5 py-0.5 rounded-full text-[10px] ${
+                            active ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
+                          }`}
+                        >
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full border-2 border-foreground/30 text-xs font-bold text-muted-foreground">
