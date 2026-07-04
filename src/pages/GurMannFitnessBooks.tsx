@@ -6,7 +6,10 @@ import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
 import SquigglyUnderline from "@/components/SquigglyUnderline";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Dumbbell, Download, BookOpen, ExternalLink } from "lucide-react";
+import {
+  ArrowLeft, Dumbbell, Download, BookOpen, ExternalLink,
+  Heart, Flame, Zap, CalendarDays, HeartPulse, Ruler, Droplets, TrendingUp,
+} from "lucide-react";
 
 const guruMannBooks = [
   {
