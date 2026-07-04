@@ -121,7 +121,7 @@ const Resourcly = () => {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-extrabold font-heading leading-none">Resourcely</p>
-                <p className="text-[10px] font-bold opacity-80 mt-0.5">Powered by Lovable AI</p>
+                <p className="text-[10px] font-bold opacity-80 mt-0.5">Your Nextup companion</p>
               </div>
               <button
                 onClick={clear}
