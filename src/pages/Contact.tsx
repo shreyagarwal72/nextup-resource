@@ -24,6 +24,7 @@ const Contact = () => {
 
   useEffect(() => {
     document.title = "Contact Us - Nextup Resources";
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
   }, []);
 
   const validateForm = () => {
