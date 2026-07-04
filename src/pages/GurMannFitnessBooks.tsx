@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -7,7 +6,7 @@ import BottomNav from "@/components/BottomNav";
 import SquigglyUnderline from "@/components/SquigglyUnderline";
 import { Badge } from "@/components/ui/badge";
 import {
-  ArrowLeft, Dumbbell, Download, BookOpen, ExternalLink,
+  Dumbbell, Download, BookOpen, ExternalLink,
   Heart, Flame, Zap, CalendarDays, HeartPulse, Ruler, Droplets, TrendingUp,
 } from "lucide-react";
 
@@ -108,17 +107,6 @@ const GurMannFitnessBooks = () => {
         <section className="pt-32 pb-12 dot-grid">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center animate-fade-in">
-              {/* Back link */}
-              <div className="flex justify-center mb-6">
-                <Link
-                  to="/ebooks"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors duration-200 group"
-                >
-                  <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-                  Back to Ebooks
-                </Link>
-              </div>
-
               {/* Badge */}
               <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-primary text-primary-foreground border-2 border-foreground/80 shadow-pop font-bold text-sm">
                 <Dumbbell className="w-4 h-4" strokeWidth={2.5} />
