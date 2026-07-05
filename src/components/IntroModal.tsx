@@ -1,23 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Sparkles,
   BookOpen,
-  FolderOpen,
   Bot,
-  Globe,
-  Github,
-  Zap,
-  Briefcase,
   Heart,
   X,
   PartyPopper,
-  Layers,
   ChevronLeft,
   ChevronRight,
   Search,
   GraduationCap,
-  Bell,
   MoreHorizontal,
 } from "lucide-react";
 
