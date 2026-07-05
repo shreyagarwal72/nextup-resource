@@ -18,6 +18,7 @@ import {
   Map,
   Dumbbell,
   Tv,
+  Plug,
 } from "lucide-react";
 
 // Ring 1 — Primary
@@ -51,6 +52,7 @@ const miscLinks = [
 const hiddenLinks = [
   { to: "/install", icon: Download, label: "Install" },
   { to: "/contact", icon: Mail, label: "Contact" },
+  { to: "/api-hub", icon: Plug, label: "API Hub" },
 ];
 
 const morePaths = moreLinks.map((l) => l.to);
