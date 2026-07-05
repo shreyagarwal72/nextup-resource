@@ -20,6 +20,7 @@ interface NotificationItem {
 
 const NotificationCenter = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [filter, setFilter] = useState<ItemType | "all">("all");
 
   const recentItems = useMemo(() => {
     const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
