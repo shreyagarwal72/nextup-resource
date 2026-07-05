@@ -33,6 +33,7 @@ const GurMannFitnessBooks = lazy(() => import("./pages/GurMannFitnessBooks"));
 
 const DeveloperRoadmap = lazy(() => import("./pages/DeveloperRoadmap"));
 const TvApps = lazy(() => import("./pages/TvApps"));
+const ApiHub = lazy(() => import("./pages/ApiHub"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -93,6 +94,7 @@ const App = () => {
                 <Route path="/guru-mann-fitness" element={<GurMannFitnessBooks />} />
                 <Route path="/developer-roadmap" element={<DeveloperRoadmap />} />
                 <Route path="/tv-apps" element={<TvApps />} />
+                <Route path="/api-hub" element={<ApiHub />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="*" element={<NotFound />} />
 
