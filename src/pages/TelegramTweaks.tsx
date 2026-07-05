@@ -150,23 +150,23 @@ const TelegramTweaks = () => {
           <div className="space-y-10">
             {grouped.map(([cat, items]) => (
               <section key={cat} aria-label={cat}>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="px-3 py-1 rounded-full text-xs font-bold border-2 border-foreground/80 bg-primary text-primary-foreground shadow-pop-soft">
+                <div className="flex flex-wrap items-center gap-y-2 gap-x-3 mb-4">
+                  <span className="whitespace-nowrap px-3 py-1 rounded-full text-xs font-bold border-2 border-foreground/80 bg-primary text-primary-foreground shadow-pop-soft">
                     {cat}
                   </span>
-                  <span className="text-xs font-bold text-muted-foreground">{items.length}</span>
-                  <div className="flex-1 h-0.5 bg-foreground/10 rounded-full" />
+                  <span className="whitespace-nowrap text-xs font-bold text-muted-foreground">{items.length}</span>
+                  <div className="flex-1 min-w-[24px] h-0.5 bg-foreground/10 rounded-full" />
                 </div>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
                   {items.map((b) => {
                     const a = accentMap[b.accent] ?? accentMap.primary;
                     const tags = splitTags(b.tag);
                     return (
                       <article
                         key={b.url}
-                        className="bg-card border-2 border-foreground/80 rounded-2xl shadow-pop p-5 flex flex-col transition-transform duration-300 ease-bounce hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-pop-hover"
+                        className="bg-card border-2 border-foreground/80 rounded-2xl shadow-pop p-4 sm:p-5 flex flex-col transition-transform duration-300 ease-bounce hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-pop-hover"
                       >
-                        <div className="flex items-start justify-between gap-3 mb-3">
+                        <div className="flex items-start justify-between gap-2 mb-3">
                           <div
                             className={`h-11 w-11 rounded-xl border-2 border-foreground/80 ${a.bg} ${a.text} flex items-center justify-center shadow-pop-soft shrink-0`}
                             aria-hidden
@@ -174,15 +174,16 @@ const TelegramTweaks = () => {
                             <BotIcon className="w-5 h-5" />
                           </div>
                           <span
-                            className={`text-[10px] font-bold uppercase tracking-wide border-2 border-foreground/80 rounded-full px-2 py-0.5 ${a.bg} ${a.text}`}
+                            className={`min-w-0 max-w-[60%] truncate text-[10px] font-bold uppercase tracking-wide border-2 border-foreground/80 rounded-full px-2 py-0.5 ${a.bg} ${a.text}`}
+                            title={b.category}
                           >
                             {highlight(b.category, debounced)}
                           </span>
                         </div>
-                        <h2 className="font-heading text-xl font-extrabold mb-1">
+                        <h2 className="font-heading text-xl font-extrabold mb-1 break-words">
                           {highlight(b.name, debounced)}
                         </h2>
-                        <p className="text-sm text-muted-foreground flex-1">
+                        <p className="text-sm text-muted-foreground flex-1 break-words">
                           {highlight(b.desc, debounced)}
                         </p>
                         {tags.length > 0 && (
