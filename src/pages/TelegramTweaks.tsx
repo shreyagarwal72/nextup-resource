@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import BottomNav from "@/components/BottomNav";
 import SearchBox from "@/components/SearchBox";
 import { Button } from "@/components/ui/button";
-import { Send, ExternalLink, Bot as BotIcon, Sparkles, ArrowDownAZ, Clock } from "lucide-react";
+import { Send, ExternalLink, Github, Bot as BotIcon, Sparkles, ArrowDownAZ, Clock } from "lucide-react";
 import { updatePageMeta } from "@/lib/og-image";
 import { telegramBots, telegramBotCategories } from "@/data/telegramBots";
 import { useDebounced } from "@/hooks/useDebounced";
@@ -24,6 +24,12 @@ const splitTags = (tag: string) =>
     .split(/[·•,]/)
     .map((t) => t.trim())
     .filter(Boolean);
+
+// Some entries (open-source bots with no public @handle) link to their
+// GitHub repo instead of a t.me chat — label those cards accordingly
+// instead of claiming every link opens Telegram.
+const isTelegramLink = (url: string) => /^https?:\/\/(www\.)?(t|telegram)\.me\//i.test(url);
+const isGithubLink = (url: string) => /^https?:\/\/(www\.)?github\.com\//i.test(url);
 
 const TelegramTweaks = () => {
   const [query, setQuery] = useState("");
@@ -191,16 +197,28 @@ const TelegramTweaks = () => {
                             ))}
                           </div>
                         )}
-                        <Button asChild className="mt-4 w-full" size="default">
-                          <a
-                            href={b.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`Open ${b.name} on Telegram`}
-                          >
-                            <Send className="w-4 h-4" /> Open in Telegram
-                          </a>
-                        </Button>
+                        {(() => {
+                          const telegram = isTelegramLink(b.url);
+                          const github = isGithubLink(b.url);
+                          const label = telegram
+                            ? "Open in Telegram"
+                            : github
+                              ? "View source on GitHub"
+                              : "Visit site";
+                          const Icon = telegram ? Send : github ? Github : ExternalLink;
+                          return (
+                            <Button asChild className="mt-4 w-full" size="default">
+                              <a
+                                href={b.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`${label}: ${b.name}`}
+                              >
+                                <Icon className="w-4 h-4" /> {label}
+                              </a>
+                            </Button>
+                          );
+                        })()}
                       </article>
                     );
                   })}
