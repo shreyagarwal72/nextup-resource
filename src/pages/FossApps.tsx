@@ -186,21 +186,6 @@ const FossApps = () => {
               </p>
             </div>
 
-            <a
-              href="https://t.me/CoolAppStore"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="max-w-3xl mx-auto mt-4 p-5 bg-secondary/20 border-2 border-foreground/80 rounded-2xl shadow-pop-soft text-center block hover:-translate-y-0.5 hover:shadow-pop transition-all"
-            >
-              <p className="text-sm text-foreground font-medium">
-                Special thanks to{" "}
-                <span className="text-secondary-foreground font-bold underline decoration-wavy underline-offset-4">
-                  @coolappstore
-                </span>{" "}
-                for curating amazing FOSS finds on Telegram 💙
-              </p>
-            </a>
-
             <div className="text-center mt-8 flex flex-wrap justify-center gap-3">
               <Link
                 to="/shizuku-apps"
