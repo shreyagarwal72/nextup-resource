@@ -142,7 +142,7 @@ const RAW: (Omit<TelegramBot, "dateAdded"> & { dateAdded?: string })[] = [
     name: "chatbridgebot",
     desc:
       "Bot that lets Telegram users chat with each other even if they are reported",
-    url: "https://.me/chatbridgebot",
+    url: "https://t.me/chatbridgebot",
     tag: "Bot Dev",
     category: "Bot Dev & Community",
     accent: "primary",
