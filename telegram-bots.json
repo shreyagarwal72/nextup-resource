@@ -41,8 +41,9 @@
   },
   {
     "name": "Auto Forward Bot",
-    "url": "https://t.me/autoforwardroxybot",
     "desc": "Automatically forward messages between chats with bulk forwarding, custom filters, caption editing, and scheduling.",
+    "url": "https://t.me/autoforwardroxybot",
+    "tag": "Auto Forward",
     "category": "Bot Dev & Community",
     "accent": "tertiary"
   },
@@ -208,8 +209,9 @@
   },
   {
     "name": "File Rename Bot",
-    "url": "https://t.me/filerenameroxybot",
     "desc": "Rename files, add custom thumbnails, edit captions, and convert between formats in batch.",
+    "url": "https://t.me/filerenameroxybot",
+    "tag": "File Rename",
     "category": "File Tools",
     "accent": "primary"
   },
@@ -319,8 +321,9 @@
   },
   {
     "name": "Image To Link Bot",
-    "url": "https://t.me/imagetolinkroxybot",
     "desc": "Upload any image and instantly get a permanent, shareable direct URL.",
+    "url": "https://t.me/imagetolinkroxybot",
+    "tag": "Image Hosting",
     "category": "File Tools",
     "accent": "tertiary"
   },
@@ -430,8 +433,9 @@
   },
   {
     "name": "PDF Tool Bot",
-    "url": "https://t.me/pdfroxybot",
     "desc": "All-in-one PDF toolkit: merge, split, password-protect, convert images to PDF, and extract text.",
+    "url": "https://t.me/pdfroxybot",
+    "tag": "PDF",
     "category": "File Tools",
     "accent": "primary"
   },
@@ -453,8 +457,9 @@
   },
   {
     "name": "Quick ID Bot",
-    "url": "https://t.me/useridroxybot",
     "desc": "Instantly get the Telegram ID of any user, group, or channel by forwarding a message.",
+    "url": "https://t.me/useridroxybot",
+    "tag": "Chat ID Lookup",
     "category": "Utilities",
     "accent": "tertiary"
   },
@@ -484,8 +489,9 @@
   },
   {
     "name": "Roxy X Management Bot",
-    "url": "https://t.me/roxyxmanagmentbot",
     "desc": "Group management bot with auto-moderation, anti-spam/anti-flood, welcome messages, and analytics.",
+    "url": "https://t.me/roxyxmanagmentbot",
+    "tag": "Group Management",
     "category": "Group Management",
     "accent": "secondary"
   },
@@ -507,8 +513,9 @@
   },
   {
     "name": "Save Restricted Content Bot",
-    "url": "https://t.me/Saverestrictedcontactroxybot",
     "desc": "Save posts and media from channels or groups that have forwarding disabled.",
+    "url": "https://t.me/Saverestrictedcontactroxybot",
+    "tag": "Restricted Content",
     "category": "File Tools",
     "accent": "primary"
   },
@@ -802,8 +809,9 @@
   },
   {
     "name": "TXT to Video Leech Uploader",
-    "url": "https://t.me/roxybasicneedbot1",
     "desc": "Parses video links from TXT files and leeches/uploads them straight to Telegram, with batch processing.",
+    "url": "https://t.me/roxybasicneedbot1",
+    "tag": "Batch Leech",
     "category": "Downloaders",
     "accent": "secondary"
   },
@@ -825,8 +833,9 @@
   },
   {
     "name": "Unzip Bot",
-    "url": "https://t.me/unziproxybot",
     "desc": "Extracts ZIP, RAR, TAR and other archive formats directly in Telegram, with content previews.",
+    "url": "https://t.me/unziproxybot",
+    "tag": "Archives",
     "category": "File Tools",
     "accent": "secondary"
   },
@@ -1032,8 +1041,9 @@
   },
   {
     "name": "Zip Maker Bot",
-    "url": "https://t.me/ZipMakerroxyBot",
     "desc": "Compress multiple files into a single ZIP archive right inside Telegram.",
+    "url": "https://t.me/ZipMakerroxyBot",
+    "tag": "Archives",
     "category": "File Tools",
     "accent": "tertiary"
   },
