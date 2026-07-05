@@ -96,11 +96,16 @@ const Hero = () => {
           </div>
 
           {/* Special Thanks */}
-          <div className="mt-12 bg-card border-2 border-foreground/80 rounded-2xl px-6 py-4 shadow-pop-soft animate-fade-in delay-500">
+          <a
+            href="https://t.me/techinsiderAs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-12 bg-card border-2 border-foreground/80 rounded-2xl px-6 py-4 shadow-pop-soft animate-fade-in delay-500 hover:-translate-y-0.5 hover:shadow-pop transition-all inline-block"
+          >
             <p className="text-sm text-muted-foreground font-medium">
-              Special thanks to <span className="text-primary font-bold">@techinsiderashish</span> for contributing most of the content ❤️
+              Special thanks to <span className="text-primary font-bold underline decoration-wavy underline-offset-4">@techinsiderashish</span> for contributing most of the content ❤️
             </p>
-          </div>
+          </a>
         </div>
       </div>
     </section>

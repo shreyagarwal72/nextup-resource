@@ -1,35 +1,105 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Sparkles,
   BookOpen,
-  FolderOpen,
   Bot,
-  Globe,
-  Github,
-  Zap,
-  Briefcase,
   Heart,
   X,
   PartyPopper,
-  Layers,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+  GraduationCap,
+  MoreHorizontal,
 } from "lucide-react";
 
-const STORAGE_KEY = "intro-seen-v2";
+const STORAGE_KEY = "intro-seen-v3";
 export const OPEN_INTRO_EVENT = "nextup:open-intro";
 
-const features = [
-  { icon: BookOpen, title: "Premium Courses", desc: "50+ curated learning bundles." },
-  { icon: FolderOpen, title: "Free Resources", desc: "Templates, packs and creative assets." },
-  { icon: Bot, title: "AI Tools", desc: "A directory of the best AI apps." },
-  { icon: Globe, title: "Apps & Sites", desc: "Productivity & learning picks." },
-  { icon: Github, title: "FOSS Apps", desc: "Open-source Android favorites." },
-  { icon: Zap, title: "Shizuku Apps", desc: "Power tools — no root needed." },
-  { icon: Sparkles, title: "Morphe Builds", desc: "Patched apps, fresh from GitHub." },
-  { icon: Layers, title: "Material You", desc: "Apps designed for Material You." },
-  { icon: Briefcase, title: "Placement Material", desc: "Top company prep bundles." },
-  { icon: Heart, title: "Favorites", desc: "Bookmark anything across the site." },
+type Step = {
+  icon: any;
+  title: string;
+  body: string;
+  bullets?: string[];
+  accent: "primary" | "secondary" | "tertiary" | "quaternary";
+};
+
+const STEPS: Step[] = [
+  {
+    icon: PartyPopper,
+    accent: "primary",
+    title: "Welcome to Nextup ✨",
+    body: "Your playful hub for premium courses, free resources, ebooks, AI tools, and curated Android apps. Let's take a 60-second tour.",
+  },
+  {
+    icon: BookOpen,
+    accent: "tertiary",
+    title: "Learn from curated content",
+    body: "Everything is organized so you never dig around. Jump between sections from the top navigation.",
+    bullets: [
+      "Premium Courses — 50+ curated learning bundles",
+      "Free Resources — templates, packs, creative assets",
+      "Ebooks & Placement Material — company-prep bundles",
+    ],
+  },
+  {
+    icon: Bot,
+    accent: "secondary",
+    title: "AI Tools & Apps directory",
+    body: "Discover hand-picked AI tools, mobile apps, and websites — grouped and searchable.",
+    bullets: [
+      "AI Tools — the best AI apps by category",
+      "Apps & Sites — productivity + learning picks",
+      "FOSS / Shizuku / Morphe / Material You — Android power tools",
+    ],
+  },
+  {
+    icon: Search,
+    accent: "quaternary",
+    title: "Search everything, fast",
+    body: "Use the global search on the home page to instantly find courses, tools, apps, or ebooks across the whole catalog.",
+    bullets: [
+      "Fuzzy match — typos are OK",
+      "Jump directly to the item's page",
+      "Filter by section on results",
+    ],
+  },
+  {
+    icon: GraduationCap,
+    accent: "tertiary",
+    title: "Study Mode & Study Plans",
+    body: "Toggle Study Mode from the header for a calm, focus-only view. On the Courses page, pick a Study Plan (Daily, Weekly, Career, Explore) and we auto-route you.",
+    bullets: [
+      "Only educational content stays visible",
+      "A slim banner shows your study counts",
+      "Exit any time from the banner or header",
+    ],
+  },
+  {
+    icon: MoreHorizontal,
+    accent: "primary",
+    title: "Navigation tips",
+    body: "The layout adapts to your device — same content, cleanest possible surface.",
+    bullets: [
+      "Desktop: use the “More ▾” dropdown for extra pages",
+      "Mobile: tap “•••” in the bottom bar to cycle menus",
+      "Bell icon (top-right) opens the What's New inbox",
+    ],
+  },
+  {
+    icon: Heart,
+    accent: "secondary",
+    title: "Favorites & personalisation",
+    body: "Bookmark anything with the heart icon — your favorites live locally in your browser. Toggle light/dark theme from the header.",
+  },
 ];
+
+const accentBg: Record<Step["accent"], string> = {
+  primary: "bg-primary text-primary-foreground",
+  secondary: "bg-secondary text-secondary-foreground",
+  tertiary: "bg-tertiary text-tertiary-foreground",
+  quaternary: "bg-quaternary text-quaternary-foreground",
+};
 
 export const openIntroModal = () => {
   try {
@@ -42,6 +112,7 @@ export const openIntroModal = () => {
 
 const IntroModal = () => {
   const [open, setOpen] = useState(false);
+  const [step, setStep] = useState(0);
   const [dontShow, setDontShow] = useState(true);
 
   useEffect(() => {
@@ -56,18 +127,30 @@ const IntroModal = () => {
   }, []);
 
   useEffect(() => {
-    const handler = () => setOpen(true);
+    const handler = () => {
+      setStep(0);
+      setOpen(true);
+    };
     window.addEventListener(OPEN_INTRO_EVENT, handler);
     return () => window.removeEventListener(OPEN_INTRO_EVENT, handler);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowRight") setStep((s) => Math.min(STEPS.length - 1, s + 1));
+      else if (e.key === "ArrowLeft") setStep((s) => Math.max(0, s - 1));
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
   const close = () => {
     try {
-      if (dontShow) {
-        localStorage.setItem(STORAGE_KEY, "1");
-      } else {
-        localStorage.removeItem(STORAGE_KEY);
-      }
+      if (dontShow) localStorage.setItem(STORAGE_KEY, "1");
+      else localStorage.removeItem(STORAGE_KEY);
     } catch {
       /* ignore */
     }
@@ -76,95 +159,141 @@ const IntroModal = () => {
 
   if (!open) return null;
 
+  const current = STEPS[step];
+  const Icon = current.icon;
+  const isFirst = step === 0;
+  const isLast = step === STEPS.length - 1;
+  const progress = ((step + 1) / STEPS.length) * 100;
+
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-foreground/40 backdrop-blur-sm animate-fade-in"
       role="dialog"
       aria-modal="true"
       aria-labelledby="intro-title"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) close();
+      }}
     >
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-2 border-foreground/80 rounded-3xl shadow-pop">
+      <div className="relative w-full max-w-xl max-h-[92vh] overflow-y-auto bg-card border-2 border-foreground/80 rounded-3xl shadow-pop">
         <button
           onClick={close}
-          aria-label="Close intro"
-          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-card border-2 border-foreground/80 shadow-pop-soft flex items-center justify-center hover:-translate-y-0.5 transition-transform"
+          aria-label="Close tutorial"
+          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-card border-2 border-foreground/80 shadow-pop-soft flex items-center justify-center hover:-translate-y-0.5 transition-transform z-10"
         >
           <X className="w-4 h-4" strokeWidth={2.5} />
         </button>
 
+        {/* Progress bar */}
+        <div className="px-6 pt-6">
+          <div className="flex items-center justify-between text-[11px] font-bold text-muted-foreground uppercase tracking-wide mb-2">
+            <span>Step {step + 1} of {STEPS.length}</span>
+            <span>{Math.round(progress)}%</span>
+          </div>
+          <div className="h-2 rounded-full bg-muted border-2 border-foreground/30 overflow-hidden">
+            <div
+              className="h-full bg-primary transition-all duration-500"
+              style={{ width: `${progress}%`, transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}
+            />
+          </div>
+        </div>
+
         <div className="p-6 sm:p-8">
-          <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary text-primary-foreground border-2 border-foreground/80 shadow-pop mb-3">
-              <PartyPopper className="w-7 h-7" strokeWidth={2.5} />
+          <div className="text-center mb-5 animate-fade-in" key={step}>
+            <div
+              className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl border-2 border-foreground/80 shadow-pop mb-3 ${accentBg[current.accent]}`}
+            >
+              <Icon className="w-7 h-7" strokeWidth={2.5} />
             </div>
-            <h2 id="intro-title" className="text-3xl sm:text-4xl font-extrabold font-heading mb-2">
-              Welcome to Nextup ✨
+            <h2 id="intro-title" className="text-2xl sm:text-3xl font-extrabold font-heading mb-2">
+              {current.title}
             </h2>
             <p className="text-muted-foreground text-sm sm:text-base max-w-md mx-auto">
-              Premium courses, free resources, ebooks, AI tools, FOSS &amp; patched Android apps —
-              all in one playful place.
+              {current.body}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-            {features.map(({ icon: Icon, title, desc }) => (
-              <div
-                key={title}
-                className="flex items-start gap-3 p-3 rounded-xl border-2 border-foreground/30 bg-background"
-              >
-                <div className="w-9 h-9 rounded-xl bg-secondary text-secondary-foreground border-2 border-foreground/80 flex items-center justify-center shadow-pop-soft shrink-0">
-                  <Icon className="w-4 h-4" strokeWidth={2.5} />
-                </div>
-                <div className="min-w-0">
-                  <p className="font-bold text-sm text-foreground font-heading">{title}</p>
-                  <p className="text-xs text-muted-foreground">{desc}</p>
-                </div>
-              </div>
+          {current.bullets && (
+            <ul className="rounded-2xl border-2 border-foreground/30 p-4 mb-5 bg-background/50 space-y-2">
+              {current.bullets.map((b) => (
+                <li key={b} className="flex items-start gap-2 text-sm text-foreground">
+                  <span className="mt-1.5 w-2 h-2 rounded-full bg-primary shrink-0" />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {/* Step dots */}
+          <div className="flex justify-center gap-1.5 mb-4">
+            {STEPS.map((_, i) => (
+              <button
+                key={i}
+                aria-label={`Go to step ${i + 1}`}
+                onClick={() => setStep(i)}
+                className={`h-2 rounded-full border-2 border-foreground/80 transition-all ${
+                  i === step ? "w-6 bg-primary" : "w-2 bg-card hover:bg-muted"
+                }`}
+              />
             ))}
           </div>
 
-          <div className="rounded-2xl border-2 border-foreground/30 p-4 mb-5 bg-background/50">
-            <p className="text-xs font-bold text-muted-foreground mb-1.5">💡 Quick tips</p>
-            <ul className="text-sm text-foreground space-y-1 list-disc list-inside">
-              <li>Tap the <strong>•••</strong> in the bottom bar to cycle Primary → More → Misc menus.</li>
-              <li>Use the <strong>global search</strong> on the home page to find anything fast.</li>
-              <li>Switch <strong>Study Mode</strong> from the header for a calm, focus-only view.</li>
-              <li>Reopen this guide anytime from the footer's <strong>“Show intro”</strong> link.</li>
-            </ul>
-          </div>
+          {!isLast ? (
+            <div className="flex items-center justify-between gap-2">
+              <button
+                onClick={() => setStep((s) => Math.max(0, s - 1))}
+                disabled={isFirst}
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-card text-foreground font-bold border-2 border-foreground/80 shadow-pop-soft hover:-translate-y-0.5 transition-transform disabled:opacity-40 disabled:cursor-not-allowed disabled:translate-y-0"
+              >
+                <ChevronLeft className="w-4 h-4" strokeWidth={2.5} /> Back
+              </button>
+              <button
+                onClick={close}
+                className="text-xs text-muted-foreground font-bold underline underline-offset-4 hover:text-foreground"
+              >
+                Skip tour
+              </button>
+              <button
+                onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
+              >
+                Next <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row gap-2 justify-center">
+              <Link
+                to="/courses"
+                onClick={close}
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
+              >
+                Explore courses →
+              </Link>
+              <Link
+                to="/faq"
+                onClick={close}
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-secondary text-secondary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
+              >
+                Need help? FAQ
+              </Link>
+              <button
+                onClick={close}
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-card text-foreground font-bold border-2 border-foreground/80 shadow-pop-soft hover:-translate-y-0.5 transition-transform"
+              >
+                Look around
+              </button>
+            </div>
+          )}
 
-          <label className="flex items-center justify-center gap-2 text-sm font-medium text-foreground mb-4 cursor-pointer select-none">
+          <label className="flex items-center justify-center gap-2 text-xs font-medium text-muted-foreground mt-5 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={dontShow}
               onChange={(e) => setDontShow(e.target.checked)}
               className="w-4 h-4 accent-primary rounded border-2 border-foreground/80"
             />
-            Don't show this again
+            Don't show this tutorial again
           </label>
-
-          <div className="flex flex-col sm:flex-row gap-2 justify-center">
-            <Link
-              to="/courses"
-              onClick={close}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
-            >
-              Explore courses →
-            </Link>
-            <Link
-              to="/faq"
-              onClick={close}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-secondary text-secondary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
-            >
-              Need help? FAQ
-            </Link>
-            <button
-              onClick={close}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-card text-foreground font-bold border-2 border-foreground/80 shadow-pop-soft hover:-translate-y-0.5 transition-transform"
-            >
-              Look around
-            </button>
-          </div>
         </div>
       </div>
     </div>

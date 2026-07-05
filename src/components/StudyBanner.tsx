@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { GraduationCap, X } from "lucide-react";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { allCourses, allResources, allEbooks, allApps, studyCategories } from "@/data/content";
@@ -18,13 +18,26 @@ export const StudyBanner = () => {
     return { courses, resources, ebooks, apps, total: courses + resources + ebooks + apps };
   }, [isStudyMode]);
 
+  // Add body padding-top so fixed banner doesn't overlap fixed header/hero across all pages
+  useEffect(() => {
+    if (!isStudyMode) {
+      document.body.style.removeProperty("--study-banner-h");
+      document.documentElement.classList.remove("study-banner-active");
+      return;
+    }
+    document.documentElement.classList.add("study-banner-active");
+    return () => {
+      document.documentElement.classList.remove("study-banner-active");
+    };
+  }, [isStudyMode]);
+
   if (!isStudyMode) return null;
 
   return (
     <div
       role="status"
       aria-live="polite"
-      className="sticky top-0 z-40 border-b-2 border-foreground/80 bg-tertiary/90 backdrop-blur-md text-tertiary-foreground shadow-pop"
+      className="fixed left-0 right-0 top-[68px] sm:top-[76px] z-[45] border-y-2 border-foreground/80 bg-tertiary/95 backdrop-blur-md text-tertiary-foreground shadow-pop"
     >
       <div className="container mx-auto flex items-center justify-between gap-3 px-4 py-2">
         <div className="flex items-center gap-2 min-w-0">
@@ -33,7 +46,7 @@ export const StudyBanner = () => {
           </span>
           <div className="min-w-0">
             <p className="font-heading font-bold text-sm sm:text-base leading-tight truncate">
-              Study Mode is on · {counts.total} items
+              Study Mode · {counts.total} items
             </p>
             <p className="text-[11px] sm:text-xs opacity-90 truncate">
               {counts.courses} courses · {counts.resources} resources · {counts.ebooks} ebooks · {counts.apps} apps
@@ -42,7 +55,7 @@ export const StudyBanner = () => {
         </div>
         <button
           onClick={disableStudyMode}
-          className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-foreground/80 bg-card text-foreground px-3 py-1.5 text-xs sm:text-sm font-bold shadow-pop-sm hover:-translate-y-0.5 hover:shadow-pop transition-all active:translate-y-0.5 active:shadow-pop-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-foreground/80 bg-card text-foreground px-3 py-1.5 text-xs sm:text-sm font-bold shadow-pop-sm hover:-translate-y-0.5 hover:shadow-pop transition-all active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           aria-label="Exit Study Mode"
         >
           <X className="w-3.5 h-3.5" strokeWidth={2.5} />
