@@ -119,44 +119,92 @@ const NotificationCenter = () => {
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-4">
-                {recentItems.length > 0 ? (
-                  <div className="space-y-3">
-                    {recentItems.map((item, i) => (
-                      <a
-                        key={`${item.type}-${item.title}-${i}`}
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block p-4 rounded-xl bg-card border-2 border-foreground/20 hover:border-primary transition-all duration-300 animate-fade-in-up"
-                        style={{ animationDelay: `${i * 0.04}s` }}
+              <div className="px-4 pt-3 pb-2 border-b-2 border-foreground/10">
+                <div className="flex items-center gap-1.5 mb-2 text-xs font-bold text-muted-foreground uppercase tracking-wide">
+                  <Filter className="w-3 h-3" strokeWidth={2.5} />
+                  Filter by type
+                </div>
+                <div className="flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-thin">
+                  {(["all", "course", "resource", "ebook", "app", "ai-tool", "foss", "shizuku", "material-you", "telegram"] as const).map((f) => {
+                    const count = f === "all" ? recentItems.length : recentItems.filter((i) => i.type === f).length;
+                    if (f !== "all" && count === 0) return null;
+                    const active = filter === f;
+                    return (
+                      <button
+                        key={f}
+                        onClick={() => setFilter(f)}
+                        className={`shrink-0 px-2.5 py-1 rounded-full text-[11px] font-bold border-2 border-foreground/80 transition-all ${
+                          active ? "bg-primary text-primary-foreground shadow-pop-sm" : "bg-card text-foreground hover:-translate-y-0.5"
+                        }`}
                       >
-                        <div className="flex items-start gap-3">
-                          <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-foreground/80 ${typeColor(item.type)}`}>
-                            {typeIcon(item.type)}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-bold text-foreground line-clamp-2">{item.title}</p>
-                            <div className="flex items-center gap-2 mt-1.5">
-                              <span className="text-xs text-muted-foreground capitalize font-medium">{item.type.replace("-", " ")}</span>
-                              <span className="text-xs text-muted-foreground/40">•</span>
-                              <span className="text-xs text-muted-foreground flex items-center gap-1 font-medium">
-                                <Clock className="w-3 h-3" /> {daysAgo(item.dateAdded)}
-                              </span>
+                        {f === "all" ? "All" : f.replace("-", " ")} · {count}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex-1 overflow-y-auto p-4">
+                {(() => {
+                  const shown = filter === "all" ? recentItems : recentItems.filter((i) => i.type === filter);
+                  if (shown.length === 0) {
+                    return (
+                      <div className="flex flex-col items-center justify-center h-full text-center px-4">
+                        <div className="w-14 h-14 rounded-2xl border-2 border-foreground/80 bg-card flex items-center justify-center shadow-pop mb-4">
+                          <Bell className="w-6 h-6 text-muted-foreground/60" strokeWidth={2.5} />
+                        </div>
+                        <p className="text-foreground font-bold font-heading">All caught up!</p>
+                        <p className="text-sm text-muted-foreground/70 mt-1 max-w-[240px]">
+                          {filter === "all"
+                            ? "New drops from the last 30 days will show up here."
+                            : "No new items in this category yet — try a different filter."}
+                        </p>
+                        {filter !== "all" && (
+                          <button
+                            onClick={() => setFilter("all")}
+                            className="mt-4 px-4 py-2 rounded-full bg-primary text-primary-foreground font-bold text-xs border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
+                          >
+                            Show all updates
+                          </button>
+                        )}
+                      </div>
+                    );
+                  }
+                  return (
+                    <div className="space-y-3">
+                      {shown.map((item, i) => (
+                        <a
+                          key={`${item.type}-${item.title}-${i}`}
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block p-4 rounded-xl bg-card border-2 border-foreground/20 hover:border-primary hover:-translate-y-0.5 hover:shadow-pop transition-all duration-300 animate-fade-in-up"
+                          style={{ animationDelay: `${i * 0.04}s` }}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-foreground/80 ${typeColor(item.type)}`}>
+                              {typeIcon(item.type)}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-bold text-foreground line-clamp-2">{item.title}</p>
+                              <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                                <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                                  {item.type.replace("-", " ")}
+                                </span>
+                                <span className="text-xs text-muted-foreground/40">•</span>
+                                <span className="text-xs text-muted-foreground flex items-center gap-1 font-medium">
+                                  <Clock className="w-3 h-3" /> {daysAgo(item.dateAdded)}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-full text-center px-4">
-                    <Bell className="w-12 h-12 text-muted-foreground/30 mb-4" />
-                    <p className="text-muted-foreground font-bold">All caught up!</p>
-                    <p className="text-sm text-muted-foreground/60 mt-1">New content from the last 30 days will show up here</p>
-                  </div>
-                )}
+                        </a>
+                      ))}
+                    </div>
+                  );
+                })()}
               </div>
+
             </div>
           </div>
         </>,
