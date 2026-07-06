@@ -148,17 +148,39 @@ const NotificationCenter = () => {
               <div className="flex-1 overflow-y-auto p-4">
                 {(() => {
                   const shown = filter === "all" ? recentItems : recentItems.filter((i) => i.type === filter);
+
+                  if (isLoading) {
+                    return (
+                      <div className="space-y-3" aria-label="Loading updates">
+                        {[0, 1, 2, 3].map((i) => (
+                          <div
+                            key={i}
+                            className="p-4 rounded-xl bg-card border-2 border-foreground/20 flex items-start gap-3"
+                          >
+                            <Skeleton className="w-9 h-9 rounded-full border-2 border-foreground/20" />
+                            <div className="flex-1 space-y-2">
+                              <Skeleton className="h-3.5 w-4/5" />
+                              <Skeleton className="h-3 w-2/5" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  }
+
                   if (shown.length === 0) {
                     return (
                       <div className="flex flex-col items-center justify-center h-full text-center px-4">
                         <div className="w-14 h-14 rounded-2xl border-2 border-foreground/80 bg-card flex items-center justify-center shadow-pop mb-4">
                           <Bell className="w-6 h-6 text-muted-foreground/60" strokeWidth={2.5} />
                         </div>
-                        <p className="text-foreground font-bold font-heading">All caught up!</p>
+                        <p className="text-foreground font-bold font-heading">
+                          {filter === "all" ? "All caught up!" : "No matches"}
+                        </p>
                         <p className="text-sm text-muted-foreground/70 mt-1 max-w-[240px]">
                           {filter === "all"
                             ? "New drops from the last 30 days will show up here."
-                            : "No new items in this category yet — try a different filter."}
+                            : "Nothing new in this category — try a different filter."}
                         </p>
                         {filter !== "all" && (
                           <button
