@@ -1,7 +1,14 @@
 // Admin config — password-protected read/write of API keys stored in app_config.
 // Password is the ADMIN_PASSWORD secret. Send via header `x-admin-password`.
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+
+// Custom CORS headers — must include x-admin-password so preflight allows it.
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-admin-password",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+};
 
 const ALLOWED_KEYS = new Set(["LOVABLE_API_KEY", "DEEPSEEK_API_KEY"]);
 

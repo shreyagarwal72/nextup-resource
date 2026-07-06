@@ -45,6 +45,13 @@ const CourseCard = ({ title, description, category, duration, students, image, l
         <img
           src={image}
           alt={title}
+          loading="lazy"
+          onError={(e) => {
+            const t = e.currentTarget;
+            if (t.dataset.fallback) return;
+            t.dataset.fallback = "1";
+            t.src = "/placeholder.svg";
+          }}
           className="w-full h-full object-cover transition-transform duration-500 ease-bounce group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent" />
