@@ -35,6 +35,13 @@ const ResourceCard = ({ title, description, category, image, link, dateAdded }: 
           <img
             src={image}
             alt={`${title} - Free resource`}
+            loading="lazy"
+            onError={(e) => {
+              const t = e.currentTarget;
+              if (t.dataset.fallback) return;
+              t.dataset.fallback = "1";
+              t.src = "/placeholder.svg";
+            }}
             className="w-full h-full object-cover transition-transform duration-500 ease-bounce group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
