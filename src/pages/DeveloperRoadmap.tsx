@@ -109,10 +109,10 @@ const DeveloperRoadmap = () => {
                           style={{ background: `${r.color}22` }}
                         >
                           <div
-                            className="w-16 h-16 rounded-2xl border-2 border-foreground/80 shadow-pop flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
-                            style={{ backgroundColor: `${r.color}33` }}
+                            className="w-16 h-16 rounded-2xl border-2 border-foreground/80 shadow-pop flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
+                            style={{ backgroundColor: `${r.color}33`, color: r.color }}
                           >
-                            {r.emoji}
+                            <r.icon className="w-8 h-8" strokeWidth={2.25} />
                           </div>
                           <div className="absolute top-3 right-3">
                             <Badge className="bg-tertiary text-tertiary-foreground border-2 border-foreground/80 text-xs font-bold px-3 py-1 flex items-center gap-1 rounded-full">
