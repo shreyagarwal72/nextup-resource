@@ -5,34 +5,39 @@ import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
 import SquigglyUnderline from "@/components/SquigglyUnderline";
 import { Badge } from "@/components/ui/badge";
-import { Map, ExternalLink, Compass, Code2 } from "lucide-react";
+import {
+  Map, ExternalLink, Compass, Code2,
+  Paintbrush, Server, Layers as LayersIcon, Cog, Bot, BarChart3, Brain,
+  Smartphone, Apple, Atom, Hexagon, Building2, Shield, Link2, Database, GitBranch,
+  type LucideIcon,
+} from "lucide-react";
 
 type Roadmap = {
   title: string;
   description: string;
   category: string;
-  emoji: string;
+  icon: LucideIcon;
   link: string;
   color: string;
 };
 
 const roadmaps: Roadmap[] = [
-  { title: "Frontend Developer", description: "Step-by-step guide to becoming a modern Frontend developer — HTML, CSS, JS, React and beyond.", category: "Role Based", emoji: "🎨", link: "https://roadmap.sh/frontend", color: "hsl(var(--primary))" },
-  { title: "Backend Developer", description: "Roadmap to becoming a Backend developer — Node.js, databases, APIs, caching and scaling.", category: "Role Based", emoji: "🛠️", link: "https://roadmap.sh/backend", color: "hsl(var(--secondary))" },
-  { title: "Full Stack", description: "Everything a Full Stack developer needs to know across the frontend and backend spectrum.", category: "Role Based", emoji: "🧩", link: "https://roadmap.sh/full-stack", color: "hsl(var(--tertiary))" },
-  { title: "DevOps", description: "Learn to become a DevOps engineer with CI/CD, containers, Kubernetes and observability.", category: "Role Based", emoji: "⚙️", link: "https://roadmap.sh/devops", color: "hsl(var(--quaternary))" },
-  { title: "AI Engineer", description: "Roadmap to becoming an AI Engineer — LLMs, embeddings, RAG, agents and evaluation.", category: "AI & Data", emoji: "🤖", link: "https://roadmap.sh/ai-engineer", color: "hsl(var(--primary))" },
-  { title: "Data Analyst", description: "Master data analysis — SQL, spreadsheets, statistics, dashboards and storytelling.", category: "AI & Data", emoji: "📊", link: "https://roadmap.sh/data-analyst", color: "hsl(var(--secondary))" },
-  { title: "AI & Data Scientist", description: "Deep dive into ML, deep learning, MLOps and applied research paths.", category: "AI & Data", emoji: "🧠", link: "https://roadmap.sh/ai-data-scientist", color: "hsl(var(--tertiary))" },
-  { title: "Android", description: "Become an Android developer with Kotlin, Jetpack Compose and modern architecture.", category: "Mobile", emoji: "🤖", link: "https://roadmap.sh/android", color: "hsl(var(--quaternary))" },
-  { title: "iOS Developer", description: "Roadmap for iOS development with Swift, SwiftUI and Apple ecosystem tooling.", category: "Mobile", emoji: "📱", link: "https://roadmap.sh/ios", color: "hsl(var(--primary))" },
-  { title: "React", description: "Modern React skill map — hooks, state management, routing, RSC and testing.", category: "Skill Based", emoji: "⚛️", link: "https://roadmap.sh/react", color: "hsl(var(--secondary))" },
-  { title: "Node.js", description: "Path to mastering Node.js — event loop, streams, frameworks and production practices.", category: "Skill Based", emoji: "🟩", link: "https://roadmap.sh/nodejs", color: "hsl(var(--tertiary))" },
-  { title: "System Design", description: "Learn distributed systems, scalability patterns and how to design real-world architectures.", category: "Skill Based", emoji: "🏗️", link: "https://roadmap.sh/system-design", color: "hsl(var(--quaternary))" },
-  { title: "Cyber Security", description: "Become a security engineer — networks, offensive & defensive tooling, and best practices.", category: "Security", emoji: "🛡️", link: "https://roadmap.sh/cyber-security", color: "hsl(var(--primary))" },
-  { title: "Blockchain", description: "Roadmap to becoming a Blockchain developer — smart contracts, EVM and dApps.", category: "Web3", emoji: "⛓️", link: "https://roadmap.sh/blockchain", color: "hsl(var(--secondary))" },
-  { title: "SQL", description: "Master SQL from basics to advanced joins, indexing, window functions and query tuning.", category: "Skill Based", emoji: "🗄️", link: "https://roadmap.sh/sql", color: "hsl(var(--tertiary))" },
-  { title: "Git & GitHub", description: "Everything you need to know about Git internals and effective GitHub collaboration.", category: "Tooling", emoji: "🔀", link: "https://roadmap.sh/git-github", color: "hsl(var(--quaternary))" },
+  { title: "Frontend Developer", description: "Step-by-step guide to becoming a modern Frontend developer — HTML, CSS, JS, React and beyond.", category: "Role Based", icon: Paintbrush, link: "https://roadmap.sh/frontend", color: "hsl(var(--primary))" },
+  { title: "Backend Developer", description: "Roadmap to becoming a Backend developer — Node.js, databases, APIs, caching and scaling.", category: "Role Based", icon: Server, link: "https://roadmap.sh/backend", color: "hsl(var(--secondary))" },
+  { title: "Full Stack", description: "Everything a Full Stack developer needs to know across the frontend and backend spectrum.", category: "Role Based", icon: LayersIcon, link: "https://roadmap.sh/full-stack", color: "hsl(var(--tertiary))" },
+  { title: "DevOps", description: "Learn to become a DevOps engineer with CI/CD, containers, Kubernetes and observability.", category: "Role Based", icon: Cog, link: "https://roadmap.sh/devops", color: "hsl(var(--quaternary))" },
+  { title: "AI Engineer", description: "Roadmap to becoming an AI Engineer — LLMs, embeddings, RAG, agents and evaluation.", category: "AI & Data", icon: Bot, link: "https://roadmap.sh/ai-engineer", color: "hsl(var(--primary))" },
+  { title: "Data Analyst", description: "Master data analysis — SQL, spreadsheets, statistics, dashboards and storytelling.", category: "AI & Data", icon: BarChart3, link: "https://roadmap.sh/data-analyst", color: "hsl(var(--secondary))" },
+  { title: "AI & Data Scientist", description: "Deep dive into ML, deep learning, MLOps and applied research paths.", category: "AI & Data", icon: Brain, link: "https://roadmap.sh/ai-data-scientist", color: "hsl(var(--tertiary))" },
+  { title: "Android", description: "Become an Android developer with Kotlin, Jetpack Compose and modern architecture.", category: "Mobile", icon: Smartphone, link: "https://roadmap.sh/android", color: "hsl(var(--quaternary))" },
+  { title: "iOS Developer", description: "Roadmap for iOS development with Swift, SwiftUI and Apple ecosystem tooling.", category: "Mobile", icon: Apple, link: "https://roadmap.sh/ios", color: "hsl(var(--primary))" },
+  { title: "React", description: "Modern React skill map — hooks, state management, routing, RSC and testing.", category: "Skill Based", icon: Atom, link: "https://roadmap.sh/react", color: "hsl(var(--secondary))" },
+  { title: "Node.js", description: "Path to mastering Node.js — event loop, streams, frameworks and production practices.", category: "Skill Based", icon: Hexagon, link: "https://roadmap.sh/nodejs", color: "hsl(var(--tertiary))" },
+  { title: "System Design", description: "Learn distributed systems, scalability patterns and how to design real-world architectures.", category: "Skill Based", icon: Building2, link: "https://roadmap.sh/system-design", color: "hsl(var(--quaternary))" },
+  { title: "Cyber Security", description: "Become a security engineer — networks, offensive & defensive tooling, and best practices.", category: "Security", icon: Shield, link: "https://roadmap.sh/cyber-security", color: "hsl(var(--primary))" },
+  { title: "Blockchain", description: "Roadmap to becoming a Blockchain developer — smart contracts, EVM and dApps.", category: "Web3", icon: Link2, link: "https://roadmap.sh/blockchain", color: "hsl(var(--secondary))" },
+  { title: "SQL", description: "Master SQL from basics to advanced joins, indexing, window functions and query tuning.", category: "Skill Based", icon: Database, link: "https://roadmap.sh/sql", color: "hsl(var(--tertiary))" },
+  { title: "Git & GitHub", description: "Everything you need to know about Git internals and effective GitHub collaboration.", category: "Tooling", icon: GitBranch, link: "https://roadmap.sh/git-github", color: "hsl(var(--quaternary))" },
 ];
 
 const DeveloperRoadmap = () => {
