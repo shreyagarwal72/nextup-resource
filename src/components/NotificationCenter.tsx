@@ -22,6 +22,16 @@ interface NotificationItem {
 const NotificationCenter = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState<ItemType | "all">("all");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Brief skeleton flash when opening the panel or switching filter chips.
+  useEffect(() => {
+    if (!isOpen) return;
+    setIsLoading(true);
+    const t = setTimeout(() => setIsLoading(false), 320);
+    return () => clearTimeout(t);
+  }, [isOpen, filter]);
+
 
   const recentItems = useMemo(() => {
     const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
