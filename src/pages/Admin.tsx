@@ -41,7 +41,21 @@ const Admin = () => {
       headers: { "x-admin-password": pw },
       body: payload,
     });
-    if (error) throw new Error(error.message);
+    if (error) {
+      // supabase-js wraps non-2xx in a generic "Failed to send a request..." message.
+      // Try to read the server's actual JSON error via its .context Response.
+      const ctx = (error as any)?.context;
+      if (ctx && typeof ctx.json === "function") {
+        try {
+          const body = await ctx.json();
+          if (body?.error) throw new Error(body.error);
+        } catch {
+          /* fall through */
+        }
+      }
+      if (ctx?.status === 401) throw new Error("Unauthorized — wrong admin password");
+      throw new Error(error.message || "Request failed");
+    }
     return data as any;
   };
 
