@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import IntroModal from "@/components/IntroModal";
 import Resourcly from "@/components/Resourcly";
 import StudyBanner from "@/components/StudyBanner";
+import ScrollToTopOnRoute from "@/components/ScrollToTopOnRoute";
 import { Analytics } from "@vercel/analytics/react";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -71,6 +72,7 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ScrollToTopOnRoute />
             <StudyBanner />
             <Suspense fallback={<PageLoader />}>
               <Routes>
