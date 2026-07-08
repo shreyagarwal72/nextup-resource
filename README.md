@@ -7,9 +7,15 @@
 <p align="center">Premium courses, free resources, ebooks, apps, and AI tools — all in one place.</p>
 
 <p align="center">
-  <a href="https://nextup-resource.vercel.app">Live Site</a> •
-  <a href="https://www.instagram.com/hereyourchampion/">Instagram</a> •
-  <a href="https://www.youtube.com/@nextupstudioyt">YouTube</a>
+  <a href="https://nextup-resource.vercel.app">
+    <img src="https://img.shields.io/badge/Live%20Site-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Site">
+  </a>
+  <a href="https://www.instagram.com/hereyourchampion/">
+    <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram">
+  </a>
+  <a href="https://www.youtube.com/@nextupstudioyt">
+    <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube">
+  </a>
 </p>
 
 ---
@@ -44,8 +50,19 @@ Nextup Resources is a curated learning platform that aggregates high-quality edu
 
 ## Tech Stack
 
+<p align="left">
+  <img src="https://img.shields.io/badge/React_18-000000?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React 18">
+  <img src="https://img.shields.io/badge/TypeScript_5-000000?style=for-the-badge&logo=typescript&logoColor=3178C6" alt="TypeScript 5">
+  <img src="https://img.shields.io/badge/Vite_5-000000?style=for-the-badge&logo=vite&logoColor=646CFF" alt="Vite 5">
+  <img src="https://img.shields.io/badge/Tailwind_CSS_3-000000?style=for-the-badge&logo=tailwindcss&logoColor=06B6D4" alt="Tailwind CSS 3">
+  <img src="https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcnui&logoColor=white" alt="shadcn/ui">
+  <img src="https://img.shields.io/badge/React_Router_6-000000?style=for-the-badge&logo=reactrouter&logoColor=CA4245" alt="React Router 6">
+  <img src="https://img.shields.io/badge/TanStack_Query-000000?style=for-the-badge&logo=reactquery&logoColor=FF4154" alt="TanStack Query">
+  <img src="https://img.shields.io/badge/PWA-000000?style=for-the-badge&logo=pwa&logoColor=5A0FC8" alt="PWA">
+</p>
+
 | Layer       | Technology                          |
-| ----------- | ----------------------------------- |
+| ----------- | ------------------------------------ |
 | Framework   | React 18 + TypeScript 5             |
 | Build Tool  | Vite 5                              |
 | Styling     | Tailwind CSS 3 + shadcn/ui          |
