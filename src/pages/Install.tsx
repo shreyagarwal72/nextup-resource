@@ -93,7 +93,7 @@ const Install = () => {
                 Prefer a native APK? Download and install directly on your Android device. Enable <span className="font-semibold text-foreground">Install from unknown sources</span> in settings if prompted.
               </p>
               <a
-                href="https://kklz19o6an7qwti4.public.blob.vercel-storage.com/Nextup_Resource.apk"
+                href="https://github.com/shreyagarwal72/nextup-resource/releases/download/1.0.1/Nextup_Resource.apk"
                 download="Nextup Resources.apk"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-secondary text-secondary-foreground border-2 border-foreground/80 shadow-pop font-bold text-sm hover:shadow-pop-hover hover:-translate-y-0.5 transition-all duration-200"
               >
