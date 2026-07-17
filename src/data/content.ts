@@ -3,7 +3,6 @@ import earnMoneyFacebookImg from "@/assets/courses/earn-money-facebook.jpg";
 import ethicalHacking10hrImg from "@/assets/courses/ethical-hacking-10hr.jpg";
 import viralCrimeStoryImg from "@/assets/courses/viral-crime-story.jpg";
 import androidKaliLinuxImg from "@/assets/courses/android-kali-linux.jpg";
-import udemyCoursesImg from "@/assets/courses/udemy-courses.jpg";
 import promptEngineerImg from "@/assets/courses/prompt-engineer.jpg";
 import discipline2026Img from "@/assets/courses/discipline-2026.jpg";
 import trainingCourseImg from "@/assets/courses/training-course.jpg";
@@ -95,15 +94,6 @@ const coursesData: Course[] = [
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400",
     link: "https://t.me/+PfWEc2ceKm8zZGI9",
     dateAdded: "2026-04-07",
-  },
-  {
-    title: "1000+ Udemy Courses Collection",
-    description: "Massive collection of premium Udemy courses covering programming, business, design, marketing, and personal development.",
-    category: "Education",
-    duration: "Unlimited",
-    students: "10K+",
-    image: udemyCoursesImg,
-    link: "https://mega.nz/folder/t69gha4L#IE4bFM_UtjvsANNF0FojLQ/folder/dm0VFL5A",
   },
   {
     title: "A to Z Prompt Engineering",
