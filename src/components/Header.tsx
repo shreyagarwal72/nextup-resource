@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Heart, ChevronDown, Github, Zap, Sparkles, Layers, Send, Tv, Dumbbell, Briefcase, Download, HelpCircle, Plug } from "lucide-react";
+import { Heart, ChevronDown, Github, Zap, Sparkles, Layers, Send, Tv, Dumbbell, Briefcase, Download, HelpCircle, Plug, Gamepad2 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { StudyModeToggle } from "./StudyModeToggle";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -39,6 +39,7 @@ const Header = () => {
     { to: "/telegram-tweaks", label: "Telegram Tweaks", icon: Send },
     { to: "/guru-mann-fitness", label: "Guru Mann Fitness", icon: Dumbbell },
     { to: "/api-hub", label: "API Hub", icon: Plug },
+    { to: "/games", label: "Games", icon: Gamepad2 },
     { to: "/install", label: "Install App", icon: Download },
     { to: "/faq", label: "FAQ", icon: HelpCircle },
     { to: "/contact", label: "Contact", icon: HelpCircle },
