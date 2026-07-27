@@ -19,6 +19,7 @@ import {
   Dumbbell,
   Tv,
   Plug,
+  Gamepad2,
 } from "lucide-react";
 
 // Ring 1 — Primary
@@ -53,6 +54,7 @@ const hiddenLinks = [
   { to: "/install", icon: Download, label: "Install" },
   { to: "/contact", icon: Mail, label: "Contact" },
   { to: "/api-hub", icon: Plug, label: "API Hub" },
+  { to: "/games", icon: Gamepad2, label: "Games" },
 ];
 
 const morePaths = moreLinks.map((l) => l.to);
