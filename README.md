@@ -22,7 +22,7 @@
 
 ## Overview
 
-Nextup Resources is a curated learning platform that aggregates high-quality educational content across multiple categories. Built with a bold **Playful Geometric** design system inspired by Memphis Group aesthetics, it delivers a premium, human-crafted experience on every device.
+Nextup Resources is the curated learning platform that aggregates high-quality educational content across multiple categories. Built with a bold **Playful Geometric** design system inspired by Memphis Group aesthetics, it delivers a premium, human-crafted experience on every device.
 
 ## Features
 
