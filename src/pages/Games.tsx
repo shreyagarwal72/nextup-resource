@@ -7,7 +7,7 @@ import BottomNav from "@/components/BottomNav";
 import SquigglyUnderline from "@/components/SquigglyUnderline";
 import SearchBox from "@/components/SearchBox";
 import { ArrowLeft, Gamepad2, ExternalLink, SearchX, ChevronDown, Github } from "lucide-react";
-import { useOpenSourceGames, type GameEntry } from "@/useOpenSourceGames";
+import { useOpenSourceGames, type GameEntry } from "@/hooks/useOpenSourceGames";
 import { useDebounced } from "@/hooks/useDebounced";
 
 const CARDS_COLLAPSED = 9;
