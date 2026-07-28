@@ -1,0 +1,837 @@
+{
+  "Hardware": [
+    {
+      "name": "Arduino",
+      "url": "https://www.arduino.cc/",
+      "description": "Open-source electronics platform combining easy hardware and software for interactive projects."
+    },
+    {
+      "name": "BeagleBoard",
+      "url": "http://beagleboard.org/",
+      "description": "Low-power open-source single-board computer originally produced by Texas Instruments."
+    },
+    {
+      "name": "Dragonboard 410c",
+      "url": "https://developer.qualcomm.com/hardware/dragonboard-410c",
+      "description": "Credit-card sized dev board built on the Qualcomm Snapdragon 410E with Wi-Fi, Bluetooth and GPS."
+    },
+    {
+      "name": "ESP32",
+      "url": "https://www.espressif.com/en/products/hardware/esp32/overview",
+      "description": "Dual-core wireless microcontroller, the successor to the ESP8266, packed with built-in peripherals."
+    },
+    {
+      "name": "HomeMaster",
+      "url": "https://www.home-master.eu/",
+      "description": "Open-source ESP32-based modular smart home platform on DIN-rail, running ESPHome and Home Assistant."
+    },
+    {
+      "name": "HummingBoard",
+      "url": "https://www.solid-run.com/freescale-imx6-family/hummingboard/",
+      "description": "Family of open-source Linux/Android single-board computers based on Freescale i.MX6 SoCs."
+    },
+    {
+      "name": "Intel Galileo",
+      "url": "https://www-ssl.intel.com/content/www/us/en/do-it-yourself/galileo-maker-quark-board.html",
+      "description": "Arduino-certified board built on Intel architecture, aimed at makers and educators."
+    },
+    {
+      "name": "Microduino",
+      "url": "https://www.microduino.cc/",
+      "description": "Small, stackable open-source electronics for makers, engineers and students."
+    },
+    {
+      "name": "Node MCU (ESP8266)",
+      "url": "http://www.nodemcu.com/index_en.html",
+      "description": "Open-source IoT platform scripted in Lua, built on the ESP8266 SDK."
+    },
+    {
+      "name": "OLinuXino",
+      "url": "https://www.olimex.com/Products/OLinuXino/open-source-hardware",
+      "description": "Low-cost open-source hardware/software industrial-grade Linux single board computer."
+    },
+    {
+      "name": "Odroid",
+      "url": "http://www.hardkernel.com/",
+      "description": "Development platform for open hardware and software (\"Open + Droid\")."
+    },
+    {
+      "name": "Particle",
+      "url": "https://www.particle.io",
+      "description": "Hardware and software toolkit for prototyping, scaling and managing connected products."
+    },
+    {
+      "name": "Pinoccio",
+      "url": "https://www.open-electronics.org/pinoccio-wifi-mesh-networking-for-arduino-and-iot-available-now/",
+      "description": "Arduino-compatible mesh networking and Wi-Fi module for IoT devices."
+    },
+    {
+      "name": "PiSpot Show",
+      "url": "https://github.com/GeiserX/PiSpot-Show",
+      "description": "Raspberry Pi WiFi voucher display system with weather integration and PiJuice battery management."
+    },
+    {
+      "name": "PiSpot Watch",
+      "url": "https://github.com/GeiserX/PiSpot-Watch",
+      "description": "Software for running a Raspberry Pi Zero + PaPiRus Zero watch device for GPConnect."
+    },
+    {
+      "name": "AutoPi",
+      "url": "https://github.com/autopi-io/autopi-core",
+      "description": "Open-source core for the AutoPi dongle, a Raspberry Pi-based OBD-II device for vehicle telematics."
+    },
+    {
+      "name": "Raspberry Pi",
+      "url": "https://www.raspberrypi.org/",
+      "description": "Low-cost, credit-card sized computer capable of most desktop tasks, widely used in IoT projects."
+    },
+    {
+      "name": "Tessel",
+      "url": "https://tessel.io/",
+      "description": "Open-source, community-driven IoT and robotics platform with dev boards and hardware modules."
+    },
+    {
+      "name": "UDOO",
+      "url": "http://www.udoo.org",
+      "description": "Single-board computer with an integrated Arduino-compatible microcontroller for education and makers."
+    },
+    {
+      "name": "Raspberry Pi Pico",
+      "url": "https://www.raspberrypi.com/products/raspberry-pi-pico/",
+      "description": "Small, fast RP2040-based board, with a wireless variant well suited to IoT."
+    },
+    {
+      "name": "Rinho Telematics",
+      "url": "https://rinho.com.ar/en",
+      "description": "GPS trackers with native CAN Bus support, WiFi fallback and BLE 5.0 sensors, compatible with Traccar and Wialon."
+    },
+    {
+      "name": "WisBlock",
+      "url": "https://www.rakwireless.com/en-us/products/wisblock",
+      "description": "Modular system for implementing low power wide area networks (LPWAN) in IoT solutions."
+    }
+  ],
+  "Software — Operating Systems": [
+    {
+      "name": "Apache Mynewt",
+      "url": "https://mynewt.apache.org/",
+      "description": "Real-time, modular OS for connected devices with strict power/memory constraints; ships a BLE 4.2 stack."
+    },
+    {
+      "name": "ARM mbed",
+      "url": "http://www.mbed.com/",
+      "description": "IoT device platform bundling an OS, cloud services and tooling for standards-based IoT products."
+    },
+    {
+      "name": "Contiki",
+      "url": "http://www.contiki-os.org/",
+      "description": "Open-source OS connecting low-cost, low-power microcontrollers to the internet."
+    },
+    {
+      "name": "FreeRTOS",
+      "url": "http://www.freertos.org/",
+      "description": "Popular real-time OS kernel for embedded devices, ported to dozens of microcontrollers."
+    },
+    {
+      "name": "OpenWrt",
+      "url": "https://openwrt.org/",
+      "description": "Linux-based embedded OS mainly used to route network traffic on home routers."
+    },
+    {
+      "name": "Snappy Ubuntu",
+      "url": "https://wiki.ubuntu.com/Snappy",
+      "description": "Ubuntu Core variant delivering apps via transactional updates for embedded/server images."
+    },
+    {
+      "name": "Mbed OS",
+      "url": "https://os.mbed.com/",
+      "description": "Open-source OS for Cortex-M IoT boards, abstracting the underlying microcontroller for C/C++ apps."
+    },
+    {
+      "name": "NodeOS",
+      "url": "http://node-os.com/",
+      "description": "OS written entirely in JavaScript and managed by npm on top of the Linux kernel."
+    },
+    {
+      "name": "Raspbian",
+      "url": "https://raspbian.org/",
+      "description": "Free Debian-based OS optimized for Raspberry Pi hardware."
+    },
+    {
+      "name": "RIOT",
+      "url": "http://www.riot-os.org/",
+      "description": "Friendly open-source OS for the Internet of Things."
+    },
+    {
+      "name": "Tiny OS",
+      "url": "https://github.com/tinyos/tinyos-main",
+      "description": "BSD-licensed OS for low-power wireless devices such as sensor networks."
+    },
+    {
+      "name": "Toit",
+      "url": "https://toit.io/",
+      "description": "Platform combining robust device serving, control over data, and over-the-air firmware updates."
+    },
+    {
+      "name": "UBOS",
+      "url": "https://ubos.net/",
+      "description": "Arch-based Linux distro simplifying sysadmin for home servers and indie IoT devices."
+    },
+    {
+      "name": "Windows 10 IoT Core",
+      "url": "https://dev.windows.com/en-us/iot",
+      "description": "Windows 10 edition for intelligent devices, from small gateways to POS terminals and ATMs."
+    },
+    {
+      "name": "Zephyr Project",
+      "url": "https://www.zephyrproject.org/",
+      "description": "Scalable real-time OS supporting many hardware architectures, optimized for constrained devices."
+    }
+  ],
+  "Software — Programming Languages": [
+    {
+      "name": "AtomVM",
+      "url": "https://atomvm.org/",
+      "description": "Brings Erlang, Elixir, Gleam and other functional languages to microcontrollers."
+    },
+    {
+      "name": "C",
+      "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+      "description": "General-purpose imperative language widely used in embedded and systems development."
+    },
+    {
+      "name": "C++",
+      "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+      "description": "General-purpose language with imperative, OOP and generic features plus low-level memory control."
+    },
+    {
+      "name": "Groovy",
+      "url": "http://www.groovy-lang.org/",
+      "description": "Dynamic, optionally-typed JVM language used by SmartThings for smart app development."
+    },
+    {
+      "name": "Lua",
+      "url": "http://www.lua.org/",
+      "description": "Lightweight, embeddable scripting language ideal for configuration and rapid prototyping."
+    },
+    {
+      "name": "eLua",
+      "url": "http://www.eluaproject.net/",
+      "description": "Full implementation of Lua for embedded systems, with extensions for portable embedded development."
+    },
+    {
+      "name": "ELFE",
+      "url": "http://c3d.github.io/elfe/",
+      "description": "Small general-purpose language tuned for configuring and controlling swarms of tiny devices."
+    },
+    {
+      "name": "MicroPython",
+      "url": "https://docs.micropython.org/",
+      "description": "Lean, efficient Python implementation for microcontrollers and constrained systems."
+    },
+    {
+      "name": "PikaPython",
+      "url": "https://github.com/pikastech/pikapython",
+      "description": "Python runtime needing only 4KB of RAM, with zero dependencies and easy C bindings."
+    },
+    {
+      "name": "PharoThings",
+      "url": "https://github.com/pharo-iot/PharoThings",
+      "description": "Live programming platform for IoT projects built on the Pharo language."
+    },
+    {
+      "name": "Rust",
+      "url": "https://www.rust-lang.org/",
+      "description": "Performance-focused, memory-safe language with a borrow checker and safe concurrency."
+    },
+    {
+      "name": "TinyGo",
+      "url": "https://tinygo.org/",
+      "description": "LLVM-based Go compiler targeting microcontrollers and web browsers."
+    },
+    {
+      "name": "Toitlang",
+      "url": "https://toitlang.org/",
+      "description": "High-level, Python-like language built for microcontrollers, much faster than MicroPython."
+    }
+  ],
+  "Software — Frameworks": [
+    {
+      "name": "AllJoyn",
+      "url": "https://openconnectivity.org/developer/reference-implementation/alljoyn",
+      "description": "Open-source framework letting devices and apps discover and talk to each other."
+    },
+    {
+      "name": "Apple HomeKit",
+      "url": "https://developer.apple.com/homekit/",
+      "description": "Apple's framework for communicating with and controlling connected home accessories."
+    },
+    {
+      "name": "homebridge-blink-security",
+      "url": "https://github.com/BitWise-0x/homebridge-blink-security",
+      "description": "Homebridge plugin bringing Blink cameras, doorbells and sirens into Apple HomeKit."
+    },
+    {
+      "name": "homebridge-smartrent",
+      "url": "https://github.com/BitWise-0x/homebridge-smartrent",
+      "description": "Homebridge plugin integrating SmartRent locks, thermostats and sensors with HomeKit over WebSocket."
+    },
+    {
+      "name": "AREG SDK",
+      "url": "https://github.com/aregtech/areg-sdk",
+      "description": "Interface-centric real-time async communication engine for distributed and mist-computing IoT."
+    },
+    {
+      "name": "Astarte",
+      "url": "https://github.com/astarte-platform/astarte",
+      "description": "Open-source Elixir IoT platform connecting device fleets to remote apps with real-time events."
+    },
+    {
+      "name": "Blynk",
+      "url": "http://www.blynk.cc",
+      "description": "Drag-and-drop platform for building iOS/Android apps for connected things across many transports."
+    },
+    {
+      "name": "Countly IoT Analytics",
+      "url": "http://github.com/countly/countly-server",
+      "description": "General-purpose open-source analytics platform for mobile and IoT devices."
+    },
+    {
+      "name": "Eclipse Ditto",
+      "url": "https://eclipse.org/ditto/",
+      "description": "Framework for building digital twins with cloud APIs to interact with connected devices."
+    },
+    {
+      "name": "Eclipse Smarthome",
+      "url": "https://eclipse.org/smarthome/",
+      "description": "Java/OSGi framework for embedded devices like Raspberry Pi or BeagleBone Black."
+    },
+    {
+      "name": "Freedomotic",
+      "url": "http://www.freedomotic.com",
+      "description": "Flexible, secure open-source IoT framework for home and smart-retail environments."
+    },
+    {
+      "name": "Iotivity",
+      "url": "https://iotivity.org/",
+      "description": "Open-source framework enabling seamless device-to-device connectivity for IoT."
+    },
+    {
+      "name": "Kura",
+      "url": "https://eclipse.org/kura/",
+      "description": "Java/OSGi container for M2M applications running in service gateways."
+    },
+    {
+      "name": "Lelylan",
+      "url": "http://www.lelylan.com/",
+      "description": "Hardware- and platform-agnostic IoT cloud platform built on microservices."
+    },
+    {
+      "name": "Macchina.io",
+      "url": "https://github.com/macchina-io/macchina.io",
+      "description": "Software framework for building IoT device apps on Linux, with a JS/C++ runtime."
+    },
+    {
+      "name": "Mihini",
+      "url": "https://wiki.eclipse.org/Mihini",
+      "description": "Embedded runtime on Linux exposing a high-level API for M2M application development."
+    },
+    {
+      "name": "OpenHAB",
+      "url": "http://www.openhab.org/",
+      "description": "Modular OSGi-based Java home automation runtime."
+    },
+    {
+      "name": "Gobot",
+      "url": "http://gobot.io/",
+      "description": "Go framework for robotics, physical computing and the Internet of Things."
+    },
+    {
+      "name": "Home Assistant",
+      "url": "https://github.com/home-assistant/home-assistant",
+      "description": "Python 3 home automation platform for tracking and controlling all devices at home."
+    },
+    {
+      "name": "Lightweight MQTT Machine Network",
+      "url": "http://lwmqn.github.io/",
+      "description": "Open-source project following OMA LWM2M for JavaScript/Node.js machine network management."
+    },
+    {
+      "name": "Thingsboard IoT Gateway",
+      "url": "https://github.com/thingsboard/thingsboard-gateway",
+      "description": "Integrates legacy and third-party devices with the ThingsBoard platform over OPC-UA and MQTT."
+    },
+    {
+      "name": "Pimatic",
+      "url": "https://pimatic.org/",
+      "description": "Node.js home automation framework providing an extensible platform for control tasks."
+    },
+    {
+      "name": "IOTA",
+      "url": "https://iota.org/",
+      "description": "Open-source distributed ledger protocol for IoT, using a DAG instead of a blockchain."
+    },
+    {
+      "name": "MyController",
+      "url": "https://github.com/mycontroller-org/mycontroller",
+      "description": "Open-source IoT automation controller for home, office or any space."
+    },
+    {
+      "name": "Mozilla WebThings",
+      "url": "https://iot.mozilla.org/",
+      "description": "Open platform for monitoring and controlling devices over the web."
+    },
+    {
+      "name": "HStreamDB",
+      "url": "https://github.com/hstreamdb/hstream",
+      "description": "Streaming database built for IoT data storage and real-time processing."
+    },
+    {
+      "name": "IoTSharp.Gateways",
+      "url": "https://github.com/IoTSharp/Gateways",
+      "description": "IoT gateway integrating legacy devices with the IoTSharp platform via ModBus, OPC-UA, BACnet and MQTT."
+    }
+  ],
+  "Software — Middlewares": [
+    {
+      "name": "Corlysis",
+      "url": "https://corlysis.com/",
+      "description": "Time-series data storage and visualization platform built on Grafana and InfluxDB."
+    },
+    {
+      "name": "IFTTT",
+      "url": "https://ifttt.com/",
+      "description": "Web service that chains conditional \"recipes\" triggered by changes across other web services."
+    },
+    {
+      "name": "OPC Router",
+      "url": "https://www.opc-router.com/opc-router-details/",
+      "description": "IoT gateway with plug-ins for OPC UA, MQTT, SQL, REST, SAP, InfluxDB and more."
+    },
+    {
+      "name": "Huginn",
+      "url": "https://github.com/cantino/huginn",
+      "description": "System for building agents that perform automated online tasks for you."
+    },
+    {
+      "name": "Kaa",
+      "url": "http://www.kaaproject.org/",
+      "description": "Open-source middleware platform for rapidly building IoT solutions."
+    },
+    {
+      "name": "Losant",
+      "url": "https://losant.com",
+      "description": "Developer platform for securely building connected solutions with REST/MQTT and a drag-and-drop workflow editor."
+    },
+    {
+      "name": "MicroServiceBus.com",
+      "url": "https://microservicebus.com",
+      "description": "Device management platform for Azure, AWS and IBM IoT Hub with GitHub/ServiceNow integrations."
+    },
+    {
+      "name": "DreamFactory",
+      "url": "http://www.dreamfactory.com",
+      "description": "Free open-source REST API platform for mobile, web and IoT apps."
+    },
+    {
+      "name": "HiveMQ",
+      "url": "https://www.hivemq.com/",
+      "description": "Enterprise-ready MQTT broker scaling to millions of IoT devices."
+    },
+    {
+      "name": "I1820",
+      "url": "https://i1820.github.io/",
+      "description": "Open-source MQTT-based platform for discovery, data collection and configuration, storing data in InfluxDB."
+    },
+    {
+      "name": "IOStash",
+      "url": "https://iostash.io",
+      "description": "High-performance IoT platform free for DIY developers, with Node.js and Android libraries."
+    },
+    {
+      "name": "Thingsboard",
+      "url": "https://thingsboard.io",
+      "description": "Open-source IoT platform for device management, data collection and visualization."
+    },
+    {
+      "name": "Thingspeak",
+      "url": "https://thingspeak.com/",
+      "description": "Open-source IoT analytics platform for aggregating, visualizing and alerting on live data streams."
+    },
+    {
+      "name": "VerneMQ",
+      "url": "https://github.com/erlio/vernemq",
+      "description": "High-performance, distributed MQTT broker connecting IoT, M2M, mobile and web apps."
+    },
+    {
+      "name": "Kuzzle",
+      "url": "https://github.com/kuzzleio/kuzzle",
+      "description": "Open-source backend with real-time pub/sub, geofencing, and a multiprotocol IoT interface."
+    },
+    {
+      "name": "DevicePilot",
+      "url": "https://www.devicepilot.com",
+      "description": "Operational analytics for connected devices, with a free-forever tier."
+    },
+    {
+      "name": "EMQX",
+      "url": "https://www.emqx.io/",
+      "description": "Ultra-scalable open-source MQTT broker handling 100M+ devices at high throughput."
+    },
+    {
+      "name": "Waterstream",
+      "url": "https://waterstream.io/",
+      "description": "MQTT broker built on Apache Kafka for storage and distribution."
+    },
+    {
+      "name": "NanoMQ",
+      "url": "https://github.com/nanomq/nanomq",
+      "description": "Lightweight, fast MQTT broker for IoT edge platforms."
+    },
+    {
+      "name": "Kuiper",
+      "url": "https://github.com/emqx/kuiper",
+      "description": "Edge-lightweight IoT data analytics/streaming engine written in Golang."
+    },
+    {
+      "name": "t6",
+      "url": "https://github.com/mathcoll/t6",
+      "description": "Data-first IoT platform connecting physical objects to a time-series DB for analysis."
+    },
+    {
+      "name": "IoTSharp",
+      "url": "https://github.com/IoTSharp/IoTSharp",
+      "description": "Open-source IoT platform for data collection, processing, visualization and device management."
+    },
+    {
+      "name": "Husarnet",
+      "url": "https://husarnet.com/",
+      "description": "Peer-to-peer network layer connecting MCUs to servers or each other directly over the internet."
+    },
+    {
+      "name": "Zilla",
+      "url": "https://github.com/aklivity/zilla",
+      "description": "Multi-protocol edge/service proxy supporting HTTP, SSE, gRPC, MQTT and native Kafka."
+    }
+  ],
+  "Software — Libraries and Tools": [
+    {
+      "name": "ble-scale-sync",
+      "url": "https://github.com/KristianP26/ble-scale-sync",
+      "description": "Cross-platform Node.js CLI reading BLE smart scales and exporting to Garmin, MQTT, InfluxDB and more."
+    },
+    {
+      "name": "Cylon.js",
+      "url": "http://cylonjs.com/",
+      "description": "JavaScript framework for robotics, physical computing and IoT device control."
+    },
+    {
+      "name": "Luvit",
+      "url": "https://luvit.io/",
+      "description": "Node.js-style APIs implemented in Lua, useful for lightweight embedded web apps."
+    },
+    {
+      "name": "Johnny-Five",
+      "url": "http://johnny-five.io/",
+      "description": "Original JavaScript robotics programming framework, maintained by the community."
+    },
+    {
+      "name": "Pi4J",
+      "url": "http://pi4j.com/",
+      "description": "Object-oriented I/O API and libraries for Java access to Raspberry Pi's full I/O capabilities."
+    },
+    {
+      "name": "WiringPi",
+      "url": "http://wiringpi.com/",
+      "description": "GPIO access library written in C for the Raspberry Pi's BCM2835 chip."
+    },
+    {
+      "name": "Node-RED",
+      "url": "http://nodered.org/",
+      "description": "Visual tool for wiring together the Internet of Things."
+    },
+    {
+      "name": "MIMIC IoT Simulator",
+      "url": "https://www.gambitcomm.com/site/iot_simulator.php",
+      "description": "Simulates large IoT environments for testing MQTT-, CoAP- and REST-based applications."
+    },
+    {
+      "name": "MQTT Explorer",
+      "url": "https://thomasnordquist.github.io/MQTT-Explorer/",
+      "description": "Visualizes MQTT topics in a hierarchy — a general-purpose MQTT toolkit."
+    },
+    {
+      "name": "MQTT X",
+      "url": "https://mqttx.app/",
+      "description": "Cross-platform MQTT 5.0 client tool from EMQ, for macOS, Linux and Windows."
+    },
+    {
+      "name": "ops",
+      "url": "https://ops.city/",
+      "description": "Free open-source tool to build, run and deploy Linux apps as unikernels."
+    },
+    {
+      "name": "SmartObject",
+      "url": "https://github.com/PeterEB/smartobject",
+      "description": "Helper class for creating IPSO Smart Objects in JavaScript applications."
+    },
+    {
+      "name": "United Manufacturing Hub",
+      "url": "https://github.com/united-manufacturing-hub/united-manufacturing-hub",
+      "description": "Open-source manufacturing app platform packaging Node-RED, VerneMQ and TimescaleDB via Helm."
+    },
+    {
+      "name": "QuestDB",
+      "url": "https://github.com/questdb/questdb",
+      "description": "Open-source time-series database for real-time analytics with high-throughput InfluxDB-line ingestion."
+    },
+    {
+      "name": "Chaos Genius",
+      "url": "https://github.com/chaos-genius/chaos_genius",
+      "description": "Open-source ML analytics engine for outlier/anomaly detection on sensor data."
+    },
+    {
+      "name": "Explore IoT Libraries",
+      "url": "https://kandi.openweaver.com/explore/internet-of-things",
+      "description": "Curated directory of popular IoT libraries, project kits and learning resources."
+    },
+    {
+      "name": "ThingsOn MQTT Bench",
+      "url": "https://github.com/volkanalkilic/ThingsOn.MQTT.Bench",
+      "description": "Cross-platform .NET Core benchmark tool measuring MQTT broker message throughput."
+    }
+  ],
+  "Software — Miscellaneous": [
+    {
+      "name": "Amazon Dash",
+      "url": "https://fresh.amazon.com/dash/",
+      "description": "Wi-Fi connected button that reorders a favorite item at the press of a button."
+    },
+    {
+      "name": "Freeboard",
+      "url": "http://freeboard.io/",
+      "description": "Real-time interactive dashboard and visualization creator with drag-and-drop widgets."
+    },
+    {
+      "name": "Nebula",
+      "url": "http://nebula.readthedocs.io",
+      "description": "Docker orchestrator designed to manage IoT devices."
+    },
+    {
+      "name": "Gladys",
+      "url": "https://gladysassistant.com",
+      "description": "Open-source home automation program running on Raspberry Pi, integrated into the home network."
+    },
+    {
+      "name": "authBroker",
+      "url": "https://github.com/authbroker/authbroker",
+      "description": "Keycloak-based HTTP/MQTT/CoAP IoT broker adapter."
+    },
+    {
+      "name": "MQTT File Uploader",
+      "url": "https://github.com/volkanalkilic/Mqtt-File-Uploader",
+      "description": "Cross-platform .NET Core app watching directories and uploading changed files to an MQTT broker."
+    },
+    {
+      "name": "SIGNL4 – Mobile Alerting",
+      "url": "https://www.signl4.com/iot-service-alerting/",
+      "description": "Mobile alerting via push, SMS and voice, with escalation and duty scheduling for IoT projects."
+    }
+  ],
+  "Protocols and Networks": [
+    {
+      "name": "802.15.4",
+      "url": "https://en.wikipedia.org/wiki/IEEE_802.15.4",
+      "description": "IEEE standard for the physical layer and MAC of low-rate wireless personal area networks; underlies ZigBee and similar specs."
+    },
+    {
+      "name": "Bluetooth",
+      "url": "https://en.wikipedia.org/wiki/Bluetooth",
+      "description": "Short-range wireless standard for exchanging data and building personal area networks."
+    },
+    {
+      "name": "Bluetooth Low Energy",
+      "url": "https://en.wikipedia.org/wiki/Bluetooth_low_energy",
+      "description": "Low-power Bluetooth variant aimed at healthcare, fitness, beacon and home-entertainment applications."
+    },
+    {
+      "name": "EC-GSM-IoT",
+      "url": "http://www.gsma.com/connectedliving/extended-coverage-gsm-internet-of-things-ec-gsm-iot/",
+      "description": "Standards-based low power wide area cellular technology built on eGPRS for IoT communications."
+    },
+    {
+      "name": "LoRaWAN",
+      "url": "https://en.wikipedia.org/wiki/LoRaWAN",
+      "description": "Low bit-rate wide area network protocol for connected objects, M2M and smart city applications."
+    },
+    {
+      "name": "NB-IoT",
+      "url": "https://en.wikipedia.org/wiki/NarrowBand_IOT",
+      "description": "Narrowband LPWAN radio technology standard connecting devices over cellular bands."
+    },
+    {
+      "name": "Sigfox",
+      "url": "https://en.wikipedia.org/wiki/Sigfox",
+      "description": "French firm building wireless networks for low-energy, always-on objects sending small amounts of data."
+    },
+    {
+      "name": "Wi-Fi",
+      "url": "https://en.wikipedia.org/wiki/Wi-Fi",
+      "description": "Local area wireless networking technology using the 2.4GHz and 5GHz ISM radio bands."
+    },
+    {
+      "name": "6LowPAN",
+      "url": "https://en.wikipedia.org/wiki/6LoWPAN",
+      "description": "IPv6 over Low-power Wireless Personal Area Networks, enabling small devices to join the internet."
+    },
+    {
+      "name": "Thread",
+      "url": "http://threadgroup.org/",
+      "description": "IPv6-based mesh protocol for smart household devices, using 6LoWPAN over 802.15.4."
+    },
+    {
+      "name": "ZigBee",
+      "url": "https://en.wikipedia.org/wiki/ZigBee",
+      "description": "IEEE 802.15.4-based protocol suite for low-power personal area networks."
+    },
+    {
+      "name": "Z-Wave",
+      "url": "http://www.z-wave.com/",
+      "description": "Wireless spec for home automation devices like lighting, access control and appliances."
+    },
+    {
+      "name": "CoAP",
+      "url": "http://coap.technology/",
+      "description": "Application-layer protocol enabling simple electronic devices to communicate interactively over the internet."
+    },
+    {
+      "name": "DTLS",
+      "url": "https://fr.wikipedia.org/wiki/Datagram_Transport_Layer_Security",
+      "description": "Security protocol for datagram-based communications, based on TLS."
+    },
+    {
+      "name": "Eddystone",
+      "url": "https://en.wikipedia.org/wiki/Eddystone_(Google)",
+      "description": "Google's cross-platform BLE beacon technology profile for location and proximity data."
+    },
+    {
+      "name": "HTTP",
+      "url": "https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol",
+      "description": "Application protocol underlying data communication for the World Wide Web."
+    },
+    {
+      "name": "iBeacon",
+      "url": "https://en.wikipedia.org/wiki/IBeacon",
+      "description": "Apple's BLE proximity-sensing protocol for triggering location-based actions on devices."
+    },
+    {
+      "name": "MQTT",
+      "url": "http://mqtt.org/",
+      "description": "Lightweight publish-subscribe messaging protocol for constrained connections and networks."
+    },
+    {
+      "name": "PJON",
+      "url": "https://github.com/gioblu/PJON/",
+      "description": "Arduino-compatible, multi-master, multi-media network protocol portable across many architectures."
+    },
+    {
+      "name": "STOMP",
+      "url": "https://stomp.github.io/",
+      "description": "Simple text-based protocol for working with message-oriented middleware brokers."
+    },
+    {
+      "name": "Websocket",
+      "url": "https://en.wikipedia.org/wiki/WebSocket",
+      "description": "Full-duplex communication protocol over a single TCP connection, used for real-time content."
+    },
+    {
+      "name": "XMPP",
+      "url": "https://en.wikipedia.org/wiki/XMPP",
+      "description": "XML-based messaging protocol supporting near-real-time exchange, used in IoT and smart-grid applications."
+    }
+  ],
+  "Technologies": [
+    {
+      "name": "NFC",
+      "url": "https://en.wikipedia.org/wiki/Near_field_communication",
+      "description": "Protocols letting devices establish radio communication when touched or brought into close proximity."
+    },
+    {
+      "name": "OPC-UA",
+      "url": "https://en.wikipedia.org/wiki/OPC_Unified_Architecture",
+      "description": "Industrial automation protocol enabling semantic description and object modelling of industrial environments."
+    }
+  ],
+  "Standards and Alliances": [
+    {
+      "name": "ETSI M2M",
+      "url": "http://www.etsi.org/technologies-clusters/technologies/m2m",
+      "description": "ETSI technical committee developing standards for machine-to-machine communications."
+    },
+    {
+      "name": "OneM2M",
+      "url": "http://www.onem2m.org/",
+      "description": "Develops technical specs for a common M2M service layer usable across hardware and software."
+    },
+    {
+      "name": "OPCUA Foundation",
+      "url": "https://opcfoundation.org/",
+      "description": "Industrial M2M interoperability communication protocol developed by the OPC Foundation."
+    },
+    {
+      "name": "OCF",
+      "url": "https://openconnectivity.org/",
+      "description": "Develops standards and certification for IoT devices built around CoAP."
+    },
+    {
+      "name": "W3C WoT",
+      "url": "https://www.w3.org/WoT/",
+      "description": "W3C working group countering IoT fragmentation by extending standardized web technologies."
+    },
+    {
+      "name": "AIOTI",
+      "url": "http://www.meet-iot.eu/Alliance-for-Internet-of-Things-Innovation-AIOTI.html",
+      "description": "Alliance strengthening links between IoT industries, SMEs and startups."
+    },
+    {
+      "name": "Bluetooth Special Interest Group",
+      "url": "https://www.bluetooth.com/",
+      "description": "Body overseeing Bluetooth standards development and technology licensing."
+    },
+    {
+      "name": "IPSO Alliance",
+      "url": "http://www.ipso-alliance.org/",
+      "description": "Fosters awareness, education and research on IP's role in the Internet of Things."
+    },
+    {
+      "name": "LoRa Alliance",
+      "url": "https://www.lora-alliance.org/",
+      "description": "Non-profit standardizing LPWANs deployed globally for IoT, M2M and smart city use."
+    },
+    {
+      "name": "OPC Foundation",
+      "url": "https://opcfoundation.org/about/opc-foundation/mission-statement/",
+      "description": "Manages data-transfer standards for secure, multi-vendor industrial automation interoperability."
+    },
+    {
+      "name": "Thread Group",
+      "url": "http://threadgroup.org/",
+      "description": "Industry group driving development of the Thread network protocol."
+    },
+    {
+      "name": "Wi-Fi Alliance",
+      "url": "https://www.wi-fi.org/",
+      "description": "Global network of companies driving the Wi-Fi wireless networking user experience."
+    },
+    {
+      "name": "Zigbee Alliance",
+      "url": "http://www.zigbee.org/",
+      "description": "Non-profit driving development of ZigBee standards, with roughly 450 members."
+    },
+    {
+      "name": "Z-Wave Alliance",
+      "url": "http://z-wavealliance.org/",
+      "description": "Industry group extending Z-Wave as a key enabling technology for smart home and business."
+    }
+  ]
+}
