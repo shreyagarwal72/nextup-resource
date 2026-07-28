@@ -298,4 +298,3 @@ const Iot = () => {
   );
 };
 
-export default Iot;
