@@ -20,6 +20,7 @@ import {
   Tv,
   Plug,
   Gamepad2,
+  Cpu,
 } from "lucide-react";
 
 // Ring 1 — Primary
@@ -55,6 +56,7 @@ const hiddenLinks = [
   { to: "/contact", icon: Mail, label: "Contact" },
   { to: "/api-hub", icon: Plug, label: "API Hub" },
   { to: "/games", icon: Gamepad2, label: "Games" },
+  { to: "/iot", icon: Cpu, label: "IoT" },
 ];
 
 const morePaths = moreLinks.map((l) => l.to);
