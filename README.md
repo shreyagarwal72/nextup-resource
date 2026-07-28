@@ -104,7 +104,7 @@ src/
 ## Design System
 
 The app uses a **Playful Geometric** design language featuring:
-- Warm cream backgrounds with high-contrast slate text
+- Warm cream backgrounds with high-contrast slate text.
 - Chunky 2px borders with hard offset shadows (no blur)
 - Bouncy `cubic-bezier(0.34, 1.56, 0.64, 1)` animations
 - Vibrant accent palette: Violet, Pink, Amber, Emerald
