@@ -1,0 +1,527 @@
+{
+  "Browser-Based — Boardgame": [
+    {
+      "name": "3D Hartwing Chess Set",
+      "url": "https://github.com/juliangarnier/3D-Hartwig-chess-set",
+      "description": "3D chess game done in HTML/CSS/JavaScript."
+    },
+    {
+      "name": "c4",
+      "url": "https://github.com/kenrick95/c4",
+      "description": "Connect Four game where player is playing against an AI."
+    },
+    {
+      "name": "Desperate Gods",
+      "url": "https://github.com/David20321/FTJ",
+      "description": "Free online board game that was designed to be played just like a board game in real-life: no rules are enforced by the computer."
+    },
+    {
+      "name": "Green Mahjong",
+      "url": "https://github.com/danbeck/green-mahjong",
+      "description": "Solitaire mahjong game done in HTML/CSS/JavaScript."
+    },
+    {
+      "name": "Kriegspiel",
+      "url": "https://github.com/binarymax/kriegspiel",
+      "description": "The game of imperfect information, the Kriegspiel chess variant."
+    },
+    {
+      "name": "Chessmata",
+      "url": "https://github.com/jonradoff/chessmata",
+      "description": "Open-source multiplayer chess platform for humans and AI agents, with real-time WebSocket gameplay, Elo-based matchmaking, 3D browser board (Three.js), MCP server, and UCI-compatible CLI. Built with Go and React."
+    },
+    {
+      "name": "Lichess",
+      "url": "https://github.com/ornicar/lila",
+      "description": "Free chess game using HTML5 & websockets built with Scala, Play 2.8, MongoDB and Elasticsearch."
+    },
+    {
+      "name": "Wolfcha",
+      "url": "https://github.com/oil-oil/wolfcha",
+      "description": "AI-powered Werewolf (Mafia) social deduction game where every player is controlled by top LLMs. Built with Next.js and TypeScript."
+    }
+  ],
+  "Browser-Based — Arcade": [
+    {
+      "name": "Alge's Escapade",
+      "url": "https://github.com/Dave-and-Mike/game-off-2012",
+      "description": "Help Alge escape by moving through the levels to the escape tube."
+    },
+    {
+      "name": "Alien Invasion",
+      "url": "https://github.com/cykod/AlienInvasion",
+      "description": "Don't let the aliens reach the bottom, eliminate them using your spaceship."
+    },
+    {
+      "name": "Arashi",
+      "url": "https://github.com/stephank/arashi-js",
+      "description": "Clone of the Arcade game Tempest. Survive as long as possible and score many points as possible."
+    },
+    {
+      "name": "Asteroids",
+      "url": "http://github.com/dmcinnes/HTML5-Asteroids",
+      "description": "Pure JavaScript asteroids. Destroy asteroids ans saucers controlling a triangular ship rotating left and right."
+    },
+    {
+      "name": "Avabranch",
+      "url": "https://github.com/Zolmeister/avabranch",
+      "description": "Get your Ava away from the blocks moving between them."
+    },
+    {
+      "name": "Ball And Wall",
+      "url": "https://github.com/budnix/ball-and-wall",
+      "description": "Destroy the blocks using the Vaus, that is ejected from the ship."
+    },
+    {
+      "name": "Breakout",
+      "url": "https://github.com/Couchfriends/breakout",
+      "description": "Multiplayer with HTML5. Destroy the blocks using one ball from your ship."
+    },
+    {
+      "name": "Captain Rogers",
+      "url": "https://github.com/EnclaveGames/Captain-Rogers",
+      "description": "HTML5 mobile game created using ImpactJavaScript."
+    },
+    {
+      "name": "Ceros Snake",
+      "url": "https://github.com/mjhasbach/ceros-snake",
+      "description": "A remake of the iconic 70's Snake game."
+    },
+    {
+      "name": "CHANG€",
+      "url": "https://github.com/RothschildGames/change",
+      "description": "Intense game about the extreme life of supermarket cashiers."
+    },
+    {
+      "name": "Chromacore",
+      "url": "https://github.com/Murkantilism/game-off-2013",
+      "description": "2D musical platformer set in a dark, black & white world that progressively becomes more colorful and happy through successful gameplay."
+    },
+    {
+      "name": "Jolly Jumper",
+      "url": "https://github.com/shohan4556/jolly-jumper",
+      "description": "Infinite jumping style game inspired by Doodle jump."
+    },
+    {
+      "name": "Clumsy Bird",
+      "url": "https://github.com/ellisonleao/clumsy-bird",
+      "description": "Flappy Bird clone in JavaScript using MelonJavaScript."
+    },
+    {
+      "name": "Coffee Snake",
+      "url": "https://github.com/dommmel/coffee-snake",
+      "description": "HTML5 snake game written in CoffeeScript."
+    },
+    {
+      "name": "Coil",
+      "url": "https://github.com/leereilly/Coil",
+      "description": "HTML5 canvas game where you defeat enemies by wrapping enemies in your trail."
+    },
+    {
+      "name": "Color Quest",
+      "url": "https://github.com/redbluegames/game-off-2013",
+      "description": "Infinite runner following a black and white pixel's quest to change into a color pixel."
+    },
+    {
+      "name": "Core Commiter",
+      "url": "https://github.com/vladikoff/game-off-2012",
+      "description": "Choose an open source project and help that project by sorting code to proper branches."
+    },
+    {
+      "name": "Crappy Bird",
+      "url": "https://github.com/varunpant/CrappyBird",
+      "description": "Flappy Bird clone in JavaScript and Canvas2D API."
+    },
+    {
+      "name": "Custom Tetris",
+      "url": "https://github.com/ondras/custom-tetris",
+      "description": "Play the classic Tetris game the way you like it."
+    },
+    {
+      "name": "D3shooter",
+      "url": "https://github.com/nsmirn0v/d3shooter",
+      "description": "Asteroids style game in HTML5 as a demo of the d3 library."
+    },
+    {
+      "name": "Digger",
+      "url": "https://github.com/lutzroeder/digger",
+      "description": "The player is placed in an underground maze and can dig horizontal and vertical tunnels through it."
+    },
+    {
+      "name": "Drakonas",
+      "url": "https://github.com/Casmo/Drakonas",
+      "description": "Classic shoot 'em up game build with the Three.js library."
+    },
+    {
+      "name": "Drill Bunny",
+      "url": "https://github.com/DreamShowAdventures/LudumDare29",
+      "description": "Drill game with a bunny finding good stuff under the earth."
+    },
+    {
+      "name": "DuckHunt JavaScript",
+      "url": "https://github.com/MattSurabian/DuckHunt-JS",
+      "description": "DuckHunt ported to JavaScript and HTML5 with a level creator."
+    },
+    {
+      "name": "Emberwind",
+      "url": "https://github.com/operasoftware/Emberwind",
+      "description": "Fantasy game port of the indie platform game Emberwind."
+    },
+    {
+      "name": "ExecutiveMan",
+      "url": "https://github.com/CamHenlin/ExecutiveMan",
+      "description": "Clone of NES game MegaMan, written in JavaScript."
+    },
+    {
+      "name": "Fluid Table Tennis",
+      "url": "https://github.com/anirudhjoshi/fluid_table_tennis",
+      "description": "Renders a table tennis game interacting with a full-color real-time fluid simulation at 60 FPS."
+    },
+    {
+      "name": "Heal 'em All",
+      "url": "https://github.com/krzysu/game-off-2013",
+      "description": "Explore old, abandoned graveyard, heal as many zombies as you can, and find your way out."
+    },
+    {
+      "name": "HotFix",
+      "url": "https://github.com/sdrdis/hotfix",
+      "description": "Help Hotfix collect stargazers and avoid enemies. Collect commits to upgrade hotfix and add new features."
+    },
+    {
+      "name": "Hyperspace Garbage Collector",
+      "url": "https://github.com/razh/game-off-2013",
+      "description": "Guide N4n through the dangerous trash-heap caverns to reach the Primary Systems Core."
+    },
+    {
+      "name": "I Spy A Ghost",
+      "url": "https://github.com/OmarShehata/I-Spy-A-Ghost",
+      "description": "An experimental p2p multiplayer game made in HTML5/Phaser using WebRTC."
+    },
+    {
+      "name": "Jekyll & Hyde Collide",
+      "url": "https://github.com/awesome-interactive/game-off-2013",
+      "description": "Simple Unity 2d game based around the theme of \"change\"."
+    },
+    {
+      "name": "JumpSuit",
+      "url": "https://github.com/KordonBleu/jumpsuit",
+      "description": "With your awesome suit, jump from planet to planet to conquer them."
+    },
+    {
+      "name": "Mario 5 HTML",
+      "url": "https://github.com/robertkleffner/marioHTML5",
+      "description": "Infinite Mario in HTML5 JavaScript using Canvas and Audio elements."
+    },
+    {
+      "name": "Mega Girl",
+      "url": "https://github.com/ddionisio/game-off-2013",
+      "description": "The hyper-deluxed-super-mega software that beats back those malicious apps."
+    },
+    {
+      "name": "Masonry JavaScript Tetris Clone",
+      "url": "https://github.com/gamedolphin/Masonry-JavaScript-Tetris-Clone",
+      "description": "Tetris clone created using HTML5/JavaScript/Phaser."
+    },
+    {
+      "name": "Monster Wants Candy",
+      "url": "https://github.com/EnclaveGames/Monster-Wants-Candy-demo",
+      "description": "Simple HTML5 game created with Phaser 2.0.7."
+    },
+    {
+      "name": "Octocat Jump",
+      "url": "https://github.com/ogoshen/game-off-2012",
+      "description": "Navigate your ever-jumping Octocat and collect stars for extra points."
+    },
+    {
+      "name": "Onslaught Arena",
+      "url": "https://github.com/lostdecade/onslaught_arena",
+      "description": "Fight off hordes of classic medieval monsters in this fast paced arcade shooter."
+    },
+    {
+      "name": "Pappu Pakia",
+      "url": "https://github.com/udacity/pappu-pakia",
+      "description": "Guide little Pappu around obstacles while collecting coins, stars, and berries and avoiding enemies."
+    },
+    {
+      "name": "Phaser Snake",
+      "url": "https://github.com/gamedolphin/JavaScript_snake",
+      "description": "JavaScript version of the snake game, created using the Phaser Engine."
+    },
+    {
+      "name": "PixelPlatformer",
+      "url": "https://github.com/bendangelo/PixelPlatformer",
+      "description": "Simple platformer game that demostrates the power of the Entity game engine."
+    },
+    {
+      "name": "PolyBranch",
+      "url": "https://github.com/gbatha/PolyBranch",
+      "description": "Minimalist 3D game dodging branches as you approach terminal velocity."
+    },
+    {
+      "name": "Protocol 390",
+      "url": "https://github.com/josegallegos07/game-off-2013",
+      "description": "To survive in People's Park, you must supply the prophet with change."
+    },
+    {
+      "name": "Raging Gardens",
+      "url": "https://github.com/petarov/game-off-2012",
+      "description": "JavaScript/HTML5 web browser game where a hungry ninja rabbit farts too often."
+    },
+    {
+      "name": "Release Cycles",
+      "url": "https://github.com/RothschildGames/release-cycles",
+      "description": "Abstract racing game where you race against the clock and computer through a product's life-cycle."
+    },
+    {
+      "name": "Save The Forest",
+      "url": "https://github.com/softvar/save-the-forest",
+      "description": "Canvas based HTML5 game where a player extinguishes fire on trees to save the Burning Forests."
+    },
+    {
+      "name": "SKALP",
+      "url": "https://github.com/amudotcom-byte/skalp",
+      "description": "60-second trading-floor reflex game. Go long or short, ride the chart, close before it reverses."
+    },
+    {
+      "name": "Ski Free",
+      "url": "https://github.com/basicallydan/skifree.js",
+      "description": "Controls a skier on a mountain slope, avoiding obstacles while racing against time."
+    },
+    {
+      "name": "Snake",
+      "url": "https://github.com/jrgdiz/snake",
+      "description": "Simple clone of the snake game, using canvas and JavaScript."
+    },
+    {
+      "name": "Snake_new",
+      "url": "https://github.com/RabiRoshan/snake_game",
+      "description": "Classic nokia snake game using web."
+    },
+    {
+      "name": "Space-Shooter",
+      "url": "https://github.com/Couchfriends/Space-Shooter",
+      "description": "Classic shoot'em up space shooter build in HTML5 with multiplayer."
+    },
+    {
+      "name": "Spashal",
+      "url": "https://github.com/MrRar/spashal",
+      "description": "Danger lurks around every corner in space."
+    },
+    {
+      "name": "Square Off!",
+      "url": "https://github.com/ScriptaGames/SquareOff",
+      "description": "Multiplayer 1v1 air-hockey style game, place squares to deflect the ball."
+    },
+    {
+      "name": "Space Crusade",
+      "url": "https://github.com/Loopeex/space-crusade",
+      "description": "HTML5 game developped with PhaserJavaScript Framework."
+    },
+    {
+      "name": "Super Mario Bros",
+      "url": "https://github.com/martindrapeau/backbone-game-engine",
+      "description": "One level written with Backbone Game Engine."
+    },
+    {
+      "name": "Survivor",
+      "url": "https://github.com/scottschiller/SURVIVOR",
+      "description": "Playable HTML + CSS + JavaScript remake of a space-based shoot-'em-up arcade game with a level editor."
+    },
+    {
+      "name": "WPilot",
+      "url": "https://github.com/jfd/wpilot",
+      "description": "Browser-based remake of the famous XPilot game, built with Node.js and HTML5."
+    },
+    {
+      "name": "Zedinvaders",
+      "url": "https://github.com/salvatorecapolupo/zedinvaders",
+      "description": "Game based on the comic ZED, seen inside the \"zero-episode\" called \"Game Over\"."
+    },
+    {
+      "name": "111 one-button games",
+      "url": "https://github.com/abagames/111-one-button-games-in-2021",
+      "description": "One button games realizing various actions with one button."
+    }
+  ],
+  "Browser-Based — Rhythm": [
+    {
+      "name": "Bemuse",
+      "url": "https://github.com/bemusic/bemuse",
+      "description": "Online rhythm game playing songs in BMS format."
+    }
+  ],
+  "Browser-Based — FPS": [
+    {
+      "name": "Backdooms",
+      "url": "https://github.com/Kuberwastaken/backdooms",
+      "description": "Game inspired by DOOM 1993 and The Backrooms, small enough to be self contained inside a QR code."
+    },
+    {
+      "name": "BananaBread",
+      "url": "https://github.com/kripken/BananaBread",
+      "description": "Port of the Cube 2/Sauerbraten 3D game engine to the web via Emscripten."
+    },
+    {
+      "name": "Nazi Zombies Portable",
+      "url": "https://nzp.gay",
+      "description": "Call of Duty: Zombies \"de-make\" powered by enhanced forks of the Quake engine."
+    }
+  ],
+  "Browser-Based — RPG": [
+    {
+      "name": "Diablo JavaScript",
+      "url": "https://github.com/mitallast/diablo-js",
+      "description": "Isometric minimal-code style game at HTML5 canvas and JavaScript."
+    },
+    {
+      "name": "Roguish",
+      "url": "https://github.com/CamHenlin/Roguish",
+      "description": "RPG/Rogue-like game created in JavaScript."
+    },
+    {
+      "name": "Room for Change",
+      "url": "https://github.com/antionio/game-off-2013",
+      "description": "Randomly generated action RPG where you retrieve sacred artifacts from a pyramid."
+    }
+  ],
+  "Browser-Based — MMORPG": [
+    {
+      "name": "BrowserQuest",
+      "url": "https://github.com/mozilla/BrowserQuest",
+      "description": "HTML5/JavaScript multiplayer game experiment."
+    },
+    {
+      "name": "Reia",
+      "url": "https://www.playreia.com",
+      "description": "RPG action-adventure MMO focusing on story, combat, and open-world sandbox adventure. Built with Godot, Rust, and Zig."
+    }
+  ],
+  "Browser-Based — Strategy": [
+    {
+      "name": "Ancient Beast",
+      "url": "https://github.com/FreezingMoon/AncientBeast",
+      "description": "Materialize and control beasts in order to defeat your opponents."
+    },
+    {
+      "name": "Command & Conquer",
+      "url": "https://github.com/adityaravishankar/command-and-conquer",
+      "description": "Recreation of the original Command and Conquer RTS game in HTML5 and JavaScript."
+    },
+    {
+      "name": "Freeciv-web",
+      "url": "https://github.com/freeciv/freeciv-web",
+      "description": "Build cities, collect resources, organize your government, and build an army."
+    },
+    {
+      "name": "Hexa Battle",
+      "url": "https://github.com/itajaja/hb",
+      "description": "Turn based dungeon crawler written with TypeScript, using React and SVG."
+    },
+    {
+      "name": "Rapid Dominance",
+      "url": "https://github.com/wenta/rapid-dominance",
+      "description": "Open source turn-based strategy game, clone of the Enemy Flag."
+    },
+    {
+      "name": "Tower Defense",
+      "url": "https://github.com/Casmo/tower-defense",
+      "description": "3D Tower Defense build with Three.js in HTML5."
+    }
+  ],
+  "Browser-Based — Racing": [
+    {
+      "name": "HexGL",
+      "url": "https://github.com/BKcore/HexGL",
+      "description": "Futuristic HTML5 racing game with 3D graphics."
+    },
+    {
+      "name": "Trigger Rally Online Edition",
+      "url": "https://github.com/CodeArtemis/TriggerRally",
+      "description": "Fast arcade rally racing action, play in your browser with WebGL 3D graphics."
+    }
+  ],
+  "Browser-Based — Sandbox": [
+    {
+      "name": "3d.city",
+      "url": "https://github.com/lo-th/3d.city",
+      "description": "Built to test the performance of WebGL and Three.js."
+    },
+    {
+      "name": "Blk Game",
+      "url": "https://github.com/morozd/blk-game",
+      "description": "Fully modifiable multiplayer voxel world in JS that runs efficiently in the browser."
+    },
+    {
+      "name": "Cube Engine",
+      "url": "https://github.com/Nurgak/Cube-engine",
+      "description": "Resembles Minecraft, a popular voxel-type 3D game based on boxes."
+    },
+    {
+      "name": "Sandboxels",
+      "url": "https://github.com/R74nCom/sandboxels",
+      "description": "Falling-sand experimentation game with over 500 materials to play with."
+    }
+  ],
+  "Browser-Based — Puzzle": [
+    {
+      "name": "2048",
+      "url": "https://github.com/gabrielecirulli/2048",
+      "description": "Clone of 1024, based on Saming's 2048."
+    },
+    {
+      "name": "A Dark Room",
+      "url": "https://github.com/hughsk/ludum-dare-27",
+      "description": "Dodge and shoot the red targets, grabbing the bombs as you go."
+    },
+    {
+      "name": "Anagramica",
+      "url": "https://github.com/binarymax/anagramica",
+      "description": "A word game and API for anagrams."
+    },
+    {
+      "name": "Astry",
+      "url": "https://github.com/wwwtyro/Astray",
+      "description": "WebGL maze game built with Three.js and Box2dWeb."
+    },
+    {
+      "name": "Beatrix",
+      "url": "https://github.com/cxong/Beatrix",
+      "description": "Music game where you arrange the drums to catch the beats and play the right rhythm."
+    },
+    {
+      "name": "BitBot",
+      "url": "https://github.com/recardona/BitBot",
+      "description": "HTML/JavaScript game where you control a bot which must sense, plan, and act."
+    },
+    {
+      "name": "BlicblockJavaScript",
+      "url": "https://github.com/cheshire137/blicblock-js",
+      "description": "Match tetrominoes to clear the board."
+    },
+    {
+      "name": "Blockrain.js",
+      "url": "https://github.com/Aerolab/blockrain.js",
+      "description": "Embed & play the classic Tetris-style game on your site."
+    },
+    {
+      "name": "Branching Out",
+      "url": "https://github.com/thehen/game-off-2012",
+      "description": "Minimalist game about leaving home."
+    },
+    {
+      "name": "Clone Man",
+      "url": "https://github.com/adhicl/game-off-2012",
+      "description": "Puzzle, memory, retro game with simple graphics."
+    },
+    {
+      "name": "Couch 2048",
+      "url": "https://github.com/mvasilkov/glitch2016",
+      "description": "A physics-based puzzle, loosely related to the original 2048 game."
+    },
+    {
+      "name": "cube-composer",
+      "url": "https://github.com/sharkdp/cube-composer",
+      "description": "A puzzle game inspired by functional programming."
+    }
+  ]
+}
