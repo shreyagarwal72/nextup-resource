@@ -36,6 +36,7 @@ const DeveloperRoadmap = lazy(() => import("./pages/DeveloperRoadmap"));
 const TvApps = lazy(() => import("./pages/TvApps"));
 const ApiHub = lazy(() => import("./pages/ApiHub"));
 const Games = lazy(() => import("./pages/Games"));
+const Iot = lazy(() => import("./pages/Iot"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -99,6 +100,7 @@ const App = () => {
                 <Route path="/tv-apps" element={<TvApps />} />
                 <Route path="/api-hub" element={<ApiHub />} />
                 <Route path="/games" element={<Games />} />
+                <Route path="/iot" element={<Iot />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="*" element={<NotFound />} />
 
