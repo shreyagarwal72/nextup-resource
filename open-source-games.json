@@ -522,7 +522,6 @@
       "name": "cube-composer",
       "url": "https://github.com/sharkdp/cube-composer",
       "description": "A puzzle game inspired by functional programming."
-    },
-    {
-      "name": "Drunken Viking",
-      "url": "https://github.com/cxong/Drunke
+    }
+  ]
+}
