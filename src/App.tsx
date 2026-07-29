@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import IntroModal from "@/components/IntroModal";
-import Resourcly from "@/components/Resourcly";
+import Resourcely from "@/components/Resourcely";
 import StudyBanner from "@/components/StudyBanner";
 import ScrollToTopOnRoute from "@/components/ScrollToTopOnRoute";
 import { Analytics } from "@vercel/analytics/react";
@@ -111,7 +111,7 @@ const App = () => {
               </Routes>
             </Suspense>
             <IntroModal />
-            <Resourcly />
+            <Resourcely />
           </BrowserRouter>
           <Analytics />
         </TooltipProvider>
