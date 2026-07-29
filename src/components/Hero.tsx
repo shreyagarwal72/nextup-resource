@@ -117,6 +117,17 @@ const Hero = () => {
               Special thanks to <span className="text-primary font-bold underline decoration-wavy underline-offset-4">@coolappstore</span> for curating amazing FOSS finds on Telegram 💙
             </p>
           </a>
+
+          <a
+            href="https://t.me/SeedOSS"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 bg-card border-2 border-foreground/80 rounded-2xl px-6 py-4 shadow-pop-soft animate-fade-in delay-500 hover:-translate-y-0.5 hover:shadow-pop transition-all inline-block"
+          >
+            <p className="text-sm text-muted-foreground font-medium">
+              Special thanks to <span className="text-primary font-bold underline decoration-wavy underline-offset-4">@SeedOSS</span> for being a trusted hub for open-source apps and privacy tools 🌱
+            </p>
+          </a>
         </div>
       </div>
     </section>
