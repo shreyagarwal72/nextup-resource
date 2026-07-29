@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Youtube, Send, HelpCircle, Download } from "lucide-react";
+import { Instagram, Youtube, Send, HelpCircle, Download, Mail } from "lucide-react";
 import { openIntroModal } from "@/components/IntroModal";
 
 const Footer = () => {
@@ -54,6 +54,13 @@ const Footer = () => {
             >
               <Download className="w-4 h-4" strokeWidth={2.5} />
               Install app
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-1.5 text-muted-foreground text-sm font-bold hover:text-primary transition-colors"
+            >
+              <Mail className="w-4 h-4" strokeWidth={2.5} />
+              Contact
             </Link>
             <button
               type="button"
