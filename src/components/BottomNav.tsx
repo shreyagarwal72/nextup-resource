@@ -6,8 +6,6 @@ import {
   Bot,
   Globe,
   BookText,
-  Mail,
-  Download,
   Send,
   MoreHorizontal,
   Github,
@@ -21,6 +19,8 @@ import {
   Plug,
   Gamepad2,
   Cpu,
+  Bug,
+  Palette,
 } from "lucide-react";
 
 // Ring 1 — Primary
@@ -52,8 +52,8 @@ const miscLinks = [
 
 // Ring 4 — Quaternary ("hidden")
 const hiddenLinks = [
-  { to: "/install", icon: Download, label: "Install" },
-  { to: "/contact", icon: Mail, label: "Contact" },
+  { to: "/android-re", icon: Bug, label: "Android RE" },
+  { to: "/design-md", icon: Palette, label: "Design.md" },
   { to: "/api-hub", icon: Plug, label: "API Hub" },
   { to: "/games", icon: Gamepad2, label: "Games" },
   { to: "/iot", icon: Cpu, label: "IoT" },
@@ -187,7 +187,7 @@ const BottomNav = () => {
           />
         ))}
         <button
-          onClick={() => navigate("/install")}
+          onClick={() => navigate("/android-re")}
           aria-label="Switch to hidden menu"
           className="flex flex-col items-center justify-center px-2 py-1.5 rounded-xl text-muted-foreground"
         >
