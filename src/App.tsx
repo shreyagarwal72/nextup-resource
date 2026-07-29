@@ -37,6 +37,93 @@ const TvApps = lazy(() => import("./pages/TvApps"));
 const ApiHub = lazy(() => import("./pages/ApiHub"));
 const Games = lazy(() => import("./pages/Games"));
 const Iot = lazy(() => import("./pages/Iot"));
+const AndroidRe = lazy(() => import("./pages/AndroidRe"));
+const DesignMd = lazy(() => import("./pages/DesignMd"));
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 30,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background dot-grid">
+    <div className="flex gap-3">
+      {[0, 1, 2].map((i) => (
+        <div
+          key={i}
+          className="w-4 h-4 rounded-full border-2 border-foreground/80"
+          style={{
+            backgroundColor: i === 0 ? 'hsl(var(--primary))' : i === 1 ? 'hsl(var(--secondary))' : 'hsl(var(--tertiary))',
+            animation: `pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${i * 0.12}s forwards`,
+            opacity: 0,
+          }}
+        />
+      ))}
+    </div>
+  </div>
+);
+
+const App = () => {
+  return (
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTopOnRoute />
+            <StudyBanner />
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/resources" element={<Resources />} />
+                <Route path="/ebooks" element={<Ebooks />} />
+                <Route path="/apps" element={<Apps />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/install" element={<Install />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/ai" element={<AI />} />
+                <Route path="/collection/:slug" element={<CollectionPage />} />
+                <Route path="/special-courses" element={<SpecialCourses />} />
+                <Route path="/foss-apps" element={<FossApps />} />
+                <Route path="/shizuku-apps" element={<ShizukuApps />} />
+                <Route path="/morphe" element={<Morphe />} />
+                <Route path="/material-you" element={<MaterialYou />} />
+                <Route path="/telegram-tweaks" element={<TelegramTweaks />} />
+                <Route path="/guru-mann-fitness" element={<GurMannFitnessBooks />} />
+                <Route path="/developer-roadmap" element={<DeveloperRoadmap />} />
+                <Route path="/tv-apps" element={<TvApps />} />
+                <Route path="/api-hub" element={<ApiHub />} />
+                <Route path="/games" element={<Games />} />
+                <Route path="/iot" element={<Iot />} />
+                <Route path="/android-re" element={<AndroidRe />} />
+                <Route path="/design-md" element={<DesignMd />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="*" element={<NotFound />} />
+
+              </Routes>
+            </Suspense>
+            <IntroModal />
+            <Resourcly />
+          </BrowserRouter>
+          <Analytics />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+};
+
+export default App;
+const ApiHub = lazy(() => import("./pages/ApiHub"));
+const Games = lazy(() => import("./pages/Games"));
+const Iot = lazy(() => import("./pages/Iot"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
