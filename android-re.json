@@ -1,0 +1,480 @@
+{
+  "Courses and Material": [
+    {
+      "name": "Maddie Stone's Android RE Training",
+      "url": "https://www.ragingrock.com/AndroidAppRE/",
+      "description": "A full, well-regarded online course on Android reverse engineering, taught by a Google Project Zero researcher."
+    },
+    {
+      "name": "Introduction to Assembly — Azeria Labs",
+      "url": "https://azeria-labs.com/writing-arm-assembly-part-1/",
+      "description": "Ground-up primer on ARM assembly: data types, registers, the instruction set, and memory instructions."
+    }
+  ],
+  "Videos": [
+    {
+      "name": "Kristina Balaam — Android RE",
+      "url": "https://www.youtube.com/@chmodxx",
+      "description": "Video series covering reverse engineering fundamentals and Android malware analysis."
+    },
+    {
+      "name": "LaurieWired",
+      "url": "https://www.youtube.com/@lauriewired",
+      "description": "YouTube channel focused specifically on Android reverse engineering content."
+    },
+    {
+      "name": "Using Frida to Modify Android Games",
+      "url": "https://www.youtube.com/watch?v=BXtAujoPhQw",
+      "description": "Walkthrough of reversing Android apps and using Frida for dynamic instrumentation on games."
+    }
+  ],
+  "Books": [
+    {
+      "name": "Android Internals: A Confectioner's Cookbook",
+      "url": "http://newandroidbook.com/",
+      "description": "Deep dive into how Android actually works under the hood."
+    },
+    {
+      "name": "Blue Fox: ARM Assembly Internals and RE",
+      "url": "https://www.amazon.co.uk/dp/1119745306",
+      "description": "Solid grounding in ARM assembly internals for reverse engineers."
+    },
+    {
+      "name": "Android Software Internals Quick Reference",
+      "url": "https://www.amazon.co.uk/Android-Software-Internals-Quick-Reference/dp/1484269136",
+      "description": "Reference covering Java and Android system internals techniques."
+    },
+    {
+      "name": "Mobile Offensive Security Pocket Guide",
+      "url": "https://www.amazon.co.uk/Mobile-Offensive-Security-Pocket-Guide/dp/1399921959",
+      "description": "Compact guide to approaches and tooling for mobile penetration testers."
+    },
+    {
+      "name": "Android Security Internals",
+      "url": "https://nostarch.com/androidsecurity",
+      "description": "Detailed breakdown of Android's security architecture."
+    },
+    {
+      "name": "Android Malware Detection with Machine Learning",
+      "url": "https://nostarch.com/androidmalwaredetection",
+      "description": "ML techniques applied to detecting malicious Android apps."
+    },
+    {
+      "name": "Android Hacker's Handbook",
+      "url": "https://www.amazon.com/Android-Hackers-Handbook-Joshua-Drake/dp/111860864X/",
+      "description": "In-depth coverage of Android exploitation and forensics."
+    },
+    {
+      "name": "Practical Reverse Engineering",
+      "url": "https://www.amazon.com/Practical-Reverse-Engineering-Reversing-Obfuscation/dp/1118787315/",
+      "description": "Low-level reverse engineering concepts including ARM assembly."
+    },
+    {
+      "name": "The IDA Pro Book",
+      "url": "https://nostarch.com/idapro2.htm",
+      "description": "The reference for advanced IDA Pro usage."
+    }
+  ],
+  "Static Analysis Tools": [
+    {
+      "name": "QARK",
+      "url": "https://github.com/linkedin/qark",
+      "description": "Open-source scanner for automatically finding Android app vulnerabilities."
+    },
+    {
+      "name": "Quark Engine",
+      "url": "https://github.com/quark-engine/quark-engine",
+      "description": "Combines multiple analysis tools into scriptable APIs for mobile security research."
+    },
+    {
+      "name": "MobSF",
+      "url": "https://github.com/MobSF/Mobile-Security-Framework-MobSF",
+      "description": "Framework supporting both static and dynamic Android app security testing."
+    },
+    {
+      "name": "AndroBugs Framework",
+      "url": "https://github.com/AndroBugs/AndroBugs_Framework",
+      "description": "Scans Android apps for security issues automatically."
+    },
+    {
+      "name": "imjtool",
+      "url": "http://newandroidbook.com/tools/imjtool.html",
+      "description": "Firmware unpacking tool supporting multiple vendors and formats."
+    },
+    {
+      "name": "Android Studio",
+      "url": "https://developer.android.com/studio",
+      "description": "Official IDE, also handy for analyzing decompiled apps."
+    },
+    {
+      "name": "APK Dependency Graph",
+      "url": "https://github.com/alexzaitsev/apk-dependency-graph",
+      "description": "Visualizes class dependencies inside an APK."
+    },
+    {
+      "name": "disarm",
+      "url": "http://newandroidbook.com/tools/disarm.html",
+      "description": "Command-line utility for parsing ARM-64 instructions."
+    },
+    {
+      "name": "COVA",
+      "url": "https://github.com/secure-software-engineering/COVA",
+      "description": "Computes path constraints based on user-defined APIs."
+    },
+    {
+      "name": "DIS{integrity}",
+      "url": "https://github.com/user1342/DISintegrity",
+      "description": "Analyzes APKs for root detection, integrity, and tamper checks."
+    },
+    {
+      "name": "Dexcalibur",
+      "url": "https://github.com/FrenchYeti/dexcalibur",
+      "description": "Automates analysis and instrumentation of Android applications."
+    }
+  ],
+  "De-Obfuscation": [
+    {
+      "name": "Obfu[DE]scate",
+      "url": "https://github.com/user1342/Obfu-DE-Scate",
+      "description": "De-obfuscation tool using fuzzy comparison logic."
+    },
+    {
+      "name": "TinySmaliEmulator",
+      "url": "https://github.com/amoulu/TinySmaliEmulator",
+      "description": "Minimal smali emulator useful for decrypting obfuscated strings."
+    },
+    {
+      "name": "simplify",
+      "url": "https://github.com/CalebFenton/simplify",
+      "description": "Android virtual machine and deobfuscator."
+    },
+    {
+      "name": "deoptfuscator",
+      "url": "https://github.com/Gyoonus/deoptfuscator",
+      "description": "Deobfuscates apps that rely on control-flow obfuscation."
+    }
+  ],
+  "Dynamic Analysis Tools": [
+    {
+      "name": "Drozer",
+      "url": "https://github.com/WithSecureLabs/drozer",
+      "description": "Security testing framework built around dynamic analysis of Android apps."
+    },
+    {
+      "name": "jtrace",
+      "url": "http://newandroidbook.com/tools/jtrace.html",
+      "description": "Like strace, but for tracing Android system calls."
+    },
+    {
+      "name": "sesearch",
+      "url": "https://linux.die.net/man/1/sesearch",
+      "description": "Command-line tool for querying SELinux policies."
+    },
+    {
+      "name": "AutoDroid",
+      "url": "https://github.com/user1342/AutoDroid",
+      "description": "Tool for mass APK gathering and analysis."
+    },
+    {
+      "name": "Burp Suite",
+      "url": "https://portswigger.net/burp",
+      "description": "Commercial tool widely used to analyze Android app network traffic."
+    },
+    {
+      "name": "Wireshark",
+      "url": "https://www.wireshark.org/",
+      "description": "Open-source network protocol analyzer."
+    },
+    {
+      "name": "SSLsplit",
+      "url": "https://github.com/droe/sslsplit",
+      "description": "Intercepts and manipulates SSL/TLS-encrypted traffic."
+    },
+    {
+      "name": "MITMProxy",
+      "url": "https://mitmproxy.org/",
+      "description": "Man-in-the-middle proxy for inspecting network traffic."
+    },
+    {
+      "name": "apk-mitm",
+      "url": "https://github.com/shroudedcode/apk-mitm",
+      "description": "Preps APKs so their HTTPS traffic can be inspected."
+    },
+    {
+      "name": "Frida",
+      "url": "https://frida.re/",
+      "description": "Dynamic instrumentation toolkit for runtime manipulation of apps."
+    },
+    {
+      "name": "Objection",
+      "url": "https://github.com/sensepost/objection",
+      "description": "Runtime exploration tool for bypassing app security controls."
+    },
+    {
+      "name": "RMS Runtime Mobile Security",
+      "url": "https://github.com/m0bilesecurity/RMS-Runtime-Mobile-Security",
+      "description": "Web interface built on top of Frida."
+    },
+    {
+      "name": "FriDump",
+      "url": "https://github.com/Nightbringer21/fridump",
+      "description": "Uses Frida to dump memory from running apps."
+    },
+    {
+      "name": "jnitrace",
+      "url": "https://github.com/chame1eon/jnitrace",
+      "description": "Frida-based tracer for JNI API calls."
+    },
+    {
+      "name": "Binder Trace",
+      "url": "https://github.com/foundryzero/binder-trace",
+      "description": "Intercepts and parses Android Binder IPC messages."
+    }
+  ],
+  "Decompilers": [
+    {
+      "name": "JADX",
+      "url": "https://github.com/skylot/jadx",
+      "description": "Decompiles APKs into readable Java source code."
+    },
+    {
+      "name": "Procyon",
+      "url": "https://github.com/mstrobel/procyon",
+      "description": "Suite of Java decompilation tools."
+    },
+    {
+      "name": "Cfr",
+      "url": "https://github.com/leibnitz27/cfr",
+      "description": "Java decompiler that supports Android APK files."
+    },
+    {
+      "name": "FernFlower",
+      "url": "https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine",
+      "description": "Analytical decompiler for Java bytecode."
+    },
+    {
+      "name": "Apktool",
+      "url": "https://ibotpeaches.github.io/Apktool/",
+      "description": "The go-to tool for decompiling and recompiling APK files."
+    },
+    {
+      "name": "DEX2JAR",
+      "url": "https://github.com/pxb1988/dex2jar",
+      "description": "Converts DEX files into JAR files."
+    },
+    {
+      "name": "JDGui",
+      "url": "http://java-decompiler.github.io/",
+      "description": "Graphical viewer for Java source recovered from class files."
+    },
+    {
+      "name": "IDA Pro",
+      "url": "https://hex-rays.com/ida-pro/",
+      "description": "Commercial disassembler and debugger, an industry standard."
+    },
+    {
+      "name": "Ghidra",
+      "url": "https://ghidra-sre.org/",
+      "description": "Free, open-source reverse-engineering framework from the NSA."
+    },
+    {
+      "name": "Radare2",
+      "url": "https://rada.re/n/",
+      "description": "Reverse engineering framework with disassembly and debugging support."
+    },
+    {
+      "name": "Androguard",
+      "url": "https://github.com/androguard/androguard",
+      "description": "Toolkit for analyzing and reverse engineering Android apps."
+    },
+    {
+      "name": "apk2gold",
+      "url": "https://github.com/lxdvs/apk2gold",
+      "description": "Decompiles Android apps back to Java source."
+    },
+    {
+      "name": "AndroidProjectCreator",
+      "url": "https://github.com/ThisIsLibra/AndroidProjectCreator",
+      "description": "Converts an APK into an importable Android Studio project."
+    },
+    {
+      "name": "APK Studio",
+      "url": "https://github.com/vaibhavpandeyvpz/apkstudio",
+      "description": "Qt-based IDE built for reverse-engineering APKs."
+    },
+    {
+      "name": "show-java",
+      "url": "https://github.com/niranjan94/show-java",
+      "description": "Decompiler for APK, JAR, and DEX files."
+    },
+    {
+      "name": "APKLab",
+      "url": "https://marketplace.visualstudio.com/items?itemName=Surendrajat.apklab",
+      "description": "VS Code extension bundling several Android RE tools together."
+    }
+  ],
+  "Malware Analysis": [
+    {
+      "name": "DroidDetective",
+      "url": "https://github.com/user1342/DroidDetective",
+      "description": "Machine-learning-based malware analysis for Android apps."
+    },
+    {
+      "name": "Cuckoo Droid",
+      "url": "https://github.com/idanr1986/cuckoodroid-2.0",
+      "description": "Automated Android malware analysis built on the Cuckoo Sandbox."
+    },
+    {
+      "name": "androwarn",
+      "url": "https://github.com/maaaaz/androwarn",
+      "description": "Static code analyzer for spotting malicious behavior in Android apps."
+    }
+  ],
+  "Documentation": [
+    {
+      "name": "Android Security Documentation",
+      "url": "https://source.android.com/docs/security",
+      "description": "Google's official documentation on Android's security model."
+    },
+    {
+      "name": "Android RE Challenges (awesome-ctf)",
+      "url": "https://github.com/apsdehal/awesome-ctf#reverse-engineering",
+      "description": "Curated list of reverse-engineering CTF challenges."
+    },
+    {
+      "name": "AndroidXref",
+      "url": "http://androidxref.com/",
+      "description": "Searchable cross-reference of the Android source tree."
+    },
+    {
+      "name": "APKMirror",
+      "url": "https://www.apkmirror.com/",
+      "description": "Repository of APKs pulled from the Play Store and user uploads."
+    },
+    {
+      "name": "APKPure",
+      "url": "https://m.apkpure.com/",
+      "description": "Another repository of APKs useful for testing and research."
+    }
+  ],
+  "Case Studies": [
+    {
+      "name": "Houseparty Post-mortem",
+      "url": "https://www.jamesstevenson.me/a-reverse-engineers-post-mortem-of-the-houseparty-video-chat-app/",
+      "description": "A reverse engineer's teardown of the Houseparty video chat app."
+    },
+    {
+      "name": "SharkBot Trojan Analysis",
+      "url": "https://research.nccgroup.com/2022/03/03/sharkbot-a-new-generation-android-banking-trojan-being-distributed-on-google-play-store/",
+      "description": "Write-up on a banking trojan distributed through the Play Store."
+    },
+    {
+      "name": "In-the-Wild Android Exploits",
+      "url": "https://googleprojectzero.blogspot.com/2021/01/in-wild-series-android-exploits.html",
+      "description": "Google Project Zero's series on real-world Android exploits."
+    }
+  ],
+  "CTFs and CrackMes": [
+    {
+      "name": "UnCrackable Mobile Apps (OWASP MASTG)",
+      "url": "https://github.com/OWASP/owasp-mastg/tree/master/Crackmes",
+      "description": "OWASP's set of deliberately crackable Android apps for practice."
+    },
+    {
+      "name": "CyberTruckChallenge19",
+      "url": "https://github.com/nowsecure/cybertruckchallenge19",
+      "description": "Workshop material from the 2019 CyberTruck security challenge."
+    },
+    {
+      "name": "KGB Messenger",
+      "url": "https://github.com/tlamb96/kgb_messenger",
+      "description": "CTF-style challenge built for learning Android reverse engineering."
+    },
+    {
+      "name": "Flare-On Challenge",
+      "url": "https://www.fireeye.com/services/flare-on.html",
+      "description": "Advanced annual reverse-engineering CTF that includes Android challenges."
+    },
+    {
+      "name": "OverTheWire Narnia",
+      "url": "http://overthewire.org/wargames/narnia/",
+      "description": "Not Android-specific, but excellent binary exploitation practice."
+    }
+  ],
+  "Misc": [
+    {
+      "name": "LADB",
+      "url": "https://github.com/tytydraco/LADB",
+      "description": "Local ADB shell that runs directly on an Android device."
+    },
+    {
+      "name": "Broken Droid Factory",
+      "url": "https://github.com/user1342/Broken-Droid-Factory",
+      "description": "Generates pseudo-random vulnerable Android apps for training purposes."
+    },
+    {
+      "name": "uber-apk-signer",
+      "url": "https://github.com/patrickfav/uber-apk-signer",
+      "description": "CLI tool for signing and zip-aligning APKs."
+    },
+    {
+      "name": "RUNIC Tamper Detection Demo",
+      "url": "https://github.com/user1342/RUNIC",
+      "description": "Demo project for understanding Android tamper-detection and integrity systems."
+    }
+  ],
+  "Obfuscation & Anti-Reversing": [
+    {
+      "name": "ProGuard",
+      "url": "https://www.guardsquare.com/manual/configuration/usage",
+      "description": "Widely used code shrinker, optimizer, and obfuscator."
+    },
+    {
+      "name": "R8",
+      "url": "https://developer.android.com/studio/build/shrink-code",
+      "description": "Google's own code shrinker and obfuscator, built into the Android toolchain."
+    },
+    {
+      "name": "DexGuard",
+      "url": "https://www.guardsquare.com/dexguard",
+      "description": "Commercial tool for advanced app obfuscation."
+    },
+    {
+      "name": "Android Tamper Detection Framework",
+      "url": "https://github.com/Fuzion24/AndroidTamperDetection",
+      "description": "Framework implementing tamper-detection mechanisms for apps."
+    },
+    {
+      "name": "Paranoid",
+      "url": "https://github.com/sundaysec/Paranoid",
+      "description": "Library that detects root access and tampering."
+    },
+    {
+      "name": "libhooker",
+      "url": "https://github.com/hluwa/libhooker",
+      "description": "Detects hooking frameworks such as Frida and Xposed."
+    }
+  ],
+  "Firmware & Kernel Analysis": [
+    {
+      "name": "Binwalk",
+      "url": "https://github.com/ReFirmLabs/binwalk",
+      "description": "Analyzes, extracts, and reverse-engineers firmware images."
+    },
+    {
+      "name": "AFLSmart",
+      "url": "https://github.com/aflsmart/aflsmart",
+      "description": "Fuzzer tuned specifically for firmware image analysis."
+    },
+    {
+      "name": "Android Kernel Exploits",
+      "url": "https://github.com/saelo/android_kernel_exploitation",
+      "description": "Collection of known kernel vulnerabilities and exploitation techniques."
+    },
+    {
+      "name": "FirmWire",
+      "url": "https://github.com/FirmWire/FirmWire",
+      "description": "Dynamic analysis platform built for baseband firmware."
+    }
+  ]
+}
