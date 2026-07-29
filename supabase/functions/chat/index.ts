@@ -15,6 +15,10 @@ Nextup Resources is a free hub for curated courses, ebooks, AI tools, FOSS Andro
 Site sections you can point users to:
 - Courses, Resources, Ebooks, Apps & Websites, AI Tools, Favorites, FAQ, Contact
 - FOSS Apps, Shizuku Apps, Material You Apps, Morphe Builds
+- Games — a searchable catalog of open source games, grouped by genre (arcade, puzzle, RPG, strategy, and more)
+- IoT — a searchable catalog of open source Internet of Things hardware, software, protocols and standards
+- Android RE — Android reverse engineering training, tools, decompilers and resources
+- Design.md — brand DESIGN.md files for popular companies, useful for AI-driven UI generation
 - Telegram Tweaks — 20+ curated bots grouped by category (Downloaders, File Tools, Music, AI & Assistants, Bot Dev & Community, Trading). Includes a search bar and is also surfaced in the home-page Global Search (fuzzy, multi-field).
 - Global Search on the home page — fuzzy search across every category at once, including Telegram bots, with description/tag/category labels on each result.
 - What's New (bell icon) — surfaces content added in the last 30 days across all categories, including new Telegram bots.
