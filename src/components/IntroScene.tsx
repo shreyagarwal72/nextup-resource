@@ -1,6 +1,4 @@
-import { useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import * as THREE from "three";
+import { useMemo } from "react";
 
 export type Accent = "primary" | "secondary" | "tertiary" | "quaternary";
 
@@ -12,123 +10,120 @@ export type PaletteHsl = {
   edge: string;
 };
 
-const toThreeColor = (hsl: string) => {
-  const [h, s, l] = hsl.split(/\s+/);
-  return new THREE.Color().setStyle(`hsl(${h}, ${s}, ${l})`);
-};
-
-const CentralShape = ({ color, edgeColor }: { color: THREE.Color; edgeColor: THREE.Color }) => {
-  const groupRef = useRef<THREE.Group>(null!);
-  const matRef = useRef<THREE.MeshStandardMaterial>(null!);
-  const pulse = useRef(1);
-  const lastColor = useRef(color.getHexString());
-
-  const geometry = useMemo(() => new THREE.IcosahedronGeometry(1.35, 0), []);
-  const edgesGeometry = useMemo(() => new THREE.EdgesGeometry(geometry), [geometry]);
-
-  useFrame((_, delta) => {
-    if (!groupRef.current || !matRef.current) return;
-
-    groupRef.current.rotation.y += delta * 0.35;
-    groupRef.current.rotation.x += delta * 0.1;
-
-    // Trigger a little pop whenever the target color changes (i.e. step changed)
-    if (color.getHexString() !== lastColor.current) {
-      lastColor.current = color.getHexString();
-      pulse.current = 1;
-    }
-    if (pulse.current > 0) {
-      pulse.current = Math.max(0, pulse.current - delta * 1.8);
-      const s = 1 + pulse.current * 0.22;
-      groupRef.current.scale.setScalar(s);
-    } else {
-      groupRef.current.scale.setScalar(1);
-    }
-
-    matRef.current.color.lerp(color, delta * 4);
-  });
-
-  return (
-    <group ref={groupRef}>
-      <mesh geometry={geometry}>
-        <meshStandardMaterial ref={matRef} color={color} flatShading roughness={0.35} metalness={0.05} />
-      </mesh>
-      <lineSegments geometry={edgesGeometry}>
-        <lineBasicMaterial color={edgeColor} />
-      </lineSegments>
-    </group>
-  );
-};
-
-const shapes = ["box", "sphere", "torus"] as const;
-
-const OrbitShape = ({
-  color,
-  index,
-  total,
-}: {
-  color: THREE.Color;
-  index: number;
-  total: number;
-}) => {
-  const ref = useRef<THREE.Mesh>(null!);
-  const angleOffset = (index / total) * Math.PI * 2;
-  const shape = shapes[index % shapes.length];
-
-  useFrame((state) => {
-    if (!ref.current) return;
-    const t = state.clock.elapsedTime * 0.45 + angleOffset;
-    const radius = 2.5;
-    ref.current.position.set(Math.cos(t) * radius, Math.sin(t * 1.3) * 0.55, Math.sin(t) * radius);
-    ref.current.rotation.x += 0.012;
-    ref.current.rotation.y += 0.016;
-  });
-
-  return (
-    <mesh ref={ref}>
-      {shape === "box" && <boxGeometry args={[0.32, 0.32, 0.32]} />}
-      {shape === "sphere" && <sphereGeometry args={[0.2, 16, 16]} />}
-      {shape === "torus" && <torusGeometry args={[0.2, 0.08, 8, 16]} />}
-      <meshStandardMaterial color={color} flatShading roughness={0.4} />
-    </mesh>
-  );
-};
-
-const SceneContents = ({ paletteHsl, accent }: { paletteHsl: PaletteHsl; accent: Accent }) => {
-  const palette = useMemo(
-    () => ({
-      primary: toThreeColor(paletteHsl.primary),
-      secondary: toThreeColor(paletteHsl.secondary),
-      tertiary: toThreeColor(paletteHsl.tertiary),
-      quaternary: toThreeColor(paletteHsl.quaternary),
-      edge: toThreeColor(paletteHsl.edge),
-    }),
-    [paletteHsl]
-  );
-  const orbitColors = [palette.primary, palette.secondary, palette.tertiary, palette.quaternary];
-
-  return (
-    <>
-      <ambientLight intensity={0.75} />
-      <directionalLight position={[3, 4, 5]} intensity={1.1} />
-      <directionalLight position={[-3, -2, -4]} intensity={0.3} />
-      <CentralShape color={palette[accent]} edgeColor={palette.edge} />
-      {orbitColors.map((c, i) => (
-        <OrbitShape key={i} color={c} index={i} total={orbitColors.length} />
-      ))}
-    </>
-  );
+// Helper to convert HSL string (e.g., "220 90% 56%") into css hsl() format
+const formatHsl = (hslStr: string) => {
+  const parts = hslStr.trim().split(/\s+/);
+  if (parts.length >= 3) {
+    return `hsl(${parts[0]}, ${parts[1]}, ${parts[2]})`;
+  }
+  return hslStr;
 };
 
 const IntroScene = ({ accent, paletteHsl }: { accent: Accent; paletteHsl: PaletteHsl }) => {
+  const colors = useMemo(() => {
+    return {
+      primary: formatHsl(paletteHsl.primary),
+      secondary: formatHsl(paletteHsl.secondary),
+      tertiary: formatHsl(paletteHsl.tertiary),
+      quaternary: formatHsl(paletteHsl.quaternary),
+      edge: formatHsl(paletteHsl.edge),
+    };
+  }, [paletteHsl]);
+
+  const activeColor = colors[accent] || colors.primary;
+
   return (
-    <Canvas
-      camera={{ position: [0, 0, 6], fov: 45 }}
-      dpr={[1, 1.5]}
-      gl={{ antialias: true, alpha: true }}
-    >
-      <SceneContents paletteHsl={paletteHsl} accent={accent} />
-    </Canvas>
+    <div className="relative w-full h-full min-h-[300px] flex items-center justify-center overflow-hidden bg-transparent">
+      {/* Background Ambient Glow */}
+      <div
+        className="absolute w-64 h-64 rounded-full opacity-20 blur-3xl transition-colors duration-700 ease-out"
+        style={{ backgroundColor: activeColor }}
+      />
+
+      {/* Outer Orbit Ring */}
+      <div
+        className="absolute w-72 h-72 rounded-full border border-dashed animate-[spin_20s_linear_infinite] opacity-40 transition-colors duration-700"
+        style={{ borderColor: colors.edge }}
+      />
+
+      {/* Orbiting Elements */}
+      <div className="absolute w-64 h-64 animate-[spin_12s_linear_infinite]">
+        {/* Top Floating Orbit Shape */}
+        <div
+          className="absolute -top-3 left-1/2 -translate-x-1/2 w-5 h-5 rounded-md shadow-md transition-all duration-500"
+          style={{ backgroundColor: colors.primary }}
+        />
+        {/* Right Floating Orbit Shape */}
+        <div
+          className="absolute top-1/2 -right-3 -translate-y-1/2 w-4 h-4 rounded-full shadow-md transition-all duration-500"
+          style={{ backgroundColor: colors.secondary }}
+        />
+        {/* Bottom Floating Orbit Shape */}
+        <div
+          className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-5 h-5 rounded-sm rotate-45 shadow-md transition-all duration-500"
+          style={{ backgroundColor: colors.tertiary }}
+        />
+        {/* Left Floating Orbit Shape */}
+        <div
+          className="absolute top-1/2 -left-3 -translate-y-1/2 w-4 h-4 rounded-full shadow-md transition-all duration-500"
+          style={{ backgroundColor: colors.quaternary }}
+        />
+      </div>
+
+      {/* Central Geometric Core */}
+      <div className="relative z-10 flex items-center justify-center animate-[bounce_4s_easeInOut_infinite]">
+        <svg
+          className="w-32 h-32 transition-all duration-700 ease-out transform hover:scale-105"
+          viewBox="0 0 100 100"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Icosahedron Facets */}
+          <polygon
+            points="50,10 85,30 50,50"
+            fill={activeColor}
+            fillOpacity="0.85"
+            stroke={colors.edge}
+            strokeWidth="1.5"
+          />
+          <polygon
+            points="50,10 15,30 50,50"
+            fill={activeColor}
+            fillOpacity="0.65"
+            stroke={colors.edge}
+            strokeWidth="1.5"
+          />
+          <polygon
+            points="15,30 15,70 50,50"
+            fill={activeColor}
+            fillOpacity="0.75"
+            stroke={colors.edge}
+            strokeWidth="1.5"
+          />
+          <polygon
+            points="85,30 85,70 50,50"
+            fill={activeColor}
+            fillOpacity="0.9"
+            stroke={colors.edge}
+            strokeWidth="1.5"
+          />
+          <polygon
+            points="15,70 50,90 50,50"
+            fill={activeColor}
+            fillOpacity="0.5"
+            stroke={colors.edge}
+            strokeWidth="1.5"
+          />
+          <polygon
+            points="85,70 50,90 50,50"
+            fill={activeColor}
+            fillOpacity="0.8"
+            stroke={colors.edge}
+            strokeWidth="1.5"
+          />
+        </svg>
+      </div>
+    </div>
   );
 };
 
