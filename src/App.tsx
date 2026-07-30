@@ -9,6 +9,7 @@ import IntroModal from "@/components/IntroModal";
 import Resourcely from "@/components/Resourcely";
 import StudyBanner from "@/components/StudyBanner";
 import ScrollToTopOnRoute from "@/components/ScrollToTopOnRoute";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -78,38 +79,39 @@ const App = () => {
           <BrowserRouter>
             <ScrollToTopOnRoute />
             <StudyBanner />
-            <Suspense fallback={<PageLoader />}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/courses" element={<Courses />} />
-                <Route path="/resources" element={<Resources />} />
-                <Route path="/ebooks" element={<Ebooks />} />
-                <Route path="/apps" element={<Apps />} />
-                <Route path="/favorites" element={<Favorites />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/install" element={<Install />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/ai" element={<AI />} />
-                <Route path="/collection/:slug" element={<CollectionPage />} />
-                <Route path="/special-courses" element={<SpecialCourses />} />
-                <Route path="/foss-apps" element={<FossApps />} />
-                <Route path="/shizuku-apps" element={<ShizukuApps />} />
-                <Route path="/morphe" element={<Morphe />} />
-                <Route path="/material-you" element={<MaterialYou />} />
-                <Route path="/telegram-tweaks" element={<TelegramTweaks />} />
-                <Route path="/guru-mann-fitness" element={<GurMannFitnessBooks />} />
-                <Route path="/developer-roadmap" element={<DeveloperRoadmap />} />
-                <Route path="/tv-apps" element={<TvApps />} />
-                <Route path="/api-hub" element={<ApiHub />} />
-                <Route path="/games" element={<Games />} />
-                <Route path="/iot" element={<Iot />} />
-                <Route path="/android-re" element={<AndroidRe />} />
-                <Route path="/design-md" element={<DesignMd />} />
-                <Route path="/admin" element={<Admin />} />
-                <Route path="*" element={<NotFound />} />
-
-              </Routes>
-            </Suspense>
+            <ErrorBoundary>
+              <Suspense fallback={<PageLoader />}>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/courses" element={<Courses />} />
+                  <Route path="/resources" element={<Resources />} />
+                  <Route path="/ebooks" element={<Ebooks />} />
+                  <Route path="/apps" element={<Apps />} />
+                  <Route path="/favorites" element={<Favorites />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/install" element={<Install />} />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route path="/ai" element={<AI />} />
+                  <Route path="/collection/:slug" element={<CollectionPage />} />
+                  <Route path="/special-courses" element={<SpecialCourses />} />
+                  <Route path="/foss-apps" element={<FossApps />} />
+                  <Route path="/shizuku-apps" element={<ShizukuApps />} />
+                  <Route path="/morphe" element={<Morphe />} />
+                  <Route path="/material-you" element={<MaterialYou />} />
+                  <Route path="/telegram-tweaks" element={<TelegramTweaks />} />
+                  <Route path="/guru-mann-fitness" element={<GurMannFitnessBooks />} />
+                  <Route path="/developer-roadmap" element={<DeveloperRoadmap />} />
+                  <Route path="/tv-apps" element={<TvApps />} />
+                  <Route path="/api-hub" element={<ApiHub />} />
+                  <Route path="/games" element={<Games />} />
+                  <Route path="/iot" element={<Iot />} />
+                  <Route path="/android-re" element={<AndroidRe />} />
+                  <Route path="/design-md" element={<DesignMd />} />
+                  <Route path="/admin" element={<Admin />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
             <IntroModal />
             <Resourcely />
           </BrowserRouter>
