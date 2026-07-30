@@ -120,7 +120,7 @@ const BottomNav = () => {
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-4 rounded-l-2xl bg-gradient-to-r from-card to-transparent z-10" />
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-4 rounded-r-2xl bg-gradient-to-l from-card to-transparent z-10" />
           <div
-            className="flex items-center gap-1 overflow-x-auto no-scrollbar snap-x snap-mandatory px-3 py-1.5"
+            className="flex items-center gap-1 overflow-x-auto no-scrollbar snap-x snap-proximity px-3 py-1.5"
             style={{ paddingBottom: "max(0.375rem, env(safe-area-inset-bottom))" }}
           >
             {links.map((link) => {
