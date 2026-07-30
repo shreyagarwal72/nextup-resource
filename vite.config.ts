@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import path from "path";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -34,6 +34,7 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
+        mode: "development",
         navigateFallbackDenylist: [/^\/api\//],
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg}"],
         runtimeCaching: [
@@ -58,8 +59,12 @@ export default defineConfig(({ mode }) => ({
           },
         ],
       },
+      minify: false,
     }),
   ].filter(Boolean),
+  build: {
+    minify: "esbuild",
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
