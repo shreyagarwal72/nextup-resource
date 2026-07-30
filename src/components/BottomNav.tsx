@@ -1,4 +1,5 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import {
   Home,
   BookOpen,
@@ -7,7 +8,6 @@ import {
   Globe,
   BookText,
   Send,
-  MoreHorizontal,
   Github,
   Zap,
   Briefcase,
@@ -23,226 +23,124 @@ import {
   Palette,
 } from "lucide-react";
 
-// Ring 1 — Primary
-const primaryLinks = [
-  { to: "/", icon: Home, label: "Home" },
-  { to: "/resources", icon: FolderOpen, label: "Resources" },
-  { to: "/courses", icon: BookOpen, label: "Courses" },
-  { to: "/ebooks", icon: BookText, label: "Ebooks" },
-  { to: "/apps", icon: Globe, label: "Apps" },
+type Accent = "primary" | "secondary" | "tertiary" | "quaternary";
+
+const links: { to: string; icon: any; label: string; accent: Accent }[] = [
+  // Ring 1 — Primary
+  { to: "/", icon: Home, label: "Home", accent: "primary" },
+  { to: "/resources", icon: FolderOpen, label: "Resources", accent: "primary" },
+  { to: "/courses", icon: BookOpen, label: "Courses", accent: "primary" },
+  { to: "/ebooks", icon: BookText, label: "Ebooks", accent: "primary" },
+  { to: "/apps", icon: Globe, label: "Apps", accent: "primary" },
+  // Ring 2 — Secondary
+  { to: "/foss-apps", icon: Github, label: "FOSS", accent: "secondary" },
+  { to: "/shizuku-apps", icon: Zap, label: "Shizuku", accent: "secondary" },
+  { to: "/morphe", icon: Sparkles, label: "Morphe", accent: "secondary" },
+  { to: "/material-you", icon: Layers, label: "MatYou", accent: "secondary" },
+  { to: "/tv-apps", icon: Tv, label: "TV Apps", accent: "secondary" },
+  // Ring 3 — Tertiary
+  { to: "/ai", icon: Bot, label: "AI", accent: "tertiary" },
+  { to: "/telegram-tweaks", icon: Send, label: "Telegram", accent: "tertiary" },
+  { to: "/guru-mann-fitness", icon: Dumbbell, label: "Fitness", accent: "tertiary" },
+  { to: "/developer-roadmap", icon: Map, label: "Roadmap", accent: "tertiary" },
+  { to: "/special-courses", icon: Briefcase, label: "Placement", accent: "tertiary" },
+  // Ring 4 — Quaternary
+  { to: "/android-re", icon: Bug, label: "Android RE", accent: "quaternary" },
+  { to: "/design-md", icon: Palette, label: "Design.md", accent: "quaternary" },
+  { to: "/api-hub", icon: Plug, label: "API Hub", accent: "quaternary" },
+  { to: "/games", icon: Gamepad2, label: "Games", accent: "quaternary" },
+  { to: "/iot", icon: Cpu, label: "IoT", accent: "quaternary" },
 ];
 
-// Ring 2 — Secondary ("more")
-const moreLinks = [
-  { to: "/foss-apps", icon: Github, label: "FOSS" },
-  { to: "/shizuku-apps", icon: Zap, label: "Shizuku" },
-  { to: "/morphe", icon: Sparkles, label: "Morphe" },
-  { to: "/material-you", icon: Layers, label: "MatYou" },
-  { to: "/tv-apps", icon: Tv, label: "TV Apps" },
-];
-
-// Ring 3 — Tertiary ("misc")
-const miscLinks = [
-  { to: "/ai", icon: Bot, label: "AI" },
-  { to: "/telegram-tweaks", icon: Send, label: "Telegram" },
-  { to: "/guru-mann-fitness", icon: Dumbbell, label: "Fitness" },
-  { to: "/developer-roadmap", icon: Map, label: "Roadmap" },
-  { to: "/special-courses", icon: Briefcase, label: "Placement" },
-];
-
-// Ring 4 — Quaternary ("hidden")
-const hiddenLinks = [
-  { to: "/android-re", icon: Bug, label: "Android RE" },
-  { to: "/design-md", icon: Palette, label: "Design.md" },
-  { to: "/api-hub", icon: Plug, label: "API Hub" },
-  { to: "/games", icon: Gamepad2, label: "Games" },
-  { to: "/iot", icon: Cpu, label: "IoT" },
-];
-
-const morePaths = moreLinks.map((l) => l.to);
-const miscPaths = [...miscLinks.map((l) => l.to), "/guru-mann-fitness-books"];
-const hiddenPaths = hiddenLinks.map((l) => l.to);
+const textCls: Record<Accent, string> = {
+  primary: "text-primary",
+  secondary: "text-secondary",
+  tertiary: "text-tertiary",
+  quaternary: "text-quaternary",
+};
+const bgCls: Record<Accent, string> = {
+  primary: "bg-primary",
+  secondary: "bg-secondary",
+  tertiary: "bg-tertiary",
+  quaternary: "bg-quaternary",
+};
 
 const NavItem = ({
   to,
   icon: Icon,
   label,
+  accent,
   active,
-  badge,
-  accent = "primary",
+  itemRef,
 }: {
   to: string;
   icon: any;
   label: string;
+  accent: Accent;
   active: boolean;
-  badge?: number;
-  accent?: "primary" | "secondary" | "tertiary" | "quaternary";
-}) => {
-  const textCls =
-    accent === "secondary"
-      ? "text-secondary"
-      : accent === "tertiary"
-      ? "text-tertiary"
-      : accent === "quaternary"
-      ? "text-quaternary"
-      : "text-primary";
-  const bgCls =
-    accent === "secondary"
-      ? "bg-secondary"
-      : accent === "tertiary"
-      ? "bg-tertiary"
-      : accent === "quaternary"
-      ? "bg-quaternary"
-      : "bg-primary";
-  return (
+  itemRef?: (el: HTMLAnchorElement | null) => void;
+}) => (
   <Link
+    ref={itemRef}
     to={to}
-    className={`relative flex flex-col items-center justify-center px-2 py-1.5 rounded-xl transition-all duration-200 ${
-      active ? textCls : "text-muted-foreground"
+    className={`relative flex shrink-0 snap-center flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200 ${
+      active ? textCls[accent] : "text-muted-foreground"
     }`}
   >
     {active && (
-      <div className={`absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-1 rounded-full ${bgCls}`} />
+      <div className={`absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-1 rounded-full ${bgCls[accent]}`} />
     )}
-    <div className="relative">
-      <Icon className="w-5 h-5" strokeWidth={active ? 2.5 : 2} />
-      {badge != null && badge > 0 && (
-        <span className="absolute -top-1.5 -right-2 w-4 h-4 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full flex items-center justify-center border border-foreground/80">
-          {badge > 9 ? "9+" : badge}
-        </span>
-      )}
-    </div>
-    {active && (
-      <span className={`text-[10px] font-bold ${textCls} mt-0.5 animate-fade-in`}>
-        {label}
-      </span>
-    )}
+    <Icon className="w-5 h-5" strokeWidth={active ? 2.5 : 2} />
+    <span
+      className={`text-[10px] whitespace-nowrap ${active ? `font-bold ${textCls[accent]}` : "font-medium"}`}
+    >
+      {label}
+    </span>
   </Link>
-  );
-};
+);
 
 const BottomNav = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-
   const isActive = (path: string) => location.pathname === path;
-  const isOnMorePage = morePaths.includes(location.pathname) || location.pathname.startsWith("/collection/");
-  const isOnMiscPage = miscPaths.includes(location.pathname);
-  const isOnHiddenPage = hiddenPaths.includes(location.pathname);
+  const activeRef = useRef<HTMLAnchorElement | null>(null);
 
-  // On desktop, only show bottom nav when the user is in a secondary/misc/hidden ring,
-  // since the primary links live in the header already.
-  const desktopClass = isOnMorePage || isOnMiscPage || isOnHiddenPage ? "" : "md:hidden";
+  useEffect(() => {
+    activeRef.current?.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  }, [location.pathname]);
 
-  const shell = (children: React.ReactNode) => (
-    <nav className={`fixed bottom-0 left-0 right-0 z-50 ${desktopClass}`}>
-      <div className="mx-2 md:mx-auto md:max-w-2xl mb-2 md:mb-4 bg-card border-2 border-foreground/80 rounded-2xl shadow-pop">
-        <div
-          className="flex items-center justify-around px-1 py-1.5"
-          style={{ paddingBottom: "max(0.375rem, env(safe-area-inset-bottom))" }}
-        >
-          {children}
+  return (
+    <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
+      <div className="mx-2 mb-2 bg-card border-2 border-foreground/80 rounded-2xl shadow-pop">
+        <div className="relative">
+          {/* Edge fades hint that the row scrolls */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-4 rounded-l-2xl bg-gradient-to-r from-card to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-4 rounded-r-2xl bg-gradient-to-l from-card to-transparent z-10" />
+          <div
+            className="flex items-center gap-1 overflow-x-auto no-scrollbar snap-x snap-mandatory px-3 py-1.5"
+            style={{ paddingBottom: "max(0.375rem, env(safe-area-inset-bottom))" }}
+          >
+            {links.map((link) => {
+              const active = isActive(link.to);
+              return (
+                <NavItem
+                  key={link.to}
+                  to={link.to}
+                  icon={link.icon}
+                  label={link.label}
+                  accent={link.accent}
+                  active={active}
+                  itemRef={active ? (el) => (activeRef.current = el) : undefined}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </nav>
-  );
-
-  // Hidden nav (4th ring) — toggle goes back to primary
-  if (isOnHiddenPage) {
-    return shell(
-      <>
-        {hiddenLinks.map((link) => (
-          <NavItem
-            key={link.to}
-            to={link.to}
-            icon={link.icon}
-            label={link.label}
-            active={isActive(link.to)}
-            accent="quaternary"
-          />
-        ))}
-        <button
-          onClick={() => navigate("/")}
-          aria-label="Back to main menu"
-          className="flex flex-col items-center justify-center px-2 py-1.5 rounded-xl text-muted-foreground"
-        >
-          <MoreHorizontal className="w-5 h-5" strokeWidth={2} />
-        </button>
-      </>
-    );
-  }
-
-  // Misc nav (3rd ring) — toggle goes to hidden ring
-  if (isOnMiscPage) {
-    return shell(
-      <>
-        {miscLinks.map((link) => (
-          <NavItem
-            key={link.to}
-            to={link.to}
-            icon={link.icon}
-            label={link.label}
-            active={isActive(link.to)}
-            accent="tertiary"
-          />
-        ))}
-        <button
-          onClick={() => navigate("/android-re")}
-          aria-label="Switch to hidden menu"
-          className="flex flex-col items-center justify-center px-2 py-1.5 rounded-xl text-muted-foreground"
-        >
-          <MoreHorizontal className="w-5 h-5" strokeWidth={2} />
-        </button>
-      </>
-    );
-  }
-
-  // Secondary nav — toggle goes to misc
-  if (isOnMorePage) {
-    return shell(
-      <>
-        {moreLinks.map((link) => (
-          <NavItem
-            key={link.to}
-            to={link.to}
-            icon={link.icon}
-            label={link.label}
-            active={isActive(link.to)}
-            accent="secondary"
-          />
-        ))}
-        <button
-          onClick={() => navigate("/ai")}
-          aria-label="Switch to extras menu"
-          className="flex flex-col items-center justify-center px-2 py-1.5 rounded-xl text-muted-foreground"
-        >
-          <MoreHorizontal className="w-5 h-5" strokeWidth={2} />
-        </button>
-      </>
-    );
-  }
-
-  // Primary nav — toggle goes to secondary
-  return shell(
-    <>
-      {primaryLinks.map((link) => (
-        <NavItem
-          key={link.to}
-          to={link.to}
-          icon={link.icon}
-          label={link.label}
-          active={isActive(link.to)}
-          accent="primary"
-        />
-      ))}
-      <button
-        onClick={() => navigate("/foss-apps")}
-        aria-label="Switch to more menu"
-        className="flex flex-col items-center justify-center px-2 py-1.5 rounded-xl text-muted-foreground"
-      >
-        <MoreHorizontal className="w-5 h-5" strokeWidth={2} />
-      </button>
-    </>
   );
 };
 
