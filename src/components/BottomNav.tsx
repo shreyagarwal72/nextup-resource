@@ -78,17 +78,18 @@ const NavItem = ({
   label: string;
   accent: Accent;
   active: boolean;
-  itemRef?: (el: HTMLAnchorElement | null) => void;
+  itemRef: (el: HTMLAnchorElement | null) => void;
 }) => (
   <Link
     ref={itemRef}
     to={to}
-    className={`relative flex shrink-0 snap-center flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200 ${
+    className={`relative flex shrink-0 snap-center flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl transition-[color] duration-200 will-change-transform ${
       active ? textCls[accent] : "text-muted-foreground"
     }`}
+    style={{ transition: "transform 150ms ease-out, opacity 150ms ease-out, color 200ms ease-out" }}
   >
     {active && (
-      <div className={`absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-1 rounded-full ${bgCls[accent]}`} />
+      <div className={`absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-1 rounded-full ${bgCls[accent]} animate-fade-in`} />
     )}
     <Icon className="w-5 h-5" strokeWidth={active ? 2.5 : 2} />
     <span
@@ -102,10 +103,55 @@ const NavItem = ({
 const BottomNav = () => {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
-  const activeRef = useRef<HTMLAnchorElement | null>(null);
+
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const rafRef = useRef<number>();
+
+  // Coverflow-style scaling: items nearer the center of the visible strip
+  // grow and go fully opaque; items further out shrink and fade — tied
+  // directly to scroll position so it animates continuously as you swipe.
+  const updateScaling = () => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+    const rect = scroller.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const maxDist = rect.width / 2;
+
+    itemRefs.current.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const itemCenter = r.left + r.width / 2;
+      const dist = Math.min(maxDist, Math.abs(itemCenter - centerX));
+      const t = dist / maxDist;
+      const scale = 1 - t * 0.2;
+      const opacity = 1 - t * 0.5;
+      el.style.transform = `scale(${scale})`;
+      el.style.opacity = String(opacity);
+    });
+  };
 
   useEffect(() => {
-    activeRef.current?.scrollIntoView({
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const onScroll = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(updateScaling);
+    };
+
+    updateScaling();
+    scroller.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      scroller.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    const activeEl = itemRefs.current.get(location.pathname);
+    activeEl?.scrollIntoView({
       behavior: "smooth",
       inline: "center",
       block: "nearest",
@@ -120,6 +166,7 @@ const BottomNav = () => {
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-4 rounded-l-2xl bg-gradient-to-r from-card to-transparent z-10" />
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-4 rounded-r-2xl bg-gradient-to-l from-card to-transparent z-10" />
           <div
+            ref={scrollerRef}
             className="flex items-center gap-1 overflow-x-auto no-scrollbar snap-x snap-proximity px-3 py-1.5"
             style={{ paddingBottom: "max(0.375rem, env(safe-area-inset-bottom))" }}
           >
@@ -133,7 +180,10 @@ const BottomNav = () => {
                   label={link.label}
                   accent={link.accent}
                   active={active}
-                  itemRef={active ? (el) => (activeRef.current = el) : undefined}
+                  itemRef={(el) => {
+                    if (el) itemRefs.current.set(link.to, el);
+                    else itemRefs.current.delete(link.to);
+                  }}
                 />
               );
             })}
