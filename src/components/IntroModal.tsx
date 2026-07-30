@@ -13,7 +13,7 @@ import {
   MoreHorizontal,
 } from "lucide-react";
 
-const STORAGE_KEY = "intro-seen-v3";
+const STORAGE_KEY = "intro-seen-v4";
 export const OPEN_INTRO_EVENT = "nextup:open-intro";
 
 type Step = {
@@ -82,7 +82,7 @@ const STEPS: Step[] = [
     body: "The layout adapts to your device — same content, cleanest possible surface.",
     bullets: [
       "Desktop: use the “More ▾” dropdown for extra pages",
-      "Mobile: tap “•••” in the bottom bar to cycle menus",
+      "Mobile: swipe the bottom bar sideways to see every page",
       "Bell icon (top-right) opens the What's New inbox",
     ],
   },
