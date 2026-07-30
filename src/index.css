@@ -512,3 +512,12 @@
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
 }
+
+/* Hides scrollbar but keeps element scrollable */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
