@@ -41,7 +41,7 @@ Nextup Resources is the curated learning platform that aggregates high-quality e
 - **Resourcely Chatbot** — In-app assistant powered by Lovable AI with DeepSeek fallback; keys managed from `/admin`
 - **What's New Inbox** — Bell icon surfacing every item (including Telegram bots) added in the last 30 days
 - **Welcome Intro** — One-time onboarding modal with “Don't show again”, reopenable from the footer
-- **Triple Bottom Nav** — Cycles between Primary → More → Misc menus on mobile
+- **Scrollable Bottom Nav** — Every page in one swipeable row on mobile, with the active page auto-centered
 - **Favorites System** — Bookmark content across all categories with persistent storage
 - **Study Mode** — Focus-oriented UI with a calming green palette
 - **Dark Mode** — Full light/dark theme support with refined contrast
