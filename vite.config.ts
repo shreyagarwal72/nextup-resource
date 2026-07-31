@@ -34,7 +34,6 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        mode: "development",
         navigateFallbackDenylist: [/^\/api\//],
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg}"],
         runtimeCaching: [
@@ -59,6 +58,7 @@ export default defineConfig(({ mode }) => ({
           },
         ],
       },
+      mode: "production",
       minify: false,
     }),
   ].filter(Boolean),
