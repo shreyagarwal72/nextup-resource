@@ -78,30 +78,6 @@ const Install = () => {
               ))}
             </div>
 
-            {/* APK Download */}
-            <div className="bg-card border-2 border-foreground/80 rounded-2xl p-6 shadow-pop-soft mb-6 animate-fade-in delay-350 text-left">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-secondary border-2 border-foreground/80 shadow-pop-soft flex items-center justify-center shrink-0">
-                  <Download className="w-5 h-5 text-secondary-foreground" strokeWidth={2.5} />
-                </div>
-                <div>
-                  <h2 className="text-base font-extrabold text-foreground font-heading">Download APK</h2>
-                  <p className="text-xs text-muted-foreground">For Android — direct install</p>
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground mb-4">
-                Prefer a native APK? Download and install directly on your Android device. Enable <span className="font-semibold text-foreground">Install from unknown sources</span> in settings if prompted.
-              </p>
-              <a
-                href="https://github.com/shreyagarwal72/nextup-resource/releases/tag/1.0.1"
-                download="Nextup Resources.apk"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-secondary text-secondary-foreground border-2 border-foreground/80 shadow-pop font-bold text-sm hover:shadow-pop-hover hover:-translate-y-0.5 transition-all duration-200"
-              >
-                <Download className="w-4 h-4" strokeWidth={2.5} />
-                Download APK
-              </a>
-            </div>
-
             {isStandalone || isInstalled ? (
               <div className="bg-card border-2 border-foreground/80 rounded-2xl p-8 shadow-pop-soft animate-fade-in delay-400">
                 <CheckCircle className="w-16 h-16 text-quaternary mx-auto mb-4" strokeWidth={2.5} />
