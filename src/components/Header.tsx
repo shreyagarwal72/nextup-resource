@@ -69,12 +69,12 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex min-w-0 flex-1 items-center justify-center gap-0.5 lg:gap-1 px-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`nav-pill relative ${
+                  className={`nav-pill relative shrink-0 px-2.5 lg:px-4 text-[13px] lg:text-sm ${
                     isActive(link.to)
                       ? "bg-tertiary text-tertiary-foreground font-bold border-2 border-foreground/80"
                       : "text-muted-foreground hover:text-foreground"
@@ -92,7 +92,7 @@ const Header = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button
-                    className={`nav-pill relative inline-flex items-center gap-1 ${
+                    className={`nav-pill relative shrink-0 inline-flex items-center gap-1 px-2.5 lg:px-4 text-[13px] lg:text-sm ${
                       moreLinks.some((l) => isActive(l.to))
                         ? "bg-tertiary text-tertiary-foreground font-bold border-2 border-foreground/80"
                         : "text-muted-foreground hover:text-foreground"
@@ -105,7 +105,7 @@ const Header = () => {
                 <DropdownMenuContent
                   align="end"
                   sideOffset={8}
-                  className="w-64 p-2 bg-card border-2 border-foreground/80 shadow-pop rounded-2xl max-h-[70vh] overflow-y-auto"
+                  className="w-64 p-2 bg-card border-2 border-foreground/80 shadow-pop rounded-2xl max-h-[70vh] overflow-y-auto animate-slide-down-pop"
                 >
                   {moreLinks.map((link) => {
                     const Icon = link.icon;
@@ -113,7 +113,7 @@ const Header = () => {
                       <DropdownMenuItem key={link.to} asChild className="focus:bg-muted/60 rounded-xl">
                         <Link
                           to={link.to}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold cursor-pointer ${
+                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold cursor-pointer transition-transform duration-200 ease-bounce hover:translate-x-1 ${
                             isActive(link.to)
                               ? "bg-tertiary text-tertiary-foreground"
                               : "text-foreground"
@@ -129,7 +129,7 @@ const Header = () => {
               </DropdownMenu>
             </nav>
 
-            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            <div className="flex items-center gap-1.5 lg:gap-2.5 shrink-0">
               <Link
                 to="/favorites"
                 aria-label={`Favorites${totalCount > 0 ? ` (${totalCount})` : ""}`}
@@ -150,7 +150,7 @@ const Header = () => {
               <StudyModeToggle />
               <ThemeToggle />
 
-              <div className="hidden md:block">
+              <div className="hidden lg:block">
                 <Button size="default" asChild>
                   <Link to="/courses">Get Started</Link>
                 </Button>
