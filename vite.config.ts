@@ -16,7 +16,9 @@ export default defineConfig(({ mode }) => ({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.png", "pwa-192x192.png", "pwa-512x512.png"],
+      injectRegister: null,
+      devOptions: { enabled: false },
+      includeAssets: ["favicon.png", "pwa-192x192.png", "pwa-512x512.png", "offline.html"],
       manifest: {
         name: "Nextup Resources",
         short_name: "Nextup",
@@ -34,7 +36,9 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        navigateFallbackDenylist: [/^\/api\//],
+        navigateFallback: "index.html",
+        navigateFallbackDenylist: [/^\/api\//, /^\/~oauth/],
+        additionalManifestEntries: [{ url: "/offline.html", revision: `${Date.now()}` }],
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg}"],
         runtimeCaching: [
           {
