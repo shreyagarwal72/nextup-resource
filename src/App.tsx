@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -71,7 +71,7 @@ const PageLoader = () => (
 );
 
 /** Fades + lifts each page in on route change (respects reduced motion via .reduce-motion). */
-const RouteTransition = ({ children }: { children: React.ReactNode }) => {
+const RouteTransition = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
   return (
     <div key={location.pathname} className="animate-route-enter">
