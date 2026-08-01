@@ -116,11 +116,21 @@ const BottomNav = () => {
   const [open, setOpen] = useState(false);
 
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const stripRef = useRef<HTMLDivElement>(null);
 
   // Keep the active dock item centred as the route changes.
+  // NOTE: intentionally NOT using scrollIntoView here — on a `fixed` nav it
+  // causes some mobile browsers to also scroll the window/page, which was
+  // the source of the page auto-scrolling down on every route change.
+  // Scrolling the strip's own scrollLeft keeps this fully contained.
   useEffect(() => {
     const activeEl = itemRefs.current.get(location.pathname);
-    activeEl?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    const strip = stripRef.current;
+    if (activeEl && strip) {
+      const target =
+        activeEl.offsetLeft - strip.clientWidth / 2 + activeEl.clientWidth / 2;
+      strip.scrollTo({ left: target, behavior: "smooth" });
+    }
     setOpen(false);
   }, [location.pathname]);
 
@@ -219,7 +229,7 @@ const BottomNav = () => {
           <div className="relative min-w-0 flex-1">
             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-5 bg-gradient-to-r from-card to-transparent" />
             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-5 bg-gradient-to-l from-card to-transparent" />
-            <div className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1">
+            <div ref={stripRef} className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1">
               {links.map((link) => (
                 <DockItem
                   key={link.to}
