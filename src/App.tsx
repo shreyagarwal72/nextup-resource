@@ -3,13 +3,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import IntroModal from "@/components/IntroModal";
 import Resourcely from "@/components/Resourcely";
 import StudyBanner from "@/components/StudyBanner";
 import ScrollToTopOnRoute from "@/components/ScrollToTopOnRoute";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import OfflineFallback from "@/components/OfflineFallback";
 import { Analytics } from "@vercel/analytics/react";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -69,6 +70,16 @@ const PageLoader = () => (
   </div>
 );
 
+/** Fades + lifts each page in on route change (respects reduced motion via .reduce-motion). */
+const RouteTransition = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  return (
+    <div key={location.pathname} className="animate-route-enter">
+      {children}
+    </div>
+  );
+};
+
 const App = () => {
   return (
     <ThemeProvider>
@@ -81,6 +92,7 @@ const App = () => {
             <StudyBanner />
             <ErrorBoundary>
               <Suspense fallback={<PageLoader />}>
+                <RouteTransition>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/courses" element={<Courses />} />
@@ -110,8 +122,10 @@ const App = () => {
                   <Route path="/admin" element={<Admin />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
+                </RouteTransition>
               </Suspense>
             </ErrorBoundary>
+            <OfflineFallback />
             <IntroModal />
             <Resourcely />
           </BrowserRouter>
