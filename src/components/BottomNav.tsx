@@ -13,7 +13,7 @@ import {
   Briefcase,
   Sparkles,
   Layers,
-  Map,
+  Map as MapIcon,
   Dumbbell,
   Tv,
   Plug,
@@ -42,7 +42,7 @@ const links: { to: string; icon: any; label: string; accent: Accent }[] = [
   { to: "/ai", icon: Bot, label: "AI", accent: "tertiary" },
   { to: "/telegram-tweaks", icon: Send, label: "Telegram", accent: "tertiary" },
   { to: "/guru-mann-fitness", icon: Dumbbell, label: "Fitness", accent: "tertiary" },
-  { to: "/developer-roadmap", icon: Map, label: "Roadmap", accent: "tertiary" },
+  { to: "/developer-roadmap", icon: MapIcon, label: "Roadmap", accent: "tertiary" },
   { to: "/special-courses", icon: Briefcase, label: "Placement", accent: "tertiary" },
   // Ring 4 — Quaternary
   { to: "/android-re", icon: Bug, label: "Android RE", accent: "quaternary" },
