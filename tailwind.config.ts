@@ -136,6 +136,22 @@ export default {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "slide-up-pop": {
+          "0%": { transform: "translateY(24px) scale(0.98)", opacity: "0" },
+          "100%": { transform: "translateY(0) scale(1)", opacity: "1" },
+        },
+        "route-enter": {
+          "0%": { opacity: "0", transform: "translateY(12px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "slide-down-pop": {
+          "0%": { transform: "translateY(-12px) scale(0.97)", opacity: "0" },
+          "100%": { transform: "translateY(0) scale(1)", opacity: "1" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -147,6 +163,10 @@ export default {
         "scale-in": "scale-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
         float: "float 6s ease-in-out infinite",
         marquee: "marquee 20s linear infinite",
+        "slide-up-pop": "slide-up-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "slide-down-pop": "slide-down-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "route-enter": "route-enter 0.4s cubic-bezier(0.34, 1.3, 0.64, 1)",
+        shimmer: "shimmer 1.8s linear infinite",
       },
     },
   },

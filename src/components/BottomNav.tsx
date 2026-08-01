@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Home,
   BookOpen,
@@ -21,11 +21,14 @@ import {
   Cpu,
   Bug,
   Palette,
+  LayoutGrid,
+  X,
 } from "lucide-react";
 
 type Accent = "primary" | "secondary" | "tertiary" | "quaternary";
+type NavLinkItem = { to: string; icon: any; label: string; accent: Accent };
 
-const links: { to: string; icon: any; label: string; accent: Accent }[] = [
+const links: NavLinkItem[] = [
   // Ring 1 — Primary
   { to: "/", icon: Home, label: "Home", accent: "primary" },
   { to: "/resources", icon: FolderOpen, label: "Resources", accent: "primary" },
@@ -52,6 +55,13 @@ const links: { to: string; icon: any; label: string; accent: Accent }[] = [
   { to: "/iot", icon: Cpu, label: "IoT", accent: "quaternary" },
 ];
 
+const groups: { title: string; accent: Accent }[] = [
+  { title: "Main", accent: "primary" },
+  { title: "Android", accent: "secondary" },
+  { title: "Learn & Tools", accent: "tertiary" },
+  { title: "Explore", accent: "quaternary" },
+];
+
 const textCls: Record<Accent, string> = {
   primary: "text-primary",
   secondary: "text-secondary",
@@ -59,138 +69,178 @@ const textCls: Record<Accent, string> = {
   quaternary: "text-quaternary",
 };
 const bgCls: Record<Accent, string> = {
-  primary: "bg-primary",
-  secondary: "bg-secondary",
-  tertiary: "bg-tertiary",
-  quaternary: "bg-quaternary",
+  primary: "bg-primary text-primary-foreground",
+  secondary: "bg-secondary text-secondary-foreground",
+  tertiary: "bg-tertiary text-tertiary-foreground",
+  quaternary: "bg-quaternary text-quaternary-foreground",
 };
 
-const NavItem = ({
-  to,
-  icon: Icon,
-  label,
-  accent,
+/** Icon-only pill that expands with a spring when it becomes the active route. */
+const DockItem = ({
+  link,
   active,
   itemRef,
 }: {
-  to: string;
-  icon: any;
-  label: string;
-  accent: Accent;
+  link: NavLinkItem;
   active: boolean;
   itemRef: (el: HTMLAnchorElement | null) => void;
-}) => (
-  <Link
-    ref={itemRef}
-    to={to}
-    className={`relative flex shrink-0 snap-center flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl transition-[color] duration-200 will-change-transform ${
-      active ? textCls[accent] : "text-muted-foreground"
-    }`}
-    style={{ transition: "transform 150ms ease-out, opacity 150ms ease-out, color 200ms ease-out" }}
-  >
-    {active && (
-      <div className={`absolute -top-1 left-1/2 -translate-x-1/2 w-6 h-1 rounded-full ${bgCls[accent]} animate-fade-in`} />
-    )}
-    <Icon className="w-5 h-5" strokeWidth={active ? 2.5 : 2} />
-    <span
-      className={`text-[10px] whitespace-nowrap ${active ? `font-bold ${textCls[accent]}` : "font-medium"}`}
+}) => {
+  const Icon = link.icon;
+  return (
+    <Link
+      ref={itemRef}
+      to={link.to}
+      aria-label={link.label}
+      aria-current={active ? "page" : undefined}
+      className={`group relative flex shrink-0 snap-center items-center gap-1.5 rounded-full border-2 px-2.5 py-2 transition-all duration-300 ease-bounce active:scale-90 ${
+        active
+          ? `${bgCls[link.accent]} border-foreground/80 shadow-pop-soft`
+          : "border-transparent text-muted-foreground hover:border-foreground/20 hover:bg-muted/60"
+      }`}
     >
-      {label}
-    </span>
-  </Link>
-);
+      <Icon className="w-5 h-5 transition-transform duration-300 ease-bounce group-active:rotate-6" strokeWidth={active ? 2.6 : 2} />
+      <span
+        className={`overflow-hidden whitespace-nowrap text-[11px] font-extrabold transition-all duration-300 ease-bounce ${
+          active ? "max-w-[88px] opacity-100" : "max-w-0 opacity-0"
+        }`}
+      >
+        {link.label}
+      </span>
+    </Link>
+  );
+};
 
 const BottomNav = () => {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
+  const [open, setOpen] = useState(false);
 
-  const scrollerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
-  const rafRef = useRef<number>();
 
-  // Coverflow-style scaling: items nearer the center of the visible strip
-  // grow and go fully opaque; items further out shrink and fade — tied
-  // directly to scroll position so it animates continuously as you swipe.
-  const updateScaling = () => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-    const rect = scroller.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const maxDist = rect.width / 2;
-
-    itemRefs.current.forEach((el) => {
-      const r = el.getBoundingClientRect();
-      const itemCenter = r.left + r.width / 2;
-      const dist = Math.min(maxDist, Math.abs(itemCenter - centerX));
-      const t = dist / maxDist;
-      const scale = 1 - t * 0.2;
-      const opacity = 1 - t * 0.5;
-      el.style.transform = `scale(${scale})`;
-      el.style.opacity = String(opacity);
-    });
-  };
-
-  useEffect(() => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-
-    const onScroll = () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(updateScaling);
-    };
-
-    updateScaling();
-    scroller.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      scroller.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
+  // Keep the active dock item centred as the route changes.
   useEffect(() => {
     const activeEl = itemRefs.current.get(location.pathname);
-    activeEl?.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "nearest",
-    });
+    activeEl?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    setOpen(false);
   }, [location.pathname]);
 
+  // Lock body scroll + close on Escape while the launcher sheet is open.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  const activeLink = links.find((l) => isActive(l.to));
+
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
-      <div className="mx-2 mb-2 bg-card border-2 border-foreground/80 rounded-2xl shadow-pop">
-        <div className="relative">
-          {/* Edge fades hint that the row scrolls */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-4 rounded-l-2xl bg-gradient-to-r from-card to-transparent z-10" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-4 rounded-r-2xl bg-gradient-to-l from-card to-transparent z-10" />
+    <>
+      {/* Launcher sheet — every destination, grouped */}
+      {open && (
+        <div className="fixed inset-0 z-[60] md:hidden">
+          <button
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+            className="absolute inset-0 bg-foreground/40 backdrop-blur-sm animate-fade-in"
+          />
           <div
-            ref={scrollerRef}
-            className="flex items-center gap-1 overflow-x-auto no-scrollbar snap-x snap-proximity px-3 py-1.5"
-            style={{ paddingBottom: "max(0.375rem, env(safe-area-inset-bottom))" }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="All pages"
+            className="absolute inset-x-2 bottom-2 max-h-[78vh] overflow-y-auto rounded-3xl border-2 border-foreground/80 bg-card p-4 shadow-pop animate-slide-up-pop"
           >
-            {links.map((link) => {
-              const active = isActive(link.to);
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="font-heading text-lg font-extrabold">All pages</h2>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+                className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-foreground/80 bg-card shadow-pop-soft transition-transform duration-200 ease-bounce active:scale-90"
+              >
+                <X className="h-4 w-4" strokeWidth={2.5} />
+              </button>
+            </div>
+
+            {groups.map((group) => {
+              const items = links.filter((l) => l.accent === group.accent);
               return (
-                <NavItem
+                <div key={group.title} className="mb-4 last:mb-0">
+                  <p className="mb-2 text-[11px] font-extrabold uppercase tracking-widest text-muted-foreground">
+                    {group.title}
+                  </p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {items.map((link, i) => {
+                      const Icon = link.icon;
+                      const active = isActive(link.to);
+                      return (
+                        <Link
+                          key={link.to}
+                          to={link.to}
+                          style={{ animationDelay: `${i * 35}ms` }}
+                          className={`flex animate-pop-in flex-col items-center gap-1.5 rounded-2xl border-2 border-foreground/80 px-2 py-3 text-center opacity-0 shadow-pop-soft transition-transform duration-200 ease-bounce active:scale-95 ${
+                            active ? bgCls[link.accent] : "bg-card"
+                          }`}
+                        >
+                          <Icon className={`h-5 w-5 ${active ? "" : textCls[link.accent]}`} strokeWidth={2.5} />
+                          <span className="text-[11px] font-bold leading-tight">{link.label}</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden" aria-label="Primary">
+        <div
+          className="mx-2 mb-2 flex items-center gap-1 rounded-full border-2 border-foreground/80 bg-card/95 pl-1.5 pr-2 py-1.5 shadow-pop backdrop-blur-md"
+          style={{ marginBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
+        >
+          {/* Launcher */}
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Open all pages"
+            aria-expanded={open}
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-foreground/80 shadow-pop-soft transition-transform duration-300 ease-bounce active:scale-90 ${
+              open ? "rotate-90 bg-quaternary text-quaternary-foreground" : "bg-card"
+            }`}
+          >
+            <LayoutGrid className="h-4.5 w-4.5" strokeWidth={2.5} />
+          </button>
+
+          <div className="relative min-w-0 flex-1">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-5 bg-gradient-to-r from-card to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-5 bg-gradient-to-l from-card to-transparent" />
+            <div className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1">
+              {links.map((link) => (
+                <DockItem
                   key={link.to}
-                  to={link.to}
-                  icon={link.icon}
-                  label={link.label}
-                  accent={link.accent}
-                  active={active}
+                  link={link}
+                  active={isActive(link.to)}
                   itemRef={(el) => {
                     if (el) itemRefs.current.set(link.to, el);
                     else itemRefs.current.delete(link.to);
                   }}
                 />
-              );
-            })}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
+
+        {/* Live region so screen readers announce the current section */}
+        <span className="sr-only" aria-live="polite">
+          {activeLink ? `${activeLink.label} page` : ""}
+        </span>
+      </nav>
+    </>
   );
 };
 
