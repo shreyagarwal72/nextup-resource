@@ -157,7 +157,7 @@ const TelegramTweaks = () => {
                   <span className="whitespace-nowrap text-xs font-bold text-muted-foreground">{items.length}</span>
                   <div className="flex-1 min-w-[24px] h-0.5 bg-foreground/10 rounded-full" />
                 </div>
-                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
                   {items.map((b) => {
                     const a = accentMap[b.accent] ?? accentMap.primary;
                     const tags = splitTags(b.tag);
