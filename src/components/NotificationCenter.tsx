@@ -1,27 +1,69 @@
 import { useState, useMemo, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { Bell, X, BookOpen, Package, Smartphone, Clock, Bot, Github, Zap, Sparkles, Layers, Send, Filter } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Bell, X, Clock, Cpu, Gamepad2, Plug, Bug, Palette, LayoutGrid, Filter } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { courses, resources, ebooks, apps } from "@/data/content";
-import { aiTools } from "@/data/aiTools";
-import { fossListApps } from "@/data/fossList";
-import { shizukuApps } from "@/data/shizukuApps";
-import { materialYouApps } from "@/data/materialYouApps";
-import { telegramBots } from "@/data/telegramBots";
 
-type ItemType = "course" | "resource" | "ebook" | "app" | "ai-tool" | "foss" | "shizuku" | "morphe" | "material-you" | "telegram";
+type AnnouncementType = "page" | "feature";
 
-interface NotificationItem {
+interface Announcement {
   title: string;
-  category: string;
-  type: ItemType;
-  dateAdded: string;
+  description: string;
+  type: AnnouncementType;
+  date: string; // ISO date
   link: string;
 }
 
+// Static launch announcements. Update this list by hand when you ship a new
+// page or feature — this panel no longer auto-derives from content data.
+const announcements: Announcement[] = [
+  {
+    title: "IoT",
+    description: "A new page covering IoT tools, boards, and open-source projects.",
+    type: "page",
+    date: "2026-07-28",
+    link: "/iot",
+  },
+  {
+    title: "Games",
+    description: "A new page for game downloads and recommendations.",
+    type: "page",
+    date: "2026-07-28",
+    link: "/games",
+  },
+  {
+    title: "API Hub",
+    description: "A new page listing free and open public APIs for developers.",
+    type: "page",
+    date: "2026-07-28",
+    link: "/api-hub",
+  },
+  {
+    title: "Android RE",
+    description: "A new page for Android reverse-engineering tools and resources.",
+    type: "page",
+    date: "2026-07-28",
+    link: "/android-re",
+  },
+  {
+    title: "Design.md",
+    description: "A new page covering design systems and UI references.",
+    type: "page",
+    date: "2026-07-28",
+    link: "/design-md",
+  },
+  {
+    title: "New bottom navigation",
+    description: "The bottom nav now has a scrollable icon strip plus a category-grouped launcher for every page on the site.",
+    type: "feature",
+    date: "2026-07-28",
+    link: "/",
+  },
+];
+
 const NotificationCenter = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [filter, setFilter] = useState<ItemType | "all">("all");
+  const [filter, setFilter] = useState<AnnouncementType | "all">("all");
   const [isLoading, setIsLoading] = useState(false);
 
   // Brief skeleton flash when opening the panel or switching filter chips.
@@ -32,53 +74,27 @@ const NotificationCenter = () => {
     return () => clearTimeout(t);
   }, [isOpen, filter]);
 
+  const sortedAnnouncements = useMemo(
+    () => [...announcements].sort((a, b) => b.date.localeCompare(a.date)),
+    []
+  );
 
-  const recentItems = useMemo(() => {
-    const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-    const items: NotificationItem[] = [];
-    const within = (d?: string) => d && new Date(d) >= cutoff;
-
-    courses.forEach(c => within(c.dateAdded) && items.push({ title: c.title, category: c.category, type: "course", dateAdded: c.dateAdded!, link: c.link }));
-    resources.forEach(r => within(r.dateAdded) && items.push({ title: r.title, category: r.category, type: "resource", dateAdded: r.dateAdded!, link: r.link }));
-    ebooks.forEach(e => within(e.dateAdded) && items.push({ title: e.title, category: e.category, type: "ebook", dateAdded: e.dateAdded!, link: e.link }));
-    apps.forEach(a => within(a.dateAdded) && items.push({ title: a.title, category: a.category, type: "app", dateAdded: a.dateAdded!, link: a.link }));
-    aiTools.forEach((t: any) => within(t.dateAdded) && items.push({ title: t.name, category: t.category, type: "ai-tool", dateAdded: t.dateAdded, link: t.url }));
-    fossListApps.forEach((f: any) => within(f.dateAdded) && items.push({ title: f.name, category: f.category, type: "foss", dateAdded: f.dateAdded, link: f.url }));
-    shizukuApps.forEach((s: any) => within(s.dateAdded) && items.push({ title: s.name, category: s.category, type: "shizuku", dateAdded: s.dateAdded, link: s.url }));
-    materialYouApps.forEach((m: any) => within(m.dateAdded) && items.push({ title: m.name, category: m.category, type: "material-you", dateAdded: m.dateAdded, link: m.url }));
-    telegramBots.forEach((b) => within(b.dateAdded) && items.push({ title: b.name, category: b.category, type: "telegram", dateAdded: b.dateAdded!, link: b.url }));
-
-    return items.sort((a, b) => b.dateAdded.localeCompare(a.dateAdded));
-  }, []);
-
-  const typeIcon = (type: ItemType) => {
-    switch (type) {
-      case "course": return <BookOpen className="w-4 h-4" strokeWidth={2.5} />;
-      case "resource": return <Package className="w-4 h-4" strokeWidth={2.5} />;
-      case "app": return <Smartphone className="w-4 h-4" strokeWidth={2.5} />;
-      case "ai-tool": return <Bot className="w-4 h-4" strokeWidth={2.5} />;
-      case "foss": return <Github className="w-4 h-4" strokeWidth={2.5} />;
-      case "shizuku": return <Zap className="w-4 h-4" strokeWidth={2.5} />;
-      case "morphe": return <Sparkles className="w-4 h-4" strokeWidth={2.5} />;
-      case "material-you": return <Layers className="w-4 h-4" strokeWidth={2.5} />;
-      case "telegram": return <Send className="w-4 h-4" strokeWidth={2.5} />;
-      default: return <BookOpen className="w-4 h-4" strokeWidth={2.5} />;
+  const typeIcon = (title: string, type: AnnouncementType) => {
+    if (type === "feature") return <LayoutGrid className="w-4 h-4" strokeWidth={2.5} />;
+    switch (title) {
+      case "IoT": return <Cpu className="w-4 h-4" strokeWidth={2.5} />;
+      case "Games": return <Gamepad2 className="w-4 h-4" strokeWidth={2.5} />;
+      case "API Hub": return <Plug className="w-4 h-4" strokeWidth={2.5} />;
+      case "Android RE": return <Bug className="w-4 h-4" strokeWidth={2.5} />;
+      case "Design.md": return <Palette className="w-4 h-4" strokeWidth={2.5} />;
+      default: return <Bell className="w-4 h-4" strokeWidth={2.5} />;
     }
   };
 
-  const typeColor = (type: ItemType) => {
-    switch (type) {
-      case "course": return "bg-primary text-primary-foreground";
-      case "resource": return "bg-quaternary text-quaternary-foreground";
-      case "app": return "bg-tertiary text-tertiary-foreground";
-      case "ai-tool": return "bg-primary text-primary-foreground";
-      case "foss": return "bg-tertiary text-tertiary-foreground";
-      case "shizuku": return "bg-secondary text-secondary-foreground";
-      case "morphe": return "bg-secondary text-secondary-foreground";
-      case "material-you": return "bg-tertiary text-tertiary-foreground";
-      case "telegram": return "bg-primary text-primary-foreground";
-      default: return "bg-secondary text-secondary-foreground";
-    }
+  const typeColor = (type: AnnouncementType) => {
+    return type === "feature"
+      ? "bg-secondary text-secondary-foreground"
+      : "bg-primary text-primary-foreground";
   };
 
   const daysAgo = (date: string) => {
@@ -96,9 +112,9 @@ const NotificationCenter = () => {
         aria-label="Notifications"
       >
         <Bell className="w-5 h-5" strokeWidth={2.5} />
-        {recentItems.length > 0 && (
+        {sortedAnnouncements.length > 0 && (
           <span className="absolute -top-1 -right-1 min-w-5 h-5 px-1 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-foreground/80 ring-2 ring-card">
-            {recentItems.length > 9 ? "9+" : recentItems.length}
+            {sortedAnnouncements.length > 9 ? "9+" : sortedAnnouncements.length}
           </span>
         )}
       </button>
@@ -119,9 +135,9 @@ const NotificationCenter = () => {
                 <div className="flex items-center gap-2">
                   <Bell className="w-5 h-5 text-primary" strokeWidth={2.5} />
                   <h2 className="text-lg font-bold text-foreground font-heading">What's New</h2>
-                  {recentItems.length > 0 && (
+                  {sortedAnnouncements.length > 0 && (
                     <span className="text-xs font-bold bg-primary text-primary-foreground px-2 py-0.5 rounded-full border-2 border-foreground/80">
-                      {recentItems.length}
+                      {sortedAnnouncements.length}
                     </span>
                   )}
                 </div>
@@ -136,8 +152,8 @@ const NotificationCenter = () => {
                   Filter by type
                 </div>
                 <div className="flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-thin">
-                  {(["all", "course", "resource", "ebook", "app", "ai-tool", "foss", "shizuku", "material-you", "telegram"] as const).map((f) => {
-                    const count = f === "all" ? recentItems.length : recentItems.filter((i) => i.type === f).length;
+                  {(["all", "page", "feature"] as const).map((f) => {
+                    const count = f === "all" ? sortedAnnouncements.length : sortedAnnouncements.filter((i) => i.type === f).length;
                     if (f !== "all" && count === 0) return null;
                     const active = filter === f;
                     return (
@@ -148,7 +164,7 @@ const NotificationCenter = () => {
                           active ? "bg-primary text-primary-foreground shadow-pop-sm" : "bg-card text-foreground hover:-translate-y-0.5"
                         }`}
                       >
-                        {f === "all" ? "All" : f.replace("-", " ")} · {count}
+                        {f === "all" ? "All" : f === "page" ? "New pages" : "Features"} · {count}
                       </button>
                     );
                   })}
@@ -157,7 +173,7 @@ const NotificationCenter = () => {
 
               <div className="flex-1 overflow-y-auto p-4">
                 {(() => {
-                  const shown = filter === "all" ? recentItems : recentItems.filter((i) => i.type === filter);
+                  const shown = filter === "all" ? sortedAnnouncements : sortedAnnouncements.filter((i) => i.type === filter);
 
                   if (isLoading) {
                     return (
@@ -189,8 +205,8 @@ const NotificationCenter = () => {
                         </p>
                         <p className="text-sm text-muted-foreground/70 mt-1 max-w-[240px]">
                           {filter === "all"
-                            ? "New drops from the last 30 days will show up here."
-                            : "Nothing new in this category — try a different filter."}
+                            ? "New pages and features will show up here."
+                            : "Nothing here yet — try a different filter."}
                         </p>
                         {filter !== "all" && (
                           <button
@@ -206,32 +222,34 @@ const NotificationCenter = () => {
                   return (
                     <div className="space-y-3">
                       {shown.map((item, i) => (
-                        <a
+                        <Link
                           key={`${item.type}-${item.title}-${i}`}
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          to={item.link}
+                          onClick={() => setIsOpen(false)}
                           className="block p-4 rounded-xl bg-card border-2 border-foreground/20 hover:border-primary hover:-translate-y-0.5 hover:shadow-pop transition-all duration-300 animate-fade-in-up"
                           style={{ animationDelay: `${i * 0.04}s` }}
                         >
                           <div className="flex items-start gap-3">
                             <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-foreground/80 ${typeColor(item.type)}`}>
-                              {typeIcon(item.type)}
+                              {typeIcon(item.title, item.type)}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-bold text-foreground line-clamp-2">{item.title}</p>
+                              <p className="text-sm font-bold text-foreground line-clamp-2">
+                                {item.type === "page" ? `New page: ${item.title}` : item.title}
+                              </p>
+                              <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{item.description}</p>
                               <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                                 <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                                  {item.type.replace("-", " ")}
+                                  {item.type === "page" ? "new page" : "feature"}
                                 </span>
                                 <span className="text-xs text-muted-foreground/40">•</span>
                                 <span className="text-xs text-muted-foreground flex items-center gap-1 font-medium">
-                                  <Clock className="w-3 h-3" /> {daysAgo(item.dateAdded)}
+                                  <Clock className="w-3 h-3" /> {daysAgo(item.date)}
                                 </span>
                               </div>
                             </div>
                           </div>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   );
