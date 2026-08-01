@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { MessageCircle, X, Sparkles, Send, Trash2, RefreshCw, AlertCircle } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
+import { haptics } from "@/lib/haptics";
 
 
 type ChatMsg = { role: "user" | "assistant"; content: string };
@@ -50,8 +51,10 @@ const Resourcely = () => {
       if (invokeError) throw new Error(invokeError.message);
       if ((data as any)?.error) throw new Error((data as any).error);
       setMessages((m) => [...m, { role: "assistant", content: (data as any)?.reply || "…" }]);
+      haptics.success();
     } catch (e: any) {
       setError(e?.message || "Failed to reach Resourcely.");
+      haptics.error();
     } finally {
       setLoading(false);
     }
