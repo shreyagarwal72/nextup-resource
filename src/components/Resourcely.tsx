@@ -95,7 +95,7 @@ const Resourcely = () => {
         <button
           onClick={() => setOpen(true)}
           aria-label="Open Resourcely chat"
-          className="fixed z-[60] right-4 bottom-[5.5rem] md:bottom-6 w-14 h-14 rounded-full bg-primary text-primary-foreground border-2 border-foreground/80 shadow-pop hover:shadow-pop-hover hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-y-0.5 active:translate-x-0.5 active:shadow-pop-active transition-all flex items-center justify-center font-heading focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="fixed z-[60] right-4 bottom-[calc(env(safe-area-inset-bottom,0px)+5.5rem)] md:bottom-6 w-14 h-14 rounded-full bg-primary text-primary-foreground border-2 border-foreground/80 shadow-pop hover:shadow-pop-hover hover:-translate-y-0.5 hover:-translate-x-0.5 active:translate-y-0.5 active:translate-x-0.5 active:shadow-pop-active transition-all flex items-center justify-center font-heading focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}
         >
           <MessageCircle className="w-6 h-6" strokeWidth={2.5} />
