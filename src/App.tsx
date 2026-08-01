@@ -11,6 +11,7 @@ import StudyBanner from "@/components/StudyBanner";
 import ScrollToTopOnRoute from "@/components/ScrollToTopOnRoute";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import OfflineFallback from "@/components/OfflineFallback";
+import HapticFeedback from "@/components/HapticFeedback";
 import { Analytics } from "@vercel/analytics/react";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -85,6 +86,7 @@ const App = () => {
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
+          <HapticFeedback />
           <Toaster />
           <Sonner />
           <BrowserRouter>
