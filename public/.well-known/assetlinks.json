@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.nextup_resource.twa",
+        "sha256_cert_fingerprints": ["0E:30:C8:82:45:D4:AE:2A:2D:49:74:72:BF:9F:BA:31:BC:D2:7B:37:07:14:7D:44:57:EF:B4:64:88:35:CF:C4"]
+      }
+    }]
