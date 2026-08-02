@@ -24,6 +24,7 @@ const Resourcely = () => {
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const { settings } = useSettings();
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -93,6 +94,8 @@ const Resourcely = () => {
   };
 
   const canRetry = !loading && messages[messages.length - 1]?.role === "user";
+
+  if (!settings.chatWidget) return null;
 
   return (
     <>
