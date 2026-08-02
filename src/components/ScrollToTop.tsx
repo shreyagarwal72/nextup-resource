@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
+import { useSettings } from "@/hooks/useSettings";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { settings } = useSettings();
 
   useEffect(() => {
     const toggleVisibility = () => setIsVisible(window.scrollY > 300);
@@ -14,7 +16,7 @@ const ScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  if (!isVisible) return null;
+  if (!isVisible || !settings.scrollTopButton) return null;
 
   return (
     <button

@@ -12,6 +12,7 @@ import ScrollToTopOnRoute from "@/components/ScrollToTopOnRoute";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import OfflineFallback from "@/components/OfflineFallback";
 import HapticFeedback from "@/components/HapticFeedback";
+import SettingsEffects from "@/components/SettingsEffects";
 import { Analytics } from "@vercel/analytics/react";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -42,6 +43,7 @@ const Games = lazy(() => import("./pages/Games"));
 const Iot = lazy(() => import("./pages/Iot"));
 const AndroidRe = lazy(() => import("./pages/AndroidRe"));
 const DesignMd = lazy(() => import("./pages/DesignMd"));
+const SettingsPage = lazy(() => import("./pages/Settings"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -87,6 +89,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <HapticFeedback />
+          <SettingsEffects />
           <Toaster />
           <Sonner />
           <BrowserRouter>
@@ -121,6 +124,7 @@ const App = () => {
                   <Route path="/iot" element={<Iot />} />
                   <Route path="/android-re" element={<AndroidRe />} />
                   <Route path="/design-md" element={<DesignMd />} />
+                  <Route path="/settings" element={<SettingsPage />} />
                   <Route path="/admin" element={<Admin />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>

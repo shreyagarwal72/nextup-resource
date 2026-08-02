@@ -14,6 +14,8 @@ const GREETING: ChatMsg = {
     "Hey, I'm **Resourcely** ✨ — your Nextup companion. Ask me about courses, FOSS apps, Material You, Morphe builds, ebooks, AI tools, or anything on the site.",
 };
 
+import { useSettings } from "@/hooks/useSettings";
+
 const Resourcely = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMsg[]>([GREETING]);
