@@ -107,8 +107,8 @@ const Settings = () => {
       title: "Settings — Nextup Resources",
       description:
         "Personalise Nextup Resources: haptic feedback, bottom nav labels, animations, assistant and more.",
-      url: "https://nextup-resource.vercel.app/settings",
-    } as any);
+      url: "/settings",
+    });
   }, []);
 
   const onToggle = (key: keyof SettingsShape) => {
