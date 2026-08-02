@@ -11,6 +11,7 @@ import {
   Search,
   GraduationCap,
   MoreHorizontal,
+  SlidersHorizontal,
 } from "lucide-react";
 
 const STORAGE_KEY = "intro-seen-v3";
@@ -84,6 +85,17 @@ const STEPS: Step[] = [
       "Desktop: use the “More ▾” dropdown for extra pages",
       "Mobile: tap “•••” in the bottom bar to cycle menus",
       "Bell icon (top-right) opens the What's New inbox",
+    ],
+  },
+  {
+    icon: SlidersHorizontal,
+    accent: "quaternary",
+    title: "Make it yours — Settings",
+    body: "Open Settings (header “More ▾” or the bottom nav) to tailor the site to how you like to browse. Everything saves locally.",
+    bullets: [
+      "Haptic feedback — vibration on taps, on by default",
+      "App names in bottom nav — show/hide labels, on by default",
+      "Animations, Resourcely assistant, scroll-to-top button",
     ],
   },
   {

@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { useSettings } from "@/hooks/useSettings";
 import {
   Home,
   BookOpen,
@@ -23,6 +24,7 @@ import {
   Palette,
   LayoutGrid,
   X,
+  Settings as SettingsIcon,
 } from "lucide-react";
 
 type Accent = "primary" | "secondary" | "tertiary" | "quaternary";
@@ -53,6 +55,7 @@ const links: NavLinkItem[] = [
   { to: "/api-hub", icon: Plug, label: "API Hub", accent: "quaternary" },
   { to: "/games", icon: Gamepad2, label: "Games", accent: "quaternary" },
   { to: "/iot", icon: Cpu, label: "IoT", accent: "quaternary" },
+  { to: "/settings", icon: SettingsIcon, label: "Settings", accent: "quaternary" },
 ];
 
 const groups: { title: string; accent: Accent }[] = [
@@ -79,10 +82,12 @@ const bgCls: Record<Accent, string> = {
 const DockItem = ({
   link,
   active,
+  showLabel,
   itemRef,
 }: {
   link: NavLinkItem;
   active: boolean;
+  showLabel: boolean;
   itemRef: (el: HTMLAnchorElement | null) => void;
 }) => {
   const Icon = link.icon;
@@ -101,7 +106,7 @@ const DockItem = ({
       <Icon className="w-5 h-5 transition-transform duration-300 ease-bounce group-active:rotate-6" strokeWidth={active ? 2.6 : 2} />
       <span
         className={`overflow-hidden whitespace-nowrap text-[11px] font-extrabold transition-all duration-300 ease-bounce ${
-          active ? "max-w-[88px] opacity-100" : "max-w-0 opacity-0"
+          active && showLabel ? "max-w-[88px] opacity-100" : "max-w-0 opacity-0"
         }`}
       >
         {link.label}
@@ -114,6 +119,7 @@ const BottomNav = () => {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
   const [open, setOpen] = useState(false);
+  const { settings } = useSettings();
 
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const stripRef = useRef<HTMLDivElement>(null);
@@ -235,6 +241,7 @@ const BottomNav = () => {
                   key={link.to}
                   link={link}
                   active={isActive(link.to)}
+                  showLabel={settings.navLabels}
                   itemRef={(el) => {
                     if (el) itemRefs.current.set(link.to, el);
                     else itemRefs.current.delete(link.to);

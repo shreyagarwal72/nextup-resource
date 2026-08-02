@@ -45,8 +45,11 @@ Nextup Resources is the curated learning platform that aggregates high-quality e
 - **Favorites System** — Bookmark content across all categories with persistent storage
 - **Study Mode** — Focus-oriented UI with a calming green palette
 - **Dark Mode** — Full light/dark theme support with refined contrast
-- **PWA Support** — Install as a native app on any device for offline access.
+- **Settings Page** (`/settings`) — Local, private toggles: haptic feedback (on by default), app names in the bottom nav (on by default), animations, Resourcely assistant, scroll-to-top button, plus replay tour / reset / clear cache
+- **Deep-Link Hub** — Home page "Explore every section" grid links directly to all catalogs
+- **PWA Support** — PWABuilder-ready manifest (app `id`, shortcuts, wide + narrow screenshots, maskable icon, `launch_handler`, `display_override`) with offline caching
 - **Responsive Design** — Mobile-first with adaptive bottom navigation
+
 
 ## Tech Stack
 

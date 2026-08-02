@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { haptics } from "@/lib/haptics";
+import { useSettings } from "@/hooks/useSettings";
 
 const TAP_SELECTOR =
   'button, a, [role="button"], [role="tab"], [role="switch"], input[type="checkbox"], input[type="radio"], summary, label';
@@ -7,16 +8,13 @@ const TAP_SELECTOR =
 /**
  * Fires a light haptic buzz on every tap of an interactive element, site-wide.
  * Delegated at the document level so every button/link on every page gets
- * feedback without per-component wiring.
- *
- * - Only fires for actual touchscreen taps (pointerType "touch"), never mouse.
- * - Any element (or ancestor) can opt out with a `data-no-haptic` attribute.
- * - For a stronger/distinct pattern on a specific action, call
- *   haptics.medium() / haptics.success() / haptics.error() directly from
- *   that component's handler — it'll fire in addition to this generic tap.
+ * feedback without per-component wiring. Can be turned off in /settings.
  */
 const HapticFeedback = () => {
+  const { settings } = useSettings();
+
   useEffect(() => {
+    if (!settings.haptics) return;
     const onPointerDown = (e: PointerEvent) => {
       if (e.pointerType !== "touch") return;
       const target = e.target as HTMLElement | null;
@@ -28,7 +26,7 @@ const HapticFeedback = () => {
     };
     document.addEventListener("pointerdown", onPointerDown, { passive: true });
     return () => document.removeEventListener("pointerdown", onPointerDown);
-  }, []);
+  }, [settings.haptics]);
 
   return null;
 };
