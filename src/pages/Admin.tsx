@@ -6,9 +6,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { ArrowLeft, ShieldCheck, KeyRound, Trash2, Loader2, CheckCircle2 } from "lucide-react";
+import {
+  ArrowLeft,
+  ShieldCheck,
+  KeyRound,
+  Trash2,
+  Loader2,
+  CheckCircle2,
+  Database,
+  UploadCloud,
+  Download,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { updatePageMeta } from "@/lib/og-image";
+import { buildAllContentRows, chunk, downloadContentBackup } from "@/lib/contentExport";
+
 
 type KeyStatus = { masked: string | null; updated_at: string | null };
 type ConfigResponse = {
