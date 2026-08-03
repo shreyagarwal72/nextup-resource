@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles, ArrowRight, BookOpen, Package, Bot, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
-import Stats from "./Stats";
+
 import { useTypewriter } from "@/hooks/useTypewriter";
 
 // Confetti shape components
