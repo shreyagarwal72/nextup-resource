@@ -130,7 +130,71 @@ const Admin = () => {
     }
   };
 
+  const callSync = async (method: "GET" | "POST", payload?: unknown) => {
+    const { data, error } = await supabase.functions.invoke("content-sync", {
+      method,
+      headers: { "x-admin-password": pw },
+      body: payload,
+    });
+    if (error) {
+      const ctx = (error as any)?.context;
+      if (ctx && typeof ctx.json === "function") {
+        try {
+          const body = await ctx.json();
+          if (body?.error) throw new Error(body.error);
+        } catch {
+          /* ignore */
+        }
+      }
+      throw new Error(error.message || "Request failed");
+    }
+    if ((data as any)?.error) throw new Error((data as any).error);
+    return data as any;
+  };
+
+  const loadStats = async () => {
+    try {
+      const data = await callSync("GET");
+      setStats({ total: data?.total ?? 0, last_synced: data?.last_synced ?? null });
+    } catch {
+      /* stats are best-effort */
+    }
+  };
+
+  const syncContent = async () => {
+    setSyncing(true);
+    setProgress(0);
+    try {
+      const batches = chunk(localRows, 400);
+      for (let i = 0; i < batches.length; i++) {
+        await callSync("POST", { rows: batches[i] });
+        setProgress(Math.round(((i + 1) / batches.length) * 100));
+      }
+      await loadStats();
+      toast.success(`Installed ${localRows.length} items into the database`);
+    } catch (e: any) {
+      toast.error(e?.message || "Sync failed");
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const clearContent = async () => {
+    if (!confirm("Delete every content row from the database?")) return;
+    setSyncing(true);
+    try {
+      await callSync("POST", { action: "clear" });
+      await loadStats();
+      toast.success("Content database cleared");
+    } catch (e: any) {
+      toast.error(e?.message || "Clear failed");
+    } finally {
+      setSyncing(false);
+    }
+  };
+
   const test = async () => {
+
     setTesting(true);
     try {
       const { data, error } = await supabase.functions.invoke("chat", {
