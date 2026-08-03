@@ -38,6 +38,7 @@ const GurMannFitnessBooks = lazy(() => import("./pages/GurMannFitnessBooks"));
 
 const DeveloperRoadmap = lazy(() => import("./pages/DeveloperRoadmap"));
 const TvApps = lazy(() => import("./pages/TvApps"));
+const OS = lazy(() => import("./pages/OS"));
 const ApiHub = lazy(() => import("./pages/ApiHub"));
 const Games = lazy(() => import("./pages/Games"));
 const Iot = lazy(() => import("./pages/Iot"));
@@ -119,6 +120,7 @@ const App = () => {
                   <Route path="/guru-mann-fitness" element={<GurMannFitnessBooks />} />
                   <Route path="/developer-roadmap" element={<DeveloperRoadmap />} />
                   <Route path="/tv-apps" element={<TvApps />} />
+                  <Route path="/os" element={<OS />} />
                   <Route path="/api-hub" element={<ApiHub />} />
                   <Route path="/games" element={<Games />} />
                   <Route path="/iot" element={<Iot />} />
