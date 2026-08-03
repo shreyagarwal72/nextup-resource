@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
 import GlobalSearch from "@/components/GlobalSearch";
+import NewVisitorNotice from "@/components/NewVisitorNotice";
 import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 import { ShieldCheck, Wifi, Zap, Lock } from "lucide-react";
 
@@ -67,6 +68,7 @@ const Index = () => {
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Header />
+      <NewVisitorNotice />
       <main>
         <Hero />
         <GlobalSearch />
