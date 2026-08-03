@@ -22,6 +22,7 @@ import {
   Heart,
   Compass,
   ArrowUpRight,
+  MonitorSmartphone,
 } from "lucide-react";
 
 type Accent = "primary" | "secondary" | "tertiary" | "quaternary";
@@ -52,6 +53,7 @@ const groups: { title: string; items: { to: string; label: string; icon: any; ac
       { to: "/api-hub", label: "API Hub", icon: Plug, accent: "tertiary" },
       { to: "/android-re", label: "Android RE", icon: Bug, accent: "tertiary" },
       { to: "/iot", label: "IoT", icon: Cpu, accent: "tertiary" },
+      { to: "/os", label: "OS Catalog", icon: MonitorSmartphone, accent: "tertiary" },
     ],
   },
   {
