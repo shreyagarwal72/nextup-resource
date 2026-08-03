@@ -38,6 +38,13 @@ const Admin = () => {
   const [deepseekInput, setDeepseekInput] = useState("");
   const [testing, setTesting] = useState(false);
 
+  // Content database sync
+  const [stats, setStats] = useState<{ total: number; last_synced: string | null } | null>(null);
+  const [syncing, setSyncing] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const localRows = useMemo(() => buildAllContentRows(), []);
+
+
   useEffect(() => {
     updatePageMeta({
       title: "Admin · Nextup Resources",
