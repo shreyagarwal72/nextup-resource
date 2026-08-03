@@ -84,6 +84,7 @@ const Admin = () => {
       const data = (await callAdmin("GET")) as ConfigResponse;
       setConfig(data);
       setAuthed(true);
+      void loadStats();
     } catch (e: any) {
       setAuthed(false);
       toast.error(e?.message?.includes("401") || /unauth/i.test(e?.message || "")
