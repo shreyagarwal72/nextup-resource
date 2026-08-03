@@ -106,11 +106,12 @@ const DockItem = ({
       <Icon className="w-5 h-5 transition-transform duration-300 ease-bounce group-active:rotate-6" strokeWidth={active ? 2.6 : 2} />
       <span
         className={`overflow-hidden whitespace-nowrap text-[11px] font-extrabold transition-all duration-300 ease-bounce ${
-          active && showLabel ? "max-w-[88px] opacity-100" : "max-w-0 opacity-0"
+          showLabel ? "max-w-[88px] opacity-100" : "max-w-0 opacity-0"
         }`}
       >
         {link.label}
       </span>
+
     </Link>
   );
 };

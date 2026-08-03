@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import BottomNav from "@/components/BottomNav";
@@ -6,9 +6,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { ArrowLeft, ShieldCheck, KeyRound, Trash2, Loader2, CheckCircle2 } from "lucide-react";
+import {
+  ArrowLeft,
+  ShieldCheck,
+  KeyRound,
+  Trash2,
+  Loader2,
+  CheckCircle2,
+  Database,
+  UploadCloud,
+  Download,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { updatePageMeta } from "@/lib/og-image";
+import { buildAllContentRows, chunk, downloadContentBackup } from "@/lib/contentExport";
+
 
 type KeyStatus = { masked: string | null; updated_at: string | null };
 type ConfigResponse = {
@@ -25,6 +37,13 @@ const Admin = () => {
   const [lovableInput, setLovableInput] = useState("");
   const [deepseekInput, setDeepseekInput] = useState("");
   const [testing, setTesting] = useState(false);
+
+  // Content database sync
+  const [stats, setStats] = useState<{ total: number; last_synced: string | null } | null>(null);
+  const [syncing, setSyncing] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const localRows = useMemo(() => buildAllContentRows(), []);
+
 
   useEffect(() => {
     updatePageMeta({
@@ -65,6 +84,7 @@ const Admin = () => {
       const data = (await callAdmin("GET")) as ConfigResponse;
       setConfig(data);
       setAuthed(true);
+      void loadStats();
     } catch (e: any) {
       setAuthed(false);
       toast.error(e?.message?.includes("401") || /unauth/i.test(e?.message || "")
@@ -111,7 +131,71 @@ const Admin = () => {
     }
   };
 
+  const callSync = async (method: "GET" | "POST", payload?: unknown) => {
+    const { data, error } = await supabase.functions.invoke("content-sync", {
+      method,
+      headers: { "x-admin-password": pw },
+      body: payload,
+    });
+    if (error) {
+      const ctx = (error as any)?.context;
+      if (ctx && typeof ctx.json === "function") {
+        try {
+          const body = await ctx.json();
+          if (body?.error) throw new Error(body.error);
+        } catch {
+          /* ignore */
+        }
+      }
+      throw new Error(error.message || "Request failed");
+    }
+    if ((data as any)?.error) throw new Error((data as any).error);
+    return data as any;
+  };
+
+  const loadStats = async () => {
+    try {
+      const data = await callSync("GET");
+      setStats({ total: data?.total ?? 0, last_synced: data?.last_synced ?? null });
+    } catch {
+      /* stats are best-effort */
+    }
+  };
+
+  const syncContent = async () => {
+    setSyncing(true);
+    setProgress(0);
+    try {
+      const batches = chunk(localRows, 400);
+      for (let i = 0; i < batches.length; i++) {
+        await callSync("POST", { rows: batches[i] });
+        setProgress(Math.round(((i + 1) / batches.length) * 100));
+      }
+      await loadStats();
+      toast.success(`Installed ${localRows.length} items into the database`);
+    } catch (e: any) {
+      toast.error(e?.message || "Sync failed");
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const clearContent = async () => {
+    if (!confirm("Delete every content row from the database?")) return;
+    setSyncing(true);
+    try {
+      await callSync("POST", { action: "clear" });
+      await loadStats();
+      toast.success("Content database cleared");
+    } catch (e: any) {
+      toast.error(e?.message || "Clear failed");
+    } finally {
+      setSyncing(false);
+    }
+  };
+
   const test = async () => {
+
     setTesting(true);
     try {
       const { data, error } = await supabase.functions.invoke("chat", {
@@ -254,9 +338,67 @@ const Admin = () => {
                   </Button>
                 </div>
               </div>
+
+              {/* Content database */}
+              <div className="border-t-2 border-dashed border-foreground/30 pt-5">
+                <div className="flex items-center gap-2 mb-1">
+                  <Database className="w-4 h-4" />
+                  <h2 className="font-heading text-lg font-extrabold">Content database</h2>
+                </div>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Install every piece of website content (courses, resources, ebooks, apps,
+                  websites, bundles, AI tools, FOSS, Material You, Shizuku, Telegram bots, TV apps)
+                  into the backend so it can be queried or backed up.
+                </p>
+
+                <div className="rounded-xl border-2 border-foreground/30 bg-background/50 p-3 text-sm">
+                  <div className="flex items-center justify-between font-bold">
+                    <span>In backend</span>
+                    <span>{stats ? stats.total : "—"} rows</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mt-1">
+                    <span>On this build</span>
+                    <span>{localRows.length} rows</span>
+                  </div>
+                  {stats?.last_synced && (
+                    <div className="text-xs text-muted-foreground mt-1">
+                      Last sync: {new Date(stats.last_synced).toLocaleString()}
+                    </div>
+                  )}
+                  {syncing && (
+                    <div className="mt-2 h-2 w-full rounded-full bg-muted overflow-hidden border-2 border-foreground/30">
+                      <div
+                        className="h-full bg-primary transition-all"
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap gap-2 mt-3">
+                  <Button onClick={syncContent} disabled={syncing}>
+                    {syncing ? (
+                      <span className="inline-flex items-center gap-2">
+                        <Loader2 className="w-4 h-4 animate-spin" /> Installing… {progress}%
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-2">
+                        <UploadCloud className="w-4 h-4" /> Install all content
+                      </span>
+                    )}
+                  </Button>
+                  <Button variant="outline" onClick={() => downloadContentBackup()}>
+                    <Download className="w-4 h-4 mr-2" /> Download JSON backup
+                  </Button>
+                  <Button variant="ghost" onClick={clearContent} disabled={syncing}>
+                    <Trash2 className="w-4 h-4 mr-2" /> Clear database
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
         </div>
+
       </main>
       <BottomNav />
     </div>

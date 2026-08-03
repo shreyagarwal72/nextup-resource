@@ -32,6 +32,42 @@ export type Database = {
         }
         Relationships: []
       }
+      site_content: {
+        Row: {
+          category: string | null
+          created_at: string
+          dataset: string
+          external_id: string
+          id: string
+          payload: Json
+          title: string | null
+          updated_at: string
+          url: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          dataset: string
+          external_id: string
+          id?: string
+          payload?: Json
+          title?: string | null
+          updated_at?: string
+          url?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          dataset?: string
+          external_id?: string
+          id?: string
+          payload?: Json
+          title?: string | null
+          updated_at?: string
+          url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

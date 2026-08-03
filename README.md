@@ -48,7 +48,10 @@ Nextup Resources is the curated learning platform that aggregates high-quality e
 - **Settings Page** (`/settings`) — Local, private toggles: haptic feedback (on by default), app names in the bottom nav (on by default), animations, Resourcely assistant, scroll-to-top button, plus replay tour / reset / clear cache
 - **Deep-Link Hub** — Home page "Explore every section" grid links directly to all catalogs
 - **PWA Support** — PWABuilder-ready manifest (app `id`, shortcuts, wide + narrow screenshots, maskable icon, `launch_handler`, `display_override`) with offline caching
+- **Smart Offline Fallback** — Detects reconnection (event + polling) and automatically returns you to the exact page you were on
+- **Content Database** (`/admin`) — One-click install of the entire catalog into the backend `site_content` table via the `content-sync` function, plus a downloadable JSON backup
 - **Responsive Design** — Mobile-first with adaptive bottom navigation
+
 
 
 ## Tech Stack

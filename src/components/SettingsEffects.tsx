@@ -8,8 +8,13 @@ const SettingsEffects = () => {
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("reduce-motion", !settings.animations);
-    return () => root.classList.remove("reduce-motion");
   }, [settings.animations]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.navLabels = String(settings.navLabels);
+    root.dataset.haptics = String(settings.haptics);
+  }, [settings.navLabels, settings.haptics]);
 
   return null;
 };
