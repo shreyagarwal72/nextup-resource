@@ -254,9 +254,67 @@ const Admin = () => {
                   </Button>
                 </div>
               </div>
+
+              {/* Content database */}
+              <div className="border-t-2 border-dashed border-foreground/30 pt-5">
+                <div className="flex items-center gap-2 mb-1">
+                  <Database className="w-4 h-4" />
+                  <h2 className="font-heading text-lg font-extrabold">Content database</h2>
+                </div>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Install every piece of website content (courses, resources, ebooks, apps,
+                  websites, bundles, AI tools, FOSS, Material You, Shizuku, Telegram bots, TV apps)
+                  into the backend so it can be queried or backed up.
+                </p>
+
+                <div className="rounded-xl border-2 border-foreground/30 bg-background/50 p-3 text-sm">
+                  <div className="flex items-center justify-between font-bold">
+                    <span>In backend</span>
+                    <span>{stats ? stats.total : "—"} rows</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mt-1">
+                    <span>On this build</span>
+                    <span>{localRows.length} rows</span>
+                  </div>
+                  {stats?.last_synced && (
+                    <div className="text-xs text-muted-foreground mt-1">
+                      Last sync: {new Date(stats.last_synced).toLocaleString()}
+                    </div>
+                  )}
+                  {syncing && (
+                    <div className="mt-2 h-2 w-full rounded-full bg-muted overflow-hidden border-2 border-foreground/30">
+                      <div
+                        className="h-full bg-primary transition-all"
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap gap-2 mt-3">
+                  <Button onClick={syncContent} disabled={syncing}>
+                    {syncing ? (
+                      <span className="inline-flex items-center gap-2">
+                        <Loader2 className="w-4 h-4 animate-spin" /> Installing… {progress}%
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-2">
+                        <UploadCloud className="w-4 h-4" /> Install all content
+                      </span>
+                    )}
+                  </Button>
+                  <Button variant="outline" onClick={() => downloadContentBackup()}>
+                    <Download className="w-4 h-4 mr-2" /> Download JSON backup
+                  </Button>
+                  <Button variant="ghost" onClick={clearContent} disabled={syncing}>
+                    <Trash2 className="w-4 h-4 mr-2" /> Clear database
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
         </div>
+
       </main>
       <BottomNav />
     </div>
