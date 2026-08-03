@@ -18,18 +18,18 @@ export const StudyBanner = () => {
     return { courses, resources, ebooks, apps, total: courses + resources + ebooks + apps };
   }, [isStudyMode]);
 
-  // Add body padding-top so fixed banner doesn't overlap fixed header/hero across all pages
+  // Push page content down so the fixed banner never covers the top of a page.
   useEffect(() => {
     if (!isStudyMode) {
-      document.body.style.removeProperty("--study-banner-h");
-      document.documentElement.classList.remove("study-banner-active");
+      document.body.style.removeProperty("padding-top");
       return;
     }
-    document.documentElement.classList.add("study-banner-active");
+    document.body.style.paddingTop = "52px";
     return () => {
-      document.documentElement.classList.remove("study-banner-active");
+      document.body.style.removeProperty("padding-top");
     };
   }, [isStudyMode]);
+
 
   if (!isStudyMode) return null;
 

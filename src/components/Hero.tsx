@@ -90,10 +90,9 @@ const Hero = () => {
             ))}
           </div>
 
-          {/* Stats */}
-          <div className="mt-14 md:mt-20 w-full animate-fade-in delay-500">
-            <Stats />
-          </div>
+          {/* Stats live in their own band on the home page (see Index.tsx) —
+              intentionally not duplicated here. */}
+
 
           {/* Special Thanks */}
           <a
