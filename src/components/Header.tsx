@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Heart, ChevronDown, Github, Zap, Sparkles, Layers, Send, Tv, Dumbbell, Briefcase, Download, HelpCircle, Plug, Gamepad2, Cpu, Settings as SettingsIcon } from "lucide-react";
+import { Heart, ChevronDown, Github, Zap, Sparkles, Layers, Send, Tv, Dumbbell, Briefcase, Download, HelpCircle, Plug, Gamepad2, Cpu, Settings as SettingsIcon, MonitorSmartphone } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { StudyModeToggle } from "./StudyModeToggle";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -39,6 +39,7 @@ const Header = () => {
     { to: "/telegram-tweaks", label: "Telegram Tweaks", icon: Send },
     { to: "/guru-mann-fitness", label: "Guru Mann Fitness", icon: Dumbbell },
     { to: "/api-hub", label: "API Hub", icon: Plug },
+    { to: "/os", label: "Operating Systems", icon: MonitorSmartphone },
     { to: "/games", label: "Games", icon: Gamepad2 },
     { to: "/iot", label: "IoT", icon: Cpu },
     { to: "/settings", label: "Settings", icon: SettingsIcon },
