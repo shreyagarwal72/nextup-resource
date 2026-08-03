@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
-import { Bell, X, Clock, Cpu, Gamepad2, Plug, Bug, Palette, LayoutGrid, Filter } from "lucide-react";
+import { Bell, X, Clock, Cpu, Gamepad2, Plug, Bug, Palette, LayoutGrid, Filter, MonitorSmartphone } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type AnnouncementType = "page" | "feature";
@@ -17,6 +17,13 @@ interface Announcement {
 // Static launch announcements. Update this list by hand when you ship a new
 // page or feature — this panel no longer auto-derives from content data.
 const announcements: Announcement[] = [
+  {
+    title: "Operating Systems",
+    description: "A new catalog of open-source OS kernels, web-based OS clones, and indie web-desktops.",
+    type: "page",
+    date: "2026-08-03",
+    link: "/os",
+  },
   {
     title: "IoT",
     description: "A new page covering IoT tools, boards, and open-source projects.",
@@ -87,6 +94,7 @@ const NotificationCenter = () => {
       case "API Hub": return <Plug className="w-4 h-4" strokeWidth={2.5} />;
       case "Android RE": return <Bug className="w-4 h-4" strokeWidth={2.5} />;
       case "Design.md": return <Palette className="w-4 h-4" strokeWidth={2.5} />;
+      case "Operating Systems": return <MonitorSmartphone className="w-4 h-4" strokeWidth={2.5} />;
       default: return <Bell className="w-4 h-4" strokeWidth={2.5} />;
     }
   };
