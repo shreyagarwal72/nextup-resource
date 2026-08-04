@@ -109,7 +109,28 @@ const buildIndex = (): Hit[] => {
       groupTo: "/telegram-tweaks",
       dateAdded: b.dateAdded,
     });
+  for (const o of osProjects)
+    out.push({
+      title: o.name,
+      subtitle: o.category,
+      description: o.description,
+      category: o.category,
+      url: o.links[0]?.url,
+      group: "Operating Systems",
+      groupTo: "/os",
+    });
+  for (const t of tvApps)
+    out.push({
+      title: t.name,
+      subtitle: t.category,
+      description: t.description,
+      category: t.category,
+      url: t.links[0]?.url,
+      group: "TV Apps",
+      groupTo: "/tv-apps",
+    });
   return out;
+
 };
 
 let cachedIndex: Hit[] | null = null;
