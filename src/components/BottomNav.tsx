@@ -168,6 +168,7 @@ const BottomNav = () => {
   );
 
   const onPointerDown = (e: React.PointerEvent) => {
+    console.log("[dock] down");
     drag.current = {
       id: e.pointerId,
       x: e.clientX,
@@ -189,6 +190,7 @@ const BottomNav = () => {
       const horizontal = Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.5;
       if (!horizontal || Date.now() - d.t < 150) return;
       d.active = true;
+      console.log("[dock] drag start");
       try {
         (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
       } catch {
@@ -200,6 +202,7 @@ const BottomNav = () => {
       d.hover = to;
       setPreviewTo(to);
       haptics.medium();
+      console.log("[dock] hover", to);
     }
   };
 
