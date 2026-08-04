@@ -37,11 +37,15 @@ Nextup Resources is the curated learning platform that aggregates high-quality e
 - **Material You Apps** — 1100+ apps designed for Material You, sourced from `nyas1/Material-You-app-list`
 - **Telegram Tweaks** — 20+ hand-picked Telegram bots grouped by category (Downloaders, File Tools, Music, AI & Assistants, Bot Dev & Community, Trading) with an on-page search bar
 - **Placement Material** — Curated company-prep bundles
-- **Global Search** — Fuzzy, multi-field search across every category (titles, categories, tags, descriptions) from the home page, with rich result cards
+- **Operating Systems** (`/os`) — 260+ open-source, classic and web-based OS projects
+- **Android TV FOSS Apps** (`/tv-apps`) — Launchers, players and utilities for Android TV
+- **More Explore pages** — Games, IoT, API Hub, Android RE and Design.md catalogs
+- **Global Search** — Fuzzy, multi-field search across every category (titles, categories, tags, descriptions) from the home page, including Operating Systems and TV Apps, with rich result cards
 - **Resourcely Chatbot** — In-app assistant powered by Lovable AI with DeepSeek fallback; keys managed from `/admin`
 - **What's New Inbox** — Bell icon surfacing every item (including Telegram bots) added in the last 30 days
 - **Welcome Intro** — One-time onboarding modal with “Don't show again”, reopenable from the footer
-- **Scrollable Bottom Nav** — Every page in one swipeable row on mobile, with the active page auto-centered
+- **Swipeable Bottom Nav** — Every page in one row on mobile: tap to navigate, or press-and-drag across the strip to preview and switch pages with haptic feedback; the active page auto-centers and always shows its label
+
 - **Favorites System** — Bookmark content across all categories with persistent storage
 - **Study Mode** — Focus-oriented UI with a calming green palette
 - **Dark Mode** — Full light/dark theme support with refined contrast

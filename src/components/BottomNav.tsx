@@ -1,6 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSettings } from "@/hooks/useSettings";
+import { haptics } from "@/lib/haptics";
+
 import {
   Home,
   BookOpen,
@@ -84,28 +86,35 @@ const bgCls: Record<Accent, string> = {
 const DockItem = ({
   link,
   active,
+  preview,
   showLabel,
+  animations,
   itemRef,
 }: {
   link: NavLinkItem;
   active: boolean;
+  preview: boolean;
   showLabel: boolean;
+  animations: boolean;
   itemRef: (el: HTMLAnchorElement | null) => void;
 }) => {
   const Icon = link.icon;
+  const lit = active || preview;
   return (
     <Link
       ref={itemRef}
       to={link.to}
+      data-nav-to={link.to}
+      draggable={false}
       aria-label={link.label}
       aria-current={active ? "page" : undefined}
       className={`group relative flex shrink-0 snap-center items-center gap-1.5 rounded-full border-2 px-2.5 py-2 transition-all duration-300 ease-bounce active:scale-90 ${
-        active
-          ? `${bgCls[link.accent]} border-foreground/80 shadow-pop-soft`
+        lit
+          ? `${bgCls[link.accent]} border-foreground/80 shadow-pop-active`
           : "border-transparent text-muted-foreground hover:border-foreground/20 hover:bg-muted/60"
-      }`}
+      } ${preview && animations ? "scale-110" : ""}`}
     >
-      <Icon className="w-5 h-5 transition-transform duration-300 ease-bounce group-active:rotate-6" strokeWidth={active ? 2.6 : 2} />
+      <Icon className="w-5 h-5 transition-transform duration-300 ease-bounce group-active:rotate-6" strokeWidth={lit ? 2.6 : 2} />
       <span
         className={`overflow-hidden whitespace-nowrap text-[11px] font-extrabold transition-all duration-300 ease-bounce ${
           showLabel ? "max-w-[88px] opacity-100" : "max-w-0 opacity-0"
@@ -116,6 +125,7 @@ const DockItem = ({
 
     </Link>
   );
+
 };
 
 const BottomNav = () => {
@@ -124,8 +134,113 @@ const BottomNav = () => {
   const [open, setOpen] = useState(false);
   const { settings } = useSettings();
 
+  const navigate = useNavigate();
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const stripRef = useRef<HTMLDivElement>(null);
+
+  // ---- Drag-to-switch (independent of the label/showLabel logic) ----
+  const [previewTo, setPreviewTo] = useState<string | null>(null);
+  const drag = useRef({
+    down: false,
+    x: 0,
+    y: 0,
+    t: 0,
+    active: false,
+    hover: null as string | null,
+  });
+  const pathRef = useRef(location.pathname);
+  pathRef.current = location.pathname;
+
+  useEffect(() => {
+    const strip = stripRef.current;
+    if (!strip) return;
+
+    const hitTest = (x: number, y: number) => {
+      const el = document.elementFromPoint(x, y) as HTMLElement | null;
+      return el?.closest<HTMLElement>("[data-nav-to]")?.dataset.navTo ?? null;
+    };
+
+    const start = (x: number, y: number) => {
+      drag.current = { down: true, x, y, t: Date.now(), active: false, hover: null };
+    };
+
+    /** @returns true when the gesture is in drag-select mode (caller should block scroll). */
+    const move = (x: number, y: number) => {
+      const d = drag.current;
+      if (!d.down) return false;
+      const dx = x - d.x;
+      const dy = y - d.y;
+      if (!d.active) {
+        // Deliberate press: a real horizontal move AND a short hold, so casual
+        // scroll swipes and vertical page scrolls are left alone.
+        const horizontal = Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.5;
+        if (!horizontal || Date.now() - d.t < 150) return false;
+        d.active = true;
+      }
+      const to = hitTest(x, y);
+      if (to && to !== d.hover) {
+        d.hover = to;
+        setPreviewTo(to);
+        haptics.medium();
+      }
+      return true;
+    };
+
+    const end = (commit: boolean) => {
+      const d = drag.current;
+      const target = d.hover;
+      const wasActive = d.active;
+      drag.current = { down: false, x: 0, y: 0, t: 0, active: false, hover: null };
+      setPreviewTo(null);
+      if (commit && wasActive && target && target !== pathRef.current) navigate(target);
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (t) start(t.clientX, t.clientY);
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t) return;
+      // preventDefault keeps the native strip scroll from stealing the gesture
+      // *only* once drag-select mode has engaged; casual swipes still scroll.
+      if (move(t.clientX, t.clientY) && e.cancelable) e.preventDefault();
+    };
+    const onTouchEnd = () => end(true);
+    const onTouchCancel = () => end(false);
+
+    // Mouse fallback (desktop/dev tools) — touch is the primary path.
+    const onMouseDown = (e: MouseEvent) => start(e.clientX, e.clientY);
+    const onMouseMove = (e: MouseEvent) => move(e.clientX, e.clientY);
+    const onMouseUp = () => drag.current.down && end(true);
+
+    strip.addEventListener("touchstart", onTouchStart, { passive: true });
+    strip.addEventListener("touchmove", onTouchMove, { passive: false });
+    strip.addEventListener("touchend", onTouchEnd);
+    strip.addEventListener("touchcancel", onTouchCancel);
+    strip.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    return () => {
+      strip.removeEventListener("touchstart", onTouchStart);
+      strip.removeEventListener("touchmove", onTouchMove);
+      strip.removeEventListener("touchend", onTouchEnd);
+      strip.removeEventListener("touchcancel", onTouchCancel);
+      strip.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  }, [navigate]);
+
+  /** Swallow the click that follows a real drag so we don't double-navigate. */
+  const onStripClickCapture = (e: React.MouseEvent) => {
+    if (drag.current.active) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+
+
 
   // Keep the active dock item centred as the route changes.
   // NOTE: intentionally NOT using scrollIntoView here — on a `fixed` nav it
@@ -240,21 +355,31 @@ const BottomNav = () => {
             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-5 bg-gradient-to-l from-card to-transparent" />
             <div
               ref={stripRef}
-              className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1 pb-2 pr-2 -mb-2 -mr-2"
+              onDragStart={(e) => e.preventDefault()}
+              onClickCapture={onStripClickCapture}
+
+              className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1 py-1 pr-2 -my-1 -mr-2"
             >
-              {links.map((link) => (
-                <DockItem
-                  key={link.to}
-                  link={link}
-                  active={isActive(link.to)}
-                  showLabel={settings.navLabels}
-                  itemRef={(el) => {
-                    if (el) itemRefs.current.set(link.to, el);
-                    else itemRefs.current.delete(link.to);
-                  }}
-                />
-              ))}
+              {links.map((link) => {
+                const active = isActive(link.to);
+                const preview = previewTo === link.to;
+                return (
+                  <DockItem
+                    key={link.to}
+                    link={link}
+                    active={active}
+                    preview={preview}
+                    animations={settings.animations}
+                    showLabel={settings.navLabels || active || preview}
+                    itemRef={(el) => {
+                      if (el) itemRefs.current.set(link.to, el);
+                      else itemRefs.current.delete(link.to);
+                    }}
+                  />
+                );
+              })}
             </div>
+
           </div>
         </div>
 

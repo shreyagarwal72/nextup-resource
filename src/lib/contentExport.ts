@@ -13,6 +13,7 @@ import { materialYouApps } from "@/data/materialYouApps";
 import { shizukuApps } from "@/data/shizukuApps";
 import { telegramBots } from "@/data/telegramBots";
 import { tvApps } from "@/data/tvApps";
+import { osProjects } from "@/data/osList";
 
 export type ContentRow = {
   dataset: string;
@@ -72,6 +73,7 @@ export const buildAllContentRows = (): ContentRow[] => [
   ...toRows("shizuku_apps", shizukuApps),
   ...toRows("telegram_bots", telegramBots),
   ...toRows("tv_apps", tvApps),
+  ...toRows("os_projects", osProjects),
 ];
 
 export const datasetSummary = (rows: ContentRow[]) => {

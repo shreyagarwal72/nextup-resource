@@ -9,6 +9,9 @@ import { fossListApps } from "@/data/fossList";
 import { shizukuApps } from "@/data/shizukuApps";
 import { materialYouApps } from "@/data/materialYouApps";
 import { telegramBots } from "@/data/telegramBots";
+import { osProjects } from "@/data/osList";
+import { tvApps } from "@/data/tvApps";
+
 import { fuzzyScore } from "@/lib/fuzzy";
 import { highlight } from "@/lib/highlight";
 
@@ -36,7 +39,10 @@ const groupAccent: Record<string, string> = {
   Shizuku: "bg-secondary text-secondary-foreground",
   "Material You": "bg-tertiary text-tertiary-foreground",
   Telegram: "bg-primary text-primary-foreground",
+  "Operating Systems": "bg-secondary text-secondary-foreground",
+  "TV Apps": "bg-tertiary text-tertiary-foreground",
 };
+
 
 const buildIndex = (): Hit[] => {
   const out: Hit[] = [];
@@ -103,7 +109,28 @@ const buildIndex = (): Hit[] => {
       groupTo: "/telegram-tweaks",
       dateAdded: b.dateAdded,
     });
+  for (const o of osProjects)
+    out.push({
+      title: o.name,
+      subtitle: o.category,
+      description: o.description,
+      category: o.category,
+      url: o.links[0]?.url,
+      group: "Operating Systems",
+      groupTo: "/os",
+    });
+  for (const t of tvApps)
+    out.push({
+      title: t.name,
+      subtitle: t.category,
+      description: t.description,
+      category: t.category,
+      url: t.links[0]?.url,
+      group: "TV Apps",
+      groupTo: "/tv-apps",
+    });
   return out;
+
 };
 
 let cachedIndex: Hit[] | null = null;
@@ -127,7 +154,7 @@ const cacheSet = (k: string, v: Hit[]) => {
 const MAX_PER_GROUP = 4;
 const MAX_TOTAL = 28;
 const MAX_SINGLE_GROUP = 24;
-const FILTERS = ["All", "Courses", "Resources", "Ebooks", "Apps", "Websites", "AI Tools", "FOSS", "Shizuku", "Material You", "Telegram"] as const;
+const FILTERS = ["All", "Courses", "Resources", "Ebooks", "Apps", "Websites", "AI Tools", "FOSS", "Shizuku", "Material You", "Telegram", "Operating Systems", "TV Apps"] as const;
 type FilterKey = typeof FILTERS[number];
 type SortMode = "relevance" | "newest";
 
