@@ -105,6 +105,7 @@ const DockItem = ({
       ref={itemRef}
       to={link.to}
       data-nav-to={link.to}
+      draggable={false}
       aria-label={link.label}
       aria-current={active ? "page" : undefined}
       className={`group relative flex shrink-0 snap-center items-center gap-1.5 rounded-full border-2 px-2.5 py-2 transition-all duration-300 ease-bounce active:scale-90 ${
@@ -328,6 +329,7 @@ const BottomNav = () => {
             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-5 bg-gradient-to-l from-card to-transparent" />
             <div
               ref={stripRef}
+              onDragStart={(e) => e.preventDefault()}
               onPointerDown={onPointerDown}
               onPointerMove={onPointerMove}
               onPointerUp={onPointerUp}
