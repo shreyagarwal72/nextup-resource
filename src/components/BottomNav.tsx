@@ -356,10 +356,8 @@ const BottomNav = () => {
             <div
               ref={stripRef}
               onDragStart={(e) => e.preventDefault()}
-              onPointerDown={onPointerDown}
-              onPointerMove={onPointerMove}
-              onPointerUp={onPointerUp}
-              onPointerCancel={onPointerCancel}
+              onClickCapture={onStripClickCapture}
+
               className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1 py-1 pr-2 -my-1 -mr-2"
             >
               {links.map((link) => {
