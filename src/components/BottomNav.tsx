@@ -141,79 +141,105 @@ const BottomNav = () => {
   // ---- Drag-to-switch (independent of the label/showLabel logic) ----
   const [previewTo, setPreviewTo] = useState<string | null>(null);
   const drag = useRef({
-    id: -1,
+    down: false,
     x: 0,
     y: 0,
     t: 0,
     active: false,
     hover: null as string | null,
   });
+  const pathRef = useRef(location.pathname);
+  pathRef.current = location.pathname;
 
-  const hitTest = (x: number, y: number) => {
-    const el = document.elementFromPoint(x, y) as HTMLElement | null;
-    return el?.closest<HTMLElement>("[data-nav-to]")?.dataset.navTo ?? null;
-  };
+  useEffect(() => {
+    const strip = stripRef.current;
+    if (!strip) return;
 
-  const endDrag = useCallback(
-    (commit: boolean) => {
+    const hitTest = (x: number, y: number) => {
+      const el = document.elementFromPoint(x, y) as HTMLElement | null;
+      return el?.closest<HTMLElement>("[data-nav-to]")?.dataset.navTo ?? null;
+    };
+
+    const start = (x: number, y: number) => {
+      drag.current = { down: true, x, y, t: Date.now(), active: false, hover: null };
+    };
+
+    /** @returns true when the gesture is in drag-select mode (caller should block scroll). */
+    const move = (x: number, y: number) => {
+      const d = drag.current;
+      if (!d.down) return false;
+      const dx = x - d.x;
+      const dy = y - d.y;
+      if (!d.active) {
+        // Deliberate press: a real horizontal move AND a short hold, so casual
+        // scroll swipes and vertical page scrolls are left alone.
+        const horizontal = Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.5;
+        if (!horizontal || Date.now() - d.t < 150) return false;
+        d.active = true;
+      }
+      const to = hitTest(x, y);
+      if (to && to !== d.hover) {
+        d.hover = to;
+        setPreviewTo(to);
+        haptics.medium();
+      }
+      return true;
+    };
+
+    const end = (commit: boolean) => {
       const d = drag.current;
       const target = d.hover;
       const wasActive = d.active;
-      drag.current = { id: -1, x: 0, y: 0, t: 0, active: false, hover: null };
+      drag.current = { down: false, x: 0, y: 0, t: 0, active: false, hover: null };
       setPreviewTo(null);
-      if (commit && wasActive && target && target !== location.pathname) {
-        navigate(target);
-      }
-    },
-    [location.pathname, navigate],
-  );
-
-  const onPointerDown = (e: React.PointerEvent) => {
-    console.log("[dock] down");
-    drag.current = {
-      id: e.pointerId,
-      x: e.clientX,
-      y: e.clientY,
-      t: Date.now(),
-      active: false,
-      hover: null,
+      if (commit && wasActive && target && target !== pathRef.current) navigate(target);
     };
-  };
 
-  const onPointerMove = (e: React.PointerEvent) => {
-    console.log("[dock] move", e.pointerId, drag.current.id);
-    const d = drag.current;
-    if (d.id !== e.pointerId) return;
-    const dx = e.clientX - d.x;
-    const dy = e.clientY - d.y;
-    if (!d.active) {
-      // Deliberate press: needs a real horizontal move AND a short hold, so
-      // casual scroll swipes and vertical page scrolls are left alone.
-      const horizontal = Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.5;
-      if (!horizontal || Date.now() - d.t < 150) return;
-      d.active = true;
-      console.log("[dock] drag start");
-      try {
-        (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-      } catch {
-        /* ignore */
-      }
+    const onTouchStart = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (t) start(t.clientX, t.clientY);
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t) return;
+      // preventDefault keeps the native strip scroll from stealing the gesture
+      // *only* once drag-select mode has engaged; casual swipes still scroll.
+      if (move(t.clientX, t.clientY) && e.cancelable) e.preventDefault();
+    };
+    const onTouchEnd = () => end(true);
+    const onTouchCancel = () => end(false);
+
+    // Mouse fallback (desktop/dev tools) — touch is the primary path.
+    const onMouseDown = (e: MouseEvent) => start(e.clientX, e.clientY);
+    const onMouseMove = (e: MouseEvent) => move(e.clientX, e.clientY);
+    const onMouseUp = () => drag.current.down && end(true);
+
+    strip.addEventListener("touchstart", onTouchStart, { passive: true });
+    strip.addEventListener("touchmove", onTouchMove, { passive: false });
+    strip.addEventListener("touchend", onTouchEnd);
+    strip.addEventListener("touchcancel", onTouchCancel);
+    strip.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    return () => {
+      strip.removeEventListener("touchstart", onTouchStart);
+      strip.removeEventListener("touchmove", onTouchMove);
+      strip.removeEventListener("touchend", onTouchEnd);
+      strip.removeEventListener("touchcancel", onTouchCancel);
+      strip.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  }, [navigate]);
+
+  /** Swallow the click that follows a real drag so we don't double-navigate. */
+  const onStripClickCapture = (e: React.MouseEvent) => {
+    if (drag.current.active) {
+      e.preventDefault();
+      e.stopPropagation();
     }
-    const to = hitTest(e.clientX, e.clientY);
-    if (to && to !== d.hover) {
-      d.hover = to;
-      setPreviewTo(to);
-      haptics.medium();
-      console.log("[dock] hover", to);
-    }
   };
 
-  const onPointerUp = (e: React.PointerEvent) => {
-    if (drag.current.id !== e.pointerId) return;
-    endDrag(true);
-  };
-
-  const onPointerCancel = () => endDrag(false);
 
 
   // Keep the active dock item centred as the route changes.
