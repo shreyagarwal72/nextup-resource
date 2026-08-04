@@ -238,7 +238,10 @@ const BottomNav = () => {
           <div className="relative min-w-0 flex-1">
             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-5 bg-gradient-to-r from-card to-transparent" />
             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-5 bg-gradient-to-l from-card to-transparent" />
-            <div ref={stripRef} className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1">
+            <div
+              ref={stripRef}
+              className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1 pb-2 pr-2 -mb-2 -mr-2"
+            >
               {links.map((link) => (
                 <DockItem
                   key={link.to}
