@@ -92,6 +92,15 @@ export default defineConfig(({ mode }) => ({
             },
           },
           {
+            urlPattern: /^https:\/\/raw\.githubusercontent\.com\/.*/i,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "github-data",
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 * 7 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
             urlPattern: /\/api\/morphe/,
             handler: "NetworkFirst",
             options: {
