@@ -154,7 +154,7 @@ const cacheSet = (k: string, v: Hit[]) => {
 const MAX_PER_GROUP = 4;
 const MAX_TOTAL = 28;
 const MAX_SINGLE_GROUP = 24;
-const FILTERS = ["All", "Courses", "Resources", "Ebooks", "Apps", "Websites", "AI Tools", "FOSS", "Shizuku", "Material You", "Telegram"] as const;
+const FILTERS = ["All", "Courses", "Resources", "Ebooks", "Apps", "Websites", "AI Tools", "FOSS", "Shizuku", "Material You", "Telegram", "Operating Systems", "TV Apps"] as const;
 type FilterKey = typeof FILTERS[number];
 type SortMode = "relevance" | "newest";
 
