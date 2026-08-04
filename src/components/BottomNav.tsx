@@ -86,28 +86,34 @@ const bgCls: Record<Accent, string> = {
 const DockItem = ({
   link,
   active,
+  preview,
   showLabel,
+  animations,
   itemRef,
 }: {
   link: NavLinkItem;
   active: boolean;
+  preview: boolean;
   showLabel: boolean;
+  animations: boolean;
   itemRef: (el: HTMLAnchorElement | null) => void;
 }) => {
   const Icon = link.icon;
+  const lit = active || preview;
   return (
     <Link
       ref={itemRef}
       to={link.to}
+      data-nav-to={link.to}
       aria-label={link.label}
       aria-current={active ? "page" : undefined}
       className={`group relative flex shrink-0 snap-center items-center gap-1.5 rounded-full border-2 px-2.5 py-2 transition-all duration-300 ease-bounce active:scale-90 ${
-        active
-          ? `${bgCls[link.accent]} border-foreground/80 shadow-pop-soft`
+        lit
+          ? `${bgCls[link.accent]} border-foreground/80 shadow-pop-active`
           : "border-transparent text-muted-foreground hover:border-foreground/20 hover:bg-muted/60"
-      }`}
+      } ${preview && animations ? "scale-110" : ""}`}
     >
-      <Icon className="w-5 h-5 transition-transform duration-300 ease-bounce group-active:rotate-6" strokeWidth={active ? 2.6 : 2} />
+      <Icon className="w-5 h-5 transition-transform duration-300 ease-bounce group-active:rotate-6" strokeWidth={lit ? 2.6 : 2} />
       <span
         className={`overflow-hidden whitespace-nowrap text-[11px] font-extrabold transition-all duration-300 ease-bounce ${
           showLabel ? "max-w-[88px] opacity-100" : "max-w-0 opacity-0"
@@ -118,6 +124,7 @@ const DockItem = ({
 
     </Link>
   );
+
 };
 
 const BottomNav = () => {
