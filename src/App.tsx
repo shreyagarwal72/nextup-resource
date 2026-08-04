@@ -10,7 +10,6 @@ import Resourcely from "@/components/Resourcely";
 import StudyBanner from "@/components/StudyBanner";
 import ScrollToTopOnRoute from "@/components/ScrollToTopOnRoute";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import OfflineFallback from "@/components/OfflineFallback";
 import HapticFeedback from "@/components/HapticFeedback";
 import SettingsEffects from "@/components/SettingsEffects";
 import { Analytics } from "@vercel/analytics/react";
@@ -133,7 +132,6 @@ const App = () => {
                 </RouteTransition>
               </Suspense>
             </ErrorBoundary>
-            <OfflineFallback />
             <IntroModal />
             <Resourcely />
           </BrowserRouter>
