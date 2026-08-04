@@ -324,21 +324,32 @@ const BottomNav = () => {
             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-5 bg-gradient-to-l from-card to-transparent" />
             <div
               ref={stripRef}
-              className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1 pb-2 pr-2 -mb-2 -mr-2"
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+              onPointerCancel={onPointerCancel}
+              className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1 py-1 pr-2 -my-1 -mr-2"
             >
-              {links.map((link) => (
-                <DockItem
-                  key={link.to}
-                  link={link}
-                  active={isActive(link.to)}
-                  showLabel={settings.navLabels}
-                  itemRef={(el) => {
-                    if (el) itemRefs.current.set(link.to, el);
-                    else itemRefs.current.delete(link.to);
-                  }}
-                />
-              ))}
+              {links.map((link) => {
+                const active = isActive(link.to);
+                const preview = previewTo === link.to;
+                return (
+                  <DockItem
+                    key={link.to}
+                    link={link}
+                    active={active}
+                    preview={preview}
+                    animations={settings.animations}
+                    showLabel={settings.navLabels || active || preview}
+                    itemRef={(el) => {
+                      if (el) itemRefs.current.set(link.to, el);
+                      else itemRefs.current.delete(link.to);
+                    }}
+                  />
+                );
+              })}
             </div>
+
           </div>
         </div>
 
