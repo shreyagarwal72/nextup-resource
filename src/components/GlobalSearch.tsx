@@ -9,6 +9,9 @@ import { fossListApps } from "@/data/fossList";
 import { shizukuApps } from "@/data/shizukuApps";
 import { materialYouApps } from "@/data/materialYouApps";
 import { telegramBots } from "@/data/telegramBots";
+import { osProjects } from "@/data/osList";
+import { tvApps } from "@/data/tvApps";
+
 import { fuzzyScore } from "@/lib/fuzzy";
 import { highlight } from "@/lib/highlight";
 
