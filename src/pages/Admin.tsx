@@ -347,7 +347,7 @@ const Admin = () => {
                 </div>
                 <p className="text-sm text-muted-foreground mb-3">
                   Install every piece of website content (courses, resources, ebooks, apps,
-                  websites, bundles, AI tools, FOSS, Material You, Shizuku, Telegram bots, TV apps)
+                  websites, bundles, AI tools, FOSS, Material You, Shizuku, Telegram bots, TV apps, operating systems)
                   into the backend so it can be queried or backed up.
                 </p>
 
