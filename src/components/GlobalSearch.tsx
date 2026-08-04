@@ -39,7 +39,10 @@ const groupAccent: Record<string, string> = {
   Shizuku: "bg-secondary text-secondary-foreground",
   "Material You": "bg-tertiary text-tertiary-foreground",
   Telegram: "bg-primary text-primary-foreground",
+  "Operating Systems": "bg-secondary text-secondary-foreground",
+  "TV Apps": "bg-tertiary text-tertiary-foreground",
 };
+
 
 const buildIndex = (): Hit[] => {
   const out: Hit[] = [];
