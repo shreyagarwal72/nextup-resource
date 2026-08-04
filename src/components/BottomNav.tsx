@@ -180,6 +180,7 @@ const BottomNav = () => {
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
+    console.log("[dock] move", e.pointerId, drag.current.id);
     const d = drag.current;
     if (d.id !== e.pointerId) return;
     const dx = e.clientX - d.x;
