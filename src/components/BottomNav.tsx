@@ -1,6 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSettings } from "@/hooks/useSettings";
+import { haptics } from "@/lib/haptics";
+
 import {
   Home,
   BookOpen,
