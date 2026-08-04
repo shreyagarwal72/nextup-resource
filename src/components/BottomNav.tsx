@@ -133,8 +133,83 @@ const BottomNav = () => {
   const [open, setOpen] = useState(false);
   const { settings } = useSettings();
 
+  const navigate = useNavigate();
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const stripRef = useRef<HTMLDivElement>(null);
+
+  // ---- Drag-to-switch (independent of the label/showLabel logic) ----
+  const [previewTo, setPreviewTo] = useState<string | null>(null);
+  const drag = useRef({
+    id: -1,
+    x: 0,
+    y: 0,
+    t: 0,
+    active: false,
+    hover: null as string | null,
+  });
+
+  const hitTest = (x: number, y: number) => {
+    const el = document.elementFromPoint(x, y) as HTMLElement | null;
+    return el?.closest<HTMLElement>("[data-nav-to]")?.dataset.navTo ?? null;
+  };
+
+  const endDrag = useCallback(
+    (commit: boolean) => {
+      const d = drag.current;
+      const target = d.hover;
+      const wasActive = d.active;
+      drag.current = { id: -1, x: 0, y: 0, t: 0, active: false, hover: null };
+      setPreviewTo(null);
+      if (commit && wasActive && target && target !== location.pathname) {
+        navigate(target);
+      }
+    },
+    [location.pathname, navigate],
+  );
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    drag.current = {
+      id: e.pointerId,
+      x: e.clientX,
+      y: e.clientY,
+      t: Date.now(),
+      active: false,
+      hover: null,
+    };
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    const d = drag.current;
+    if (d.id !== e.pointerId) return;
+    const dx = e.clientX - d.x;
+    const dy = e.clientY - d.y;
+    if (!d.active) {
+      // Deliberate press: needs a real horizontal move AND a short hold, so
+      // casual scroll swipes and vertical page scrolls are left alone.
+      const horizontal = Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.5;
+      if (!horizontal || Date.now() - d.t < 150) return;
+      d.active = true;
+      try {
+        (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+      } catch {
+        /* ignore */
+      }
+    }
+    const to = hitTest(e.clientX, e.clientY);
+    if (to && to !== d.hover) {
+      d.hover = to;
+      setPreviewTo(to);
+      haptics.medium();
+    }
+  };
+
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (drag.current.id !== e.pointerId) return;
+    endDrag(true);
+  };
+
+  const onPointerCancel = () => endDrag(false);
+
 
   // Keep the active dock item centred as the route changes.
   // NOTE: intentionally NOT using scrollIntoView here — on a `fixed` nav it
