@@ -101,6 +101,7 @@ const Toggle = ({
 const Settings = () => {
   const { settings, toggle, reset } = useSettings();
   const [cleared, setCleared] = useState(false);
+  const dirty = useRef(false);
 
   useEffect(() => {
     updatePageMeta({
@@ -111,10 +112,23 @@ const Settings = () => {
     });
   }, []);
 
+  // Leaving Settings after changing something does a hard refresh, so every
+  // page (including cached PWA shells) picks the new preferences up cleanly.
+  useEffect(
+    () => () => {
+      if (dirty.current) window.location.reload();
+    },
+    [],
+  );
+
   const onToggle = (key: keyof SettingsShape) => {
     toggle(key);
-    haptics.medium();
+    dirty.current = true;
+    // Always buzz here so the haptics switch itself confirms, even when the
+    // preference was just turned off.
+    haptics.force(20);
   };
+
 
   const clearCaches = async () => {
     try {
