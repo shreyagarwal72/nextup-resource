@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BottomNav from "@/components/BottomNav";
@@ -192,7 +192,11 @@ const Settings = () => {
               <BookOpen className="h-4 w-4" strokeWidth={2.5} /> Replay tour
             </button>
             <button
-              onClick={reset}
+              onClick={() => {
+                reset();
+                dirty.current = true;
+              }}
+
               className="flex items-center justify-center gap-2 rounded-2xl border-2 border-foreground/80 bg-card px-4 py-3 font-bold shadow-pop-soft transition-transform duration-200 ease-bounce hover:-translate-y-0.5 active:scale-95"
             >
               <RotateCcw className="h-4 w-4" strokeWidth={2.5} /> Reset defaults
