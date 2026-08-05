@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import QuickFavorite from "@/components/QuickFavorite";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
