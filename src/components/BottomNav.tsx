@@ -159,6 +159,12 @@ const BottomNav = () => {
   const stripRef = useRef<HTMLDivElement>(null);
 
   // ---- Drag-to-switch (independent of the label/showLabel logic) ----
+  // Tuning: a gesture only becomes "drag-select" after a 150 ms hold AND a
+  // horizontal move past 8 px. Anything that moves vertically first is locked
+  // out for the rest of the gesture so page scrolling never switches pages,
+  // and anything under 8 px stays a plain tap.
+  const HOLD_MS = 150;
+  const TAP_SLOP = 8;
   const [previewTo, setPreviewTo] = useState<string | null>(null);
   const drag = useRef({
     down: false,
@@ -166,6 +172,7 @@ const BottomNav = () => {
     y: 0,
     t: 0,
     active: false,
+    locked: false,
     hover: null as string | null,
   });
   const pathRef = useRef(location.pathname);
@@ -181,22 +188,34 @@ const BottomNav = () => {
     };
 
     const start = (x: number, y: number) => {
-      drag.current = { down: true, x, y, t: Date.now(), active: false, hover: null };
+      drag.current = { down: true, x, y, t: Date.now(), active: false, locked: false, hover: null };
     };
 
     /** @returns true when the gesture is in drag-select mode (caller should block scroll). */
     const move = (x: number, y: number) => {
       const d = drag.current;
-      if (!d.down) return false;
+      if (!d.down || d.locked) return false;
       const dx = x - d.x;
       const dy = y - d.y;
+      const adx = Math.abs(dx);
+      const ady = Math.abs(dy);
+
       if (!d.active) {
-        // Deliberate press: a real horizontal move AND a short hold, so casual
-        // scroll swipes and vertical page scrolls are left alone.
-        const horizontal = Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.5;
-        if (!horizontal || Date.now() - d.t < 150) return false;
+        // Vertical lock: once the finger commits to a vertical direction the
+        // gesture belongs to the page, not the dock.
+        if (ady > TAP_SLOP && ady > adx) {
+          d.locked = true;
+          return false;
+        }
+        // Still inside tap slop → let it be a tap.
+        if (adx <= TAP_SLOP) return false;
+        // Horizontal, but too quick to be deliberate → leave it to the strip's
+        // native fling-scroll instead of hijacking it.
+        if (Date.now() - d.t < HOLD_MS) return false;
+        if (adx <= ady * 1.5) return false;
         d.active = true;
       }
+
       const to = hitTest(x, y);
       if (to && to !== d.hover) {
         d.hover = to;
@@ -205,6 +224,7 @@ const BottomNav = () => {
       }
       return true;
     };
+
 
     const end = (commit: boolean) => {
       const d = drag.current;
