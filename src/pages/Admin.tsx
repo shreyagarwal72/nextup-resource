@@ -460,8 +460,55 @@ const Admin = () => {
                   <Button variant="ghost" onClick={clearContent} disabled={syncing}>
                     <Trash2 className="w-4 h-4 mr-2" /> Clear database
                   </Button>
+                  <Button variant="outline" onClick={pullFromBackend} disabled={syncing}>
+                    <RefreshCw className="w-4 h-4 mr-2" /> Pull into site
+                  </Button>
+                </div>
+
+                {/* ---- JSON import ---- */}
+                <div className="mt-5 rounded-2xl border-2 border-dashed border-foreground/30 p-4">
+                  <p className="font-heading font-extrabold">Import JSON</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Upload a backup export, a <code>{`{ dataset: [items] }`}</code> map, or a plain
+                    array of items (then name the dataset below). Imported content goes live on the
+                    matching page immediately.
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-2 mt-3">
+                    <Input
+                      list="nextup-datasets"
+                      value={importDataset}
+                      onChange={(e) => setImportDataset(e.target.value)}
+                      placeholder="dataset (e.g. tv_apps) — only for plain arrays"
+                      className="max-w-xs"
+                    />
+                    <datalist id="nextup-datasets">
+                      {DATASETS.map((d) => (
+                        <option key={d} value={d} />
+                      ))}
+                    </datalist>
+                    <input
+                      ref={importRef}
+                      type="file"
+                      accept="application/json,.json"
+                      className="hidden"
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) void importJson(f);
+                        e.target.value = "";
+                      }}
+                    />
+                    <Button
+                      variant="outline"
+                      onClick={() => importRef.current?.click()}
+                      disabled={syncing}
+                    >
+                      <UploadCloud className="w-4 h-4 mr-2" /> Choose JSON file
+                    </Button>
+                  </div>
                 </div>
               </div>
+
             </div>
           )}
         </div>
