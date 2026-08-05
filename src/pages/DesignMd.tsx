@@ -37,7 +37,7 @@ const DesignMdCard = ({ item, accent }: { item: DesignMdEntry; accent: Accent })
       <div className="flex items-start justify-between gap-2">
         <h3 className={`font-heading font-extrabold text-base ${text} leading-snug`}>{item.name}</h3>
         <div className="flex items-center gap-1 shrink-0">
-          <QuickFavorite name={item.name} type="design-md" />
+          <QuickFavorite name={item.name} type="design" />
           <ExternalLink className="w-4 h-4 text-muted-foreground mt-0.5" strokeWidth={2.5} />
         </div>
       </div>
