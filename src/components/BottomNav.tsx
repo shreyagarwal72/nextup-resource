@@ -312,7 +312,13 @@ const BottomNav = () => {
     };
   }, [open]);
 
+  // Study Mode hides every destination that has no study material.
+  const visibleLinks = isStudyMode
+    ? links.filter((l) => STUDY_ROUTES.has(l.to) || isActive(l.to))
+    : links;
+
   const activeLink = links.find((l) => isActive(l.to));
+
 
   return (
     <>
