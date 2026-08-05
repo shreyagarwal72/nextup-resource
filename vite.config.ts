@@ -77,17 +77,45 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
+        // Full offline app shell: every built asset is precached and any
+        // navigation falls back to the cached index.html.
         navigateFallback: "index.html",
         navigateFallbackDenylist: [/^\/api\//, /^\/~oauth/],
         additionalManifestEntries: [{ url: "/offline.html", revision: `${Date.now()}` }],
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg}"],
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,woff,woff2}"],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
+        navigationPreload: false,
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         runtimeCaching: [
+          {
+            // Google Fonts stylesheets + files, so typography survives offline.
+            urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts",
+              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
           {
             urlPattern: /^https:\/\/images\.unsplash\.com\/.*/i,
             handler: "CacheFirst",
             options: {
               cacheName: "unsplash-images",
               expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            // Backend content catalog — served from cache instantly, refreshed
+            // in the background, and still available with no connection.
+            urlPattern: /\/rest\/v1\/site_content.*/i,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "site-content-api",
+              expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 30 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },
@@ -101,6 +129,15 @@ export default defineConfig(({ mode }) => ({
             },
           },
           {
+            urlPattern: /^https:\/\/api\.github\.com\/.*/i,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "github-api",
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 12 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
             urlPattern: /\/api\/morphe/,
             handler: "NetworkFirst",
             options: {
@@ -110,8 +147,19 @@ export default defineConfig(({ mode }) => ({
               cacheableResponse: { statuses: [0, 200] },
             },
           },
+          {
+            // Any other same-origin image (local assets, generated covers).
+            urlPattern: ({ request }) => request.destination === "image",
+            handler: "CacheFirst",
+            options: {
+              cacheName: "images",
+              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 60 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
         ],
       },
+
       mode: "production",
       minify: false,
     }),

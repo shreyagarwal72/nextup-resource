@@ -1,10 +1,19 @@
 // Thin wrapper around the Web Vibration API (navigator.vibrate).
 // Supported on Android Chrome/WebView; silently no-ops on iOS Safari and
 // desktop browsers where it doesn't exist — always safe to call anywhere.
+import { readSettings } from "@/hooks/useSettings";
+
 const supported = typeof navigator !== "undefined" && "vibrate" in navigator;
 
 const vibrate = (pattern: number | number[]) => {
   if (!supported) return;
+  // Single source of truth: every call site honours the /settings toggle,
+  // so turning haptics off silences the whole site instantly.
+  try {
+    if (!readSettings().haptics) return;
+  } catch {
+    /* settings unavailable — fall through */
+  }
   try {
     navigator.vibrate(pattern);
   } catch {
@@ -21,4 +30,13 @@ export const haptics = {
   success: () => vibrate([10, 40, 10]),
   /** A sharper triple-pulse for errors/failures. */
   error: () => vibrate([20, 30, 20, 30, 20]),
+  /** Always fires, ignoring the user preference (used to confirm the toggle itself). */
+  force: (pattern: number | number[] = 20) => {
+    if (!supported) return;
+    try {
+      navigator.vibrate(pattern);
+    } catch {
+      /* ignore */
+    }
+  },
 };

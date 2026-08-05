@@ -9,6 +9,8 @@ import SearchBox from "@/components/SearchBox";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import { ArrowLeft, Tv, Sparkles, SearchX, ExternalLink } from "lucide-react";
 import { tvApps, tvCategories } from "@/data/tvApps";
+import QuickFavorite from "@/components/QuickFavorite";
+
 import { useDebounced } from "@/hooks/useDebounced";
 import { toast } from "sonner";
 
@@ -190,10 +192,14 @@ const TvApps = () => {
                         <div className="w-11 h-11 rounded-2xl bg-secondary text-secondary-foreground border-2 border-foreground/80 flex items-center justify-center shadow-pop shrink-0">
                           <Tv className="w-5 h-5" strokeWidth={2.5} />
                         </div>
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold border-2 border-foreground/40 bg-card text-foreground shrink-0">
-                          {app.category}
-                        </span>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold border-2 border-foreground/40 bg-card text-foreground">
+                            {app.category}
+                          </span>
+                          <QuickFavorite name={app.name} type="tv-app" />
+                        </div>
                       </div>
+
                       <h3 className="text-lg font-bold text-foreground font-heading mb-1 break-words">
                         {app.name}
                       </h3>

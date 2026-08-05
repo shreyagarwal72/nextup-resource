@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import BottomNav from "@/components/BottomNav";
@@ -16,10 +16,19 @@ import {
   Database,
   UploadCloud,
   Download,
+  RefreshCw,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { updatePageMeta } from "@/lib/og-image";
-import { buildAllContentRows, chunk, downloadContentBackup } from "@/lib/contentExport";
+import {
+  buildAllContentRows,
+  chunk,
+  downloadContentBackup,
+  rowsFromItems,
+  type ContentRow,
+} from "@/lib/contentExport";
+import { refreshContentFromBackend, DATASETS } from "@/lib/contentBridge";
+
 
 
 type KeyStatus = { masked: string | null; updated_at: string | null };
@@ -43,6 +52,9 @@ const Admin = () => {
   const [syncing, setSyncing] = useState(false);
   const [progress, setProgress] = useState(0);
   const localRows = useMemo(() => buildAllContentRows(), []);
+  const [importDataset, setImportDataset] = useState("");
+  const importRef = useRef<HTMLInputElement>(null);
+
 
 
   useEffect(() => {
@@ -193,6 +205,62 @@ const Admin = () => {
       setSyncing(false);
     }
   };
+
+  /**
+   * Imports content from a JSON file. Three shapes are accepted:
+   *  1. a backup export        → { rows: [{ dataset, external_id, payload }] }
+   *  2. a dataset map          → { tv_apps: [ ...items ], os_projects: [ ... ] }
+   *  3. a bare array of items  → needs the dataset name typed in the box
+   */
+  const importJson = async (file: File) => {
+    setSyncing(true);
+    setProgress(0);
+    try {
+      const parsed = JSON.parse(await file.text());
+      let rows: ContentRow[] = [];
+
+      if (Array.isArray(parsed?.rows)) {
+        rows = parsed.rows as ContentRow[];
+      } else if (Array.isArray(parsed)) {
+        const ds = importDataset.trim();
+        if (!ds) throw new Error("Type a dataset name for a plain array file");
+        rows = rowsFromItems(ds, parsed);
+      } else if (parsed && typeof parsed === "object") {
+        for (const [ds, items] of Object.entries(parsed)) {
+          if (Array.isArray(items)) rows.push(...rowsFromItems(ds, items));
+        }
+      }
+
+      rows = rows.filter((r) => r?.dataset && r?.external_id);
+      if (!rows.length) throw new Error("No importable rows found in that file");
+
+      const batches = chunk(rows, 400);
+      for (let i = 0; i < batches.length; i++) {
+        await callSync("POST", { rows: batches[i] });
+        setProgress(Math.round(((i + 1) / batches.length) * 100));
+      }
+      await loadStats();
+      await refreshContentFromBackend().catch(() => 0);
+      toast.success(`Imported ${rows.length} items — pages now serve the new content`);
+    } catch (e: any) {
+      toast.error(e?.message || "Import failed");
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const pullFromBackend = async () => {
+    setSyncing(true);
+    try {
+      const n = await refreshContentFromBackend();
+      toast.success(n ? `Loaded ${n} items from the database` : "Database is empty");
+    } catch (e: any) {
+      toast.error(e?.message || "Could not read the database");
+    } finally {
+      setSyncing(false);
+    }
+  };
+
 
   const test = async () => {
 
@@ -393,8 +461,55 @@ const Admin = () => {
                   <Button variant="ghost" onClick={clearContent} disabled={syncing}>
                     <Trash2 className="w-4 h-4 mr-2" /> Clear database
                   </Button>
+                  <Button variant="outline" onClick={pullFromBackend} disabled={syncing}>
+                    <RefreshCw className="w-4 h-4 mr-2" /> Pull into site
+                  </Button>
+                </div>
+
+                {/* ---- JSON import ---- */}
+                <div className="mt-5 rounded-2xl border-2 border-dashed border-foreground/30 p-4">
+                  <p className="font-heading font-extrabold">Import JSON</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Upload a backup export, a <code>{`{ dataset: [items] }`}</code> map, or a plain
+                    array of items (then name the dataset below). Imported content goes live on the
+                    matching page immediately.
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-2 mt-3">
+                    <Input
+                      list="nextup-datasets"
+                      value={importDataset}
+                      onChange={(e) => setImportDataset(e.target.value)}
+                      placeholder="dataset (e.g. tv_apps) — only for plain arrays"
+                      className="max-w-xs"
+                    />
+                    <datalist id="nextup-datasets">
+                      {DATASETS.map((d) => (
+                        <option key={d} value={d} />
+                      ))}
+                    </datalist>
+                    <input
+                      ref={importRef}
+                      type="file"
+                      accept="application/json,.json"
+                      className="hidden"
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) void importJson(f);
+                        e.target.value = "";
+                      }}
+                    />
+                    <Button
+                      variant="outline"
+                      onClick={() => importRef.current?.click()}
+                      disabled={syncing}
+                    >
+                      <UploadCloud className="w-4 h-4 mr-2" /> Choose JSON file
+                    </Button>
+                  </div>
                 </div>
               </div>
+
             </div>
           )}
         </div>

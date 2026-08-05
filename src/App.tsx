@@ -9,6 +9,8 @@ import IntroModal from "@/components/IntroModal";
 import Resourcely from "@/components/Resourcely";
 import StudyBanner from "@/components/StudyBanner";
 import ScrollToTopOnRoute from "@/components/ScrollToTopOnRoute";
+import { initContentBridge, useContentVersion } from "@/lib/contentBridge";
+
 import ErrorBoundary from "@/components/ErrorBoundary";
 import HapticFeedback from "@/components/HapticFeedback";
 import SettingsEffects from "@/components/SettingsEffects";
@@ -76,12 +78,18 @@ const PageLoader = () => (
 /** Fades + lifts each page in on route change (respects reduced motion via .reduce-motion). */
 const RouteTransition = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
+  // Re-keying on the content version re-renders pages the moment the backend
+  // catalog lands, so remote content replaces bundled content seamlessly.
+  const contentVersion = useContentVersion();
   return (
-    <div key={location.pathname} className="animate-route-enter">
+    <div key={`${location.pathname}:${contentVersion}`} className="animate-route-enter">
       {children}
     </div>
   );
 };
+
+initContentBridge();
+
 
 const App = () => {
   return (

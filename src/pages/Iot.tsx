@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import QuickFavorite from "@/components/QuickFavorite";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -36,7 +37,10 @@ const IotCard = ({ item, accent }: { item: IotEntry; accent: Accent }) => {
     >
       <div className="flex items-start justify-between gap-2">
         <h3 className={`font-heading font-extrabold text-base ${text} leading-snug`}>{item.name}</h3>
-        <ExternalLink className="w-4 h-4 shrink-0 text-muted-foreground mt-0.5" strokeWidth={2.5} />
+        <div className="flex items-center gap-1 shrink-0">
+          <QuickFavorite name={item.name} type="iot" />
+          <ExternalLink className="w-4 h-4 text-muted-foreground mt-0.5" strokeWidth={2.5} />
+        </div>
       </div>
       <p className="text-sm text-muted-foreground line-clamp-3">{item.description}</p>
       <span className={`inline-flex items-center gap-1 mt-1 w-fit px-2 py-0.5 rounded-full text-[11px] font-bold ${chip}`}>

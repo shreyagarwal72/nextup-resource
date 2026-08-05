@@ -83,7 +83,27 @@ npm install
 npm run dev
 ```
 
+## Backend-Driven Content
+
+Every catalog (courses, resources, ebooks, apps, AI tools, FOSS, Shizuku, Material You,
+Morphe, TV apps, OS projects, Telegram bots…) can be served from the backend database
+instead of the bundled files. Bundled data stays as an instant, offline-safe fallback.
+
+How it works: `src/lib/contentBridge.ts` loads the `site_content` table on boot, replaces
+the in-memory dataset arrays, and caches the result locally so the site works fully offline.
+
+### Steps (admin)
+
+1. Open `/admin` and enter the admin password.
+2. **Install all content** — pushes the bundled catalog into the database (one-time seed).
+3. **Download JSON backup** — exports the entire catalog as a single JSON file.
+4. **Import JSON** — upload a backup export, a `{ "dataset": [items] }` map, or a plain
+   array of items (type the dataset name, e.g. `tv_apps`, in the box first).
+5. **Pull into site** — re-reads the database and refreshes every page with the new content.
+6. Visitors pick the new content up automatically on their next load.
+
 ## License
+
 
 © 2026 Nextup Resources. All rights reserved.
 

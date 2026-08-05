@@ -1,6 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSettings } from "@/hooks/useSettings";
+import { useStudyMode } from "@/hooks/useStudyMode";
+
 import { haptics } from "@/lib/haptics";
 
 import {
@@ -69,6 +71,20 @@ const groups: { title: string; accent: Accent }[] = [
   { title: "Explore", accent: "quaternary" },
 ];
 
+/** Routes that actually contain study material — the only ones shown in Study Mode. */
+const STUDY_ROUTES = new Set([
+  "/",
+  "/courses",
+  "/resources",
+  "/ebooks",
+  "/special-courses",
+  "/developer-roadmap",
+  "/ai",
+  "/api-hub",
+  "/settings",
+]);
+
+
 const textCls: Record<Accent, string> = {
   primary: "text-primary",
   secondary: "text-secondary",
@@ -108,20 +124,26 @@ const DockItem = ({
       draggable={false}
       aria-label={link.label}
       aria-current={active ? "page" : undefined}
-      className={`group relative flex shrink-0 snap-center items-center gap-1.5 rounded-full border-2 px-2.5 py-2 transition-all duration-300 ease-bounce active:scale-90 ${
+      className={`group relative flex shrink-0 snap-center items-center gap-1.5 rounded-full border-2 px-2.5 py-2 ${
+        animations ? "transition-all duration-300 ease-bounce active:scale-90" : "transition-none"
+      } ${
         lit
           ? `${bgCls[link.accent]} border-foreground/80 shadow-pop-active`
           : "border-transparent text-muted-foreground hover:border-foreground/20 hover:bg-muted/60"
-      } ${preview && animations ? "scale-110" : ""}`}
+      } ${preview ? (animations ? "scale-110 ring-2 ring-foreground/30" : "ring-2 ring-foreground/30") : ""}`}
     >
-      <Icon className="w-5 h-5 transition-transform duration-300 ease-bounce group-active:rotate-6" strokeWidth={lit ? 2.6 : 2} />
+      <Icon
+        className={`w-5 h-5 ${animations ? "transition-transform duration-300 ease-bounce group-active:rotate-6" : ""}`}
+        strokeWidth={lit ? 2.6 : 2}
+      />
       <span
-        className={`overflow-hidden whitespace-nowrap text-[11px] font-extrabold transition-all duration-300 ease-bounce ${
-          showLabel ? "max-w-[88px] opacity-100" : "max-w-0 opacity-0"
-        }`}
+        className={`overflow-hidden whitespace-nowrap text-[11px] font-extrabold ${
+          animations ? "transition-all duration-300 ease-bounce" : "transition-none"
+        } ${showLabel ? "ml-0 max-w-[88px] opacity-100" : "max-w-0 opacity-0"}`}
       >
         {link.label}
       </span>
+
 
     </Link>
   );
@@ -133,12 +155,20 @@ const BottomNav = () => {
   const isActive = (path: string) => location.pathname === path;
   const [open, setOpen] = useState(false);
   const { settings } = useSettings();
+  const { isStudyMode } = useStudyMode();
+
 
   const navigate = useNavigate();
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const stripRef = useRef<HTMLDivElement>(null);
 
   // ---- Drag-to-switch (independent of the label/showLabel logic) ----
+  // Tuning: a gesture only becomes "drag-select" after a 150 ms hold AND a
+  // horizontal move past 8 px. Anything that moves vertically first is locked
+  // out for the rest of the gesture so page scrolling never switches pages,
+  // and anything under 8 px stays a plain tap.
+  const HOLD_MS = 150;
+  const TAP_SLOP = 8;
   const [previewTo, setPreviewTo] = useState<string | null>(null);
   const drag = useRef({
     down: false,
@@ -146,6 +176,7 @@ const BottomNav = () => {
     y: 0,
     t: 0,
     active: false,
+    locked: false,
     hover: null as string | null,
   });
   const pathRef = useRef(location.pathname);
@@ -161,22 +192,34 @@ const BottomNav = () => {
     };
 
     const start = (x: number, y: number) => {
-      drag.current = { down: true, x, y, t: Date.now(), active: false, hover: null };
+      drag.current = { down: true, x, y, t: Date.now(), active: false, locked: false, hover: null };
     };
 
     /** @returns true when the gesture is in drag-select mode (caller should block scroll). */
     const move = (x: number, y: number) => {
       const d = drag.current;
-      if (!d.down) return false;
+      if (!d.down || d.locked) return false;
       const dx = x - d.x;
       const dy = y - d.y;
+      const adx = Math.abs(dx);
+      const ady = Math.abs(dy);
+
       if (!d.active) {
-        // Deliberate press: a real horizontal move AND a short hold, so casual
-        // scroll swipes and vertical page scrolls are left alone.
-        const horizontal = Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.5;
-        if (!horizontal || Date.now() - d.t < 150) return false;
+        // Vertical lock: once the finger commits to a vertical direction the
+        // gesture belongs to the page, not the dock.
+        if (ady > TAP_SLOP && ady > adx) {
+          d.locked = true;
+          return false;
+        }
+        // Still inside tap slop → let it be a tap.
+        if (adx <= TAP_SLOP) return false;
+        // Horizontal, but too quick to be deliberate → leave it to the strip's
+        // native fling-scroll instead of hijacking it.
+        if (Date.now() - d.t < HOLD_MS) return false;
+        if (adx <= ady * 1.5) return false;
         d.active = true;
       }
+
       const to = hitTest(x, y);
       if (to && to !== d.hover) {
         d.hover = to;
@@ -186,11 +229,12 @@ const BottomNav = () => {
       return true;
     };
 
+
     const end = (commit: boolean) => {
       const d = drag.current;
       const target = d.hover;
       const wasActive = d.active;
-      drag.current = { down: false, x: 0, y: 0, t: 0, active: false, hover: null };
+      drag.current = { down: false, x: 0, y: 0, t: 0, active: false, locked: false, hover: null };
       setPreviewTo(null);
       if (commit && wasActive && target && target !== pathRef.current) navigate(target);
     };
@@ -253,10 +297,11 @@ const BottomNav = () => {
     if (activeEl && strip) {
       const target =
         activeEl.offsetLeft - strip.clientWidth / 2 + activeEl.clientWidth / 2;
-      strip.scrollTo({ left: target, behavior: "smooth" });
+      strip.scrollTo({ left: target, behavior: settings.animations ? "smooth" : "auto" });
     }
     setOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, settings.animations]);
+
 
   // Lock body scroll + close on Escape while the launcher sheet is open.
   useEffect(() => {
@@ -271,7 +316,13 @@ const BottomNav = () => {
     };
   }, [open]);
 
+  // Study Mode hides every destination that has no study material.
+  const visibleLinks = isStudyMode
+    ? links.filter((l) => STUDY_ROUTES.has(l.to) || isActive(l.to))
+    : links;
+
   const activeLink = links.find((l) => isActive(l.to));
+
 
   return (
     <>
@@ -301,8 +352,10 @@ const BottomNav = () => {
             </div>
 
             {groups.map((group) => {
-              const items = links.filter((l) => l.accent === group.accent);
+              const items = visibleLinks.filter((l) => l.accent === group.accent);
+              if (!items.length) return null;
               return (
+
                 <div key={group.title} className="mb-4 last:mb-0">
                   <p className="mb-2 text-[11px] font-extrabold uppercase tracking-widest text-muted-foreground">
                     {group.title}
@@ -360,7 +413,7 @@ const BottomNav = () => {
 
               className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1 py-1 pr-2 -my-1 -mr-2"
             >
-              {links.map((link) => {
+              {visibleLinks.map((link) => {
                 const active = isActive(link.to);
                 const preview = previewTo === link.to;
                 return (

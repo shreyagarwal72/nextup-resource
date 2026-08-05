@@ -7,6 +7,8 @@ import BottomNav from "@/components/BottomNav";
 import SquigglyUnderline from "@/components/SquigglyUnderline";
 import SearchBox from "@/components/SearchBox";
 import CopyLinkButton from "@/components/CopyLinkButton";
+import QuickFavorite from "@/components/QuickFavorite";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -213,12 +215,16 @@ const Morphe = () => {
                         <div className="w-11 h-11 rounded-2xl bg-secondary text-secondary-foreground border-2 border-foreground/80 flex items-center justify-center shadow-pop">
                           <Package className="w-5 h-5" strokeWidth={2.5} />
                         </div>
-                        <Badge
-                          className={`${v.cls} border-2 border-foreground/80 text-[10px] font-bold rounded-full`}
-                        >
-                          {v.label}
-                        </Badge>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <Badge
+                            className={`${v.cls} border-2 border-foreground/80 text-[10px] font-bold rounded-full`}
+                          >
+                            {v.label}
+                          </Badge>
+                          <QuickFavorite name={app.displayName} type="morphe" />
+                        </div>
                       </div>
+
                       <h3 className="text-lg font-bold text-foreground font-heading mb-1 break-words">
                         {app.displayName}
                       </h3>

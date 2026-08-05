@@ -1,7 +1,27 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { toast } from "@/hooks/use-toast";
 
-type FavoriteType = "course" | "resource" | "ebook" | "ai-tool" | "foss" | "shizuku" | "morphe" | "material-you";
+export type FavoriteType =
+  | "course"
+  | "resource"
+  | "ebook"
+  | "ai-tool"
+  | "foss"
+  | "shizuku"
+  | "morphe"
+  | "material-you"
+  | "app"
+  | "website"
+  | "tv-app"
+  | "os"
+  | "game"
+  | "iot"
+  | "api"
+  | "bot"
+  | "design"
+  | "android-re"
+  | "fitness"
+  | "roadmap";
 
 interface FavoriteItem {
   id: string;
@@ -10,88 +30,105 @@ interface FavoriteItem {
 
 const STORAGE_KEY = "nextup_favorites";
 
+const load = (): FavoriteItem[] => {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as FavoriteItem[]) : [];
+  } catch {
+    return [];
+  }
+};
+
+/**
+ * Single shared snapshot — every card on every page reads the same list, so a
+ * heart tapped in one component instantly re-renders all the others (and other
+ * tabs, via the `storage` event).
+ */
+let snapshot: FavoriteItem[] = load();
+const listeners = new Set<() => void>();
+const emit = () => listeners.forEach((l) => l());
+
+const subscribe = (cb: () => void) => {
+  listeners.add(cb);
+  const onExternal = () => {
+    snapshot = load();
+    emit();
+  };
+  window.addEventListener("storage", onExternal);
+  return () => {
+    listeners.delete(cb);
+    window.removeEventListener("storage", onExternal);
+  };
+};
+
+const persist = (next: FavoriteItem[]) => {
+  snapshot = next;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+  } catch {
+    /* ignore */
+  }
+  emit();
+};
+
+const EMPTY: FavoriteItem[] = [];
+
+const LABELS: Partial<Record<FavoriteType, string>> = {
+  course: "Course",
+  resource: "Resource",
+  ebook: "Ebook",
+  "ai-tool": "AI tool",
+  foss: "FOSS app",
+  shizuku: "Shizuku app",
+  morphe: "Morphe build",
+  "material-you": "Material You app",
+  app: "App",
+  website: "Website",
+  "tv-app": "TV app",
+  os: "OS project",
+  game: "Game",
+  iot: "IoT project",
+  api: "API",
+  bot: "Telegram bot",
+  design: "Design resource",
+  "android-re": "Android RE tool",
+  fitness: "Fitness book",
+  roadmap: "Roadmap",
+};
+
 export const useFavorites = () => {
-  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
-  const favoritesRef = useRef<FavoriteItem[]>([]);
-
-  // Keep ref in sync with state
-  useEffect(() => {
-    favoritesRef.current = favorites;
-  }, [favorites]);
-
-  // Load favorites from localStorage on mount
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        setFavorites(parsed);
-        favoritesRef.current = parsed;
-      }
-    } catch (error) {
-      console.error("Error loading favorites:", error);
-    }
-  }, []);
-
-  // Save favorites to localStorage whenever they change
-  const saveFavorites = useCallback((newFavorites: FavoriteItem[]) => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newFavorites));
-      setFavorites(newFavorites);
-      favoritesRef.current = newFavorites;
-    } catch (error) {
-      console.error("Error saving favorites:", error);
-    }
-  }, []);
+  const favorites = useSyncExternalStore(
+    subscribe,
+    () => snapshot,
+    () => EMPTY,
+  );
 
   const isFavorite = useCallback(
-    (id: string, type: FavoriteType) => {
-      return favorites.some((fav) => fav.id === id && fav.type === type);
-    },
-    [favorites]
+    (id: string, type: FavoriteType) => favorites.some((f) => f.id === id && f.type === type),
+    [favorites],
   );
 
-  const toggleFavorite = useCallback(
-    (id: string, type: FavoriteType) => {
-      // Use ref to always get the latest favorites
-      const currentFavorites = favoritesRef.current;
-      const exists = currentFavorites.some((fav) => fav.id === id && fav.type === type);
-      const labels: Record<FavoriteType, string> = {
-        "course": "Course", "resource": "Resource", "ebook": "Ebook",
-        "ai-tool": "AI tool", "foss": "FOSS app", "shizuku": "Shizuku app",
-        "morphe": "Morphe build", "material-you": "Material You app",
-      };
-      const typeLabel = labels[type] ?? "Item";
-      
-      if (exists) {
-        const newFavorites = currentFavorites.filter((fav) => !(fav.id === id && fav.type === type));
-        saveFavorites(newFavorites);
-        toast({
-          title: "Removed from favorites",
-          description: `${typeLabel} removed from your favorites`,
-        });
-      } else {
-        const newFavorites = [...currentFavorites, { id, type }];
-        saveFavorites(newFavorites);
-        toast({
-          title: "Added to favorites",
-          description: `${typeLabel} saved to your favorites`,
-        });
-      }
-    },
-    [saveFavorites]
-  );
+  const toggleFavorite = useCallback((id: string, type: FavoriteType) => {
+    const current = snapshot;
+    const exists = current.some((f) => f.id === id && f.type === type);
+    const typeLabel = LABELS[type] ?? "Item";
+
+    if (exists) {
+      persist(current.filter((f) => !(f.id === id && f.type === type)));
+      toast({ title: "Removed from favorites", description: `${typeLabel} removed from your favorites` });
+    } else {
+      persist([...current, { id, type }]);
+      toast({ title: "Added to favorites", description: `${typeLabel} saved to your favorites` });
+    }
+  }, []);
 
   const getFavoritesByType = useCallback(
-    (type: FavoriteType) => {
-      return favorites.filter((fav) => fav.type === type).map((fav) => fav.id);
-    },
-    [favorites]
+    (type: FavoriteType) => favorites.filter((f) => f.type === type).map((f) => f.id),
+    [favorites],
   );
 
-  const clearFavorites = useCallback(() => {
-    saveFavorites([]);
-  }, [saveFavorites]);
+  const clearFavorites = useCallback(() => persist([]), []);
 
   return {
     favorites,
