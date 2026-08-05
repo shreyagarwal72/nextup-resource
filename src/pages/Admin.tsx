@@ -51,6 +51,9 @@ const Admin = () => {
   const [syncing, setSyncing] = useState(false);
   const [progress, setProgress] = useState(0);
   const localRows = useMemo(() => buildAllContentRows(), []);
+  const [importDataset, setImportDataset] = useState("");
+  const importRef = useRef<HTMLInputElement>(null);
+
 
 
   useEffect(() => {
