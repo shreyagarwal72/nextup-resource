@@ -353,7 +353,9 @@ const BottomNav = () => {
 
             {groups.map((group) => {
               const items = visibleLinks.filter((l) => l.accent === group.accent);
+              if (!items.length) return null;
               return (
+
                 <div key={group.title} className="mb-4 last:mb-0">
                   <p className="mb-2 text-[11px] font-extrabold uppercase tracking-widest text-muted-foreground">
                     {group.title}
