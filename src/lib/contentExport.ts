@@ -58,7 +58,12 @@ const toRows = (dataset: string, items: any[]): ContentRow[] => {
   });
 };
 
+/** Normalises an arbitrary array of items into importable rows for a dataset. */
+export const rowsFromItems = (dataset: string, items: any[]): ContentRow[] =>
+  toRows(dataset, items);
+
 /** Every content collection on the site, normalised for backend storage. */
+
 export const buildAllContentRows = (): ContentRow[] => [
   ...toRows("courses", allCourses),
   ...toRows("resources", allResources),
