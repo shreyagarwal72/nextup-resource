@@ -293,10 +293,11 @@ const BottomNav = () => {
     if (activeEl && strip) {
       const target =
         activeEl.offsetLeft - strip.clientWidth / 2 + activeEl.clientWidth / 2;
-      strip.scrollTo({ left: target, behavior: "smooth" });
+      strip.scrollTo({ left: target, behavior: settings.animations ? "smooth" : "auto" });
     }
     setOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, settings.animations]);
+
 
   // Lock body scroll + close on Escape while the launcher sheet is open.
   useEffect(() => {
