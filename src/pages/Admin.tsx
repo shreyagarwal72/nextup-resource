@@ -194,6 +194,62 @@ const Admin = () => {
     }
   };
 
+  /**
+   * Imports content from a JSON file. Three shapes are accepted:
+   *  1. a backup export        → { rows: [{ dataset, external_id, payload }] }
+   *  2. a dataset map          → { tv_apps: [ ...items ], os_projects: [ ... ] }
+   *  3. a bare array of items  → needs the dataset name typed in the box
+   */
+  const importJson = async (file: File) => {
+    setSyncing(true);
+    setProgress(0);
+    try {
+      const parsed = JSON.parse(await file.text());
+      let rows: ContentRow[] = [];
+
+      if (Array.isArray(parsed?.rows)) {
+        rows = parsed.rows as ContentRow[];
+      } else if (Array.isArray(parsed)) {
+        const ds = importDataset.trim();
+        if (!ds) throw new Error("Type a dataset name for a plain array file");
+        rows = rowsFromItems(ds, parsed);
+      } else if (parsed && typeof parsed === "object") {
+        for (const [ds, items] of Object.entries(parsed)) {
+          if (Array.isArray(items)) rows.push(...rowsFromItems(ds, items));
+        }
+      }
+
+      rows = rows.filter((r) => r?.dataset && r?.external_id);
+      if (!rows.length) throw new Error("No importable rows found in that file");
+
+      const batches = chunk(rows, 400);
+      for (let i = 0; i < batches.length; i++) {
+        await callSync("POST", { rows: batches[i] });
+        setProgress(Math.round(((i + 1) / batches.length) * 100));
+      }
+      await loadStats();
+      await refreshContentFromBackend().catch(() => 0);
+      toast.success(`Imported ${rows.length} items — pages now serve the new content`);
+    } catch (e: any) {
+      toast.error(e?.message || "Import failed");
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const pullFromBackend = async () => {
+    setSyncing(true);
+    try {
+      const n = await refreshContentFromBackend();
+      toast.success(n ? `Loaded ${n} items from the database` : "Database is empty");
+    } catch (e: any) {
+      toast.error(e?.message || "Could not read the database");
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+
   const test = async () => {
 
     setTesting(true);
