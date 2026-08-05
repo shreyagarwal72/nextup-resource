@@ -19,7 +19,15 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { updatePageMeta } from "@/lib/og-image";
-import { buildAllContentRows, chunk, downloadContentBackup } from "@/lib/contentExport";
+import {
+  buildAllContentRows,
+  chunk,
+  downloadContentBackup,
+  rowsFromItems,
+  type ContentRow,
+} from "@/lib/contentExport";
+import { refreshContentFromBackend, DATASETS } from "@/lib/contentBridge";
+
 
 
 type KeyStatus = { masked: string | null; updated_at: string | null };
