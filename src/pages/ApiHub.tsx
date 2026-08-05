@@ -95,6 +95,8 @@ const CategorySection = ({
                       {api.name}
                       <ExternalLink className="w-3.5 h-3.5 shrink-0" strokeWidth={2.5} />
                     </a>
+                    <QuickFavorite name={api.name} type="api" className="ml-1 align-middle" />
+
                     <p className="text-xs text-muted-foreground mt-0.5 sm:hidden">{api.description}</p>
                   </td>
                   <td className="px-4 py-3 align-top text-muted-foreground hidden sm:table-cell">

@@ -173,13 +173,17 @@ const TelegramTweaks = () => {
                           >
                             <BotIcon className="w-5 h-5" />
                           </div>
-                          <span
-                            className={`min-w-0 max-w-[60%] truncate text-[10px] font-bold uppercase tracking-wide border-2 border-foreground/80 rounded-full px-2 py-0.5 ${a.bg} ${a.text}`}
-                            title={b.category}
-                          >
-                            {highlight(b.category, debounced)}
-                          </span>
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <span
+                              className={`min-w-0 truncate text-[10px] font-bold uppercase tracking-wide border-2 border-foreground/80 rounded-full px-2 py-0.5 ${a.bg} ${a.text}`}
+                              title={b.category}
+                            >
+                              {highlight(b.category, debounced)}
+                            </span>
+                            <QuickFavorite name={b.name} type="bot" />
+                          </div>
                         </div>
+
                         <h2 className="font-heading text-xl font-extrabold mb-1 break-words">
                           {highlight(b.name, debounced)}
                         </h2>
