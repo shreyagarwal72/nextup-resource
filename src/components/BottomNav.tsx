@@ -69,6 +69,20 @@ const groups: { title: string; accent: Accent }[] = [
   { title: "Explore", accent: "quaternary" },
 ];
 
+/** Routes that actually contain study material — the only ones shown in Study Mode. */
+const STUDY_ROUTES = new Set([
+  "/",
+  "/courses",
+  "/resources",
+  "/ebooks",
+  "/special-courses",
+  "/developer-roadmap",
+  "/ai",
+  "/api-hub",
+  "/settings",
+]);
+
+
 const textCls: Record<Accent, string> = {
   primary: "text-primary",
   secondary: "text-secondary",
