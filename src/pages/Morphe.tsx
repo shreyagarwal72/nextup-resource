@@ -7,6 +7,8 @@ import BottomNav from "@/components/BottomNav";
 import SquigglyUnderline from "@/components/SquigglyUnderline";
 import SearchBox from "@/components/SearchBox";
 import CopyLinkButton from "@/components/CopyLinkButton";
+import QuickFavorite from "@/components/QuickFavorite";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import {
