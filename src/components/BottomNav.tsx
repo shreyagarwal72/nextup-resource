@@ -352,7 +352,7 @@ const BottomNav = () => {
             </div>
 
             {groups.map((group) => {
-              const items = links.filter((l) => l.accent === group.accent);
+              const items = visibleLinks.filter((l) => l.accent === group.accent);
               return (
                 <div key={group.title} className="mb-4 last:mb-0">
                   <p className="mb-2 text-[11px] font-extrabold uppercase tracking-widest text-muted-foreground">
@@ -411,7 +411,7 @@ const BottomNav = () => {
 
               className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1 py-1 pr-2 -my-1 -mr-2"
             >
-              {links.map((link) => {
+              {visibleLinks.map((link) => {
                 const active = isActive(link.to);
                 const preview = previewTo === link.to;
                 return (
