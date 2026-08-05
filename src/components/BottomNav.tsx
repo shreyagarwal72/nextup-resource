@@ -230,7 +230,7 @@ const BottomNav = () => {
       const d = drag.current;
       const target = d.hover;
       const wasActive = d.active;
-      drag.current = { down: false, x: 0, y: 0, t: 0, active: false, hover: null };
+      drag.current = { down: false, x: 0, y: 0, t: 0, active: false, locked: false, hover: null };
       setPreviewTo(null);
       if (commit && wasActive && target && target !== pathRef.current) navigate(target);
     };
