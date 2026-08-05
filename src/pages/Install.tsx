@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Download,
-  Smartphone,
   Monitor,
   CheckCircle,
   Share,
@@ -65,11 +64,6 @@ const Install = () => {
 
   const features = [
     {
-      icon: <Smartphone className="w-5 h-5" strokeWidth={2.5} />,
-      text: "Works offline",
-      color: "border-t-primary",
-    },
-    {
       icon: <Download className="w-5 h-5" strokeWidth={2.5} />,
       text: "Fast loading",
       color: "border-t-secondary",
@@ -112,7 +106,7 @@ const Install = () => {
               Get the full app experience on your device.
             </p>
 
-            <div className="grid grid-cols-2 gap-4 mb-10 animate-fade-in delay-300">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 animate-fade-in delay-300">
               {features.map((feature, index) => (
                 <div
                   key={index}
@@ -219,4 +213,5 @@ const Install = () => {
     </div>
   );
 };
+
 export default Install;
