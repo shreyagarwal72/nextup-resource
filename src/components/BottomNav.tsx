@@ -153,6 +153,8 @@ const BottomNav = () => {
   const isActive = (path: string) => location.pathname === path;
   const [open, setOpen] = useState(false);
   const { settings } = useSettings();
+  const { isStudyMode } = useStudyMode();
+
 
   const navigate = useNavigate();
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
