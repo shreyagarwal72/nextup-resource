@@ -16,6 +16,7 @@ import {
   Database,
   UploadCloud,
   Download,
+  RefreshCw,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { updatePageMeta } from "@/lib/og-image";
