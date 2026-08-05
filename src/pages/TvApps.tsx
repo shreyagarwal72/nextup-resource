@@ -9,6 +9,8 @@ import SearchBox from "@/components/SearchBox";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import { ArrowLeft, Tv, Sparkles, SearchX, ExternalLink } from "lucide-react";
 import { tvApps, tvCategories } from "@/data/tvApps";
+import QuickFavorite from "@/components/QuickFavorite";
+
 import { useDebounced } from "@/hooks/useDebounced";
 import { toast } from "sonner";
 
