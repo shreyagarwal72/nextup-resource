@@ -122,20 +122,26 @@ const DockItem = ({
       draggable={false}
       aria-label={link.label}
       aria-current={active ? "page" : undefined}
-      className={`group relative flex shrink-0 snap-center items-center gap-1.5 rounded-full border-2 px-2.5 py-2 transition-all duration-300 ease-bounce active:scale-90 ${
+      className={`group relative flex shrink-0 snap-center items-center gap-1.5 rounded-full border-2 px-2.5 py-2 ${
+        animations ? "transition-all duration-300 ease-bounce active:scale-90" : "transition-none"
+      } ${
         lit
           ? `${bgCls[link.accent]} border-foreground/80 shadow-pop-active`
           : "border-transparent text-muted-foreground hover:border-foreground/20 hover:bg-muted/60"
-      } ${preview && animations ? "scale-110" : ""}`}
+      } ${preview ? (animations ? "scale-110 ring-2 ring-foreground/30" : "ring-2 ring-foreground/30") : ""}`}
     >
-      <Icon className="w-5 h-5 transition-transform duration-300 ease-bounce group-active:rotate-6" strokeWidth={lit ? 2.6 : 2} />
+      <Icon
+        className={`w-5 h-5 ${animations ? "transition-transform duration-300 ease-bounce group-active:rotate-6" : ""}`}
+        strokeWidth={lit ? 2.6 : 2}
+      />
       <span
-        className={`overflow-hidden whitespace-nowrap text-[11px] font-extrabold transition-all duration-300 ease-bounce ${
-          showLabel ? "max-w-[88px] opacity-100" : "max-w-0 opacity-0"
-        }`}
+        className={`overflow-hidden whitespace-nowrap text-[11px] font-extrabold ${
+          animations ? "transition-all duration-300 ease-bounce" : "transition-none"
+        } ${showLabel ? "ml-0 max-w-[88px] opacity-100" : "max-w-0 opacity-0"}`}
       >
         {link.label}
       </span>
+
 
     </Link>
   );
