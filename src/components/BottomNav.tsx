@@ -1,6 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSettings } from "@/hooks/useSettings";
+import { useStudyMode } from "@/hooks/useStudyMode";
+
 import { haptics } from "@/lib/haptics";
 
 import {
