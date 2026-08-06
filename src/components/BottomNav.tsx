@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSettings } from "@/hooks/useSettings";
 import { useStudyMode } from "@/hooks/useStudyMode";
 
@@ -485,7 +485,9 @@ const BottomNav = () => {
               onDragStart={(e) => e.preventDefault()}
               onClickCapture={onStripClickCapture}
 
-              className="no-scrollbar flex snap-x snap-proximity items-center gap-0.5 overflow-x-auto px-1 py-1 pr-2 -my-1 -mr-2"
+              style={{ touchAction: "pan-y", scrollBehavior: "auto" }}
+              className="no-scrollbar flex items-center gap-0.5 overflow-x-auto overscroll-x-contain px-1 py-1 pr-2 -my-1 -mr-2 will-change-scroll"
+
             >
               {visibleLinks.map((link) => {
                 const active = isActive(link.to);
