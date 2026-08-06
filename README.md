@@ -85,22 +85,28 @@ npm run dev
 
 ## Backend-Driven Content
 
-Every catalog (courses, resources, ebooks, apps, AI tools, FOSS, Shizuku, Material You,
-Morphe, TV apps, OS projects, Telegram bots…) can be served from the backend database
-instead of the bundled files. Bundled data stays as an instant, offline-safe fallback.
+Every catalog (courses, resources, ebooks, apps, websites, collections, AI tools, FOSS,
+Shizuku, Material You, TV apps, OS projects, Telegram bots) lives **only** in the backend
+`site_content` table. The files in `src/data/*` keep the TypeScript shapes and export empty
+live arrays that `src/lib/contentBridge.ts` fills at runtime — pages import them exactly as
+before.
 
-How it works: `src/lib/contentBridge.ts` loads the `site_content` table on boot, replaces
-the in-memory dataset arrays, and caches the result locally so the site works fully offline.
+Offline: the last successful sync is cached in `localStorage`, and the service worker caches
+the backend response itself (stale-while-revalidate), so the installed PWA opens with full
+content without a connection. There is no separate offline page any more.
 
-### Steps (admin)
+### Steps (admin) — one page at a time
 
 1. Open `/admin` and enter the admin password.
-2. **Install all content** — pushes the bundled catalog into the database (one-time seed).
-3. **Download JSON backup** — exports the entire catalog as a single JSON file.
-4. **Import JSON** — upload a backup export, a `{ "dataset": [items] }` map, or a plain
-   array of items (type the dataset name, e.g. `tv_apps`, in the box first).
-5. **Pull into site** — re-reads the database and refreshes every page with the new content.
-6. Visitors pick the new content up automatically on their next load.
+2. Find the page you want (e.g. `tv_apps`, `courses`).
+3. **Export** — downloads that page's content as a plain JSON array.
+4. Edit the JSON (add/remove/change items) in any editor.
+5. **Add / update** — uploads the file, keeping everything else on that page.
+   **Replace page** — wipes only that page first, then uploads.
+   **Clear page** — removes that page's content only. There is no whole-database wipe.
+6. **Refresh site** — re-reads the database into the running site; visitors pick changes up
+   on their next load.
+
 
 ## License
 

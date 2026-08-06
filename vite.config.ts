@@ -26,7 +26,6 @@ export default defineConfig(({ mode }) => ({
         "pwa-maskable-512x512.png",
         "screenshot-wide.png",
         "screenshot-narrow.png",
-        "offline.html",
       ],
       manifest: {
         id: "/",
@@ -81,7 +80,6 @@ export default defineConfig(({ mode }) => ({
         // navigation falls back to the cached index.html.
         navigateFallback: "index.html",
         navigateFallbackDenylist: [/^\/api\//, /^\/~oauth/],
-        additionalManifestEntries: [{ url: "/offline.html", revision: `${Date.now()}` }],
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,woff,woff2}"],
         cleanupOutdatedCaches: true,
         clientsClaim: true,
@@ -115,7 +113,7 @@ export default defineConfig(({ mode }) => ({
             handler: "StaleWhileRevalidate",
             options: {
               cacheName: "site-content-api",
-              expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              expiration: { maxEntries: 120, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },

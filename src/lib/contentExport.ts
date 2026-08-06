@@ -1,19 +1,4 @@
-import {
-  allCourses,
-  allResources,
-  allEbooks,
-  allApps,
-  allWebsites,
-  collections,
-} from "@/data/content";
-import { aiTools } from "@/data/aiTools";
-import { fossApps } from "@/data/fossApps";
-import { fossListApps } from "@/data/fossList";
-import { materialYouApps } from "@/data/materialYouApps";
-import { shizukuApps } from "@/data/shizukuApps";
-import { telegramBots } from "@/data/telegramBots";
-import { tvApps } from "@/data/tvApps";
-import { osProjects } from "@/data/osList";
+import { getDataset } from "@/lib/contentBridge";
 
 export type ContentRow = {
   dataset: string;
@@ -43,8 +28,7 @@ const toRows = (dataset: string, items: any[]): ContentRow[] => {
   const seen = new Map<string, number>();
   return items.map((item) => {
     const title = pick(item, ["title", "name", "label", "app"]);
-    const base =
-      pick(item, ["slug", "id"]) || (title ? slugify(title) : `item-${seen.size}`);
+    const base = pick(item, ["slug", "id"]) || (title ? slugify(title) : `item-${seen.size}`);
     const n = (seen.get(base) ?? 0) + 1;
     seen.set(base, n);
     return {
@@ -62,54 +46,27 @@ const toRows = (dataset: string, items: any[]): ContentRow[] => {
 export const rowsFromItems = (dataset: string, items: any[]): ContentRow[] =>
   toRows(dataset, items);
 
-/** Every content collection on the site, normalised for backend storage. */
-
-export const buildAllContentRows = (): ContentRow[] => [
-  ...toRows("courses", allCourses),
-  ...toRows("resources", allResources),
-  ...toRows("ebooks", allEbooks),
-  ...toRows("apps", allApps),
-  ...toRows("websites", allWebsites),
-  ...toRows("collections", collections),
-  ...toRows("ai_tools", aiTools),
-  ...toRows("foss_apps", fossApps),
-  ...toRows("foss_list", fossListApps),
-  ...toRows("material_you_apps", materialYouApps),
-  ...toRows("shizuku_apps", shizukuApps),
-  ...toRows("telegram_bots", telegramBots),
-  ...toRows("tv_apps", tvApps),
-  ...toRows("os_projects", osProjects),
-];
-
-export const datasetSummary = (rows: ContentRow[]) => {
-  const counts: Record<string, number> = {};
-  for (const r of rows) counts[r.dataset] = (counts[r.dataset] ?? 0) + 1;
-  return counts;
-};
-
 export const chunk = <T,>(arr: T[], size: number): T[][] => {
   const out: T[][] = [];
   for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
   return out;
 };
 
-/** Downloads the whole catalog as a single JSON backup file. */
-export const downloadContentBackup = () => {
-  const rows = buildAllContentRows();
-  const blob = new Blob(
-    [
-      JSON.stringify(
-        { exportedAt: new Date().toISOString(), counts: datasetSummary(rows), rows },
-        null,
-        2,
-      ),
-    ],
-    { type: "application/json" },
-  );
+const download = (name: string, data: unknown) => {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = `nextup-content-${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = name;
   a.click();
   URL.revokeObjectURL(a.href);
-  return rows.length;
+};
+
+/**
+ * Downloads a single page's content as a plain JSON array — the same shape the
+ * importer accepts, so an admin can edit one page and upload it back.
+ */
+export const downloadDatasetBackup = (dataset: string, items?: unknown[]) => {
+  const data = items ?? getDataset(dataset) ?? [];
+  download(`nextup-${dataset}-${new Date().toISOString().slice(0, 10)}.json`, data);
+  return data.length;
 };

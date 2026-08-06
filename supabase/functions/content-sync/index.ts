@@ -1,4 +1,4 @@
-// Content sync — admin-only import of the entire site catalog into `site_content`.
+// Content sync — admin-only, per-page (dataset) management of `site_content`.
 // Auth: `x-admin-password` header must match the ADMIN_PASSWORD secret.
 import { createClient } from "npm:@supabase/supabase-js@2";
 
@@ -46,27 +46,71 @@ Deno.serve(async (req) => {
 
   try {
     if (req.method === "GET") {
-      const { data, error } = await supabase
-        .from("site_content")
-        .select("dataset,updated_at")
-        .order("updated_at", { ascending: false });
-      if (error) throw error;
+      const dataset = new URL(req.url).searchParams.get("dataset");
+
+      // Per-page export: the stored payloads for one dataset.
+      if (dataset) {
+        const items: unknown[] = [];
+        const page = 1000;
+        for (let from = 0; ; from += page) {
+          const { data, error } = await supabase
+            .from("site_content")
+            .select("payload")
+            .eq("dataset", dataset)
+            .range(from, from + page - 1);
+          if (error) throw error;
+          items.push(...(data ?? []).map((r) => r.payload));
+          if (!data || data.length < page) break;
+        }
+        return json({ dataset, total: items.length, items });
+      }
+
       const counts: Record<string, number> = {};
-      for (const row of data ?? []) counts[row.dataset] = (counts[row.dataset] ?? 0) + 1;
-      return json({
-        total: data?.length ?? 0,
-        counts,
-        last_synced: data?.[0]?.updated_at ?? null,
-      });
+      let total = 0;
+      let last: string | null = null;
+      const page = 1000;
+      for (let from = 0; ; from += page) {
+        const { data, error } = await supabase
+          .from("site_content")
+          .select("dataset,updated_at")
+          .order("updated_at", { ascending: false })
+          .range(from, from + page - 1);
+        if (error) throw error;
+        for (const row of data ?? []) {
+          counts[row.dataset] = (counts[row.dataset] ?? 0) + 1;
+          if (!last) last = row.updated_at;
+        }
+        total += data?.length ?? 0;
+        if (!data || data.length < page) break;
+      }
+      return json({ total, counts, last_synced: last });
     }
 
     if (req.method === "POST") {
       const body = await req.json();
 
-      if (body?.action === "clear") {
-        const { error } = await supabase.from("site_content").delete().neq("dataset", "___none___");
+      // Wipe a single page's content — whole-database deletion is not offered.
+      if (body?.action === "clear_dataset") {
+        const dataset = String(body?.dataset ?? "").trim();
+        if (!dataset) return json({ error: "dataset is required" }, 400);
+        const { error } = await supabase.from("site_content").delete().eq("dataset", dataset);
         if (error) throw error;
-        return json({ ok: true, cleared: true });
+        return json({ ok: true, cleared: dataset });
+      }
+
+      // Remove individual items from a page.
+      if (body?.action === "delete_items") {
+        const dataset = String(body?.dataset ?? "").trim();
+        const ids = (body?.external_ids ?? []) as string[];
+        if (!dataset || !Array.isArray(ids) || !ids.length)
+          return json({ error: "dataset and external_ids are required" }, 400);
+        const { error } = await supabase
+          .from("site_content")
+          .delete()
+          .eq("dataset", dataset)
+          .in("external_id", ids.slice(0, 1000));
+        if (error) throw error;
+        return json({ ok: true, deleted: ids.length });
       }
 
       const rows = (body?.rows ?? []) as Row[];
