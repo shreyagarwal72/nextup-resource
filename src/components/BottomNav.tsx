@@ -162,23 +162,30 @@ const BottomNav = () => {
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const stripRef = useRef<HTMLDivElement>(null);
 
-  // ---- Drag-to-switch (independent of the label/showLabel logic) ----
-  // Tuning: a gesture only becomes "drag-select" after a 150 ms hold AND a
-  // horizontal move past 8 px. Anything that moves vertically first is locked
-  // out for the rest of the gesture so page scrolling never switches pages,
-  // and anything under 8 px stays a plain tap.
-  const HOLD_MS = 150;
+  // ---- Swipe-to-pan + long-press-to-switch ----
+  // A normal horizontal swipe *moves the strip itself*, 1:1 with the finger and
+  // with momentum on release (no snap, no lag — we write scrollLeft directly).
+  // Holding still for 350 ms switches into "select" mode, where dragging
+  // previews destinations and releasing navigates.
+  const HOLD_MS = 350;
   const TAP_SLOP = 8;
   const [previewTo, setPreviewTo] = useState<string | null>(null);
   const drag = useRef({
     down: false,
     x: 0,
     y: 0,
-    t: 0,
-    active: false,
-    locked: false,
+    lastX: 0,
+    lastT: 0,
+    v: 0,
+    startScroll: 0,
+    panning: false,
+    selecting: false,
+    lockedVertical: false,
+    moved: false,
     hover: null as string | null,
+    holdTimer: 0 as number | ReturnType<typeof setTimeout>,
   });
+  const momentum = useRef(0);
   const pathRef = useRef(location.pathname);
   pathRef.current = location.pathname;
 
@@ -186,57 +193,124 @@ const BottomNav = () => {
     const strip = stripRef.current;
     if (!strip) return;
 
+    const stopMomentum = () => {
+      if (momentum.current) cancelAnimationFrame(momentum.current);
+      momentum.current = 0;
+    };
+
     const hitTest = (x: number, y: number) => {
       const el = document.elementFromPoint(x, y) as HTMLElement | null;
       return el?.closest<HTMLElement>("[data-nav-to]")?.dataset.navTo ?? null;
     };
 
     const start = (x: number, y: number) => {
-      drag.current = { down: true, x, y, t: Date.now(), active: false, locked: false, hover: null };
+      stopMomentum();
+      const d = drag.current;
+      clearTimeout(d.holdTimer as ReturnType<typeof setTimeout>);
+      drag.current = {
+        ...d,
+        down: true,
+        x,
+        y,
+        lastX: x,
+        lastT: performance.now(),
+        v: 0,
+        startScroll: strip.scrollLeft,
+        panning: false,
+        selecting: false,
+        lockedVertical: false,
+        moved: false,
+        hover: null,
+        holdTimer: setTimeout(() => {
+          const dd = drag.current;
+          if (dd.down && !dd.moved && !dd.lockedVertical) {
+            dd.selecting = true;
+            haptics.medium();
+            const to = hitTest(dd.x, dd.y);
+            if (to) {
+              dd.hover = to;
+              setPreviewTo(to);
+            }
+          }
+        }, HOLD_MS),
+      };
     };
 
-    /** @returns true when the gesture is in drag-select mode (caller should block scroll). */
+    /** @returns true when the dock owns the gesture (caller blocks native scroll). */
     const move = (x: number, y: number) => {
       const d = drag.current;
-      if (!d.down || d.locked) return false;
+      if (!d.down || d.lockedVertical) return false;
       const dx = x - d.x;
       const dy = y - d.y;
       const adx = Math.abs(dx);
       const ady = Math.abs(dy);
 
-      if (!d.active) {
-        // Vertical lock: once the finger commits to a vertical direction the
-        // gesture belongs to the page, not the dock.
-        if (ady > TAP_SLOP && ady > adx) {
-          d.locked = true;
-          return false;
-        }
-        // Still inside tap slop → let it be a tap.
-        if (adx <= TAP_SLOP) return false;
-        // Horizontal, but too quick to be deliberate → leave it to the strip's
-        // native fling-scroll instead of hijacking it.
-        if (Date.now() - d.t < HOLD_MS) return false;
-        if (adx <= ady * 1.5) return false;
-        d.active = true;
+      if (adx > TAP_SLOP || ady > TAP_SLOP) {
+        d.moved = true;
+        clearTimeout(d.holdTimer as ReturnType<typeof setTimeout>);
       }
 
-      const to = hitTest(x, y);
-      if (to && to !== d.hover) {
-        d.hover = to;
-        setPreviewTo(to);
-        haptics.medium();
+      // Select mode: preview whatever is under the finger.
+      if (d.selecting) {
+        const to = hitTest(x, y);
+        if (to && to !== d.hover) {
+          d.hover = to;
+          setPreviewTo(to);
+          haptics.medium();
+        }
+        return true;
       }
+
+      if (!d.panning) {
+        if (ady > TAP_SLOP && ady > adx) {
+          d.lockedVertical = true; // the page owns vertical gestures
+          return false;
+        }
+        if (adx <= TAP_SLOP) return false;
+        d.panning = true;
+      }
+
+      // 1:1 pan with velocity tracking for the release fling.
+      const now = performance.now();
+      const dt = Math.max(1, now - d.lastT);
+      d.v = (x - d.lastX) / dt;
+      d.lastX = x;
+      d.lastT = now;
+      strip.scrollLeft = d.startScroll - dx;
       return true;
     };
 
+    const fling = () => {
+      let v = drag.current.v * 16; // px per frame
+      if (Math.abs(v) < 0.6) return;
+      const step = () => {
+        v *= 0.94;
+        strip.scrollLeft -= v;
+        if (Math.abs(v) > 0.3) momentum.current = requestAnimationFrame(step);
+        else momentum.current = 0;
+      };
+      momentum.current = requestAnimationFrame(step);
+    };
 
     const end = (commit: boolean) => {
       const d = drag.current;
+      clearTimeout(d.holdTimer as ReturnType<typeof setTimeout>);
       const target = d.hover;
-      const wasActive = d.active;
-      drag.current = { down: false, x: 0, y: 0, t: 0, active: false, locked: false, hover: null };
+      const wasSelecting = d.selecting;
+      const wasPanning = d.panning;
+      d.down = false;
+      d.selecting = false;
       setPreviewTo(null);
-      if (commit && wasActive && target && target !== pathRef.current) navigate(target);
+      if (wasPanning && settings.animations) fling();
+      if (commit && wasSelecting && target && target !== pathRef.current) {
+        haptics.medium();
+        navigate(target);
+      }
+      // keep `panning` set for one tick so the trailing click is swallowed
+      setTimeout(() => {
+        drag.current.panning = false;
+        drag.current.moved = false;
+      }, 0);
     };
 
     const onTouchStart = (e: TouchEvent) => {
@@ -246,8 +320,6 @@ const BottomNav = () => {
     const onTouchMove = (e: TouchEvent) => {
       const t = e.touches[0];
       if (!t) return;
-      // preventDefault keeps the native strip scroll from stealing the gesture
-      // *only* once drag-select mode has engaged; casual swipes still scroll.
       if (move(t.clientX, t.clientY) && e.cancelable) e.preventDefault();
     };
     const onTouchEnd = () => end(true);
@@ -266,6 +338,7 @@ const BottomNav = () => {
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
     return () => {
+      stopMomentum();
       strip.removeEventListener("touchstart", onTouchStart);
       strip.removeEventListener("touchmove", onTouchMove);
       strip.removeEventListener("touchend", onTouchEnd);
@@ -274,15 +347,16 @@ const BottomNav = () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
     };
-  }, [navigate]);
+  }, [navigate, settings.animations]);
 
   /** Swallow the click that follows a real drag so we don't double-navigate. */
   const onStripClickCapture = (e: React.MouseEvent) => {
-    if (drag.current.active) {
+    if (drag.current.panning || drag.current.selecting) {
       e.preventDefault();
       e.stopPropagation();
     }
   };
+
 
 
 
