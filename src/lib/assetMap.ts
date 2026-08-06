@@ -29,7 +29,13 @@ export const resolveAssetUrl = (value: unknown): unknown => {
   const direct = byStem.get(stem);
   if (direct) return direct;
 
-  // Strip a trailing build hash (`name-AbC123`) and try again.
-  const unhashed = stem.replace(/-[A-Za-z0-9_-]{6,}$/, "");
-  return byStem.get(unhashed) ?? value;
+  // Otherwise drop trailing `-<hash>` segments one at a time until we hit a
+  // known asset (hashes themselves can contain hyphens).
+  const parts = stem.split("-");
+  for (let keep = parts.length - 1; keep > 0; keep--) {
+    const hit = byStem.get(parts.slice(0, keep).join("-"));
+    if (hit) return hit;
+  }
+  return value;
 };
+
