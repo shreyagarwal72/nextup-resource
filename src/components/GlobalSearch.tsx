@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, X, ArrowRight, Sparkles, Clock, Star } from "lucide-react";
+import { Search, X, ArrowRight, Clock, Star } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useDebounced } from "@/hooks/useDebounced";
 import { courses, resources, ebooks, apps, websites } from "@/data/content";
@@ -158,11 +158,45 @@ const FILTERS = ["All", "Courses", "Resources", "Ebooks", "Apps", "Websites", "A
 type FilterKey = typeof FILTERS[number];
 type SortMode = "relevance" | "newest";
 
-const GlobalSearch = () => {
+interface GlobalSearchProps {
+  /** Whether the search modal is currently visible. */
+  open: boolean;
+  /** Called with `false` when the modal should close (Esc, backdrop click, close button, result click). */
+  onOpenChange: (open: boolean) => void;
+}
+
+const GlobalSearch = ({ open, onOpenChange }: GlobalSearchProps) => {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterKey>("All");
   const [sort, setSort] = useState<SortMode>("relevance");
   const debounced = useDebounced(query, 150);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Lock page scroll, close on Escape, and autofocus the input while the modal is open.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onOpenChange(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const focusTimer = window.setTimeout(() => inputRef.current?.focus(), 60);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+      window.clearTimeout(focusTimer);
+    };
+  }, [open, onOpenChange]);
+
+  // Start fresh each time the modal is opened.
+  useEffect(() => {
+    if (!open) {
+      setQuery("");
+      setFilter("All");
+      setSort("relevance");
+    }
+  }, [open]);
 
   const results = useMemo(() => {
     const q = debounced.trim();
@@ -225,50 +259,70 @@ const GlobalSearch = () => {
     return Array.from(m.entries());
   }, [results]);
 
-  return (
-    <section className="py-14 sm:py-16">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-5">
-            <div className="inline-flex items-center gap-2 mb-3 px-3 py-1.5 rounded-full bg-tertiary text-tertiary-foreground border-2 border-foreground/80 shadow-pop-soft text-xs font-bold">
-              <Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />
-              Global Search
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-foreground">
-              Search everything in one place
-            </h2>
-            <p className="text-sm text-muted-foreground mt-1">
-              Fuzzy search across courses, resources, ebooks, AI tools, FOSS, Shizuku, Material You &amp; Telegram bots.
-            </p>
-          </div>
+  if (!open) return null;
 
+  const hasQuery = debounced.trim().length >= 2;
+  const quickLinks: { label: string; to: string; accent: string }[] = [
+    { label: "Courses", to: "/courses", accent: groupAccent.Courses },
+    { label: "Resources", to: "/resources", accent: groupAccent.Resources },
+    { label: "Ebooks", to: "/ebooks", accent: groupAccent.Ebooks },
+    { label: "Apps", to: "/apps", accent: groupAccent.Apps },
+    { label: "AI Tools", to: "/ai", accent: groupAccent["AI Tools"] },
+  ];
+
+  return (
+    <div
+      className="fixed inset-0 z-[200] flex items-start justify-center p-3 sm:p-4 pt-[10vh] sm:pt-[12vh] bg-foreground/40 backdrop-blur-sm animate-fade-in pointer-events-auto"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onOpenChange(false);
+      }}
+      role="presentation"
+    >
+      <div
+        className="w-full max-w-2xl max-h-[76vh] flex flex-col bg-card border-2 border-foreground/80 rounded-3xl shadow-pop overflow-hidden animate-pop-in"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Global search"
+      >
+        <div className="p-3 sm:p-4 border-b-2 border-foreground/10 shrink-0">
           <div className="relative">
             <Search
               className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none"
               strokeWidth={2.5}
             />
             <Input
+              ref={inputRef}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Try “insta”, “gif”, “music bot”, “material you”…"
               aria-label="Global site search"
-              className="pl-12 pr-12 h-14 text-base rounded-2xl"
+              className="pl-12 pr-20 h-12 sm:h-14 text-base rounded-2xl"
             />
-            {query && (
+            <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => setQuery("")}
+                  aria-label="Clear search"
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-muted text-foreground border-2 border-foreground/30 hover:border-foreground/80 hover:bg-card transition-colors"
+                >
+                  <X className="w-4 h-4" strokeWidth={2.5} />
+                </button>
+              )}
               <button
                 type="button"
-                onClick={() => setQuery("")}
-                aria-label="Clear search"
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-muted text-foreground border-2 border-foreground/30 hover:border-foreground/80 hover:bg-card transition-colors"
+                onClick={() => onOpenChange(false)}
+                aria-label="Close search"
+                className="hidden sm:flex items-center justify-center h-8 px-2 rounded-full text-[10px] font-bold text-muted-foreground border-2 border-foreground/30 hover:border-foreground/80 hover:bg-muted transition-colors"
               >
-                <X className="w-4 h-4" strokeWidth={2.5} />
+                Esc
               </button>
-            )}
+            </div>
           </div>
 
-          {debounced.trim().length >= 2 && (
+          {hasQuery && (
             <>
-              <div className="mt-4 -mx-1 overflow-x-auto no-scrollbar">
+              <div className="mt-3 -mx-1 overflow-x-auto no-scrollbar">
                 <div className="flex items-center gap-2 px-1 pb-1 whitespace-nowrap">
                   {FILTERS.map((f) => {
                     const active = filter === f;
@@ -287,7 +341,7 @@ const GlobalSearch = () => {
                   })}
                 </div>
               </div>
-              <div className="mt-3 flex items-center gap-2 flex-wrap">
+              <div className="mt-2.5 flex items-center gap-2 flex-wrap">
                 <span className="text-xs font-bold text-muted-foreground">Sort:</span>
                 {([
                   { id: "relevance", label: "Best match", icon: Star },
@@ -311,85 +365,106 @@ const GlobalSearch = () => {
                   );
                 })}
               </div>
-              <div className="mt-3 bg-card border-2 border-foreground/80 rounded-2xl shadow-pop p-4 max-h-[60vh] overflow-y-auto">
-                {grouped.length === 0 ? (
-                  <p className="text-sm text-muted-foreground text-center py-6">
-                    No results for <strong>{debounced}</strong>. Try a different keyword.
-                  </p>
-                ) : (
-                  <div className="space-y-5">
-                    {grouped.map(([group, items]) => (
-                      <div key={group}>
-                        <div className="flex items-center justify-between mb-2">
-                          <span
-                            className={`px-3 py-1 rounded-full text-xs font-bold border-2 border-foreground/80 ${groupAccent[group] ?? "bg-card text-foreground"}`}
-                          >
-                            {group}
-                          </span>
-                          <Link
-                            to={items[0].groupTo}
-                            className="inline-flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-primary"
-                          >
-                            See all <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
-                          </Link>
-                        </div>
-                        <ul className="space-y-1.5">
-                          {items.map((h, i) => {
-                            const Tag: any = h.url ? "a" : Link;
-                            const props = h.url
-                              ? { href: h.url, target: "_blank", rel: "noopener noreferrer" }
-                              : { to: h.to ?? h.groupTo };
-                            const tags = h.tags
-                              ? h.tags.split(/[·•,]/).map((t) => t.trim()).filter(Boolean).slice(0, 4)
-                              : [];
-                            return (
-                              <li key={`${group}-${i}`}>
-                                <Tag
-                                  {...props}
-                                  className="block px-3 py-2.5 rounded-xl border-2 border-foreground/20 hover:border-foreground/80 hover:bg-background transition-colors"
-                                >
-                                  <div className="flex items-start gap-3">
-                                    <span className="font-bold text-sm text-foreground line-clamp-1 flex-1 min-w-0">
-                                      {highlight(h.title, debounced)}
-                                    </span>
-                                    {h.category && (
-                                      <span className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-2 border-foreground/20 rounded-full px-2 py-0.5 shrink-0">
-                                        {highlight(h.category, debounced)}
-                                      </span>
-                                    )}
-                                  </div>
-                                  {h.description && (
-                                    <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
-                                      {highlight(h.description, debounced)}
-                                    </p>
-                                  )}
-                                  {tags.length > 0 && (
-                                    <div className="mt-1.5 flex flex-wrap gap-1">
-                                      {tags.map((t) => (
-                                        <span
-                                          key={t}
-                                          className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-muted text-foreground/80"
-                                        >
-                                          #{highlight(t, debounced)}
-                                        </span>
-                                      ))}
-                                    </div>
-                                  )}
-                                </Tag>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
             </>
           )}
         </div>
+
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4">
+          {!hasQuery ? (
+            <div className="py-2">
+              <p className="text-xs font-bold text-muted-foreground mb-2.5">Jump to a section</p>
+              <div className="flex flex-wrap gap-2">
+                {quickLinks.map((l) => (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    onClick={() => onOpenChange(false)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold border-2 border-foreground/80 hover:-translate-y-0.5 transition-transform ${l.accent}`}
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground mt-4">
+                Fuzzy search across courses, resources, ebooks, AI tools, FOSS, Shizuku, Material You &amp; Telegram bots — start typing above.
+              </p>
+            </div>
+          ) : grouped.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center py-10">
+              No results for <strong>{debounced}</strong>. Try a different keyword.
+            </p>
+          ) : (
+            <div className="space-y-5">
+              {grouped.map(([group, items]) => (
+                <div key={group}>
+                  <div className="flex items-center justify-between mb-2">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-bold border-2 border-foreground/80 ${groupAccent[group] ?? "bg-card text-foreground"}`}
+                    >
+                      {group}
+                    </span>
+                    <Link
+                      to={items[0].groupTo}
+                      onClick={() => onOpenChange(false)}
+                      className="inline-flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-primary"
+                    >
+                      See all <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
+                    </Link>
+                  </div>
+                  <ul className="space-y-1.5">
+                    {items.map((h, i) => {
+                      const Tag: any = h.url ? "a" : Link;
+                      const props = h.url
+                        ? { href: h.url, target: "_blank", rel: "noopener noreferrer" }
+                        : { to: h.to ?? h.groupTo, onClick: () => onOpenChange(false) };
+                      const tags = h.tags
+                        ? h.tags.split(/[·•,]/).map((t) => t.trim()).filter(Boolean).slice(0, 4)
+                        : [];
+                      return (
+                        <li key={`${group}-${i}`}>
+                          <Tag
+                            {...props}
+                            className="block px-3 py-2.5 rounded-xl border-2 border-foreground/20 hover:border-foreground/80 hover:bg-background transition-colors"
+                          >
+                            <div className="flex items-start gap-3">
+                              <span className="font-bold text-sm text-foreground line-clamp-1 flex-1 min-w-0">
+                                {highlight(h.title, debounced)}
+                              </span>
+                              {h.category && (
+                                <span className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground border-2 border-foreground/20 rounded-full px-2 py-0.5 shrink-0">
+                                  {highlight(h.category, debounced)}
+                                </span>
+                              )}
+                            </div>
+                            {h.description && (
+                              <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+                                {highlight(h.description, debounced)}
+                              </p>
+                            )}
+                            {tags.length > 0 && (
+                              <div className="mt-1.5 flex flex-wrap gap-1">
+                                {tags.map((t) => (
+                                  <span
+                                    key={t}
+                                    className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-muted text-foreground/80"
+                                  >
+                                    #{highlight(t, debounced)}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </Tag>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
