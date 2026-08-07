@@ -58,7 +58,7 @@ const STEPS: Step[] = [
     icon: Search,
     accent: "quaternary",
     title: "Search everything, fast",
-    body: "Use the global search on the home page to instantly find courses, tools, apps, or ebooks across the whole catalog.",
+    body: "Tap the Search button in the header on any page — or press Ctrl+K (⌘K on Mac) — to instantly find courses, tools, apps, or ebooks across the whole catalog.",
     bullets: [
       "Fuzzy match — typos are OK",
       "Jump directly to the item's page",
