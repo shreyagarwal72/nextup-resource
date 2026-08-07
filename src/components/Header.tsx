@@ -206,8 +206,10 @@ const Header = () => {
             {/* Logo — tap for home, hold ~2.5s to unlock the hidden vault */}
             <LogoLongPress />
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex min-w-0 flex-1 items-center justify-center gap-0.5 lg:gap-1 px-2">
+            {/* Desktop Navigation — scrolls within its own row instead of spilling onto
+                the icon cluster when the row is too tight to fit every pill (e.g. mobile
+                "Desktop site" mode, which often reports an in-between viewport width). */}
+            <nav className="hidden md:flex min-w-0 flex-1 items-center justify-center gap-0.5 lg:gap-1 px-2 overflow-x-auto no-scrollbar">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
