@@ -169,11 +169,18 @@ const BottomNav = () => {
   // previews destinations and releasing navigates.
   const HOLD_MS = 350;
   const TAP_SLOP = 8;
+  // Edge zone width for auto-scroll during select-mode — roughly the space of
+  // the last 2-3 icons, so holding near the edge keeps revealing more pages
+  // without needing to release and swipe manually.
+  const EDGE_ZONE_PX = 96;
+  const EDGE_MAX_SPEED = 10; // px per frame at the very edge
   const [previewTo, setPreviewTo] = useState<string | null>(null);
   const drag = useRef({
     down: false,
     x: 0,
     y: 0,
+    curX: 0,
+    curY: 0,
     lastX: 0,
     lastT: 0,
     v: 0,
@@ -186,6 +193,8 @@ const BottomNav = () => {
     holdTimer: 0 as number | ReturnType<typeof setTimeout>,
   });
   const momentum = useRef(0);
+  const autoScrollFrame = useRef(0);
+  const autoScrollDir = useRef<{ dir: 0 | 1 | -1; speed: number }>({ dir: 0, speed: 0 });
   const pathRef = useRef(location.pathname);
   pathRef.current = location.pathname;
 
@@ -203,6 +212,52 @@ const BottomNav = () => {
       return el?.closest<HTMLElement>("[data-nav-to]")?.dataset.navTo ?? null;
     };
 
+    const stopEdgeAutoScroll = () => {
+      if (autoScrollFrame.current) cancelAnimationFrame(autoScrollFrame.current);
+      autoScrollFrame.current = 0;
+      autoScrollDir.current = { dir: 0, speed: 0 };
+    };
+
+    // While holding in select-mode, keep gliding the strip toward whichever
+    // edge the finger is near, re-previewing whatever slides underneath —
+    // so the finger can stay still while new pages keep arriving.
+    const edgeAutoScrollStep = () => {
+      const d = drag.current;
+      const { dir, speed } = autoScrollDir.current;
+      if (dir === 0 || !d.selecting) {
+        autoScrollFrame.current = 0;
+        return;
+      }
+      strip.scrollLeft += dir * speed;
+      const to = hitTest(d.curX, d.curY);
+      if (to && to !== d.hover) {
+        d.hover = to;
+        setPreviewTo(to);
+        haptics.medium();
+      }
+      autoScrollFrame.current = requestAnimationFrame(edgeAutoScrollStep);
+    };
+
+    const updateEdgeAutoScroll = (x: number) => {
+      const rect = strip.getBoundingClientRect();
+      let dir: 0 | 1 | -1 = 0;
+      let depth = 0;
+      if (x < rect.left + EDGE_ZONE_PX) {
+        dir = -1;
+        depth = (rect.left + EDGE_ZONE_PX - x) / EDGE_ZONE_PX;
+      } else if (x > rect.right - EDGE_ZONE_PX) {
+        dir = 1;
+        depth = (x - (rect.right - EDGE_ZONE_PX)) / EDGE_ZONE_PX;
+      }
+      const speed = Math.min(1, Math.max(0, depth)) * EDGE_MAX_SPEED;
+      autoScrollDir.current = { dir, speed };
+      if (dir !== 0 && !autoScrollFrame.current) {
+        autoScrollFrame.current = requestAnimationFrame(edgeAutoScrollStep);
+      } else if (dir === 0) {
+        stopEdgeAutoScroll();
+      }
+    };
+
     const start = (x: number, y: number) => {
       stopMomentum();
       const d = drag.current;
@@ -212,6 +267,8 @@ const BottomNav = () => {
         down: true,
         x,
         y,
+        curX: x,
+        curY: y,
         lastX: x,
         lastT: performance.now(),
         v: 0,
@@ -250,8 +307,14 @@ const BottomNav = () => {
         clearTimeout(d.holdTimer as ReturnType<typeof setTimeout>);
       }
 
-      // Select mode: preview whatever is under the finger.
+      d.curX = x;
+      d.curY = y;
+
+      // Select mode: preview whatever is under the finger, and keep the strip
+      // gliding on its own if the finger is parked near an edge — so reaching
+      // a page that's currently off-screen doesn't require letting go first.
       if (d.selecting) {
+        updateEdgeAutoScroll(x);
         const to = hitTest(x, y);
         if (to && to !== d.hover) {
           d.hover = to;
@@ -300,6 +363,7 @@ const BottomNav = () => {
       const wasPanning = d.panning;
       d.down = false;
       d.selecting = false;
+      stopEdgeAutoScroll();
       setPreviewTo(null);
       if (wasPanning && settings.animations) fling();
       if (commit && wasSelecting && target && target !== pathRef.current) {
@@ -339,6 +403,7 @@ const BottomNav = () => {
     window.addEventListener("mouseup", onMouseUp);
     return () => {
       stopMomentum();
+      stopEdgeAutoScroll();
       strip.removeEventListener("touchstart", onTouchStart);
       strip.removeEventListener("touchmove", onTouchMove);
       strip.removeEventListener("touchend", onTouchEnd);
