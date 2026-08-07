@@ -1,12 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Heart, ChevronDown, Github, Zap, Sparkles, Layers, Send, Tv, Dumbbell, Briefcase, Download, HelpCircle, Plug, Gamepad2, Cpu, Settings as SettingsIcon, MonitorSmartphone } from "lucide-react";
+import { Heart, ChevronDown, Github, Zap, Sparkles, Layers, Send, Tv, Dumbbell, Briefcase, Download, HelpCircle, Plug, Gamepad2, Cpu, Settings as SettingsIcon, MonitorSmartphone, Search } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { StudyModeToggle } from "./StudyModeToggle";
 import { useFavorites } from "@/hooks/useFavorites";
 import NotificationCenter from "./NotificationCenter";
+import GlobalSearch from "./GlobalSearch";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+/** True on macOS/iOS, where the shortcut hint should read "⌘K" instead of "Ctrl K". */
+const isApplePlatform = () =>
+  typeof navigator !== "undefined" && /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent);
 
 /** How long (ms) the logo must be held before the hidden vault unlocks. */
 const HOLD_MS = 2600;
@@ -132,6 +137,8 @@ const LogoLongPress = () => {
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [isMac, setIsMac] = useState(false);
   const location = useLocation();
   const { totalCount } = useFavorites();
 
@@ -139,6 +146,21 @@ const Header = () => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => setIsMac(isApplePlatform()), []);
+
+  // Global "quick access" shortcut for search: Ctrl+K (Windows/Linux) or Cmd+K (Mac),
+  // works from anywhere in the app since Header is mounted on every page.
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
   const navLinks = [
@@ -246,6 +268,19 @@ const Header = () => {
             </nav>
 
             <div className="flex items-center gap-1.5 lg:gap-2.5 shrink-0">
+              <button
+                type="button"
+                onClick={() => setSearchOpen(true)}
+                aria-label="Search Nextup Resources"
+                title="Search (Ctrl+K)"
+                className="group flex items-center gap-2 h-10 rounded-full border-2 border-foreground/80 bg-card shadow-pop pl-2.5 pr-2.5 sm:pr-3 hover:bg-primary/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                <Search className="w-4 h-4 text-foreground shrink-0" strokeWidth={2.5} />
+                <span className="hidden lg:inline text-xs font-bold text-muted-foreground">Search</span>
+                <kbd className="hidden lg:inline-flex items-center gap-0.5 rounded-md border-2 border-foreground/30 bg-muted px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground">
+                  {isMac ? "⌘K" : "Ctrl K"}
+                </kbd>
+              </button>
               <Link
                 to="/favorites"
                 aria-label={`Favorites${totalCount > 0 ? ` (${totalCount})` : ""}`}
@@ -275,6 +310,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <GlobalSearch open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   );
 };
