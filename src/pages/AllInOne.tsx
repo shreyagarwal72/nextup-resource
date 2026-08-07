@@ -1,134 +1,151 @@
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
+import BottomNav from "@/components/BottomNav";
+import SquigglyUnderline from "@/components/SquigglyUnderline";
+import SearchBox from "@/components/SearchBox";
+import QuickFavorite from "@/components/QuickFavorite";
 import {
-  Terminal,
-  Lock,
-  Unlock,
-  ExternalLink,
-  Search,
-  X,
-  ChevronDown,
   ArrowLeft,
   Boxes,
+  ExternalLink,
+  SearchX,
+  ChevronDown,
+  PartyPopper,
+  Trophy,
+  Sparkles,
 } from "lucide-react";
 import { useAllInOne, type AllInOneEntry } from "@/hooks/useAllInOne";
 import { useDebounced } from "@/hooks/useDebounced";
 
-const CARDS_COLLAPSED = 12;
-const BOOT_LINES = [
-  "$ locating vault…",
-  "$ verifying hold signature… ok",
-  "$ decrypting index.json",
-  "$ mounting 26 sectors / 680+ entries",
-  "$ ACCESS GRANTED",
-];
+const CARDS_COLLAPSED = 9;
 
-/** Sequential terminal boot animation shown once per session. Tap/click skips it. */
-const BootSequence = ({ onDone }: { onDone: () => void }) => {
-  const [shown, setShown] = useState(0);
+type Accent = "primary" | "secondary" | "tertiary" | "quaternary";
 
-  useEffect(() => {
-    if (shown >= BOOT_LINES.length) {
-      const t = setTimeout(onDone, 450);
-      return () => clearTimeout(t);
-    }
-    const t = setTimeout(() => setShown((s) => s + 1), shown === 0 ? 200 : 260);
-    return () => clearTimeout(t);
-  }, [shown, onDone]);
+const accentClasses: Record<Accent, { text: string; bg: string; chip: string }> = {
+  primary: { text: "text-primary", bg: "bg-primary", chip: "bg-primary/10 text-primary" },
+  secondary: { text: "text-secondary", bg: "bg-secondary", chip: "bg-secondary/10 text-secondary" },
+  tertiary: { text: "text-tertiary", bg: "bg-tertiary", chip: "bg-tertiary/10 text-tertiary" },
+  quaternary: { text: "text-quaternary", bg: "bg-quaternary", chip: "bg-quaternary/10 text-quaternary" },
+};
+
+const accents: Accent[] = ["primary", "secondary", "tertiary", "quaternary"];
+
+/** Scattered confetti dots for the congrats banner. Purely decorative. */
+const Confetti = () => {
+  const dots = [
+    { top: "10%", left: "6%", accent: "primary", delay: "0ms" },
+    { top: "70%", left: "10%", accent: "tertiary", delay: "80ms" },
+    { top: "20%", left: "92%", accent: "secondary", delay: "140ms" },
+    { top: "78%", left: "90%", accent: "quaternary", delay: "220ms" },
+    { top: "45%", left: "3%", accent: "quaternary", delay: "300ms" },
+    { top: "50%", left: "96%", accent: "primary", delay: "360ms" },
+  ] as const;
 
   return (
-    <div
-      onClick={onDone}
-      className="fixed inset-0 z-[100] bg-black text-green-400 font-mono flex items-center justify-center cursor-pointer px-6"
-    >
-      <div className="w-full max-w-md">
-        {BOOT_LINES.slice(0, shown).map((line, i) => (
-          <p
-            key={i}
-            className={`text-sm sm:text-base mb-1.5 ${
-              line.includes("GRANTED") ? "text-emerald-300 font-bold" : "text-green-400/90"
-            }`}
-          >
-            {line}
-          </p>
-        ))}
-        {shown < BOOT_LINES.length && (
-          <span className="inline-block w-2.5 h-4 bg-green-400 animate-pulse align-middle" />
-        )}
-      </div>
-      <p className="fixed bottom-6 left-0 right-0 text-center text-[11px] text-green-400/40 font-mono">
-        tap to skip
-      </p>
+    <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
+      {dots.map((d, i) => (
+        <span
+          key={i}
+          className={`absolute w-2.5 h-2.5 rounded-full border-2 border-foreground/80 animate-pop-in opacity-0 ${accentClasses[d.accent as Accent].bg}`}
+          style={{ top: d.top, left: d.left, animationDelay: d.delay, animationFillMode: "forwards" }}
+        />
+      ))}
     </div>
   );
 };
 
-const EntryCard = ({ entry }: { entry: AllInOneEntry }) => (
-  <a
-    href={entry.url}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group relative border border-green-400/25 bg-black/60 rounded-md p-3.5 flex flex-col gap-1.5 hover:border-green-400/70 hover:bg-green-400/5 transition-colors"
-  >
-    <div className="flex items-start justify-between gap-2">
-      <h3 className="font-mono font-bold text-sm text-green-300 leading-snug break-words">
-        {entry.name}
-      </h3>
-      <ExternalLink
-        className="w-3.5 h-3.5 text-green-400/40 group-hover:text-green-400 shrink-0 mt-0.5 transition-colors"
-        strokeWidth={2}
-      />
+/** Celebratory "you found the secret vault" banner — this page only exists via the header long-press. */
+const CongratsBanner = () => (
+  <div className="relative max-w-2xl mx-auto mb-8 pop-card p-6 text-center overflow-visible bg-primary/5">
+    <Confetti />
+    <div className="relative inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground border-2 border-foreground/80 shadow-pop mb-3">
+      <Trophy className="w-6 h-6" strokeWidth={2.5} />
     </div>
-    {entry.description && (
-      <p className="text-xs text-green-400/50 font-mono leading-relaxed line-clamp-3">
-        {entry.description}
-      </p>
-    )}
-  </a>
+    <h2 className="relative font-heading font-extrabold text-xl sm:text-2xl text-foreground flex items-center justify-center gap-2">
+      <PartyPopper className="w-5 h-5 text-primary" strokeWidth={2.5} />
+      Secret found!
+      <PartyPopper className="w-5 h-5 text-primary -scale-x-100" strokeWidth={2.5} />
+    </h2>
+    <p className="relative text-sm text-muted-foreground mt-2">
+      You held the logo long enough to unlock this page. It isn't linked anywhere on the
+      site — nice find. 🎉
+    </p>
+  </div>
 );
 
-const CategoryBlock = ({
+const EntryCard = ({ entry, accent }: { entry: AllInOneEntry; accent: Accent }) => {
+  const { text, chip } = accentClasses[accent];
+  return (
+    <a
+      href={entry.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="pop-card p-4 flex flex-col gap-2 hover:-translate-y-0.5 transition-all"
+    >
+      <div className="flex items-start justify-between gap-2">
+        <h3 className={`font-heading font-extrabold text-base ${text} leading-snug`}>{entry.name}</h3>
+        <div className="flex items-center gap-1 shrink-0">
+          <QuickFavorite name={entry.name} type="all-in-one" />
+          <ExternalLink className="w-4 h-4 text-muted-foreground mt-0.5" strokeWidth={2.5} />
+        </div>
+      </div>
+      {entry.description && (
+        <p className="text-sm text-muted-foreground line-clamp-3">{entry.description}</p>
+      )}
+      <span className={`inline-flex items-center gap-1 mt-1 w-fit px-2 py-0.5 rounded-full text-[11px] font-bold ${chip}`}>
+        <Sparkles className="w-3 h-3" strokeWidth={2.5} />
+        Resource
+      </span>
+    </a>
+  );
+};
+
+const CategorySection = ({
   category,
   entries,
   expanded,
   onToggle,
+  accent,
 }: {
   category: string;
   entries: AllInOneEntry[];
   expanded: boolean;
   onToggle: () => void;
+  accent: Accent;
 }) => {
   const shown = expanded ? entries : entries.slice(0, CARDS_COLLAPSED);
+  const { bg } = accentClasses[accent];
 
   return (
     <div
       id={category.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}
-      className="mb-10 scroll-mt-24"
+      className="mb-8 scroll-mt-24"
     >
-      <div className="flex items-center gap-2.5 mb-3 border-b border-green-400/20 pb-2">
-        <span className="text-green-400/50 font-mono text-xs">#</span>
-        <h2 className="font-mono font-bold text-base sm:text-lg text-green-300 tracking-wide">
-          {category}
-        </h2>
-        <span className="text-[10px] font-mono text-green-400/40 px-1.5 py-0.5 rounded border border-green-400/20">
+      <div className="flex items-center gap-3 mb-3">
+        <span className={`w-2.5 h-2.5 rounded-full ${bg}`} />
+        <h2 className="font-heading font-extrabold text-xl sm:text-2xl text-foreground">{category}</h2>
+        <span className="text-xs font-bold text-muted-foreground px-2 py-0.5 rounded-full border-2 border-foreground/20">
           {entries.length}
         </span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {shown.map((entry, i) => (
-          <EntryCard key={`${entry.name}-${i}`} entry={entry} />
+          <EntryCard key={`${entry.name}-${i}`} entry={entry} accent={accent} />
         ))}
       </div>
 
       {entries.length > CARDS_COLLAPSED && (
-        <div className="text-center mt-4">
+        <div className="text-center mt-3">
           <button
             onClick={onToggle}
-            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded border border-green-400/30 text-green-400/70 hover:text-green-300 hover:border-green-400/60 font-mono text-xs transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold border-2 border-foreground/80 bg-card hover:-translate-y-0.5 shadow-pop-soft transition-all"
           >
-            {expanded ? "collapse" : `expand all ${entries.length}`}
-            <ChevronDown className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`} strokeWidth={2.5} />
+            {expanded ? "Show less" : `Show all ${entries.length}`}
+            <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? "rotate-180" : ""}`} strokeWidth={2.5} />
           </button>
         </div>
       )}
@@ -142,29 +159,19 @@ const AllInOne = () => {
   const debounced = useDebounced(query, 200);
   const [activeCat, setActiveCat] = useState<string>("All");
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-  const [booted, setBooted] = useState(false);
-  const skippedBefore = useRef(sessionStorage.getItem("vaultBooted") === "1");
 
   useEffect(() => {
-    document.title = "// vault";
+    document.title = "All In One — Secret Vault";
 
-    // Deliberately keep this page out of search engines and off any sitemap crawl.
+    // This page is deliberately unlisted — keep it out of search results.
     const meta = document.createElement("meta");
     meta.name = "robots";
     meta.content = "noindex, nofollow";
     document.head.appendChild(meta);
-
-    if (skippedBefore.current) setBooted(true);
-
     return () => {
       document.head.removeChild(meta);
     };
   }, []);
-
-  const handleBootDone = () => {
-    sessionStorage.setItem("vaultBooted", "1");
-    setBooted(true);
-  };
 
   const categories = useMemo(() => (data ? Object.keys(data) : []), [data]);
 
@@ -202,100 +209,46 @@ const AllInOne = () => {
     setExpanded((prev) => ({ ...prev, [cat]: !prev[cat] }));
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-mono relative overflow-x-hidden">
-      {/* subtle CRT scanline + glitch styling, scoped to this page only */}
-      <style>{`
-        @keyframes vault-flicker {
-          0%, 96%, 100% { opacity: 1; }
-          97% { opacity: 0.72; }
-          98% { opacity: 1; }
-          99% { opacity: 0.85; }
-        }
-        .vault-scanlines::before {
-          content: "";
-          position: fixed;
-          inset: 0;
-          pointer-events: none;
-          background: repeating-linear-gradient(
-            to bottom,
-            rgba(74, 222, 128, 0.035) 0px,
-            rgba(74, 222, 128, 0.035) 1px,
-            transparent 1px,
-            transparent 3px
-          );
-          z-index: 1;
-        }
-        .vault-title { animation: vault-flicker 6s infinite; }
-      `}</style>
-
-      {!booted && <BootSequence onDone={handleBootDone} />}
-
-      <div className="vault-scanlines">
-        <div className="relative z-[2]">
-          {/* Minimal bar — deliberately not the site Header */}
-          <div className="border-b border-green-400/20 sticky top-0 bg-black/90 backdrop-blur z-20">
-            <div className="container mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Unlock className="w-4 h-4 text-green-400" strokeWidth={2.5} />
-                <span className="vault-title font-bold text-sm sm:text-base tracking-widest">
-                  ALL_IN_ONE<span className="text-green-400/40">.vault</span>
-                </span>
+    <div className="min-h-screen pb-20 md:pb-0">
+      <Header />
+      <main>
+        <section className="pt-32 pb-8 dot-grid violet-haze">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto animate-fade-in">
+              <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-primary text-primary-foreground border-2 border-foreground/80 shadow-pop font-bold text-sm">
+                <Boxes className="w-4 h-4" strokeWidth={2.5} />
+                <span>All In One</span>
               </div>
-              <Link
-                to="/"
-                className="inline-flex items-center gap-1.5 text-xs text-green-400/60 hover:text-green-300 transition-colors"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" strokeWidth={2.5} />
-                exit
-              </Link>
-            </div>
-          </div>
-
-          <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-10 pb-24">
-            <div className="mb-8">
-              <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded border border-green-400/30 text-[11px] text-green-400/70">
-                <Lock className="w-3 h-3" strokeWidth={2.5} />
-                hidden index — not linked anywhere on the site
-              </div>
-              <h1 className="text-2xl sm:text-4xl font-extrabold text-green-300 mb-2 flex items-center gap-2.5">
-                <Boxes className="w-6 h-6 sm:w-8 sm:h-8" strokeWidth={2} />
-                All In One
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
+                🔓 The Secret Vault
               </h1>
-              <p className="text-sm text-green-400/50 max-w-2xl leading-relaxed">
-                Every category, every link, one dump. A curated index of dev, security, gaming, business
-                and misc resource collections — {totalCount || "680+"} entries across {categories.length || 26} sectors.
+              <SquigglyUnderline color="hsl(var(--primary))" width={300} />
+              <p className="text-lg text-muted-foreground mt-5">
+                Every category, every link, one dump — a hand-curated index of dev, security,
+                gaming, business and misc resource collections.
               </p>
 
-              <div className="mt-6 relative max-w-xl">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-green-400/40" strokeWidth={2.5} />
-                <input
+              <CongratsBanner />
+
+              <div className="mt-2 max-w-xl mx-auto">
+                <SearchBox
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="grep --entries..."
-                  aria-label="Search the vault"
-                  className="w-full bg-black border border-green-400/30 focus:border-green-400/70 rounded pl-10 pr-10 py-2.5 text-sm text-green-300 placeholder:text-green-400/30 outline-none transition-colors"
+                  onChange={setQuery}
+                  placeholder="Search all resources..."
+                  ariaLabel="Search the vault"
                 />
-                {query && (
-                  <button
-                    onClick={() => setQuery("")}
-                    aria-label="Clear search"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-green-400/40 hover:text-green-300"
-                  >
-                    <X className="w-4 h-4" strokeWidth={2.5} />
-                  </button>
-                )}
               </div>
 
               {!loading && !error && (
-                <div className="mt-4 flex flex-wrap gap-1.5 max-h-28 overflow-y-auto">
+                <div className="mt-5 flex flex-wrap justify-center gap-2 max-h-32 overflow-y-auto px-2">
                   {["All", ...categories].map((cat) => (
                     <button
                       key={cat}
                       onClick={() => setActiveCat(cat)}
-                      className={`px-2.5 py-1 rounded text-[11px] font-mono border transition-colors ${
+                      className={`px-3 py-1.5 rounded-full text-xs font-bold border-2 border-foreground/80 transition-all ${
                         activeCat === cat
-                          ? "bg-green-400 text-black border-green-400 font-bold"
-                          : "border-green-400/25 text-green-400/60 hover:text-green-300 hover:border-green-400/50"
+                          ? "bg-primary text-primary-foreground shadow-pop"
+                          : "bg-card text-foreground hover:-translate-y-0.5"
                       }`}
                     >
                       {cat}
@@ -305,68 +258,87 @@ const AllInOne = () => {
               )}
 
               {!loading && !error && (
-                <p className="mt-3 text-[11px] text-green-400/35">
-                  showing {filteredCount} / {totalCount}
-                </p>
+                <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full border-2 border-foreground/30 text-xs font-bold text-muted-foreground">
+                  <Boxes className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  {filteredCount} of {totalCount} resources
+                </div>
               )}
             </div>
+          </div>
+        </section>
 
+        <section className="pb-12">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
             {loading && (
-              <div className="max-w-md mx-auto text-center py-16">
-                <Terminal className="w-6 h-6 mx-auto mb-3 text-green-400/50 animate-pulse" strokeWidth={2} />
-                <p className="text-xs text-green-400/50">reading index…</p>
+              <div className="max-w-md mx-auto text-center pop-card p-8">
+                <div className="w-8 h-8 mx-auto mb-4 rounded-full border-4 border-foreground/20 border-t-primary animate-spin" />
+                <p className="text-sm text-muted-foreground">Loading the vault…</p>
               </div>
             )}
 
             {error && (
-              <div className="max-w-md mx-auto text-center py-16 border border-red-500/30 rounded">
-                <p className="text-sm text-red-400 font-bold mb-1">index unreachable</p>
-                <p className="text-xs text-green-400/40">check your connection and retry.</p>
+              <div className="max-w-md mx-auto text-center pop-card p-8">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-destructive/10 text-destructive border-2 border-foreground/80 flex items-center justify-center shadow-pop">
+                  <Boxes className="w-6 h-6" strokeWidth={2.5} />
+                </div>
+                <h3 className="font-heading font-bold text-xl mb-2">Index unreachable</h3>
+                <p className="text-sm text-muted-foreground">
+                  Couldn't fetch <code className="text-xs">all-in-one.json</code> from GitHub right now.
+                  This usually means the file hasn't been pushed to the repo's{" "}
+                  <code className="text-xs">main</code> branch yet, or the fetch got blocked by a
+                  network/ad-block rule. Check your connection and try again shortly.
+                </p>
               </div>
             )}
 
             {!loading && !error && Object.keys(filtered).length === 0 && (
-              <div className="max-w-md mx-auto text-center py-16">
-                <p className="text-sm text-green-400/60 mb-3">no matches.</p>
+              <div className="max-w-md mx-auto text-center pop-card p-8">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-tertiary text-tertiary-foreground border-2 border-foreground/80 flex items-center justify-center shadow-pop">
+                  <SearchX className="w-6 h-6" strokeWidth={2.5} />
+                </div>
+                <h3 className="font-heading font-bold text-xl mb-2">No matches found</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Try a different keyword or pick another category to explore.
+                </p>
                 <button
                   onClick={() => {
                     setQuery("");
                     setActiveCat("All");
                   }}
-                  className="text-xs px-4 py-1.5 rounded border border-green-400/40 text-green-300 hover:bg-green-400/10 transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform text-sm"
                 >
-                  reset
+                  Reset filters
                 </button>
               </div>
             )}
 
             {!loading &&
               !error &&
-              Object.entries(filtered).map(([cat, entries]) => (
-                <CategoryBlock
+              Object.entries(filtered).map(([cat, entries], i) => (
+                <CategorySection
                   key={cat}
                   category={cat}
                   entries={entries}
                   expanded={!!expanded[cat] || !!debounced.trim()}
                   onToggle={() => toggleExpand(cat)}
+                  accent={accents[i % accents.length]}
                 />
               ))}
 
-            <div className="mt-14 pt-6 border-t border-green-400/15 text-center">
-              <p className="text-[11px] text-green-400/30 font-mono mb-4">
-                found by holding the logo. keep it to yourself.
-              </p>
+            <div className="text-center mt-8 flex flex-wrap justify-center gap-3">
               <Link
                 to="/"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded border border-green-400/30 text-green-400/70 hover:text-green-300 hover:border-green-400/60 text-xs transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-card text-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
               >
-                <ArrowLeft className="w-3.5 h-3.5" strokeWidth={2.5} />
-                back to daylight
+                <ArrowLeft className="w-4 h-4" strokeWidth={2.5} /> Back home
               </Link>
             </div>
-          </main>
-        </div>
-      </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+      <ScrollToTop />
+      <BottomNav />
     </div>
   );
 };
