@@ -46,6 +46,7 @@ const Iot = lazy(() => import("./pages/Iot"));
 const AndroidRe = lazy(() => import("./pages/AndroidRe"));
 const DesignMd = lazy(() => import("./pages/DesignMd"));
 const SettingsPage = lazy(() => import("./pages/Settings"));
+const AllInOne = lazy(() => import("./pages/AllInOne"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -135,6 +136,7 @@ const App = () => {
                   <Route path="/design-md" element={<DesignMd />} />
                   <Route path="/settings" element={<SettingsPage />} />
                   <Route path="/admin" element={<Admin />} />
+                  <Route path="/all-in-one" element={<AllInOne />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
                 </RouteTransition>
