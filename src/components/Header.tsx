@@ -1,12 +1,134 @@
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Heart, ChevronDown, Github, Zap, Sparkles, Layers, Send, Tv, Dumbbell, Briefcase, Download, HelpCircle, Plug, Gamepad2, Cpu, Settings as SettingsIcon, MonitorSmartphone } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { StudyModeToggle } from "./StudyModeToggle";
 import { useFavorites } from "@/hooks/useFavorites";
 import NotificationCenter from "./NotificationCenter";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+/** How long (ms) the logo must be held before the hidden vault unlocks. */
+const HOLD_MS = 2600;
+/** Below this, a press is treated as a normal tap-to-home instead of an aborted hold. */
+const TAP_MS = 220;
+
+const RING_SIZE = 46;
+const RING_RADIUS = 21;
+const RING_CIRC = 2 * Math.PI * RING_RADIUS;
+
+/**
+ * The "N" logo. Tap = go home, as always.
+ * Press and hold ~2.5s = unlock the hidden /all-in-one vault page.
+ * No visible hint is given until you're already holding — it's meant to be found, not advertised.
+ */
+const LogoLongPress = () => {
+  const navigate = useNavigate();
+  const [progress, setProgress] = useState(0); // 0..1
+  const [holding, setHolding] = useState(false);
+  const startRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const firedRef = useRef(false);
+
+  const clear = useCallback(() => {
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    rafRef.current = null;
+    startRef.current = null;
+    setHolding(false);
+    setProgress(0);
+  }, []);
+
+  const tick = useCallback(() => {
+    if (startRef.current === null) return;
+    const elapsed = Date.now() - startRef.current;
+    const p = Math.min(1, elapsed / HOLD_MS);
+    setProgress(p);
+    if (p >= 1 && !firedRef.current) {
+      firedRef.current = true;
+      if (navigator.vibrate) navigator.vibrate([30, 40, 60]);
+      clear();
+      navigate("/all-in-one");
+      return;
+    }
+    rafRef.current = requestAnimationFrame(tick);
+  }, [clear, navigate]);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (e.button !== undefined && e.button !== 0) return;
+    firedRef.current = false;
+    startRef.current = Date.now();
+    setHolding(true);
+    rafRef.current = requestAnimationFrame(tick);
+  };
+
+  const onPointerUp = () => {
+    const elapsed = startRef.current ? Date.now() - startRef.current : 0;
+    const wasFired = firedRef.current;
+    clear();
+    if (!wasFired && elapsed < TAP_MS) {
+      navigate("/");
+    }
+    // else: released mid-hold without completing — do nothing, stay put.
+  };
+
+  const onPointerLeave = () => {
+    if (holding) clear();
+  };
+
+  useEffect(() => clear, [clear]);
+
+  const dashOffset = RING_CIRC * (1 - progress);
+
+  return (
+    <button
+      type="button"
+      aria-label="Nextup Resources — home"
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerLeave={onPointerLeave}
+      onPointerCancel={onPointerLeave}
+      onContextMenu={(e) => e.preventDefault()}
+      className="relative flex items-center gap-2 sm:gap-3 group select-none touch-none appearance-none bg-transparent p-0 border-0"
+      style={{ WebkitTapHighlightColor: "transparent" }}
+    >
+      <span className="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center">
+        {holding && (
+          <svg
+            width={RING_SIZE}
+            height={RING_SIZE}
+            viewBox={`0 0 ${RING_SIZE} ${RING_SIZE}`}
+            className="absolute -inset-[3px] -rotate-90 pointer-events-none"
+          >
+            <circle
+              cx={RING_SIZE / 2}
+              cy={RING_SIZE / 2}
+              r={RING_RADIUS}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={3}
+              strokeLinecap="round"
+              className="text-primary"
+              strokeDasharray={RING_CIRC}
+              strokeDashoffset={dashOffset}
+              style={{ transition: "stroke-dashoffset 30ms linear" }}
+            />
+          </svg>
+        )}
+        <div
+          className={`flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-primary border-2 border-foreground/80 shadow-pop transition-all duration-300 ease-bounce group-hover:shadow-pop-hover group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 ${
+            holding ? "scale-95" : ""
+          }`}
+        >
+          <span className="text-base sm:text-lg font-extrabold text-primary-foreground font-heading">N</span>
+        </div>
+      </span>
+      <span className="hidden xs:inline sm:inline text-sm sm:text-lg font-bold text-foreground font-heading truncate max-w-[140px] sm:max-w-none">
+        <span className="sm:hidden">Nextup</span>
+        <span className="hidden sm:inline">Nextup Resources</span>
+      </span>
+    </button>
+  );
+};
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -59,16 +181,8 @@ const Header = () => {
           }`}
         >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex h-14 sm:h-16 items-center justify-between">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
-              <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-primary border-2 border-foreground/80 shadow-pop transition-all duration-300 ease-bounce group-hover:shadow-pop-hover group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
-                <span className="text-base sm:text-lg font-extrabold text-primary-foreground font-heading">N</span>
-              </div>
-              <span className="hidden xs:inline sm:inline text-sm sm:text-lg font-bold text-foreground font-heading truncate max-w-[140px] sm:max-w-none">
-                <span className="sm:hidden">Nextup</span>
-                <span className="hidden sm:inline">Nextup Resources</span>
-              </span>
-            </Link>
+            {/* Logo — tap for home, hold ~2.5s to unlock the hidden vault */}
+            <LogoLongPress />
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex min-w-0 flex-1 items-center justify-center gap-0.5 lg:gap-1 px-2">
