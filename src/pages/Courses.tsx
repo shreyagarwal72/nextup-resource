@@ -7,17 +7,12 @@ import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
 import StudyPlanPicker from "@/components/StudyPlanPicker";
 import SquigglyUnderline from "@/components/SquigglyUnderline";
-import { useEffect } from "react";
-import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { GraduationCap } from "lucide-react";
 
 const Courses = () => {
   const { isStudyMode } = useStudyMode();
 
-  useEffect(() => {
-    updatePageMeta(pageSEOConfigs.courses);
-  }, []);
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
