@@ -5,17 +5,12 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
 import SquigglyUnderline from "@/components/SquigglyUnderline";
-import { useEffect } from "react";
-import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { GraduationCap } from "lucide-react";
 
 const Resources = () => {
   const { isStudyMode } = useStudyMode();
 
-  useEffect(() => {
-    updatePageMeta(pageSEOConfigs.resources);
-  }, []);
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
