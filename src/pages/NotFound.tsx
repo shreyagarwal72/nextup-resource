@@ -1,12 +1,19 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import BottomNav from "@/components/BottomNav";
+import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 
 const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+
+    // This is a wildcard route (path="*"), so SEOManager's exact-path map
+    // can't cover it. Without this, a 404 kept whatever canonical/title
+    // the previous page had — telling search engines a broken URL was
+    // actually a valid, indexable version of some other page.
+    updatePageMeta({ ...pageSEOConfigs.notFound, url: location.pathname });
   }, [location.pathname]);
 
   return (
