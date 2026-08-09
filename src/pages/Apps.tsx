@@ -5,8 +5,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
 import SquigglyUnderline from "@/components/SquigglyUnderline";
 import FeaturedCollections from "@/components/FeaturedCollections";
-import { useEffect, useState } from "react";
-import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
+import { useState } from "react";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { GraduationCap, Globe, Smartphone } from "lucide-react";
 import { allWebsites } from "@/data/content";
@@ -15,9 +14,6 @@ const Apps = () => {
   const { isStudyMode } = useStudyMode();
   const [activeTab, setActiveTab] = useState<"apps" | "websites">("apps");
 
-  useEffect(() => {
-    updatePageMeta(pageSEOConfigs.apps);
-  }, []);
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
