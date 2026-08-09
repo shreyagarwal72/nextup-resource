@@ -19,10 +19,15 @@ import {
   ExternalLink,
   SearchX,
   RefreshCw,
+  PlusCircle,
 } from "lucide-react";
-import { useMorpheReleases } from "@/hooks/useMorpheReleases";
+import { useMorpheReleases, type MorpheApp } from "@/hooks/useMorpheReleases";
 import { useDebounced } from "@/hooks/useDebounced";
 import { toast } from "sonner";
+import ObtainiumModal from "@/components/ObtainiumModal";
+
+const MORPHE_OWNER = "nullcpy";
+const MORPHE_REPO = "rvb";
 
 const PAGE_SIZE = 24;
 
@@ -45,6 +50,7 @@ const Morphe = () => {
   const debounced = useDebounced(query, 200);
   const [activeVariant, setActiveVariant] = useState<string>("All");
   const [visible, setVisible] = useState(PAGE_SIZE);
+  const [obtainiumApp, setObtainiumApp] = useState<MorpheApp | null>(null);
 
   useEffect(() => {
     document.title = "Morphe — Patched Android Apps by nullcpy/rvb";
@@ -154,6 +160,15 @@ const Morphe = () => {
                   <ExternalLink className="w-3.5 h-3.5" strokeWidth={2.5} />
                   Official site
                 </a>
+                <a
+                  href="https://github.com/ImranR98/Obtainium/releases/latest"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1 rounded-full bg-primary text-primary-foreground border-2 border-foreground/80 shadow-pop-soft inline-flex items-center gap-1.5"
+                >
+                  <PlusCircle className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  Auto-update via Obtainium
+                </a>
               </div>
             </div>
           </div>
@@ -228,9 +243,20 @@ const Morphe = () => {
                       <h3 className="text-lg font-bold text-foreground font-heading mb-1 break-words">
                         {app.displayName}
                       </h3>
-                      <p className="text-sm text-muted-foreground mb-3">
-                        v{app.version} · build #{app.buildTag}
-                      </p>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <p className="text-sm text-muted-foreground">
+                          v{app.version} · build #{app.buildTag}
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setObtainiumApp(app)}
+                          title="Add to Obtainium for auto-updates"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-card text-foreground text-[10px] font-bold border-2 border-foreground/80 shrink-0 hover:-translate-y-0.5 transition-transform"
+                        >
+                          <PlusCircle className="w-3 h-3" strokeWidth={2.5} />
+                          Obtainium
+                        </button>
+                      </div>
 
                       <div className="space-y-2 mt-auto">
                         {app.assets.map((a) => (
@@ -334,6 +360,13 @@ const Morphe = () => {
       <Footer />
       <ScrollToTop />
       <BottomNav />
+      <ObtainiumModal
+        app={obtainiumApp}
+        owner={MORPHE_OWNER}
+        repo={MORPHE_REPO}
+        open={!!obtainiumApp}
+        onOpenChange={(open) => !open && setObtainiumApp(null)}
+      />
     </div>
   );
 };
