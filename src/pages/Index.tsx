@@ -8,8 +8,8 @@ import FeaturedCollections from "@/components/FeaturedCollections";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
+import GlobalSearch from "@/components/GlobalSearch";
 import NewVisitorNotice from "@/components/NewVisitorNotice";
-import { updatePageMeta, pageSEOConfigs } from "@/lib/og-image";
 import { ShieldCheck, Wifi, Zap, Lock } from "lucide-react";
 
 const pillars = [
@@ -41,7 +41,10 @@ const pillars = [
 
 const Index = () => {
   useEffect(() => {
-    updatePageMeta(pageSEOConfigs.home);
+    // Title/description/canonical are now set centrally by <SEOManager />
+    // in App.tsx — see routeSEOMap in src/lib/og-image.ts. Don't add a
+    // per-page updatePageMeta() call here again; it'll just fight the
+    // manager for which value wins on each render.
 
     const script = document.createElement("script");
     script.type = "application/ld+json";
@@ -70,6 +73,7 @@ const Index = () => {
       <NewVisitorNotice />
       <main>
         <Hero />
+        <GlobalSearch />
 
         <section className="pt-4 pb-12" aria-label="Library at a glance">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
