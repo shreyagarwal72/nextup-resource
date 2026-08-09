@@ -9,6 +9,7 @@ import PlatformBadge from "@/components/PlatformBadge";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import { ArrowLeft, ExternalLink, Sparkles, Package } from "lucide-react";
 import { getCollection } from "@/data/content";
+import { updatePageMeta } from "@/lib/og-image";
 
 const accentMap = {
   primary: { bg: "bg-primary", text: "text-primary-foreground", color: "hsl(var(--primary))" },
@@ -22,12 +23,26 @@ const CollectionPage = () => {
   const collection = slug ? getCollection(slug) : undefined;
 
   useEffect(() => {
+    // Dynamic route — not in SEOManager's routeSEOMap (the title depends on
+    // loaded data), so this page sets its own canonical/meta tags.
     if (collection) {
-      document.title = `${collection.title} — Nextup Resources`;
+      updatePageMeta({
+        title: `${collection.title} — Nextup Resources`,
+        description: collection.description || `${collection.title} — a curated collection on Nextup Resources.`,
+        url: `/collection/${slug}`,
+      });
     } else {
-      document.title = "Collection not found — Nextup Resources";
+      // Content hasn't loaded yet, or the slug genuinely doesn't exist —
+      // either way, don't let search engines index/canonicalize this URL
+      // while we can't tell which case it is.
+      updatePageMeta({
+        title: "Collection not found — Nextup Resources",
+        description: "This collection could not be found.",
+        url: `/collection/${slug ?? ""}`,
+        noindex: true,
+      });
     }
-  }, [collection]);
+  }, [collection, slug]);
 
   if (!collection) {
     return (
