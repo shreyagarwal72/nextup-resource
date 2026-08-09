@@ -18,7 +18,6 @@ import {
   Search,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { updatePageMeta } from "@/lib/og-image";
 import { chunk, downloadDatasetBackup, rowsFromItems } from "@/lib/contentExport";
 import {
   refreshContentFromBackend,
@@ -44,13 +43,10 @@ const Admin = () => {
     mode: "merge",
   });
 
-  useEffect(() => {
-    updatePageMeta({
-      title: "Admin · Nextup Resources",
-      description: "Admin-only content manager for Nextup Resources.",
-      url: "/admin",
-    });
-  }, []);
+  // Title/description/canonical are set centrally by <SEOManager />, which
+  // also marks this route noindex — see the "admin" entry in
+  // pageSEOConfigs (src/lib/og-image.ts). Previously this page set its own
+  // meta tags without noindex, so the admin panel URL was indexable.
 
   const callSync = async (method: "GET" | "POST", payload?: unknown, query = "") => {
     const { data, error } = await supabase.functions.invoke(`content-sync${query}`, {
