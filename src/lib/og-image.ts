@@ -64,9 +64,19 @@ export const updatePageMeta = (config: {
   description: string;
   image?: string;
   url: string;
+  noindex?: boolean;
 }): void => {
   // Update title
   document.title = config.title;
+
+  // Update robots directive — pages like /admin should never be indexed
+  let robots = document.querySelector('meta[name="robots"]') as HTMLMetaElement;
+  if (!robots) {
+    robots = document.createElement("meta");
+    robots.setAttribute("name", "robots");
+    document.head.appendChild(robots);
+  }
+  robots.setAttribute("content", config.noindex ? "noindex, nofollow" : "index, follow");
 
   // Update meta tags
   const metaTags = generateOGMetaTags(config);
@@ -198,4 +208,93 @@ export const pageSEOConfigs = {
     description: "Install Nextup Resources as a PWA or download the APK for quick offline access.",
     url: "/install",
   },
+  tvApps: {
+    title: "TV Apps — Nextup Resources",
+    description: "Curated Android TV apps for streaming, media playback and big-screen utilities.",
+    url: "/tv-apps",
+  },
+  os: {
+    title: "Custom OS Builds — Nextup Resources",
+    description: "Custom Android OS builds and ROMs, organized and kept up to date.",
+    url: "/os",
+  },
+  apiHub: {
+    title: "API Hub — Free Public APIs",
+    description: "Browse hundreds of free public APIs by category, sourced live and kept up to date.",
+    url: "/api-hub",
+  },
+  games: {
+    title: "Open Source Games — Nextup Resources",
+    description: "Hand-picked open-source games you can play, study or contribute to.",
+    url: "/games",
+  },
+  iot: {
+    title: "Awesome IoT — Nextup Resources",
+    description: "Curated open-source IoT projects, tools and hardware resources.",
+    url: "/iot",
+  },
+  androidRe: {
+    title: "Android Reverse Engineering — Nextup Resources",
+    description: "Tools, guides and resources for Android reverse engineering and security research.",
+    url: "/android-re",
+  },
+  designMd: {
+    title: "Design Markdown — Nextup Resources",
+    description: "Curated design resources, systems and references collected in one place.",
+    url: "/design-md",
+  },
+  admin: {
+    title: "Admin — Nextup Resources",
+    description: "Content management panel.",
+    url: "/admin",
+    noindex: true,
+  },
+  settings: {
+    title: "Settings — Nextup Resources",
+    description: "Manage your Nextup Resources preferences.",
+    url: "/settings",
+    noindex: true,
+  },
+  notFound: {
+    title: "Page Not Found — Nextup Resources",
+    description: "The page you're looking for doesn't exist.",
+    url: "/404",
+    noindex: true,
+  },
+};
+
+/**
+ * Maps every static route to its SEO config key.
+ * Read by the centralized SEOManager so no page can forget to set its
+ * own canonical/meta tags — this runs once, at the router level, on
+ * every navigation.
+ */
+export const routeSEOMap: Record<string, keyof typeof pageSEOConfigs> = {
+  "/": "home",
+  "/courses": "courses",
+  "/resources": "resources",
+  "/ebooks": "ebooks",
+  "/apps": "apps",
+  "/ai": "ai",
+  "/foss-apps": "fossApps",
+  "/shizuku-apps": "shizukuApps",
+  "/morphe": "morphe",
+  "/material-you": "materialYou",
+  "/telegram-tweaks": "telegramTweaks",
+  "/developer-roadmap": "developerRoadmap",
+  "/special-courses": "specialCourses",
+  "/guru-mann-fitness": "gurMannFitnessBooks",
+  "/favorites": "favorites",
+  "/contact": "contact",
+  "/faq": "faq",
+  "/install": "install",
+  "/tv-apps": "tvApps",
+  "/os": "os",
+  "/api-hub": "apiHub",
+  "/games": "games",
+  "/iot": "iot",
+  "/android-re": "androidRe",
+  "/design-md": "designMd",
+  "/settings": "settings",
+  "/admin": "admin",
 };
