@@ -6,7 +6,6 @@ import BottomNav from "@/components/BottomNav";
 import SearchBox from "@/components/SearchBox";
 import { Button } from "@/components/ui/button";
 import { Send, ExternalLink, Github, Bot as BotIcon, Sparkles, ArrowDownAZ, Clock } from "lucide-react";
-import { updatePageMeta } from "@/lib/og-image";
 import { telegramBots, telegramBotCategories } from "@/data/telegramBots";
 import { useDebounced } from "@/hooks/useDebounced";
 import { highlight } from "@/lib/highlight";
@@ -37,14 +36,8 @@ const TelegramTweaks = () => {
   const [sort, setSort] = useState<SortMode>("category");
   const debounced = useDebounced(query, 150);
 
-  useEffect(() => {
-    updatePageMeta({
-      title: "Telegram Tweaks · Secret Bots — Nextup Resources",
-      description:
-        "A curated, searchable list of secret Telegram bots for downloads, file tools, music, AI assistants and more.",
-      url: "/telegram-tweaks",
-    });
-  }, []);
+  // Title/description/canonical are now set centrally by <SEOManager />
+  // (see routeSEOMap in src/lib/og-image.ts) — no per-page call needed.
 
   const filtered = useMemo(() => {
     const q = debounced.trim();
