@@ -6,7 +6,6 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { useSettings, type Settings as SettingsShape } from "@/hooks/useSettings";
 import { haptics } from "@/lib/haptics";
 import { openIntroModal } from "@/components/IntroModal";
-import { updatePageMeta } from "@/lib/og-image";
 import {
   Vibrate,
   Tags,
@@ -103,14 +102,8 @@ const Settings = () => {
   const [cleared, setCleared] = useState(false);
   const dirty = useRef(false);
 
-  useEffect(() => {
-    updatePageMeta({
-      title: "Settings — Nextup Resources",
-      description:
-        "Personalise Nextup Resources: haptic feedback, bottom nav labels, animations, assistant and more.",
-      url: "/settings",
-    });
-  }, []);
+  // Title/description/canonical are set centrally by <SEOManager />
+  // (see the "settings" entry in pageSEOConfigs, src/lib/og-image.ts).
 
   // Leaving Settings after changing something does a hard refresh, so every
   // page (including cached PWA shells) picks the new preferences up cleanly.
