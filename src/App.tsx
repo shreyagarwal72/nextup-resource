@@ -14,7 +14,7 @@ import { SEOManager } from "@/components/SEOManager";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
 import HapticFeedback from "@/components/HapticFeedback";
-import SettingsEffects from "@/components/SettingsEffects";
+import { OfflineStatusBanner } from "@/components/OfflineStatusBanner";
 import { Analytics } from "@vercel/analytics/react";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -153,6 +153,7 @@ const App = () => {
             </ErrorBoundary>
             <IntroModal />
             <Resourcely />
+            <OfflineStatusBanner />
           </BrowserRouter>
           <Analytics />
         </TooltipProvider>
