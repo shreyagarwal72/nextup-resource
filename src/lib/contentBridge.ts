@@ -191,6 +191,8 @@ const fetchAll = async (): Promise<Row[]> => {
   return rows;
 };
 
+import { seedCatalog } from "@/data/seedCatalog";
+
 let started = false;
 
 /** Boots the backend content pipeline. Safe to call once, at app start. */
@@ -198,9 +200,17 @@ export const initContentBridge = () => {
   if (started) return;
   started = true;
 
+  // 1. Check local cache snapshot
   const cached = readCache();
-  if (cached && applyGrouped(cached)) contentSource = "cache";
+  if (cached && applyGrouped(cached)) {
+    contentSource = "cache";
+  } else {
+    // 2. Immediate fallback seed if no cache exists
+    applyGrouped(seedCatalog);
+    contentSource = "cache";
+  }
 
+  // 3. Query backend asynchronously and apply updates
   void (async () => {
     try {
       const rows = await fetchAll();
@@ -211,7 +221,7 @@ export const initContentBridge = () => {
         writeCache(grouped);
       }
     } catch {
-      /* offline — the cached catalog stays on screen */
+      /* offline — cached or seed catalog stays on screen */
     }
   })();
 };
