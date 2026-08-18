@@ -12,6 +12,22 @@ interface EbookCardProps {
   link: string;
 }
 
+import { Badge } from "@/components/ui/badge";
+import { Download, BookOpen } from "lucide-react";
+import FavoriteButton from "./FavoriteButton";
+import PlatformBadge from "./PlatformBadge";
+import { useFavorites, generateId } from "@/hooks/useFavorites";
+import { motion } from "framer-motion";
+import { springPresets } from "./MotionEffects";
+
+interface EbookCardProps {
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  link: string;
+}
+
 const EbookCard = ({ title, description, category, image, link }: EbookCardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const ebookId = generateId(title);
@@ -24,8 +40,23 @@ const EbookCard = ({ title, description, category, image, link }: EbookCardProps
   };
 
   return (
-    <a href={link} target="_blank" rel="noopener noreferrer" className="block group">
-      <div className="pop-card overflow-hidden h-full">
+    <a href={link} target="_blank" rel="noopener noreferrer" className="block group h-full">
+      <motion.div
+        whileHover={{
+          scale: 1.03,
+          rotate: 1.2,
+          y: -6,
+          boxShadow: "12px 12px 0px 0px hsl(var(--border))",
+        }}
+        whileTap={{
+          scale: 0.97,
+          rotate: 0,
+          y: 2,
+          boxShadow: "2px 2px 0px 0px hsl(var(--border))",
+        }}
+        transition={springPresets.bouncy}
+        className="pop-card overflow-hidden h-full border-2 border-foreground/80 bg-card rounded-xl shadow-pop-soft"
+      >
         <div className="relative overflow-hidden rounded-t-lg">
           <img src={image} alt={title} className="w-full h-48 object-cover transition-transform duration-500 ease-bounce group-hover:scale-110" loading="lazy" />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
@@ -49,7 +80,7 @@ const EbookCard = ({ title, description, category, image, link }: EbookCardProps
           </h3>
           <p className="text-muted-foreground text-sm line-clamp-3">{description}</p>
         </div>
-      </div>
+      </motion.div>
     </a>
   );
 };

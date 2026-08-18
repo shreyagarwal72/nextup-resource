@@ -4,6 +4,8 @@ import FavoriteButton from "./FavoriteButton";
 import PlatformBadge from "./PlatformBadge";
 import NewBadge from "./NewBadge";
 import { useFavorites, generateId } from "@/hooks/useFavorites";
+import { motion } from "framer-motion";
+import { springPresets } from "./MotionEffects";
 
 interface ResourceCardProps {
   title: string;
@@ -29,8 +31,23 @@ const ResourceCard = ({ title, description, category, image, link, dateAdded }: 
   };
 
   return (
-    <a href={link} target="_blank" rel="noopener noreferrer" className="block">
-      <div className="pop-card group overflow-hidden cursor-pointer h-full">
+    <a href={link} target="_blank" rel="noopener noreferrer" className="block h-full">
+      <motion.div
+        whileHover={{
+          scale: 1.03,
+          rotate: -1.2,
+          y: -6,
+          boxShadow: "12px 12px 0px 0px hsl(var(--border))",
+        }}
+        whileTap={{
+          scale: 0.97,
+          rotate: 0,
+          y: 2,
+          boxShadow: "2px 2px 0px 0px hsl(var(--border))",
+        }}
+        transition={springPresets.bouncy}
+        className="pop-card group overflow-hidden cursor-pointer h-full border-2 border-foreground/80 bg-card rounded-xl relative shadow-pop-soft"
+      >
         <div className="relative h-48 overflow-hidden rounded-t-lg">
           <img
             src={image}
@@ -70,9 +87,10 @@ const ResourceCard = ({ title, description, category, image, link, dateAdded }: 
           </h3>
           <p className="text-muted-foreground text-sm line-clamp-2">{description}</p>
         </div>
-      </div>
+      </motion.div>
     </a>
   );
 };
 
 export default ResourceCard;
+

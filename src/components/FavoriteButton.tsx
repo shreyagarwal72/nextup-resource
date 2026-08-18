@@ -1,6 +1,8 @@
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, forwardRef, useCallback, useRef } from "react";
+import { motion } from "framer-motion";
+import { springPresets } from "./MotionEffects";
 
 interface FavoriteButtonProps {
   isFavorite: boolean;
@@ -54,11 +56,14 @@ const FavoriteButton = forwardRef<HTMLButtonElement, FavoriteButtonProps>(
     };
 
     return (
-      <button
+      <motion.button
         ref={ref}
         onClick={handleClick}
+        whileHover={{ scale: 1.15, rotate: 6 }}
+        whileTap={{ scale: 0.85, rotate: -6 }}
+        transition={springPresets.bouncy}
         className={cn(
-          "w-9 h-9 rounded-full bg-card border-2 border-foreground/80 shadow-pop flex items-center justify-center transition-all duration-300 ease-bounce hover:shadow-pop-hover hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-pop-active active:translate-x-0.5 active:translate-y-0.5 relative overflow-visible",
+          "w-9 h-9 rounded-full bg-card border-2 border-foreground/80 shadow-pop flex items-center justify-center relative overflow-visible",
           isFavorite ? "text-destructive" : "text-muted-foreground hover:text-destructive/80",
           className
         )}
@@ -105,7 +110,7 @@ const FavoriteButton = forwardRef<HTMLButtonElement, FavoriteButtonProps>(
             100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
           }
         `}</style>
-      </button>
+      </motion.button>
     );
   }
 );

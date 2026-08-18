@@ -6,6 +6,8 @@ import FavoriteButton from "./FavoriteButton";
 import PlatformBadge from "./PlatformBadge";
 import NewBadge from "./NewBadge";
 import { useFavorites, generateId } from "@/hooks/useFavorites";
+import { motion } from "framer-motion";
+import { springPresets } from "./MotionEffects";
 
 interface CourseCardProps {
   title: string;
@@ -40,7 +42,22 @@ const CourseCard = ({ title, description, category, duration, students, image, l
   };
 
   return (
-    <div className="pop-card group h-full flex flex-col overflow-hidden">
+    <motion.div
+      whileHover={{
+        scale: 1.03,
+        rotate: -1,
+        y: -6,
+        boxShadow: "12px 12px 0px 0px hsl(var(--border))",
+      }}
+      whileTap={{
+        scale: 0.97,
+        rotate: 0,
+        y: 2,
+        boxShadow: "2px 2px 0px 0px hsl(var(--border))",
+      }}
+      transition={springPresets.bouncy}
+      className="pop-card group h-full flex flex-col overflow-hidden border-2 border-foreground/80 bg-card rounded-xl shadow-pop-soft"
+    >
       <div className="relative h-48 overflow-hidden rounded-t-lg">
         <img
           src={image}
@@ -84,7 +101,7 @@ const CourseCard = ({ title, description, category, duration, students, image, l
           {isInternal ? "View Collection" : "Access Course"}
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

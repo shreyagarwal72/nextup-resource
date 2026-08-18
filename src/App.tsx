@@ -76,16 +76,25 @@ const PageLoader = () => (
   </div>
 );
 
-/** Fades + lifts each page in on route change (respects reduced motion via .reduce-motion). */
+import { motion, AnimatePresence } from "framer-motion";
+import { springPresets } from "@/components/MotionEffects";
+
+/** Fades + spring lifts each page in on route change (respects reduced motion). */
 const RouteTransition = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
-  // Re-keying on the content version re-renders pages the moment the backend
-  // catalog lands, so remote content replaces bundled content seamlessly.
   const contentVersion = useContentVersion();
   return (
-    <div key={`${location.pathname}:${contentVersion}`} className="animate-route-enter">
-      {children}
-    </div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={`${location.pathname}:${contentVersion}`}
+        initial={{ opacity: 0, y: 16, scale: 0.99 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -12, scale: 0.99 }}
+        transition={springPresets.smooth}
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
