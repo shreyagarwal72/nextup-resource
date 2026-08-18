@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      injectRegister: "auto",
+      injectRegister: null,
       devOptions: { enabled: false },
       includeAssets: [
         "favicon.png",
@@ -76,8 +76,6 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        mode: "development",
-        dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
         // Full offline app shell: every built asset is precached and any
         // navigation falls back to the cached index.html.
         navigateFallback: "index.html",
@@ -109,6 +107,8 @@ export default defineConfig(({ mode }) => ({
             },
           },
           {
+            // Backend content catalog — served from cache instantly, refreshed
+            // in the background, and still available with no connection.
             urlPattern: /\/rest\/v1\/site_content.*/i,
             handler: "StaleWhileRevalidate",
             options: {
@@ -146,6 +146,7 @@ export default defineConfig(({ mode }) => ({
             },
           },
           {
+            // Any other same-origin image (local assets, generated covers).
             urlPattern: ({ request }) => request.destination === "image",
             handler: "CacheFirst",
             options: {
@@ -158,10 +159,6 @@ export default defineConfig(({ mode }) => ({
       },
     }),
   ].filter(Boolean),
-  build: {
-    minify: false,
-    target: "es2020",
-  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
