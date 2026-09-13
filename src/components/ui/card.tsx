@@ -1,17 +1,23 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { useDesignSystem } from "@/components/ThemeProvider";
 
-const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div 
-    ref={ref} 
-    className={cn(
-      "bg-card border-2 border-foreground/80 rounded-xl text-card-foreground overflow-hidden shadow-pop-soft transition-all duration-300",
-      className
-    )} 
-    {...props} 
-  />
-));
+const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
+  const { designSystem } = useDesignSystem();
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        designSystem === "clay"
+          ? "clay-card text-card-foreground overflow-hidden"
+          : "bg-card border-2 border-foreground/80 rounded-xl text-card-foreground overflow-hidden shadow-pop-soft transition-all duration-300",
+        className,
+      )}
+      {...props}
+    />
+  );
+});
 Card.displayName = "Card";
 
 const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(

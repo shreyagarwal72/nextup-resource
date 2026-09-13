@@ -1,10 +1,13 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { useDesignSystem } from "./ThemeProvider";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { designSystem } = useDesignSystem();
+  const surfaceClass = designSystem === "clay" ? "clay-circle" : "border-2 border-foreground/80 bg-card shadow-pop";
 
   useEffect(() => {
     setMounted(true);
@@ -12,7 +15,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <button className="p-2 rounded-full border-2 border-foreground/80 bg-card shadow-pop">
+      <button className={`p-2 rounded-full ${surfaceClass}`} aria-label="Color mode">
         <Sun className="h-5 w-5" strokeWidth={2.5} />
       </button>
     );
@@ -21,8 +24,9 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2 rounded-full border-2 border-foreground/80 bg-card shadow-pop hover:shadow-pop-hover hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-pop-active active:translate-x-0.5 active:translate-y-0.5 transition-all duration-300 relative overflow-hidden"
-      aria-label="Toggle theme"
+      className={`p-2 rounded-full ${surfaceClass} transition-all duration-300 relative overflow-hidden`}
+      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} color mode`}
+      title="Light or dark mode"
     >
       <Sun className={`h-5 w-5 transition-all duration-300 ${
         theme === "dark"
