@@ -15,6 +15,7 @@ import { SEOManager } from "@/components/SEOManager";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import HapticFeedback from "@/components/HapticFeedback";
 import SettingsEffects from "@/components/SettingsEffects";
+import ClayBackground from "@/components/ClayBackground";
 import { Analytics } from "@vercel/analytics/react";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -106,6 +107,7 @@ const App = () => {
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
+          <ClayBackground />
           <HapticFeedback />
           <SettingsEffects />
           <Toaster />
