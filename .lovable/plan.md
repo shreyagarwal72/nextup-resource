@@ -1,44 +1,33 @@
-## Goals
+# Claymorphism design system
 
-1. Show secondary/misc/hidden bottom-nav rings on desktop (they're currently hidden).
-2. Wire the provided APK URL into the Install page as the download.
-3. Refresh SEO + OG metadata (canonical stays on `https://nextup-resource.vercel.app`).
-4. Fix the current build failure in `src/pages/Install.tsx` (stray ```` ```tsx ```` / ```` ``` ```` markdown fences on lines 1 and 167).
+## Goal
+Add Claymorphism as a persisted, site-wide alternative to the existing Playful Geometric appearance, while keeping light/dark mode as a separate setting within the same theme provider.
 
-## Changes
+## Theme architecture
+- Extend `ThemeProvider` with a design-system context exposing `designSystem: "geometric" | "clay"` and `setDesignSystem` alongside the existing light/dark provider.
+- Persist the choice in browser storage using a stable key and apply either `geometric` or `claymorphism` to the document root immediately, avoiding a flash of the wrong appearance.
+- Provide a `useDesignSystem` hook for shared controls and future components.
+- Load Outfit + Plus Jakarta Sans for Geometric and Nunito + DM Sans for Clay through provider-managed stylesheet links, removing the existing CSS URL import.
 
-### `src/pages/Install.tsx` (build fix + APK)
-- Remove the stray ```` ```tsx ```` on line 1 and closing ```` ``` ```` on line 167 that are breaking the build.
-- Confirm APK anchor points at `https://kklz19o6an7qwti4.public.blob.vercel-storage.com/Nextup%20Resources.apk` with `download="Nextup Resources.apk"` (already present — verify only).
+## Clay visual foundation
+- Add the requested Clay palette as HSL semantic tokens under the root `.claymorphism` class, including canvas, text, muted, primary, secondary, tertiary, success, warning, borders, focus rings, and 32px base radius.
+- Add four-layer convex, elevated, and inset shadow tokens, with dark-mode-aware Clay values so light/dark remains usable in either design system.
+- Implement `.clay-card`, `.clay-btn`, `.clay-btn-secondary`, `.clay-input`, and `.clay-pressed` utilities with 32px cards, 20px controls, soft shadows, hover lift, and active squish.
+- Make existing site-wide `pop-card`, `candy-btn`, `pop-shadow`, navigation pills, badges, and common bordered surfaces resolve to Clay styling under `.claymorphism`, covering pages that use legacy shared classes directly.
+- Suppress dashed connectors, confetti particles, wiggles, hard borders, and geometric rotations in Clay mode; replace applicable motion with `clay-breathe`, soft lift, and squish behavior.
+- Preserve focus-visible rings, reduced-motion behavior, touch feedback, and AA-readable foreground/background combinations.
 
-### `src/components/BottomNav.tsx` (desktop visibility)
-- Current logic hides the nav on desktop unless the user is in the secondary/misc/hidden ring. That's the intended behavior from last turn, but the shell wrapper's `md:hidden` class is being applied to the primary ring only. Re-audit `desktopClass` so:
-  - Primary ring → `md:hidden` (header covers it on desktop).
-  - Secondary / misc / hidden rings → visible on all breakpoints (no `md:hidden`, and widen `md:max-w-2xl` container so it doesn't get clipped behind other floating UI).
-- Add `pointer-events-auto` and bump `z-50` → `z-40` only if it conflicts with Resourcly; otherwise leave.
+## Shared UI controls
+- Update Card, Button, Badge, Input, and Switch primitives to read the active design system and select their Geometric or Clay classes.
+- Keep all existing component variants and behavior intact; only their visual treatment changes.
+- Update the header’s reusable surfaces so its logo, search, favorites, menus, theme toggle, and navigation reflect the active system consistently.
 
-### `index.html` (SEO/OG refresh)
-- Keep canonical + og:url on `https://nextup-resource.vercel.app/`.
-- Tighten `<title>` to ≤60 chars: `Nextup Resources — Premium Courses & Free Learning`.
-- Tighten `<meta name="description">` to ≤160 chars.
-- Mirror the new title/description into `og:title`, `og:description`, `twitter:title`, `twitter:description`.
-- Ensure `og:image` / `twitter:image` point at `/og-image.png` (absolute URL already set).
-- Add sitewide `Organization` + `WebSite` JSON-LD (with `SearchAction`) so the homepage no longer needs the runtime script in `Index.tsx`.
+## Settings and ambient treatment
+- Add a clearly labeled “Design style” setting with Geometric and Clay options, visually distinct from the light/dark mode control.
+- Apply changes instantly and keep the current light/dark preference unchanged when switching styles.
+- Add a global, pointer-transparent Clay background layer with four slowly drifting, blurred accent blobs that only mounts in Clay mode and stays behind page content.
 
-### `src/lib/og-image.ts` (per-page SEO)
-- Update `pageSEOConfigs` titles to stay ≤60 chars and descriptions ≤160 chars where they currently overflow (courses, resources, ebooks, apps, favorites, contact, faq, install).
-- Add missing entries: `ai`, `fossApps`, `shizukuApps`, `morphe`, `materialYou`, `telegramTweaks`, `developerRoadmap`, `specialCourses`, `gurMannFitnessBooks`, `collection`.
-
-### `public/sitemap.xml`
-- Ensure every current route is listed with `https://nextup-resource.vercel.app` base: `/`, `/courses`, `/resources`, `/ebooks`, `/apps`, `/ai`, `/foss-apps`, `/shizuku-apps`, `/morphe`, `/material-you`, `/telegram-tweaks`, `/developer-roadmap`, `/special-courses`, `/guru-mann-fitness`, `/guru-mann-fitness-books`, `/favorites`, `/contact`, `/faq`, `/install`.
-
-### `public/robots.txt`
-- Verify `Sitemap: https://nextup-resource.vercel.app/sitemap.xml` directive is present.
-
-## Out of scope
-- No domain migration (user chose to keep `nextup-resource.vercel.app`).
-- No new OG image generation (existing `/og-image.png` is kept).
-- No changes to backend, chat, or data files.
-
-## Note to user
-Social platforms (LinkedIn, Slack, X) cache the previous OG preview; after publishing, refresh via their link-preview debuggers to see the updated card.
+## Verification
+- Check persistence across reloads and independent switching of design system and light/dark mode.
+- Verify the Settings page, homepage, shared cards, buttons, badges, inputs, header, and navigation at mobile and desktop sizes.
+- Confirm keyboard focus, reduced motion, no overlapping content, and a clean build.
