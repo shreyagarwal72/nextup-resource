@@ -3,6 +3,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BottomNav from "@/components/BottomNav";
 import ScrollToTop from "@/components/ScrollToTop";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { useDesignSystem, type DesignSystem } from "@/components/ThemeProvider";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { useSettings, type Settings as SettingsShape } from "@/hooks/useSettings";
 import { haptics } from "@/lib/haptics";
 import { openIntroModal } from "@/components/IntroModal";
@@ -16,6 +20,8 @@ import {
   Trash2,
   BookOpen,
   SlidersHorizontal,
+  Palette,
+  SunMoon,
 } from "lucide-react";
 
 type Item = {
@@ -79,28 +85,17 @@ const Toggle = ({
   checked: boolean;
   onChange: () => void;
   label: string;
-}) => (
-  <button
-    role="switch"
-    aria-checked={checked}
-    aria-label={label}
-    onClick={onChange}
-    className={`relative h-8 w-14 shrink-0 rounded-full border-2 border-foreground/80 transition-colors duration-300 ${
-      checked ? "bg-primary" : "bg-muted"
-    }`}
-  >
-    <span
-      className={`absolute top-[3px] h-[22px] w-[22px] rounded-full border-2 border-foreground/80 bg-card transition-all duration-300 ease-bounce ${
-        checked ? "left-[30px]" : "left-[3px]"
-      }`}
-    />
-  </button>
-);
+}) => <Switch checked={checked} onCheckedChange={onChange} aria-label={label} className="h-8 w-14 [&>span]:h-[22px] [&>span]:w-[22px] data-[state=checked]:[&>span]:translate-x-[28px]" />;
 
 const Settings = () => {
   const { settings, toggle, reset } = useSettings();
+  const { designSystem, setDesignSystem } = useDesignSystem();
   const [cleared, setCleared] = useState(false);
   const dirty = useRef(false);
+  const isClay = designSystem === "clay";
+  const settingSurface = isClay
+    ? "clay-card"
+    : "rounded-2xl border-2 border-foreground/80 bg-card shadow-pop-soft";
 
   // Title/description/canonical are set centrally by <SEOManager />
   // (see the "settings" entry in pageSEOConfigs, src/lib/og-image.ts).
@@ -120,6 +115,11 @@ const Settings = () => {
     // Always buzz here so the haptics switch itself confirms, even when the
     // preference was just turned off.
     haptics.force(20);
+  };
+
+  const chooseDesignSystem = (next: DesignSystem) => {
+    setDesignSystem(next);
+    haptics.medium();
   };
 
 
@@ -152,6 +152,61 @@ const Settings = () => {
             </p>
           </div>
 
+          <section className="mb-8" aria-labelledby="appearance-heading">
+            <div className="mb-3 flex items-center gap-2">
+              <Palette className="h-5 w-5 text-primary" strokeWidth={2.5} />
+              <h2 id="appearance-heading" className="font-heading text-xl font-extrabold">Appearance</h2>
+            </div>
+
+            <div className="space-y-3">
+              <div className={`${settingSurface} p-4 sm:p-5`}>
+                <div className="mb-4 flex items-start gap-3">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
+                    <Palette className="h-5 w-5" strokeWidth={2.5} />
+                  </span>
+                  <div>
+                    <h3 className="font-heading font-extrabold">Design style</h3>
+                    <p className="text-sm text-muted-foreground">Choose the site’s shapes, depth, and motion. This does not change light or dark mode.</p>
+                  </div>
+                </div>
+                <div className={`grid grid-cols-2 gap-2 rounded-[22px] p-1.5 ${isClay ? "clay-input" : "border-2 border-foreground/30 bg-muted"}`} role="radiogroup" aria-label="Design style">
+                  {([
+                    ["geometric", "Playful Geometric"],
+                    ["clay", "Claymorphism"],
+                  ] as const).map(([value, label]) => {
+                    const active = designSystem === value;
+                    return (
+                      <Button
+                        key={value}
+                        type="button"
+                        role="radio"
+                        aria-checked={active}
+                        variant={active ? "default" : "ghost"}
+                        onClick={() => chooseDesignSystem(value)}
+                        className="h-auto min-h-11 whitespace-normal px-3 py-2 text-center leading-tight"
+                      >
+                        {label}
+                      </Button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className={`${settingSurface} flex items-center gap-4 p-4`}>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-tertiary text-tertiary-foreground">
+                  <SunMoon className="h-5 w-5" strokeWidth={2.5} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-heading font-extrabold">Light or dark mode</h3>
+                  <p className="text-sm text-muted-foreground">Switch color brightness independently from the design style.</p>
+                </div>
+                <ThemeToggle />
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="preferences-heading">
+            <h2 id="preferences-heading" className="sr-only">Feature preferences</h2>
           <div className="space-y-3">
             {ITEMS.map((item, i) => {
               const Icon = item.icon;
@@ -160,7 +215,7 @@ const Settings = () => {
                 <div
                   key={item.key}
                   style={{ animationDelay: `${i * 50}ms` }}
-                  className="animate-pop-in opacity-0 flex items-center gap-4 rounded-2xl border-2 border-foreground/80 bg-card p-4 shadow-pop-soft"
+                  className={`animate-pop-in opacity-0 flex items-center gap-4 p-4 ${settingSurface}`}
                 >
                   <span
                     className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-foreground/80 ${dotBg[item.accent]}`}
@@ -176,31 +231,34 @@ const Settings = () => {
               );
             })}
           </div>
+          </section>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            <button
+            <Button
+              variant="outline"
               onClick={() => openIntroModal()}
-              className="flex items-center justify-center gap-2 rounded-2xl border-2 border-foreground/80 bg-card px-4 py-3 font-bold shadow-pop-soft transition-transform duration-200 ease-bounce hover:-translate-y-0.5 active:scale-95"
+              className="h-auto px-4 py-3"
             >
               <BookOpen className="h-4 w-4" strokeWidth={2.5} /> Replay tour
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="outline"
               onClick={() => {
                 reset();
                 dirty.current = true;
               }}
-
-              className="flex items-center justify-center gap-2 rounded-2xl border-2 border-foreground/80 bg-card px-4 py-3 font-bold shadow-pop-soft transition-transform duration-200 ease-bounce hover:-translate-y-0.5 active:scale-95"
+              className="h-auto px-4 py-3"
             >
               <RotateCcw className="h-4 w-4" strokeWidth={2.5} /> Reset defaults
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="outline"
               onClick={clearCaches}
-              className="flex items-center justify-center gap-2 rounded-2xl border-2 border-foreground/80 bg-card px-4 py-3 font-bold shadow-pop-soft transition-transform duration-200 ease-bounce hover:-translate-y-0.5 active:scale-95"
+              className="h-auto px-4 py-3"
             >
               <Trash2 className="h-4 w-4" strokeWidth={2.5} />
               {cleared ? "Cache cleared" : "Clear cache"}
-            </button>
+            </Button>
           </div>
         </div>
       </main>
