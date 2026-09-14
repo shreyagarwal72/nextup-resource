@@ -48,7 +48,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const { designSystem } = useDesignSystem();
     const Comp = asChild ? Slot : "button";
     const clayClass = designSystem === "clay"
-      ? variant === "secondary" ? "clay-btn-secondary" : variant === "link" || variant === "ghost" ? "clay-control" : "clay-btn"
+      ? variant === "secondary"
+        ? "clay-btn-secondary"
+        : variant === "destructive"
+          ? "clay-btn-destructive"
+          : variant === "outline" || variant === "ghost"
+            ? "clay-control"
+            : variant === "link"
+              ? undefined
+              : "clay-btn"
       : undefined;
     return <Comp className={cn(buttonVariants({ variant, size }), clayClass, className)} ref={ref} {...props} />;
   }

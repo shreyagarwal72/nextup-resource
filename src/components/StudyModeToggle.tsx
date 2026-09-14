@@ -1,5 +1,6 @@
 import { GraduationCap, BookOpenCheck } from "lucide-react";
 import { useStudyMode } from "@/hooks/useStudyMode";
+import { useDesignSystem } from "./ThemeProvider";
 import {
   Tooltip,
   TooltipContent,
@@ -8,13 +9,14 @@ import {
 
 export const StudyModeToggle = () => {
   const { isStudyMode, toggleStudyMode } = useStudyMode();
+  const { designSystem } = useDesignSystem();
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <button
           onClick={toggleStudyMode}
-          className={`relative p-2 rounded-full border-2 border-foreground/80 transition-all duration-300 ease-bounce shadow-pop hover:shadow-pop-hover hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-pop-active active:translate-x-0.5 active:translate-y-0.5 ${
+          className={`relative p-2 rounded-full transition-all duration-300 ease-bounce ${designSystem === "clay" ? "clay-circle" : "border-2 border-foreground/80 shadow-pop hover:shadow-pop-hover hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-pop-active active:translate-x-0.5 active:translate-y-0.5"} ${
             isStudyMode
               ? "bg-primary text-primary-foreground"
               : "bg-card text-muted-foreground hover:text-foreground"

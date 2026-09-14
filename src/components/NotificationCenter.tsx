@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { Bell, X, Clock, Cpu, Gamepad2, Plug, Bug, Palette, LayoutGrid, Filter, MonitorSmartphone } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useDesignSystem } from "./ThemeProvider";
 
 type AnnouncementType = "page" | "feature";
 
@@ -72,6 +73,8 @@ const NotificationCenter = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState<AnnouncementType | "all">("all");
   const [isLoading, setIsLoading] = useState(false);
+  const { designSystem } = useDesignSystem();
+  const isClay = designSystem === "clay";
 
   // Brief skeleton flash when opening the panel or switching filter chips.
   useEffect(() => {
@@ -116,7 +119,7 @@ const NotificationCenter = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="relative p-2 rounded-full border-2 border-foreground/80 bg-card shadow-pop hover:shadow-pop-hover hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-pop-active active:translate-x-0.5 active:translate-y-0.5 transition-all duration-300 text-muted-foreground hover:text-primary"
+        className={`relative p-2 rounded-full bg-card transition-all duration-300 text-muted-foreground hover:text-primary ${isClay ? "clay-circle" : "border-2 border-foreground/80 shadow-pop hover:shadow-pop-hover hover:-translate-x-0.5 hover:-translate-y-0.5 active:shadow-pop-active active:translate-x-0.5 active:translate-y-0.5"}`}
         aria-label="Notifications"
       >
         <Bell className="w-5 h-5" strokeWidth={2.5} />
@@ -138,7 +141,7 @@ const NotificationCenter = () => {
             className={`fixed top-0 right-0 bottom-0 z-[9999] w-full max-w-sm transition-transform duration-500 pointer-events-auto ${isOpen ? "translate-x-0" : "translate-x-full"}`}
             style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}
           >
-            <div className="h-full bg-background flex flex-col border-l-2 border-foreground/80">
+            <div className={`h-full bg-background flex flex-col ${isClay ? "clay-notification-panel" : "border-l-2 border-foreground/80"}`}>
               <div className="flex items-center justify-between p-5 border-b-2 border-foreground/20">
                 <div className="flex items-center gap-2">
                   <Bell className="w-5 h-5 text-primary" strokeWidth={2.5} />
@@ -189,7 +192,7 @@ const NotificationCenter = () => {
                         {[0, 1, 2, 3].map((i) => (
                           <div
                             key={i}
-                            className="p-4 rounded-xl bg-card border-2 border-foreground/20 flex items-start gap-3"
+                           className={`p-4 bg-card flex items-start gap-3 ${isClay ? "clay-card" : "rounded-xl border-2 border-foreground/20"}`}
                           >
                             <Skeleton className="w-9 h-9 rounded-full border-2 border-foreground/20" />
                             <div className="flex-1 space-y-2">
@@ -234,7 +237,7 @@ const NotificationCenter = () => {
                           key={`${item.type}-${item.title}-${i}`}
                           to={item.link}
                           onClick={() => setIsOpen(false)}
-                          className="block p-4 rounded-xl bg-card border-2 border-foreground/20 hover:border-primary hover:-translate-y-0.5 hover:shadow-pop transition-all duration-300 animate-fade-in-up"
+                          className={`block p-4 bg-card hover:border-primary transition-all duration-300 animate-fade-in-up ${isClay ? "clay-card" : "rounded-xl border-2 border-foreground/20 hover:-translate-y-0.5 hover:shadow-pop"}`}
                           style={{ animationDelay: `${i * 0.04}s` }}
                         >
                           <div className="flex items-start gap-3">

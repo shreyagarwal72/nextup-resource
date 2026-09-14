@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useSettings } from "@/hooks/useSettings";
 import { useStudyMode } from "@/hooks/useStudyMode";
+import { useDesignSystem } from "@/components/ThemeProvider";
 
 import { haptics } from "@/lib/haptics";
 
@@ -106,6 +107,7 @@ const DockItem = ({
   showLabel,
   animations,
   itemRef,
+  isClay,
 }: {
   link: NavLinkItem;
   active: boolean;
@@ -113,6 +115,7 @@ const DockItem = ({
   showLabel: boolean;
   animations: boolean;
   itemRef: (el: HTMLAnchorElement | null) => void;
+  isClay: boolean;
 }) => {
   const Icon = link.icon;
   const lit = active || preview;
@@ -124,7 +127,7 @@ const DockItem = ({
       draggable={false}
       aria-label={link.label}
       aria-current={active ? "page" : undefined}
-      className={`group relative flex shrink-0 snap-center items-center gap-1.5 rounded-full border-2 px-2.5 py-2 ${
+      className={`clay-dock-item group relative flex shrink-0 snap-center items-center gap-1.5 rounded-full px-2.5 py-2 ${isClay ? "border border-border/30" : "border-2"} ${
         animations ? "transition-all duration-300 ease-bounce active:scale-90" : "transition-none"
       } ${
         lit
@@ -156,6 +159,8 @@ const BottomNav = () => {
   const [open, setOpen] = useState(false);
   const { settings } = useSettings();
   const { isStudyMode } = useStudyMode();
+  const { designSystem } = useDesignSystem();
+  const isClay = designSystem === "clay";
 
 
   const navigate = useNavigate();
@@ -477,14 +482,14 @@ const BottomNav = () => {
             role="dialog"
             aria-modal="true"
             aria-label="All pages"
-            className="absolute inset-x-2 bottom-2 max-h-[78vh] overflow-y-auto rounded-3xl border-2 border-foreground/80 bg-card p-4 shadow-pop animate-slide-up-pop"
+            className={`absolute inset-x-2 bottom-2 max-h-[78vh] overflow-y-auto bg-card p-4 animate-slide-up-pop ${isClay ? "clay-card" : "rounded-3xl border-2 border-foreground/80 shadow-pop"}`}
           >
             <div className="mb-3 flex items-center justify-between">
               <h2 className="font-heading text-lg font-extrabold">All pages</h2>
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
-                className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-foreground/80 bg-card shadow-pop-soft transition-transform duration-200 ease-bounce active:scale-90"
+                className={`flex h-9 w-9 items-center justify-center rounded-full bg-card transition-transform duration-200 ease-bounce active:scale-90 ${isClay ? "clay-circle" : "border-2 border-foreground/80 shadow-pop-soft"}`}
               >
                 <X className="h-4 w-4" strokeWidth={2.5} />
               </button>
@@ -508,7 +513,7 @@ const BottomNav = () => {
                           key={link.to}
                           to={link.to}
                           style={{ animationDelay: `${i * 35}ms` }}
-                          className={`flex animate-pop-in flex-col items-center gap-1.5 rounded-2xl border-2 border-foreground/80 px-2 py-3 text-center opacity-0 shadow-pop-soft transition-transform duration-200 ease-bounce active:scale-95 ${
+                           className={`flex animate-pop-in flex-col items-center gap-1.5 px-2 py-3 text-center opacity-0 transition-transform duration-200 ease-bounce active:scale-95 ${isClay ? "clay-control" : "rounded-2xl border-2 border-foreground/80 shadow-pop-soft"} ${
                             active ? bgCls[link.accent] : "bg-card"
                           }`}
                         >
@@ -527,7 +532,7 @@ const BottomNav = () => {
 
       <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden" aria-label="Primary">
         <div
-          className="mx-2 mb-2 flex items-center gap-1 rounded-full border-2 border-foreground/80 bg-card/95 pl-1.5 pr-2 py-1.5 shadow-pop backdrop-blur-md"
+          className={`mx-2 mb-2 flex items-center gap-1 rounded-full bg-card/95 pl-1.5 pr-2 py-1.5 backdrop-blur-md ${isClay ? "clay-nav-shell" : "border-2 border-foreground/80 shadow-pop"}`}
           style={{ marginBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
         >
           {/* Launcher */}
@@ -535,8 +540,8 @@ const BottomNav = () => {
             onClick={() => setOpen((v) => !v)}
             aria-label="Open all pages"
             aria-expanded={open}
-            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-foreground/80 shadow-pop-soft transition-transform duration-300 ease-bounce active:scale-90 ${
-              open ? "rotate-90 bg-quaternary text-quaternary-foreground" : "bg-card"
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-300 ease-bounce active:scale-90 ${isClay ? "clay-circle" : "border-2 border-foreground/80 shadow-pop-soft"} ${
+              open ? `${isClay ? "" : "rotate-90"} bg-quaternary text-quaternary-foreground` : "bg-card"
             }`}
           >
             <LayoutGrid className="h-4.5 w-4.5" strokeWidth={2.5} />
@@ -569,6 +574,7 @@ const BottomNav = () => {
                       if (el) itemRefs.current.set(link.to, el);
                       else itemRefs.current.delete(link.to);
                     }}
+                    isClay={isClay}
                   />
                 );
               })}

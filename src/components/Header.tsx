@@ -7,6 +7,7 @@ import { StudyModeToggle } from "./StudyModeToggle";
 import { useFavorites } from "@/hooks/useFavorites";
 import NotificationCenter from "./NotificationCenter";
 import GlobalSearch from "./GlobalSearch";
+import { useDesignSystem } from "./ThemeProvider";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 /** True on macOS/iOS, where the shortcut hint should read "⌘K" instead of "Ctrl K". */
@@ -27,7 +28,7 @@ const RING_CIRC = 2 * Math.PI * RING_RADIUS;
  * Press and hold ~2.5s = unlock the hidden /all-in-one vault page.
  * No visible hint is given until you're already holding — it's meant to be found, not advertised.
  */
-const LogoLongPress = () => {
+const LogoLongPress = ({ isClay }: { isClay: boolean }) => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0); // 0..1
   const [holding, setHolding] = useState(false);
@@ -120,7 +121,7 @@ const LogoLongPress = () => {
           </svg>
         )}
         <div
-          className={`flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-primary border-2 border-foreground/80 shadow-pop transition-all duration-300 ease-bounce group-hover:shadow-pop-hover group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 ${
+          className={`flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-primary transition-all duration-300 ease-bounce ${isClay ? "clay-header-logo" : "border-2 border-foreground/80 shadow-pop group-hover:shadow-pop-hover group-hover:-translate-x-0.5 group-hover:-translate-y-0.5"} ${
             holding ? "scale-95" : ""
           }`}
         >
@@ -141,6 +142,8 @@ const Header = () => {
   const [isMac, setIsMac] = useState(false);
   const location = useLocation();
   const { totalCount } = useFavorites();
+  const { designSystem } = useDesignSystem();
+  const isClay = designSystem === "clay";
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -198,13 +201,13 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 w-full pointer-events-none">
       <div className="mx-3 sm:mx-4 mt-3 sm:mt-4 pointer-events-auto">
         <div
-          className={`bg-card border-2 border-foreground/80 rounded-2xl transition-all duration-300 ${
-            isScrolled ? "shadow-pop" : "shadow-pop-soft"
+          className={`bg-card transition-all duration-300 ${isClay ? "clay-header-shell" : "border-2 border-foreground/80 rounded-2xl"} ${
+            isScrolled ? (isClay ? "clay-header-scrolled" : "shadow-pop") : (isClay ? "" : "shadow-pop-soft")
           }`}
         >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex h-14 sm:h-16 items-center justify-between">
             {/* Logo — tap for home, hold ~2.5s to unlock the hidden vault */}
-            <LogoLongPress />
+            <LogoLongPress isClay={isClay} />
 
             {/* Desktop Navigation — scrolls within its own row instead of spilling onto
                 the icon cluster when the row is too tight to fit every pill (e.g. mobile
@@ -216,7 +219,7 @@ const Header = () => {
                   to={link.to}
                   className={`nav-pill relative shrink-0 px-2.5 lg:px-4 text-[13px] lg:text-sm ${
                     isActive(link.to)
-                      ? "bg-tertiary text-tertiary-foreground font-bold border-2 border-foreground/80"
+                       ? `bg-tertiary text-tertiary-foreground font-bold ${isClay ? "clay-pressed" : "border-2 border-foreground/80"}`
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -234,7 +237,7 @@ const Header = () => {
                   <button
                     className={`nav-pill relative shrink-0 inline-flex items-center gap-1 px-2.5 lg:px-4 text-[13px] lg:text-sm ${
                       moreLinks.some((l) => isActive(l.to))
-                        ? "bg-tertiary text-tertiary-foreground font-bold border-2 border-foreground/80"
+                         ? `bg-tertiary text-tertiary-foreground font-bold ${isClay ? "clay-pressed" : "border-2 border-foreground/80"}`
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                     aria-label="More pages"
@@ -245,7 +248,7 @@ const Header = () => {
                 <DropdownMenuContent
                   align="end"
                   sideOffset={8}
-                  className="w-64 p-2 bg-card border-2 border-foreground/80 shadow-pop rounded-2xl max-h-[70vh] overflow-y-auto animate-slide-down-pop"
+                  className={`w-64 p-2 bg-card max-h-[70vh] overflow-y-auto animate-slide-down-pop ${isClay ? "clay-card" : "border-2 border-foreground/80 shadow-pop rounded-2xl"}`}
                 >
                   {moreLinks.map((link) => {
                     const Icon = link.icon;
@@ -275,7 +278,7 @@ const Header = () => {
                 onClick={() => setSearchOpen(true)}
                 aria-label="Search Nextup Resources"
                 title="Search (Ctrl+K)"
-                className="group flex items-center gap-2 h-10 rounded-full border-2 border-foreground/80 bg-card shadow-pop pl-2.5 pr-2.5 sm:pr-3 hover:bg-primary/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className={`group flex items-center gap-2 h-10 rounded-full bg-card pl-2.5 pr-2.5 sm:pr-3 hover:bg-primary/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${isClay ? "clay-control" : "border-2 border-foreground/80 shadow-pop"}`}
               >
                 <Search className="w-4 h-4 text-foreground shrink-0" strokeWidth={2.5} />
                 <span className="hidden lg:inline text-xs font-bold text-muted-foreground">Search</span>
@@ -287,7 +290,7 @@ const Header = () => {
                 to="/favorites"
                 aria-label={`Favorites${totalCount > 0 ? ` (${totalCount})` : ""}`}
                 title="Favorites"
-                className="relative w-10 h-10 rounded-full border-2 border-foreground/80 bg-card shadow-pop flex items-center justify-center hover:bg-primary/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className={`relative w-10 h-10 rounded-full bg-card flex items-center justify-center hover:bg-primary/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${isClay ? "clay-circle" : "border-2 border-foreground/80 shadow-pop"}`}
               >
                 <Heart
                   className={`w-4 h-4 ${totalCount > 0 ? "text-primary fill-primary" : "text-foreground"}`}
