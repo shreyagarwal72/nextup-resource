@@ -409,6 +409,7 @@
   .claymorphism .clay-admin-page .space-y-3 > .bg-background\/50 {
     border-width: 1px;
     border-color: hsl(var(--border) / 0.4);
+    background-color: hsl(var(--card));
     box-shadow: var(--clay-shadow-soft);
   }
 

@@ -4,19 +4,6 @@ import FavoriteButton from "./FavoriteButton";
 import PlatformBadge from "./PlatformBadge";
 import { useFavorites, generateId } from "@/hooks/useFavorites";
 
-interface EbookCardProps {
-  title: string;
-  description: string;
-  category: string;
-  image: string;
-  link: string;
-}
-
-import { Badge } from "@/components/ui/badge";
-import { Download, BookOpen } from "lucide-react";
-import FavoriteButton from "./FavoriteButton";
-import PlatformBadge from "./PlatformBadge";
-import { useFavorites, generateId } from "@/hooks/useFavorites";
 import { motion } from "framer-motion";
 import { springPresets } from "./MotionEffects";
 
