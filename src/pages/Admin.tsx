@@ -190,7 +190,7 @@ const Admin = () => {
   );
 
   return (
-    <div className="min-h-screen pb-24 md:pb-12 dot-grid">
+    <div className="clay-admin-page min-h-screen pb-24 md:pb-12 dot-grid">
       <Header />
       <main className="container mx-auto max-w-3xl px-4 pt-24 sm:pt-28">
         <Link

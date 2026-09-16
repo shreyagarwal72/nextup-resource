@@ -373,6 +373,85 @@
     display: none !important;
   }
 
+  .claymorphism .geometric-decoration,
+  .claymorphism .squiggly-decoration {
+    display: none !important;
+  }
+
+  .claymorphism .dot-grid {
+    background-image: none;
+  }
+
+  .dark.claymorphism .violet-haze::before {
+    display: none;
+  }
+
+  /* Page-level compatibility for legacy surfaces that predate shared primitives. */
+  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page) :is(.shadow-pop, .shadow-pop-soft, .shadow-pop-active) {
+    box-shadow: var(--clay-shadow-control);
+  }
+
+  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page) :is(.hover\:shadow-pop:hover, .hover\:shadow-pop-hover:hover) {
+    box-shadow: var(--clay-shadow-raised);
+  }
+
+  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page) :is(.border-foreground\/80, .border-foreground\/40, .border-foreground\/30, .border-foreground\/10) {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.42);
+  }
+
+  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page) :is(.rounded-2xl, .rounded-3xl) {
+    border-radius: 2rem;
+  }
+
+  .claymorphism .clay-home-page :is(.rounded-3xl.border-2.bg-card, .rounded-2xl.border-2.bg-card),
+  .claymorphism .clay-admin-page main > div > .bg-card,
+  .claymorphism .clay-admin-page .space-y-3 > .bg-background\/50 {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.4);
+    box-shadow: var(--clay-shadow-soft);
+  }
+
+  .claymorphism .clay-admin-page .border-dashed {
+    border-style: solid;
+    background: hsl(var(--card));
+    box-shadow: var(--clay-shadow-inset);
+  }
+
+  .claymorphism .clay-catalog-page button[aria-pressed],
+  .claymorphism .clay-catalog-page a[class*="shadow-pop"],
+  .claymorphism .clay-catalog-page button[class*="shadow-pop"],
+  .claymorphism .clay-home-page a[class*="shadow-pop"] {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.3);
+    border-radius: 1.25rem;
+    box-shadow: var(--clay-shadow-control);
+  }
+
+  .claymorphism .clay-catalog-page button[aria-pressed="true"] {
+    box-shadow: var(--clay-shadow-inset);
+    transform: scale(0.96);
+  }
+
+  .claymorphism .clay-catalog-page :is(.pop-card, a[class*="shadow-pop"], button[class*="shadow-pop"]):hover,
+  .claymorphism .clay-home-page a[class*="shadow-pop"]:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: var(--clay-shadow-raised);
+  }
+
+  .claymorphism .clay-home-page .border-y-2 {
+    border-width: 1px 0;
+    border-color: hsl(var(--border) / 0.35);
+    box-shadow: var(--clay-shadow-inset);
+  }
+
+  .claymorphism .clay-home-page .border-t-4 {
+    border-top-width: 2px;
+    border-radius: 1.25rem;
+    background: hsl(var(--background) / 0.48);
+    box-shadow: var(--clay-shadow-inset);
+  }
+
   .claymorphism .pop-wiggle:hover,
   .claymorphism .animate-wiggle {
     animation: clay-breathe 4s ease-in-out infinite !important;
