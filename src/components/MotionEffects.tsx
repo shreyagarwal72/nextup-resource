@@ -7,7 +7,7 @@ export const springPresets = {
   smooth: { type: "spring", stiffness: 260, damping: 20 },
   gentle: { type: "spring", stiffness: 180, damping: 22 },
   snappy: { type: "spring", stiffness: 500, damping: 28 },
-};
+} as const;
 
 /** Bouncy card wrapper with 3D tilt hover and spring feedback */
 interface BouncyCardProps extends HTMLMotionProps<"div"> {

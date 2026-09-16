@@ -21,7 +21,8 @@ export type FavoriteType =
   | "design"
   | "android-re"
   | "fitness"
-  | "roadmap";
+  | "roadmap"
+  | "all-in-one";
 
 interface FavoriteItem {
   id: string;
@@ -95,6 +96,7 @@ const LABELS: Partial<Record<FavoriteType, string>> = {
   "android-re": "Android RE tool",
   fitness: "Fitness book",
   roadmap: "Roadmap",
+  "all-in-one": "Resource",
 };
 
 export const useFavorites = () => {

@@ -9,7 +9,7 @@ const SquigglyUnderline = ({ color = "hsl(var(--primary))", className = "", widt
     viewBox={`0 0 ${width} 12`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className={`mx-auto mt-2 ${className}`}
+    className={`squiggly-decoration mx-auto mt-2 ${className}`}
     style={{ width: `${Math.min(width, 300)}px`, height: '12px' }}
     aria-hidden="true"
   >

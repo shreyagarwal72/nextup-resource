@@ -9,7 +9,7 @@ const ConfettiCircle = ({ className }: { className: string }) => (
   <motion.div
     animate={{ y: [0, -12, 0], rotate: [0, 10, 0] }}
     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-    className={`absolute w-6 h-6 rounded-full border-2 border-foreground/80 ${className}`}
+    className={`geometric-decoration absolute w-6 h-6 rounded-full border-2 border-foreground/80 ${className}`}
   />
 );
 
@@ -17,7 +17,7 @@ const ConfettiTriangle = ({ className }: { className: string }) => (
   <motion.div
     animate={{ y: [0, 14, 0], rotate: [0, -15, 0] }}
     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-    className={`absolute w-0 h-0 ${className}`}
+    className={`geometric-decoration absolute w-0 h-0 ${className}`}
     style={{
       borderLeft: "12px solid transparent",
       borderRight: "12px solid transparent",
@@ -30,7 +30,7 @@ const ConfettiSquare = ({ className }: { className: string }) => (
   <motion.div
     animate={{ y: [0, -10, 0], rotate: [12, 28, 12] }}
     transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-    className={`absolute w-5 h-5 border-2 border-foreground/80 ${className}`}
+    className={`geometric-decoration absolute w-5 h-5 border-2 border-foreground/80 ${className}`}
   />
 );
 
@@ -43,12 +43,12 @@ const Hero = () => {
       <motion.div
         animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-20 left-8 w-40 h-40 sm:w-64 sm:h-64 rounded-full bg-tertiary/20 border-2 border-foreground/10 hidden sm:block pointer-events-none"
+        className="geometric-decoration absolute top-20 left-8 w-40 h-40 sm:w-64 sm:h-64 rounded-full bg-tertiary/20 border-2 border-foreground/10 hidden sm:block pointer-events-none"
       />
       <motion.div
         animate={{ scale: [1, 1.15, 1], rotate: [0, -12, 0] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-32 right-12 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-secondary/15 border-2 border-foreground/10 hidden sm:block pointer-events-none"
+        className="geometric-decoration absolute bottom-32 right-12 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-secondary/15 border-2 border-foreground/10 hidden sm:block pointer-events-none"
       />
 
       {/* Floating confetti shapes */}

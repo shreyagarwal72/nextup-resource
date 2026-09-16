@@ -67,7 +67,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen pb-20 md:pb-0">
+    <div className="clay-home-page min-h-screen pb-20 md:pb-0">
       <Header />
       <NewVisitorNotice />
       <main>
