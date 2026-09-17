@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CalendarDays, CalendarRange, Rocket, Target, GraduationCap } from "lucide-react";
 import { useStudyMode } from "@/hooks/useStudyMode";
+import { useDesignSystem } from "@/components/ThemeProvider";
+import { Button } from "@/components/ui/button";
 
 type Plan = {
   id: string;
@@ -78,6 +80,8 @@ const accentBg = {
 const StudyPlanPicker = () => {
   const navigate = useNavigate();
   const { enableStudyMode } = useStudyMode();
+  const { designSystem } = useDesignSystem();
+  const isClay = designSystem === "clay";
   const [selected, setSelected] = useState<string | null>(null);
 
   const handleStart = (plan: Plan) => {
@@ -89,7 +93,7 @@ const StudyPlanPicker = () => {
   const active = PLANS.find((p) => p.id === selected);
 
   return (
-    <section className="py-12 dot-grid">
+    <section className="clay-study-section py-12 dot-grid">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-8 animate-fade-in">
           <div className="inline-flex items-center gap-2 mb-3 px-4 py-2 rounded-full bg-tertiary text-tertiary-foreground border-2 border-foreground/80 shadow-pop font-bold text-sm">
@@ -112,8 +116,8 @@ const StudyPlanPicker = () => {
               <button
                 key={p.id}
                 onClick={() => setSelected(p.id)}
-                className={`pop-card p-5 text-left transition-all ${
-                  isSelected ? "ring-4 ring-foreground/80 -translate-y-1" : ""
+                className={`pop-card p-5 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                  isSelected ? (isClay ? "clay-pressed ring-2 ring-primary/50" : "ring-4 ring-foreground/80 -translate-y-1") : ""
                 }`}
               >
                 <div
@@ -138,13 +142,14 @@ const StudyPlanPicker = () => {
                 </p>
                 <h3 className="font-heading font-bold text-xl">{active.title}</h3>
               </div>
-              <button
+              <Button
+                type="button"
                 onClick={() => handleStart(active)}
-                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform ${accentBg[active.accent]}`}
+                className={`${accentBg[active.accent]}`}
               >
                 <Rocket className="w-4 h-4" strokeWidth={2.5} />
                 Start now
-              </button>
+              </Button>
             </div>
             <ol className="space-y-2">
               {active.steps.map((s, i) => (
@@ -154,10 +159,10 @@ const StudyPlanPicker = () => {
                       enableStudyMode();
                       navigate(s.route);
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-foreground/80 bg-card hover:bg-muted/40 transition-colors text-left"
+                    className={`w-full flex items-center gap-3 px-4 py-3 bg-card hover:bg-muted/40 transition-all text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${isClay ? "clay-control rounded-[20px]" : "rounded-xl border-2 border-foreground/80"}`}
                   >
                     <span
-                      className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm border-2 border-foreground/80 ${accentBg[active.accent]}`}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm ${isClay ? "border border-border/30 shadow-[var(--clay-shadow-control)]" : "border-2 border-foreground/80"} ${accentBg[active.accent]}`}
                     >
                       {i + 1}
                     </span>

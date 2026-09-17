@@ -83,7 +83,7 @@ const TelegramTweaks = () => {
   }, [filtered, byNewest, sort]);
 
   return (
-    <div className="min-h-screen pb-24 md:pb-12 dot-grid">
+    <div className="clay-catalog-page min-h-screen pb-24 md:pb-12 dot-grid">
       <Header />
       <main className="container mx-auto max-w-5xl px-4 pt-24 sm:pt-28">
         <header className="mb-8 text-center">

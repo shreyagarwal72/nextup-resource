@@ -29,7 +29,7 @@ export const StudyModeToggle = () => {
             <GraduationCap className="h-5 w-5" strokeWidth={2.5} />
           )}
           {isStudyMode && (
-            <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-tertiary border-2 border-foreground/80" />
+            <span className={`absolute -top-1 -right-1 w-3 h-3 rounded-full bg-tertiary ${designSystem === "clay" ? "border border-border/30 shadow-[var(--clay-shadow-control)]" : "border-2 border-foreground/80"}`} />
           )}
         </button>
       </TooltipTrigger>
