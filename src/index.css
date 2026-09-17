@@ -260,6 +260,7 @@
 
   .clay-btn { @apply bg-primary text-primary-foreground; }
   .clay-btn-secondary { @apply bg-secondary text-secondary-foreground; }
+  .clay-btn-destructive { @apply bg-destructive text-destructive-foreground; }
   .clay-control { @apply bg-card text-foreground; }
 
   .clay-btn:hover,
@@ -404,9 +405,9 @@
     border-radius: 2rem;
   }
 
-  .claymorphism .clay-home-page :is(.rounded-3xl.border-2.bg-card, .rounded-2xl.border-2.bg-card),
-  .claymorphism .clay-admin-page main > div > .bg-card,
-  .claymorphism .clay-admin-page .space-y-3 > .bg-background\/50 {
+  .claymorphism .clay-home-page :is(.rounded-3xl.border-2[class~="bg-card"], .rounded-2xl.border-2[class~="bg-card"]),
+  .claymorphism .clay-admin-page main > div > [class~="bg-card"],
+  .claymorphism .clay-admin-page .space-y-3 > [class~="bg-background\/50"] {
     border-width: 1px;
     border-color: hsl(var(--border) / 0.4);
     background-color: hsl(var(--card));
