@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { useState, forwardRef, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import { springPresets } from "./MotionEffects";
+import { useDesignSystem } from "./ThemeProvider";
 
 interface FavoriteButtonProps {
   isFavorite: boolean;
@@ -32,6 +33,8 @@ const FavoriteButton = forwardRef<HTMLButtonElement, FavoriteButtonProps>(
     const [isAnimating, setIsAnimating] = useState(false);
     const [particles, setParticles] = useState<Particle[]>([]);
     const nextId = useRef(0);
+    const { designSystem } = useDesignSystem();
+    const isClay = designSystem === "clay";
 
     const spawnConfetti = useCallback(() => {
       const newParticles: Particle[] = Array.from({ length: 8 }, (_, i) => ({
@@ -59,11 +62,12 @@ const FavoriteButton = forwardRef<HTMLButtonElement, FavoriteButtonProps>(
       <motion.button
         ref={ref}
         onClick={handleClick}
-        whileHover={{ scale: 1.15, rotate: 6 }}
-        whileTap={{ scale: 0.85, rotate: -6 }}
+        whileHover={isClay ? { y: -3, scale: 1.04 } : { scale: 1.15, rotate: 6 }}
+        whileTap={isClay ? { scale: 0.92 } : { scale: 0.85, rotate: -6 }}
         transition={springPresets.bouncy}
         className={cn(
-          "w-9 h-9 rounded-full bg-card border-2 border-foreground/80 shadow-pop flex items-center justify-center relative overflow-visible",
+          "w-9 h-9 rounded-full bg-card flex items-center justify-center relative overflow-visible focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          isClay ? "clay-circle" : "border-2 border-foreground/80 shadow-pop",
           isFavorite ? "text-destructive" : "text-muted-foreground hover:text-destructive/80",
           className
         )}
@@ -78,7 +82,7 @@ const FavoriteButton = forwardRef<HTMLButtonElement, FavoriteButtonProps>(
           strokeWidth={2.5}
         />
         {/* Confetti particles */}
-        {particles.map((p) => {
+        {!isClay && particles.map((p) => {
           const rad = (p.angle * Math.PI) / 180;
           const dist = 18 + Math.random() * 8;
           const tx = Math.cos(rad) * dist;

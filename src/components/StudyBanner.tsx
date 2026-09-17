@@ -2,12 +2,16 @@ import { useEffect, useMemo } from "react";
 import { GraduationCap, X } from "lucide-react";
 import { useStudyMode } from "@/hooks/useStudyMode";
 import { allCourses, allResources, allEbooks, allApps, studyCategories } from "@/data/content";
+import { Button } from "@/components/ui/button";
+import { useDesignSystem } from "@/components/ThemeProvider";
 
 const matchesStudy = (category: string) =>
   studyCategories.some((cat) => category.toLowerCase().includes(cat.toLowerCase()));
 
 export const StudyBanner = () => {
   const { isStudyMode, disableStudyMode } = useStudyMode();
+  const { designSystem } = useDesignSystem();
+  const isClay = designSystem === "clay";
 
   const counts = useMemo(() => {
     if (!isStudyMode) return { courses: 0, resources: 0, ebooks: 0, apps: 0, total: 0 };
@@ -37,11 +41,11 @@ export const StudyBanner = () => {
     <div
       role="status"
       aria-live="polite"
-      className="fixed left-0 right-0 top-[68px] sm:top-[76px] z-[45] border-y-2 border-foreground/80 bg-tertiary/95 backdrop-blur-md text-tertiary-foreground shadow-pop"
+      className={`fixed left-0 right-0 top-[68px] sm:top-[76px] z-[45] bg-tertiary/95 backdrop-blur-md text-tertiary-foreground ${isClay ? "clay-study-banner border-y border-border/30" : "border-y-2 border-foreground/80 shadow-pop"}`}
     >
       <div className="container mx-auto flex items-center justify-between gap-3 px-4 py-2">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="flex items-center justify-center w-8 h-8 rounded-full border-2 border-foreground/80 bg-card text-foreground shrink-0">
+          <span className={`flex items-center justify-center w-8 h-8 rounded-full bg-card text-foreground shrink-0 ${isClay ? "clay-circle" : "border-2 border-foreground/80"}`}>
             <GraduationCap className="w-4 h-4" strokeWidth={2.5} />
           </span>
           <div className="min-w-0">
@@ -53,14 +57,17 @@ export const StudyBanner = () => {
             </p>
           </div>
         </div>
-        <button
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
           onClick={disableStudyMode}
-          className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-foreground/80 bg-card text-foreground px-3 py-1.5 text-xs sm:text-sm font-bold shadow-pop-sm hover:-translate-y-0.5 hover:shadow-pop transition-all active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="shrink-0 bg-card text-foreground px-3 text-xs sm:text-sm"
           aria-label="Exit Study Mode"
         >
           <X className="w-3.5 h-3.5" strokeWidth={2.5} />
           Exit
-        </button>
+        </Button>
       </div>
     </div>
   );

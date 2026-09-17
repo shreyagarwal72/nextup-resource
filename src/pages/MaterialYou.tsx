@@ -77,7 +77,7 @@ const MaterialYou = () => {
   };
 
   return (
-    <div className="min-h-screen pb-20 md:pb-0">
+    <div className="clay-catalog-page min-h-screen pb-20 md:pb-0">
       <Header />
       <main>
         <section className="pt-32 pb-8 dot-grid violet-haze">
