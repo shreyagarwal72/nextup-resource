@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, Link2 } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 interface CopyLinkButtonProps {
   url: string;
@@ -25,12 +26,14 @@ const CopyLinkButton = ({ url, label = "Copy link", className = "" }: CopyLinkBu
   };
 
   return (
-    <button
+    <Button
       type="button"
+      variant="outline"
+      size="sm"
       onClick={handleCopy}
       aria-label={label}
       title={label}
-      className={`inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-full bg-card text-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 active:translate-y-0 transition-transform text-xs ${className}`}
+      className={`bg-card px-3 text-xs ${className}`}
     >
       {copied ? (
         <>
@@ -43,7 +46,7 @@ const CopyLinkButton = ({ url, label = "Copy link", className = "" }: CopyLinkBu
           <span>Copy</span>
         </>
       )}
-    </button>
+    </Button>
   );
 };
 

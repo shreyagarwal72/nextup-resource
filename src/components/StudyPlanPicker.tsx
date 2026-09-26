@@ -121,7 +121,7 @@ const StudyPlanPicker = () => {
                 }`}
               >
                 <div
-                  className={`w-11 h-11 rounded-2xl border-2 border-foreground/80 flex items-center justify-center shadow-pop mb-3 ${accentBg[p.accent]}`}
+                  className={`w-11 h-11 flex items-center justify-center mb-3 ${isClay ? "rounded-[20px] border border-border/30 shadow-[var(--clay-shadow-control)]" : "rounded-2xl border-2 border-foreground/80 shadow-pop"} ${accentBg[p.accent]}`}
                 >
                   <Icon className="w-5 h-5" strokeWidth={2.5} />
                 </div>
