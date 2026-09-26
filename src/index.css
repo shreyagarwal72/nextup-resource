@@ -388,20 +388,20 @@
   }
 
   /* Page-level compatibility for legacy surfaces that predate shared primitives. */
-  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page) :is(.shadow-pop, .shadow-pop-soft, .shadow-pop-active) {
+  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page, .clay-study-page, .clay-study-section) :is(.shadow-pop, .shadow-pop-soft, .shadow-pop-sm, .shadow-pop-active) {
     box-shadow: var(--clay-shadow-control);
   }
 
-  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page) :is(.hover\:shadow-pop:hover, .hover\:shadow-pop-hover:hover) {
+  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page, .clay-study-page, .clay-study-section) :is(.hover\:shadow-pop:hover, .hover\:shadow-pop-hover:hover) {
     box-shadow: var(--clay-shadow-raised);
   }
 
-  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page) :is(.border-foreground\/80, .border-foreground\/40, .border-foreground\/30, .border-foreground\/10) {
+  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page, .clay-study-page, .clay-study-section) :is(.border-foreground\/80, .border-foreground\/40, .border-foreground\/30, .border-foreground\/20, .border-foreground\/10) {
     border-width: 1px;
     border-color: hsl(var(--border) / 0.42);
   }
 
-  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page) :is(.rounded-2xl, .rounded-3xl) {
+  .claymorphism :is(.clay-home-page, .clay-catalog-page, .clay-admin-page, .clay-study-page, .clay-study-section) :is(.rounded-xl, .rounded-2xl, .rounded-3xl) {
     border-radius: 2rem;
   }
 
@@ -418,6 +418,78 @@
     border-style: solid;
     background: hsl(var(--card));
     box-shadow: var(--clay-shadow-inset);
+  }
+
+  .claymorphism .clay-catalog-page :is(article[class~="bg-card"], div[class~="bg-card"][class*="border-2"], section[class~="bg-card"]),
+  .claymorphism .clay-study-page :is(section, div).pop-card,
+  .claymorphism .clay-study-section .pop-card {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.4);
+    border-radius: 2rem;
+    box-shadow: var(--clay-shadow-soft);
+  }
+
+  .claymorphism .clay-catalog-page .border-dashed {
+    border-style: solid;
+    background-color: hsl(var(--card));
+    box-shadow: var(--clay-shadow-inset);
+  }
+
+  .claymorphism .clay-catalog-page :is([class*="w-11"][class*="h-11"], [class*="w-14"][class*="h-14"])[class*="shadow-pop"],
+  .claymorphism .clay-study-section [class*="w-11"][class*="h-11"] {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.3);
+    border-radius: 1.25rem;
+    box-shadow: var(--clay-shadow-control);
+  }
+
+  .claymorphism .clay-catalog-page :is(button, a)[class*="shadow-pop"]:active,
+  .claymorphism .clay-study-page :is(button, a)[class*="shadow-pop"]:active,
+  .claymorphism .clay-study-section button:active {
+    transform: scale(0.92);
+    box-shadow: var(--clay-shadow-inset);
+  }
+
+  .claymorphism .clay-study-banner {
+    box-shadow: var(--clay-shadow-soft);
+  }
+
+  .claymorphism .clay-intro-panel {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.42);
+    border-radius: 2rem;
+    box-shadow: var(--clay-shadow-raised);
+  }
+
+  .claymorphism :is(.clay-intro-control, .clay-intro-icon) {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.35);
+    box-shadow: var(--clay-shadow-control);
+  }
+
+  .claymorphism .clay-intro-icon {
+    border-radius: 1.25rem;
+  }
+
+  .claymorphism .clay-intro-control:active {
+    transform: scale(0.92);
+    box-shadow: var(--clay-shadow-inset);
+  }
+
+  .claymorphism .clay-intro-recessed {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.3);
+    border-radius: 1.25rem;
+    box-shadow: var(--clay-shadow-inset);
+  }
+
+  .claymorphism .clay-intro-dot {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.4);
+  }
+
+  .claymorphism .clay-catalog-page {
+    overflow-x: clip;
   }
 
   .claymorphism .clay-catalog-page button[aria-pressed],
