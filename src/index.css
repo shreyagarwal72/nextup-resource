@@ -454,6 +454,44 @@
     box-shadow: var(--clay-shadow-soft);
   }
 
+  .claymorphism .clay-intro-panel {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.42);
+    border-radius: 2rem;
+    box-shadow: var(--clay-shadow-raised);
+  }
+
+  .claymorphism :is(.clay-intro-control, .clay-intro-icon) {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.35);
+    box-shadow: var(--clay-shadow-control);
+  }
+
+  .claymorphism .clay-intro-icon {
+    border-radius: 1.25rem;
+  }
+
+  .claymorphism .clay-intro-control:active {
+    transform: scale(0.92);
+    box-shadow: var(--clay-shadow-inset);
+  }
+
+  .claymorphism .clay-intro-recessed {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.3);
+    border-radius: 1.25rem;
+    box-shadow: var(--clay-shadow-inset);
+  }
+
+  .claymorphism .clay-intro-dot {
+    border-width: 1px;
+    border-color: hsl(var(--border) / 0.4);
+  }
+
+  .claymorphism .clay-catalog-page {
+    overflow-x: clip;
+  }
+
   .claymorphism .clay-catalog-page button[aria-pressed],
   .claymorphism .clay-catalog-page a[class*="shadow-pop"],
   .claymorphism .clay-catalog-page button[class*="shadow-pop"],

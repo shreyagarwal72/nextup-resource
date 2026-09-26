@@ -187,11 +187,11 @@ const IntroModal = () => {
         if (e.target === e.currentTarget) close();
       }}
     >
-      <div className="relative w-full max-w-xl max-h-[92vh] overflow-y-auto bg-card border-2 border-foreground/80 rounded-3xl shadow-pop">
+      <div className="clay-intro-panel relative w-full max-w-xl max-h-[92vh] overflow-y-auto bg-card border-2 border-foreground/80 rounded-3xl shadow-pop">
         <button
           onClick={close}
           aria-label="Close tutorial"
-          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-card border-2 border-foreground/80 shadow-pop-soft flex items-center justify-center hover:-translate-y-0.5 transition-transform z-10"
+          className="clay-intro-control absolute top-3 right-3 w-9 h-9 rounded-full bg-card border-2 border-foreground/80 shadow-pop-soft flex items-center justify-center hover:-translate-y-0.5 transition-transform z-10"
         >
           <X className="w-4 h-4" strokeWidth={2.5} />
         </button>
@@ -213,7 +213,7 @@ const IntroModal = () => {
         <div className="p-6 sm:p-8">
           <div className="text-center mb-5 animate-fade-in" key={step}>
             <div
-              className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl border-2 border-foreground/80 shadow-pop mb-3 ${accentBg[current.accent]}`}
+              className={`clay-intro-icon inline-flex items-center justify-center w-14 h-14 rounded-2xl border-2 border-foreground/80 shadow-pop mb-3 ${accentBg[current.accent]}`}
             >
               <Icon className="w-7 h-7" strokeWidth={2.5} />
             </div>
@@ -226,7 +226,7 @@ const IntroModal = () => {
           </div>
 
           {current.bullets && (
-            <ul className="rounded-2xl border-2 border-foreground/30 p-4 mb-5 bg-background/50 space-y-2">
+            <ul className="clay-intro-recessed rounded-2xl border-2 border-foreground/30 p-4 mb-5 bg-background/50 space-y-2">
               {current.bullets.map((b) => (
                 <li key={b} className="flex items-start gap-2 text-sm text-foreground">
                   <span className="mt-1.5 w-2 h-2 rounded-full bg-primary shrink-0" />
@@ -243,7 +243,7 @@ const IntroModal = () => {
                 key={i}
                 aria-label={`Go to step ${i + 1}`}
                 onClick={() => setStep(i)}
-                className={`h-2 rounded-full border-2 border-foreground/80 transition-all ${
+                className={`clay-intro-dot h-2 rounded-full border-2 border-foreground/80 transition-all ${
                   i === step ? "w-6 bg-primary" : "w-2 bg-card hover:bg-muted"
                 }`}
               />
@@ -255,7 +255,7 @@ const IntroModal = () => {
               <button
                 onClick={() => setStep((s) => Math.max(0, s - 1))}
                 disabled={isFirst}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-card text-foreground font-bold border-2 border-foreground/80 shadow-pop-soft hover:-translate-y-0.5 transition-transform disabled:opacity-40 disabled:cursor-not-allowed disabled:translate-y-0"
+                className="clay-intro-control inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-card text-foreground font-bold border-2 border-foreground/80 shadow-pop-soft hover:-translate-y-0.5 transition-transform disabled:opacity-40 disabled:cursor-not-allowed disabled:translate-y-0"
               >
                 <ChevronLeft className="w-4 h-4" strokeWidth={2.5} /> Back
               </button>
@@ -267,7 +267,7 @@ const IntroModal = () => {
               </button>
               <button
                 onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
+                className="clay-intro-control inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
               >
                 Next <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
               </button>
@@ -277,20 +277,20 @@ const IntroModal = () => {
               <Link
                 to="/courses"
                 onClick={close}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
+                className="clay-intro-control inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
               >
                 Explore courses →
               </Link>
               <Link
                 to="/faq"
                 onClick={close}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-secondary text-secondary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
+                className="clay-intro-control inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-secondary text-secondary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
               >
                 Need help? FAQ
               </Link>
               <button
                 onClick={close}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-card text-foreground font-bold border-2 border-foreground/80 shadow-pop-soft hover:-translate-y-0.5 transition-transform"
+                className="clay-intro-control inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-card text-foreground font-bold border-2 border-foreground/80 shadow-pop-soft hover:-translate-y-0.5 transition-transform"
               >
                 Look around
               </button>
