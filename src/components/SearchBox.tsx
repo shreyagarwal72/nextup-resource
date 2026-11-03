@@ -29,7 +29,15 @@ const SearchBox = ({ value, onChange, placeholder, ariaLabel }: SearchBoxProps) 
           type="button"
           onClick={() => onChange("")}
           aria-label="Clear search"
-          className={`absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full bg-muted text-foreground hover:bg-card transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${designSystem === "clay" ? "clay-circle border-border/30" : "border-2 border-foreground/30 hover:border-foreground/80"}`}
+          className={`absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full bg-muted text-foreground hover:bg-card transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+            designSystem === "clay"
+              ? "clay-circle border-border/30"
+              : designSystem === "squid-game"
+                ? "border border-primary/40 bg-card hover:bg-primary/20 text-primary"
+                : designSystem === "minecraft"
+                  ? "!rounded-none border-2 border-black bg-[#373737] text-white hover:bg-[#555]"
+                  : "border-2 border-foreground/30 hover:border-foreground/80"
+          }`}
         >
           <X className="w-4 h-4" strokeWidth={2.5} />
         </button>

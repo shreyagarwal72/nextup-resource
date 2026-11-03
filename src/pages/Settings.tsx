@@ -93,9 +93,15 @@ const Settings = () => {
   const [cleared, setCleared] = useState(false);
   const dirty = useRef(false);
   const isClay = designSystem === "clay";
+  const isSquid = designSystem === "squid-game";
+  const isMc = designSystem === "minecraft";
   const settingSurface = isClay
     ? "clay-card"
-    : "rounded-2xl border-2 border-foreground/80 bg-card shadow-pop-soft";
+    : isSquid
+      ? "squid-card p-4 sm:p-5"
+      : isMc
+        ? "mc-panel-card p-4 sm:p-5 !rounded-none"
+        : "rounded-2xl border-2 border-foreground/80 bg-card shadow-pop-soft";
 
   // Title/description/canonical are set centrally by <SEOManager />
   // (see the "settings" entry in pageSEOConfigs, src/lib/og-image.ts).
@@ -169,10 +175,20 @@ const Settings = () => {
                     <p className="text-sm text-muted-foreground">Choose the site’s shapes, depth, and motion. This does not change light or dark mode.</p>
                   </div>
                 </div>
-                <div className={`grid grid-cols-2 gap-2 rounded-[22px] p-1.5 ${isClay ? "clay-input" : "border-2 border-foreground/30 bg-muted"}`} role="radiogroup" aria-label="Design style">
+                <div className={`grid grid-cols-2 sm:grid-cols-4 gap-2 rounded-[22px] p-1.5 ${
+                  isClay
+                    ? "clay-input"
+                    : isSquid
+                      ? "border border-primary/40 bg-card/60"
+                      : isMc
+                        ? "border-2 border-black bg-[#1f1f1f] !rounded-none"
+                        : "border-2 border-foreground/30 bg-muted"
+                }`} role="radiogroup" aria-label="Design style">
                   {([
-                    ["geometric", "Playful Geometric"],
+                    ["geometric", "Geometric"],
                     ["clay", "Claymorphism"],
+                    ["squid-game", "Squid Game ○△□"],
+                    ["minecraft", "Minecraft ⛏"],
                   ] as const).map(([value, label]) => {
                     const active = designSystem === value;
                     return (
@@ -183,7 +199,9 @@ const Settings = () => {
                         aria-checked={active}
                         variant={active ? "default" : "ghost"}
                         onClick={() => chooseDesignSystem(value)}
-                        className="h-auto min-h-11 whitespace-normal px-3 py-2 text-center leading-tight"
+                        className={`h-auto min-h-11 whitespace-normal px-2.5 py-2 text-center leading-tight ${
+                          value === "squid-game" && active ? "squid-btn" : ""
+                        } ${value === "minecraft" && active ? "mc-btn-gui mc-btn-gui-green" : ""}`}
                       >
                         {label}
                       </Button>

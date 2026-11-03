@@ -16,6 +16,7 @@ const TabsList = React.forwardRef<
     className={cn(
       "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
       designSystem === "clay" && "clay-input",
+      designSystem === "squid-game" && "border border-primary/30 bg-card/80 p-1 rounded-lg",
       className,
     )}
     {...props}
@@ -33,6 +34,7 @@ const TabsTrigger = React.forwardRef<
     className={cn(
       "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
       designSystem === "clay" && "rounded-[16px] data-[state=active]:shadow-[var(--clay-shadow-control)]",
+      designSystem === "squid-game" && "font-mono uppercase tracking-wider rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-[0_0_10px_hsl(var(--primary)/0.6)]",
       className,
     )}
     {...props}

@@ -161,6 +161,8 @@ const BottomNav = () => {
   const { isStudyMode } = useStudyMode();
   const { designSystem } = useDesignSystem();
   const isClay = designSystem === "clay";
+  const isSquid = designSystem === "squid-game";
+  const isMc = designSystem === "minecraft";
 
 
   const navigate = useNavigate();
@@ -532,7 +534,15 @@ const BottomNav = () => {
 
       <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden" aria-label="Primary">
         <div
-          className={`mx-2 mb-2 flex items-center gap-1 rounded-full bg-card/95 pl-1.5 pr-2 py-1.5 backdrop-blur-md ${isClay ? "clay-nav-shell" : "border-2 border-foreground/80 shadow-pop"}`}
+          className={`mx-2 mb-2 flex items-center gap-1 rounded-full bg-card/95 pl-1.5 pr-2 py-1.5 backdrop-blur-md ${
+            isClay
+              ? "clay-nav-shell"
+              : isSquid
+                ? "border border-primary/40 shadow-[0_0_15px_hsl(var(--primary)/0.25)] rounded-2xl"
+                : isMc
+                  ? "!rounded-none border-2 border-black bg-[#8b8b8b] shadow-[inset_2px_2px_0_#fff,inset_-2px_-2px_0_#373737]"
+                  : "border-2 border-foreground/80 shadow-pop"
+          }`}
           style={{ marginBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
         >
           {/* Launcher */}
@@ -540,7 +550,15 @@ const BottomNav = () => {
             onClick={() => setOpen((v) => !v)}
             aria-label="Open all pages"
             aria-expanded={open}
-            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-300 ease-bounce active:scale-90 ${isClay ? "clay-circle" : "border-2 border-foreground/80 shadow-pop-soft"} ${
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-300 ease-bounce active:scale-90 ${
+              isClay
+                ? "clay-circle"
+                : isSquid
+                  ? "border border-primary/50 bg-card text-primary shadow-[0_0_8px_hsl(var(--primary)/0.3)] rounded-xl"
+                  : isMc
+                    ? "!rounded-none mc-btn-gui !min-h-0 !p-1.5"
+                    : "border-2 border-foreground/80 shadow-pop-soft"
+            } ${
               open ? `${isClay ? "" : "rotate-90"} bg-quaternary text-quaternary-foreground` : "bg-card"
             }`}
           >

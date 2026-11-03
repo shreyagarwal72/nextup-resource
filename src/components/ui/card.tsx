@@ -11,7 +11,11 @@ const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
       className={cn(
         designSystem === "clay"
           ? "clay-card text-card-foreground overflow-hidden"
-          : "bg-card border-2 border-foreground/80 rounded-xl text-card-foreground overflow-hidden shadow-pop-soft transition-all duration-300",
+          : designSystem === "squid-game"
+            ? "squid-card text-card-foreground"
+            : designSystem === "minecraft"
+              ? "mc-panel-card text-card-foreground !rounded-none"
+              : "bg-card border-2 border-foreground/80 rounded-xl text-card-foreground overflow-hidden shadow-pop-soft transition-all duration-300",
         className,
       )}
       {...props}

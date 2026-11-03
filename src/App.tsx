@@ -16,6 +16,8 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import HapticFeedback from "@/components/HapticFeedback";
 import SettingsEffects from "@/components/SettingsEffects";
 import ClayBackground from "@/components/ClayBackground";
+import SquidBackground from "@/components/SquidBackground";
+import MinecraftBackground from "@/components/MinecraftBackground";
 import { Analytics } from "@vercel/analytics/react";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -108,6 +110,8 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <ClayBackground />
+          <SquidBackground />
+          <MinecraftBackground />
           <HapticFeedback />
           <SettingsEffects />
           <Toaster />

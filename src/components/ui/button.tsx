@@ -47,7 +47,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const { designSystem } = useDesignSystem();
     const Comp = asChild ? Slot : "button";
-    const clayClass = designSystem === "clay"
+    const themeClass = designSystem === "clay"
       ? variant === "secondary"
         ? "clay-btn-secondary"
         : variant === "destructive"
@@ -57,8 +57,26 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             : variant === "link"
               ? undefined
               : "clay-btn"
-      : undefined;
-    return <Comp className={cn(buttonVariants({ variant, size }), clayClass, className)} ref={ref} {...props} />;
+      : designSystem === "squid-game"
+        ? variant === "secondary"
+          ? "squid-btn-teal font-mono tracking-wider"
+          : variant === "destructive"
+            ? "bg-destructive text-destructive-foreground shadow-[0_0_12px_hsl(var(--destructive)/0.5)] font-mono"
+            : variant === "outline" || variant === "ghost"
+              ? "border border-primary/40 bg-card hover:bg-primary/20 hover:border-primary text-foreground shadow-[0_0_8px_hsl(var(--primary)/0.15)]"
+              : variant === "link"
+                ? undefined
+                : "squid-btn font-mono tracking-wider"
+      : designSystem === "minecraft"
+        ? variant === "secondary" || variant === "outline" || variant === "ghost"
+          ? "mc-btn-gui"
+          : variant === "destructive"
+            ? "mc-btn-gui !bg-[#9c2f2f] !shadow-[inset_2px_2px_0_#d86b6b,inset_-4px_-4px_0_#521212]"
+            : variant === "link"
+              ? "!text-[#55ffff] hover:!text-[#ffff55] underline"
+              : "mc-btn-gui mc-btn-gui-green"
+        : undefined;
+    return <Comp className={cn(buttonVariants({ variant, size }), themeClass, className)} ref={ref} {...props} />;
   }
 );
 Button.displayName = "Button";

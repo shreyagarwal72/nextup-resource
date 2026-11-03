@@ -193,6 +193,145 @@
     --clay-highlight: 270 13% 27%;
     --clay-shade: 270 25% 4%;
   }
+
+  /* Squid Game UI Theme Tokens */
+  .squid-game {
+    --background: 220 25% 7%;
+    --foreground: 0 0% 98%;
+    --card: 220 22% 11%;
+    --card-foreground: 0 0% 98%;
+    --popover: 220 22% 11%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Guard Hot Pink */
+    --primary: 338 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Tracksuit Green / Teal */
+    --secondary: 174 95% 36%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 20% 16%;
+    --muted-foreground: 220 15% 65%;
+
+    --accent: 338 100% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Dalgona Honey Gold */
+    --tertiary: 42 100% 55%;
+    --tertiary-foreground: 220 25% 7%;
+
+    /* Neon Cyan / Green Light */
+    --quaternary: 160 100% 45%;
+    --quaternary-foreground: 220 25% 7%;
+
+    /* Red Light / Elimination */
+    --destructive: 348 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 338 100% 50% / 0.28;
+    --input: 220 20% 14%;
+    --ring: 338 100% 50%;
+    --radius: 0.65rem;
+
+    /* Squid Neon Pop Shadows */
+    --pop-shadow-color: 338 100% 50%;
+    --pop-shadow: 0 0 0 1px hsl(var(--primary) / 0.45), 4px 4px 0px 0px hsl(338 100% 35%);
+    --pop-shadow-hover: 0 0 18px hsl(338 100% 50% / 0.4), 6px 6px 0px 0px hsl(338 100% 40%);
+    --pop-shadow-active: 0 0 4px hsl(338 100% 50% / 0.6), 2px 2px 0px 0px hsl(338 100% 30%);
+    --pop-shadow-soft: 0 0 0 1px hsl(var(--border)), 6px 6px 0px 0px hsl(220 25% 4%);
+  }
+
+  .dark.squid-game {
+    --background: 225 32% 5%;
+    --foreground: 0 0% 100%;
+    --card: 224 28% 9%;
+    --card-foreground: 0 0% 100%;
+    --popover: 224 28% 9%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 338 100% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 174 95% 38%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 224 24% 14%;
+    --muted-foreground: 220 18% 70%;
+    --accent: 338 100% 53%;
+    --accent-foreground: 0 0% 100%;
+    --tertiary: 42 100% 55%;
+    --tertiary-foreground: 225 32% 5%;
+    --quaternary: 160 100% 48%;
+    --quaternary-foreground: 225 32% 5%;
+    --destructive: 348 100% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 338 100% 50% / 0.35;
+    --input: 224 26% 12%;
+    --ring: 338 100% 53%;
+  }
+
+  /* Minecraft Theme Tokens */
+  .minecraft-theme {
+    --background: 28 35% 12%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 77%;
+    --card-foreground: 0 0% 25%;
+    --popover: 0 0% 77%;
+    --popover-foreground: 0 0% 25%;
+
+    /* XP Green */
+    --primary: 107 72% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Diamond Cyan */
+    --secondary: 180 100% 67%;
+    --secondary-foreground: 0 0% 15%;
+
+    --muted: 0 0% 32%;
+    --muted-foreground: 0 0% 72%;
+
+    --accent: 60 100% 67%;
+    --accent-foreground: 0 0% 10%;
+
+    /* Gold / Honey */
+    --tertiary: 40 100% 50%;
+    --tertiary-foreground: 0 0% 10%;
+
+    /* Emerald */
+    --quaternary: 140 100% 45%;
+    --quaternary-foreground: 0 0% 100%;
+
+    /* Redstone */
+    --destructive: 0 85% 58%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 0%;
+    --input: 0 0% 18%;
+    --ring: 60 100% 67%;
+    --radius: 0px;
+
+    --pop-shadow-color: 0 0% 0%;
+    --pop-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.7);
+    --pop-shadow-hover: 4px 4px 0px 0px rgba(0, 0, 0, 0.85);
+    --pop-shadow-active: 0px 0px 0px 0px transparent;
+    --pop-shadow-soft: 2px 2px 0px 0px rgba(0, 0, 0, 0.6);
+  }
+
+  .dark.minecraft-theme {
+    --background: 28 35% 9%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 22%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 22%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 107 72% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 180 100% 67%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 68%;
+    --border: 0 0% 0%;
+    --input: 0 0% 12%;
+    --ring: 60 100% 67%;
+  }
 }
 
 @layer base {
@@ -230,6 +369,48 @@
   .claymorphism .font-heading {
     font-family: 'Nunito', system-ui, sans-serif;
     font-weight: 800;
+  }
+
+  .squid-game body {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  .squid-game h1,
+  .squid-game h2,
+  .squid-game h3,
+  .squid-game h4,
+  .squid-game h5,
+  .squid-game h6,
+  .squid-game .font-heading {
+    font-family: 'Black Ops One', 'Outfit', sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .squid-game .font-mono,
+  .squid-game .squid-mono {
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .minecraft-theme body {
+    font-family: 'VT323', ui-monospace, monospace;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    -webkit-font-smoothing: none;
+  }
+
+  .minecraft-theme h1,
+  .minecraft-theme h2,
+  .minecraft-theme h3,
+  .minecraft-theme h4,
+  .minecraft-theme h5,
+  .minecraft-theme h6,
+  .minecraft-theme .font-heading {
+    font-family: 'Press Start 2P', monospace;
+    letter-spacing: 0;
+    line-height: 1.5;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.7);
   }
 
   @supports (padding: max(0px)) {
@@ -974,4 +1155,274 @@ a {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ========================================================================= */
+/* SQUID GAME THEME UTILITIES & KEYFRAMES                                   */
+/* ========================================================================= */
+
+@layer utilities {
+  /* Squid Game Card Aesthetic */
+  .squid-card {
+    position: relative;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--primary) / 0.35);
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.08), 4px 4px 0px 0px hsl(220 30% 4%);
+    border-radius: 0.75rem;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+  }
+
+  .squid-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .squid-card:hover {
+    border-color: hsl(var(--primary) / 0.85);
+    box-shadow: 0 0 24px hsl(var(--primary) / 0.28), 0 0 0 1px hsl(var(--primary) / 0.4), 6px 6px 0px 0px hsl(338 100% 25%);
+    transform: translateY(-3px);
+  }
+
+  .squid-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Squid Game Buttons */
+  .squid-btn {
+    position: relative;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid hsl(338 100% 65% / 0.5);
+    box-shadow: 0 0 12px hsl(var(--primary) / 0.45), 3px 3px 0px 0px hsl(338 100% 25%);
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .squid-btn:hover {
+    background: hsl(338 100% 55%);
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.75), 4px 4px 0px 0px hsl(338 100% 30%);
+    transform: translate(-1px, -1px);
+  }
+
+  .squid-btn:active {
+    box-shadow: 0 0 6px hsl(var(--primary) / 0.6), 1px 1px 0px 0px hsl(338 100% 20%);
+    transform: translate(2px, 2px);
+  }
+
+  .squid-btn-teal {
+    background: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    border: 1px solid hsl(174 100% 50% / 0.5);
+    box-shadow: 0 0 12px hsl(var(--secondary) / 0.45), 3px 3px 0px 0px hsl(174 95% 15%);
+  }
+
+  .squid-btn-teal:hover {
+    background: hsl(174 95% 42%);
+    box-shadow: 0 0 20px hsl(var(--secondary) / 0.75), 4px 4px 0px 0px hsl(174 95% 20%);
+    transform: translate(-1px, -1px);
+  }
+
+  /* Squid Badge - Player Number / Shape Motif */
+  .squid-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    border: 1px solid hsl(var(--primary) / 0.5);
+    background: hsl(var(--primary) / 0.12);
+    color: hsl(var(--foreground));
+    box-shadow: 0 0 8px hsl(var(--primary) / 0.25);
+  }
+
+  /* Red Light / Green Light indicator animation */
+  .squid-light-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    animation: squid-light-pulse 2.2s infinite;
+  }
+
+  .squid-shapes-watermark {
+    background-image: radial-gradient(hsl(var(--primary) / 0.12) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+  }
+}
+
+/* Specific component overrides under .squid-game */
+.squid-game .pop-card {
+  border-color: hsl(var(--primary) / 0.4);
+  box-shadow: 0 0 14px hsl(var(--primary) / 0.12), 4px 4px 0px 0px hsl(220 30% 4%);
+}
+
+.squid-game .pop-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: hsl(var(--primary) / 0.9);
+  box-shadow: 0 0 26px hsl(var(--primary) / 0.35), 6px 6px 0px 0px hsl(338 100% 22%);
+}
+
+.squid-game .candy-btn,
+.squid-game .pop-shadow {
+  box-shadow: 0 0 12px hsl(var(--primary) / 0.3), 3px 3px 0px 0px hsl(338 100% 25%);
+  border-color: hsl(var(--primary) / 0.6);
+}
+
+.squid-game .candy-btn:hover,
+.squid-game .pop-shadow:hover {
+  box-shadow: 0 0 22px hsl(var(--primary) / 0.6), 5px 5px 0px 0px hsl(338 100% 30%);
+}
+
+/* Squid Game scanline layer */
+.squid-scanline {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 122, 0.03),
+    rgba(0, 255, 200, 0.01),
+    rgba(255, 0, 122, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+@keyframes squid-light-pulse {
+  0%, 45% {
+    background-color: hsl(160 100% 45%);
+    box-shadow: 0 0 12px hsl(160 100% 45%);
+  }
+  50%, 95% {
+    background-color: hsl(348 100% 50%);
+    box-shadow: 0 0 12px hsl(348 100% 50%);
+  }
+  100% {
+    background-color: hsl(160 100% 45%);
+    box-shadow: 0 0 12px hsl(160 100% 45%);
+  }
+}
+
+@keyframes squid-glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px) }
+  40% { transform: translate(-1px, -1px) }
+  60% { transform: translate(2px, 1px) }
+  80% { transform: translate(1px, -2px) }
+  100% { transform: translate(0) }
+}
+
+.animate-squid-glitch:hover {
+  animation: squid-glitch 0.25s linear;
+}
+
+/* ========================================================================= */
+/* MINECRAFT UI THEME UTILITIES & KEYFRAMES                                 */
+/* ========================================================================= */
+
+@layer utilities {
+  /* Minecraft GUI Button */
+  .mc-btn-gui {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    line-height: 1.4;
+    text-align: center;
+    border: 2px solid #000;
+    border-radius: 0px !important;
+    background: #6f6f6f;
+    color: #fff;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+    box-shadow: inset 2px 2px 0 #a8a8a8, inset -4px -4px 0 #3a3a3a, 0 3px 0 rgba(0, 0, 0, 0.4);
+    transition: transform 0.08s steps(2), background 0.1s;
+    user-select: none;
+  }
+
+  .mc-btn-gui:hover {
+    background: #7b83b8;
+    color: #ffffa0;
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+  }
+
+  .mc-btn-gui:active {
+    transform: translateY(2px);
+    box-shadow: inset 2px 2px 0 #3a3a3a, inset -2px -2px 0 #a8a8a8;
+  }
+
+  .mc-btn-gui-green {
+    background: #3f8f2e;
+    box-shadow: inset 2px 2px 0 #79cc58, inset -4px -4px 0 #1d5014, 0 3px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .mc-btn-gui-green:hover {
+    background: #4fae3a;
+    color: #ffffa0;
+  }
+
+  /* Minecraft GUI Panel / Card */
+  .mc-panel-card {
+    position: relative;
+    background: #c6c6c6;
+    color: #3f3f3f;
+    border: 2px solid #000;
+    border-radius: 0px !important;
+    box-shadow: inset 3px 3px 0 #ffffff, inset -3px -3px 0 #555555, 0 6px 0 rgba(0, 0, 0, 0.35);
+  }
+
+  .dark .mc-panel-card {
+    background: rgba(30, 30, 34, 0.92);
+    color: #ffffff;
+    box-shadow: inset 0 0 0 2px #444444, 0 6px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  /* Minecraft Item Slot */
+  .mc-slot-box {
+    background: #8b8b8b;
+    border: 2px solid;
+    border-color: #373737 #ffffff #ffffff #373737;
+    border-radius: 0px !important;
+  }
+
+  /* Minecraft XP Floating Bob */
+  @keyframes mc-xp-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .animate-mc-bob {
+    animation: mc-xp-bob 2.2s steps(4) infinite;
+  }
+}
+
+.minecraft-theme .pop-card {
+  border-radius: 0px !important;
+  border: 2px solid #000;
+  background: #c6c6c6;
+  color: #3f3f3f;
+  box-shadow: inset 3px 3px 0 #ffffff, inset -3px -3px 0 #555555, 0 5px 0 rgba(0, 0, 0, 0.35);
+}
+
+.dark.minecraft-theme .pop-card {
+  background: #2a2a2e;
+  color: #ffffff;
+  box-shadow: inset 0 0 0 2px #444444, 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.minecraft-theme .pop-card:hover {
+  transform: translateY(-2px);
+}
+
+.minecraft-theme .candy-btn,
+.minecraft-theme .pop-shadow {
+  border-radius: 0px !important;
+  border: 2px solid #000;
+  box-shadow: inset 2px 2px 0 #a8a8a8, inset -4px -4px 0 #3a3a3a;
 }
