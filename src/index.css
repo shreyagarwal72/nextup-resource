@@ -192,6 +192,28 @@
     --ring: 263 90% 72%;
     --clay-highlight: 270 13% 27%;
     --clay-shade: 270 25% 4%;
+    --clay-shadow-soft:
+      10px 10px 24px hsl(var(--clay-shade) / 0.65),
+      -8px -8px 20px hsl(var(--clay-highlight) / 0.35),
+      inset 1px 1px 3px hsl(var(--clay-highlight) / 0.4),
+      inset -1px -1px 3px hsl(var(--clay-shade) / 0.3);
+    --clay-shadow-raised:
+      14px 16px 30px hsl(var(--clay-shade) / 0.75),
+      -10px -10px 24px hsl(var(--clay-highlight) / 0.45),
+      inset 2px 2px 4px hsl(var(--clay-highlight) / 0.5),
+      inset -2px -2px 4px hsl(var(--clay-shade) / 0.35);
+    --clay-shadow-control:
+      6px 6px 14px hsl(var(--clay-shade) / 0.6),
+      -5px -5px 14px hsl(var(--clay-highlight) / 0.35),
+      inset 1px 1px 2px hsl(var(--clay-highlight) / 0.4),
+      inset -1px -1px 2px hsl(var(--clay-shade) / 0.3);
+    --clay-shadow-inset:
+      inset 4px 4px 10px hsl(var(--clay-shade) / 0.6),
+      inset -4px -4px 10px hsl(var(--clay-highlight) / 0.3);
+    --pop-shadow: var(--clay-shadow-control);
+    --pop-shadow-hover: var(--clay-shadow-raised);
+    --pop-shadow-active: var(--clay-shadow-inset);
+    --pop-shadow-soft: var(--clay-shadow-soft);
   }
 
   /* Squid Game UI Theme Tokens */
@@ -749,17 +771,17 @@
     background-image: radial-gradient(circle, hsl(var(--foreground) / 0.03) 1px, transparent 1px);
   }
 
-  /* Pop card - the sticker card style */
+  /* Pop card - Geometric Neobrutalist Sticker Style (Professional & Stable) */
   .pop-card {
-    @apply bg-card border-2 border-foreground/80 rounded-xl relative;
+    @apply bg-card border-2 border-foreground/80 rounded-2xl relative;
     box-shadow: var(--pop-shadow-soft);
-    transition: transform 0.3s var(--bounce), box-shadow 0.3s var(--bounce);
-    will-change: transform;
+    transition: transform 0.25s var(--ease-pop), box-shadow 0.25s var(--ease-pop), border-color 0.2s ease;
+    will-change: transform, box-shadow;
   }
 
   .pop-card:hover {
-    transform: rotate(-1deg) scale(1.02) translateY(-4px);
-    box-shadow: 12px 12px 0px 0px hsl(var(--border));
+    transform: translateY(-4px);
+    box-shadow: 10px 10px 0px 0px hsl(var(--border));
   }
 
   /* Pop shadow utility */

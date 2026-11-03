@@ -20,25 +20,23 @@ interface BouncyCardProps extends HTMLMotionProps<"div"> {
 export const BouncyCard = ({
   children,
   className = "",
-  hoverScale = 1.03,
-  hoverRotate = -1.2,
+  hoverScale = 1.015,
+  hoverRotate = 0,
   ...props
 }: BouncyCardProps) => {
   return (
     <motion.div
       whileHover={{
         scale: hoverScale,
-        rotate: hoverRotate,
-        y: -6,
-        boxShadow: "10px 10px 0px 0px hsl(var(--border))",
+        y: -4,
+        boxShadow: "8px 8px 0px 0px hsl(var(--border))",
       }}
       whileTap={{
-        scale: 0.97,
-        rotate: 0,
-        y: 2,
+        scale: 0.98,
+        y: 1,
         boxShadow: "2px 2px 0px 0px hsl(var(--border))",
       }}
-      transition={springPresets.bouncy}
+      transition={springPresets.smooth}
       className={className}
       {...props}
     >
