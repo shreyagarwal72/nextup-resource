@@ -71,7 +71,7 @@ const CongratsBanner = () => (
     </h2>
     <p className="relative text-sm text-muted-foreground mt-2">
       You held the logo long enough to unlock this page. It isn't linked anywhere on the
-      site — nice find. 🎉
+      site — nice find.
     </p>
   </div>
 );
@@ -220,7 +220,7 @@ const AllInOne = () => {
                 <span>All In One</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                🔓 The Secret Vault
+                The Secret Vault
               </h1>
               <SquigglyUnderline color="hsl(var(--primary))" width={300} />
               <p className="text-lg text-muted-foreground mt-5">

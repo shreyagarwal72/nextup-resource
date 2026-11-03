@@ -1426,3 +1426,82 @@ a {
   border: 2px solid #000;
   box-shadow: inset 2px 2px 0 #a8a8a8, inset -4px -4px 0 #3a3a3a;
 }
+
+/* Page-level layout fixes for Minecraft and Squid Game themes */
+.minecraft-theme :is(.clay-home-page, .clay-catalog-page, .clay-admin-page, .clay-study-page, .clay-study-section) {
+  image-rendering: pixelated;
+}
+
+.minecraft-theme :is(.rounded-full, .rounded-xl, .rounded-2xl, .rounded-3xl, .rounded-md, .rounded-lg) {
+  border-radius: 0px !important;
+}
+
+.minecraft-theme :is(.border-foreground\/80, .border-foreground\/40, .border-foreground\/30, .border-foreground\/20, .border-foreground\/10) {
+  border-color: #000000 !important;
+  border-width: 2px !important;
+}
+
+.minecraft-theme :is(.shadow-pop, .shadow-pop-soft, .shadow-pop-sm) {
+  box-shadow: inset 2px 2px 0 #ffffff, inset -2px -2px 0 #555555, 2px 2px 0 #000000 !important;
+}
+
+.minecraft-theme :is(.clay-catalog-page, .clay-home-page) article[class~="bg-card"],
+.minecraft-theme :is(.clay-catalog-page, .clay-home-page) div[class~="bg-card"][class*="border"] {
+  background-color: #c6c6c6 !important;
+  color: #2b2b2b !important;
+  border: 2px solid #000 !important;
+  border-radius: 0px !important;
+  box-shadow: inset 3px 3px 0 #ffffff, inset -3px -3px 0 #555555, 0 4px 0 rgba(0,0,0,0.4) !important;
+}
+
+.dark.minecraft-theme :is(.clay-catalog-page, .clay-home-page) article[class~="bg-card"],
+.dark.minecraft-theme :is(.clay-catalog-page, .clay-home-page) div[class~="bg-card"][class*="border"] {
+  background-color: #242428 !important;
+  color: #f0f0f0 !important;
+  box-shadow: inset 0 0 0 2px #444444, 0 4px 0 rgba(0,0,0,0.5) !important;
+}
+
+/* Comprehensive Squid Game Theme Overrides */
+.squid-game :is(.clay-catalog-page, .clay-home-page, .clay-admin-page) {
+  position: relative;
+}
+
+.squid-game :is(.clay-catalog-page, .clay-home-page) article[class~="bg-card"],
+.squid-game :is(.clay-catalog-page, .clay-home-page) div[class~="bg-card"][class*="border"],
+.squid-game section[class~="bg-card"] {
+  border: 1px solid hsl(var(--primary) / 0.45) !important;
+  border-radius: 0.75rem !important;
+  background-color: hsl(var(--card)) !important;
+  box-shadow: 0 0 16px hsl(var(--primary) / 0.12), 4px 4px 0px 0px hsl(220 30% 4%) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.squid-game :is(.clay-catalog-page, .clay-home-page) article[class~="bg-card"]:hover,
+.squid-game :is(.clay-catalog-page, .clay-home-page) div[class~="bg-card"][class*="border"]:hover {
+  border-color: hsl(var(--primary)) !important;
+  box-shadow: 0 0 24px hsl(var(--primary) / 0.38), 6px 6px 0px 0px hsl(338 100% 25%) !important;
+  transform: translateY(-3px) !important;
+}
+
+.squid-game :is(.border-foreground\/80, .border-foreground\/40, .border-foreground\/30) {
+  border-color: hsl(var(--primary) / 0.4) !important;
+}
+
+.squid-game :is(.shadow-pop, .shadow-pop-soft, .shadow-pop-sm) {
+  box-shadow: 0 0 14px hsl(var(--primary) / 0.25), 3px 3px 0px 0px hsl(338 100% 20%) !important;
+}
+
+.squid-game a[class*="shadow-pop"]:hover,
+.squid-game button[class*="shadow-pop"]:hover {
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.6), 5px 5px 0px 0px hsl(338 100% 30%) !important;
+  border-color: hsl(var(--primary)) !important;
+}
+
+.squid-game :is(.rounded-full, .rounded-3xl, .rounded-2xl) {
+  border-radius: 0.75rem !important;
+}
+
+.squid-game button[aria-label="Color mode"],
+.squid-game button[title="Light or dark mode"] {
+  border-radius: 9999px !important;
+}

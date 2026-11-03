@@ -145,17 +145,17 @@ const Hero = () => {
               {
                 url: "https://t.me/techinsiderAs",
                 text: "@techinsiderashish",
-                desc: "contributing most of the content ❤️",
+                desc: "contributing core catalog content",
               },
               {
                 url: "https://t.me/CoolAppStore",
                 text: "@coolappstore",
-                desc: "curating amazing FOSS finds on Telegram 💙",
+                desc: "curating open-source apps on Telegram",
               },
               {
                 url: "https://t.me/SeedOSS",
                 text: "@SeedOSS",
-                desc: "being a trusted hub for open-source apps and privacy tools 🌱",
+                desc: "serving as a trusted hub for privacy tools",
               },
             ].map((thanks, i) => (
               <motion.a

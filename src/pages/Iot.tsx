@@ -159,7 +159,7 @@ const Iot = () => {
                 <span>IoT</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                🔌 Open Source IoT
+                Open Source IoT
               </h1>
               <SquigglyUnderline color="hsl(var(--primary))" width={300} />
               <p className="text-lg text-muted-foreground mt-5">
@@ -279,7 +279,7 @@ const Iot = () => {
                   >
                     HQarroum/awesome-iot
                   </a>{" "}
-                  — a community-maintained list of Internet of Things projects and resources. ❤️
+                  — a community-maintained list of Internet of Things projects and resources.
                 </p>
               </div>
             )}

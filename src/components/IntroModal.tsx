@@ -29,8 +29,8 @@ const STEPS: Step[] = [
   {
     icon: PartyPopper,
     accent: "primary",
-    title: "Welcome to Nextup ✨",
-    body: "Your playful hub for premium courses, free resources, ebooks, AI tools, and curated Android apps. Let's take a 60-second tour.",
+    title: "Welcome to Nextup",
+    body: "Your curated hub for premium courses, free developer resources, ebooks, AI tools, and verified Android applications. Let's take a quick tour.",
   },
   {
     icon: BookOpen,

@@ -158,7 +158,7 @@ const AndroidRe = () => {
                 <span>Android RE</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                🐞 Android Reverse Engineering
+                Android Reverse Engineering
               </h1>
               <SquigglyUnderline color="hsl(var(--primary))" width={300} />
               <p className="text-lg text-muted-foreground mt-5">
@@ -186,7 +186,7 @@ const AndroidRe = () => {
                   >
                     user1342/Awesome-Android-Reverse-Engineering
                   </a>{" "}
-                  — a community-maintained list of Android reverse engineering training, tools and resources. ❤️
+                  — a community-maintained list of Android reverse engineering training, tools and resources.
                 </p>
               </div>
 

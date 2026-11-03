@@ -47,7 +47,7 @@ const Courses = () => {
               href="/special-courses"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
             >
-              💼 Special Courses — Placement Bundles →
+              Special Courses — Placement Bundles →
             </a>
           </div>
         </section>

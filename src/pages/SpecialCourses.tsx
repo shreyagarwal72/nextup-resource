@@ -46,7 +46,7 @@ const SpecialCourses = () => {
                 <span>Special Courses</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                💼 Company Placement Bundles
+                Company Placement Bundles
               </h1>
               <SquigglyUnderline color="hsl(var(--primary))" width={260} />
               <p className="text-lg text-muted-foreground mt-5">

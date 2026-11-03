@@ -75,7 +75,7 @@ const OS = () => {
                 <span>Operating Systems</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                🖥️ Operating Systems Catalog
+                Operating Systems Catalog
               </h1>
               <SquigglyUnderline color="hsl(var(--quaternary))" width={300} />
               <p className="text-lg text-muted-foreground mt-5">
@@ -281,7 +281,7 @@ const OS = () => {
                 to="/api-hub"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-tertiary text-tertiary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
               >
-                🔌 API Hub →
+                API Hub →
               </Link>
               <Link
                 to="/apps"

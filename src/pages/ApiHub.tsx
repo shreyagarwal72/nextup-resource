@@ -194,7 +194,7 @@ const ApiHub = () => {
                 <span>API Hub</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                🔌 Try Public APIs for Free
+                Public APIs Directory
               </h1>
               <SquigglyUnderline color="hsl(var(--primary))" width={300} />
               <p className="text-lg text-muted-foreground mt-5">
@@ -314,7 +314,7 @@ const ApiHub = () => {
                   >
                     public-apis/public-apis
                   </a>{" "}
-                  — a community-maintained list of free public APIs. ❤️
+                  — a community-maintained list of free public APIs.
                 </p>
               </div>
             )}

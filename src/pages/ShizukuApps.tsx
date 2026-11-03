@@ -73,7 +73,7 @@ const ShizukuApps = () => {
                 <span>Awesome Shizuku</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                ⚡ Shizuku Apps
+                Shizuku Apps
               </h1>
               <SquigglyUnderline color="hsl(var(--secondary))" width={260} />
               <p className="text-lg text-muted-foreground mt-5">

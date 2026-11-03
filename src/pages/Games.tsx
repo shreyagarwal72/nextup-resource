@@ -159,7 +159,7 @@ const Games = () => {
                 <span>Games</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                🎮 Open Source Games
+                Open Source Games
               </h1>
               <SquigglyUnderline color="hsl(var(--primary))" width={300} />
               <p className="text-lg text-muted-foreground mt-5">
@@ -279,7 +279,7 @@ const Games = () => {
                   >
                     michelpereira/awesome-open-source-games
                   </a>{" "}
-                  — a community-maintained list of open source games. ❤️
+                  — a community-maintained list of open source games.
                 </p>
               </div>
             )}

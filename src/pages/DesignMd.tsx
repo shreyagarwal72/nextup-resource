@@ -158,7 +158,7 @@ const DesignMd = () => {
                 <span>Design.md</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                🎨 DESIGN.md Catalog
+                DESIGN.md Catalog
               </h1>
               <SquigglyUnderline color="hsl(var(--primary))" width={300} />
               <p className="text-lg text-muted-foreground mt-5">
@@ -186,7 +186,7 @@ const DesignMd = () => {
                   >
                     VoltAgent/awesome-design-md
                   </a>{" "}
-                  — a community-maintained list of brand DESIGN.md files for AI-driven UI generation. ❤️
+                  — a community-maintained list of brand DESIGN.md files for AI-driven UI generation.
                 </p>
               </div>
 

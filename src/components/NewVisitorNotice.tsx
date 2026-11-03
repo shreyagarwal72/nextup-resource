@@ -73,7 +73,7 @@ const NewVisitorNotice = () => {
         </div>
 
         <h2 id="whats-new-title" className="text-xl font-extrabold font-heading mb-2">
-          New pages just dropped 🎉
+          New Catalogs Available
         </h2>
         <p className="text-sm text-muted-foreground mb-1">
           Tap the bell icon up top anytime to see what's new — new pages and

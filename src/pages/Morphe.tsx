@@ -93,7 +93,7 @@ const Morphe = () => {
                 <span>Morphe Builds</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                ✨ Morphe — Patched Apps
+                Morphe — Patched Apps
               </h1>
               <SquigglyUnderline color="hsl(var(--secondary))" width={300} />
               <p className="text-lg text-muted-foreground mt-5">
@@ -336,7 +336,7 @@ const Morphe = () => {
                 >
                   catalog site
                 </a>{" "}
-                for previews. ❤️
+                for previews.
               </p>
             </div>
 
@@ -345,7 +345,7 @@ const Morphe = () => {
                 to="/foss-apps"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-tertiary text-tertiary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
               >
-                🧑‍💻 FOSS Apps →
+                FOSS Apps →
               </Link>
               <Link
                 to="/apps"

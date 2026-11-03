@@ -88,7 +88,7 @@ const MaterialYou = () => {
                 <span>Material You</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-1 font-heading">
-                🎨 Material You Apps
+                Material You Apps
               </h1>
               <SquigglyUnderline color="hsl(var(--tertiary))" width={300} />
               <p className="text-lg text-muted-foreground mt-5">
@@ -249,7 +249,7 @@ const MaterialYou = () => {
                 to="/morphe"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-secondary-foreground font-bold border-2 border-foreground/80 shadow-pop hover:-translate-y-0.5 transition-transform"
               >
-                ✨ Morphe Builds →
+                Morphe Builds →
               </Link>
               <Link
                 to="/apps"

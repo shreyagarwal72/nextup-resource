@@ -11,7 +11,7 @@ type ChatMsg = { role: "user" | "assistant"; content: string };
 const GREETING: ChatMsg = {
   role: "assistant",
   content:
-    "Hey, I'm **Resourcely** ✨ — your Nextup companion. Ask me about courses, FOSS apps, Material You, Morphe builds, ebooks, AI tools, or anything on the site.",
+    "Hello! I am **Resourcely**, your Nextup learning and tools assistant. Ask me about courses, open-source apps, Material You tools, ebooks, AI platforms, or anything across the catalogs.",
 };
 
 import { useSettings } from "@/hooks/useSettings";
