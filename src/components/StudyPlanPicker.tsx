@@ -22,7 +22,7 @@ const PLANS: Plan[] = [
     duration: "30–60 min / day",
     icon: CalendarDays,
     accent: "primary",
-    goal: "Small, focused sessions — perfect for building a streak.",
+    goal: "Small, focused sessions: perfect for building a streak.",
     steps: [
       { label: "Pick a bite-sized course", route: "/courses" },
       { label: "Grab a quick ebook", route: "/ebooks" },

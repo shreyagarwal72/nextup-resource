@@ -130,17 +130,18 @@ const NotificationCenter = () => {
         )}
       </button>
 
-      {createPortal(
-        <>
-          <div
-            className={`fixed inset-0 z-[9998] transition-opacity duration-300 ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-            style={{ background: "rgba(0,0,0,0.4)" }}
-            onClick={() => setIsOpen(false)}
-          />
-          <div
-            className={`fixed top-0 right-0 bottom-0 z-[9999] w-full max-w-sm transition-transform duration-500 pointer-events-auto ${isOpen ? "translate-x-0" : "translate-x-full"}`}
-            style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}
-          >
+      {isOpen &&
+        createPortal(
+          <>
+            <div
+              className="fixed inset-0 z-[9998] transition-opacity duration-300 opacity-100 pointer-events-auto"
+              style={{ background: "rgba(0,0,0,0.4)" }}
+              onClick={() => setIsOpen(false)}
+            />
+            <div
+              className="fixed top-0 right-0 bottom-0 z-[9999] w-full max-w-sm transition-transform duration-500 pointer-events-auto translate-x-0"
+              style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}
+            >
             <div className={`h-full bg-background flex flex-col ${isClay ? "clay-notification-panel" : "border-l-2 border-foreground/80"}`}>
               <div className="flex items-center justify-between p-5 border-b-2 border-foreground/20">
                 <div className="flex items-center gap-2">
@@ -217,7 +218,7 @@ const NotificationCenter = () => {
                         <p className="text-sm text-muted-foreground/70 mt-1 max-w-[240px]">
                           {filter === "all"
                             ? "New pages and features will show up here."
-                            : "Nothing here yet — try a different filter."}
+                            : "Nothing here yet. Try a different filter."}
                         </p>
                         {filter !== "all" && (
                           <button

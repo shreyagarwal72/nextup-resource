@@ -83,15 +83,11 @@ const QuickAccess = () => (
   <section className="py-14 relative" aria-labelledby="quick-access-heading">
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 rounded-full bg-card border-2 border-foreground/80 shadow-pop font-bold text-sm">
-          <Compass className="w-4 h-4" strokeWidth={2.5} />
-          <span>Jump straight in</span>
-        </div>
         <h2 id="quick-access-heading" className="text-3xl sm:text-4xl font-extrabold font-heading mb-2">
           Explore every section
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto">
-          Direct links to all catalogs — no digging through menus.
+          Direct links to all catalogs: browse everything without digging through menus.
         </p>
       </div>
 
@@ -114,11 +110,7 @@ const QuickAccess = () => (
                     style={{ animationDelay: `${i * 40}ms` }}
                     className="group animate-pop-in opacity-0 flex items-center gap-2 rounded-2xl border-2 border-foreground/80 bg-background px-3 py-2.5 text-sm font-bold shadow-pop-soft transition-all duration-300 ease-bounce hover:-translate-y-0.5 hover:shadow-pop active:scale-95"
                   >
-                    <span
-                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-foreground/80 ${accentBg[item.accent]}`}
-                    >
-                      <Icon className="h-3.5 w-3.5" strokeWidth={2.5} />
-                    </span>
+                    <Icon className="h-4 w-4 text-primary shrink-0" strokeWidth={2.5} />
                     <span className="truncate">{item.label}</span>
                     <ArrowUpRight
                       className="ml-auto h-3.5 w-3.5 shrink-0 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-0.5"

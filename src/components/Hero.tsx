@@ -119,13 +119,8 @@ const Hero = () => {
                 </>
               ) : null}
 
-              {/* Showcase Header: Simulated Search Bar */}
+              {/* Showcase Header: Direct Search Bar (No fake window chrome or traffic lights) */}
               <div className="flex items-center justify-between border-b-2 border-foreground/20 pb-3 mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-400 border border-foreground/40" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400 border border-foreground/40" />
-                  <div className="w-3 h-3 rounded-full bg-green-400 border border-foreground/40" />
-                </div>
                 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-background border border-foreground/30 text-xs font-mono text-muted-foreground">
                   <Search className="w-3 h-3" />
                   <span>nextup / catalog</span>
@@ -133,8 +128,20 @@ const Hero = () => {
                 {isLL ? (
                   <RubberStamp text="VERIFIED" color="marker" tilt={3} />
                 ) : (
-                  <span className="text-[10px] font-mono font-bold uppercase text-primary">Live Data</span>
+                  <span className="text-[10px] font-mono font-bold uppercase text-primary">Live Catalog</span>
                 )}
+              </div>
+
+              {/* Real product screenshot image (At least one real product image in the first two screens) */}
+              <div className="relative overflow-hidden rounded-2xl border-2 border-foreground/30 mb-4 bg-muted shadow-sm">
+                <img
+                  src="/screenshot-wide.png"
+                  alt="Nextup Resources live catalog interface"
+                  width={720}
+                  height={405}
+                  className="w-full h-auto object-cover aspect-[16/9]"
+                  loading="eager"
+                />
               </div>
 
               {/* Showcase Real Items from Catalog */}

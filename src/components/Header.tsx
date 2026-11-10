@@ -88,7 +88,7 @@ const LogoLongPress = ({ isClay, isLL }: { isClay: boolean; isLL?: boolean }) =>
   return (
     <button
       type="button"
-      aria-label="Nextup Resources — home"
+      aria-label="Nextup Resources: home"
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onPointerLeave={onPointerLeave}

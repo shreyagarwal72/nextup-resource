@@ -1,12 +1,19 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Package } from "lucide-react";
+import { ArrowRight, Package, Briefcase, Gamepad2, Bot } from "lucide-react";
 import { collections } from "@/data/content";
 
-const accentBg: Record<string, string> = {
-  primary: "bg-primary text-primary-foreground",
-  secondary: "bg-secondary text-secondary-foreground",
-  tertiary: "bg-tertiary text-tertiary-foreground",
-  quaternary: "bg-quaternary text-quaternary-foreground",
+const getCollectionIcon = (slug: string) => {
+  switch (slug) {
+    case "placement-material":
+      return <Briefcase className="w-5 h-5 text-primary" strokeWidth={2.5} />;
+    case "gta-collection":
+      return <Gamepad2 className="w-5 h-5 text-secondary" strokeWidth={2.5} />;
+    case "ai-tools-for-everything":
+    case "30-ai-tools":
+      return <Bot className="w-5 h-5 text-tertiary" strokeWidth={2.5} />;
+    default:
+      return <Package className="w-5 h-5 text-primary" strokeWidth={2.5} />;
+  }
 };
 
 interface Props {
@@ -17,7 +24,7 @@ interface Props {
 
 const FeaturedCollections = ({
   title = "Featured Collections",
-  subtitle = "Curated bundles — every link in one place.",
+  subtitle = "Curated bundles: every verified resource in one place.",
   filterSlugs,
 }: Props) => {
   const items = filterSlugs
@@ -30,10 +37,6 @@ const FeaturedCollections = ({
     <section className="py-16 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 rounded-full bg-card border-2 border-foreground/80 shadow-pop font-bold text-sm">
-            <Package className="w-4 h-4" strokeWidth={2.5} />
-            <span>Bundles</span>
-          </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground font-heading mb-2">
             {title}
           </h2>
@@ -47,10 +50,8 @@ const FeaturedCollections = ({
               to={`/collection/${c.slug}`}
               className="pop-card group p-6 flex items-start gap-4 relative overflow-visible"
             >
-              <div
-                className={`w-14 h-14 rounded-2xl ${accentBg[c.accent]} border-2 border-foreground/80 shadow-pop flex items-center justify-center text-2xl flex-shrink-0`}
-              >
-                {c.emoji}
+              <div className="shrink-0 pt-0.5">
+                {getCollectionIcon(c.slug)}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2 mb-1">
@@ -69,8 +70,8 @@ const FeaturedCollections = ({
                   {c.description}
                 </p>
                 <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-foreground/70">
-                  <Package className="w-3 h-3" strokeWidth={2.5} />
-                  {c.items.length} items
+                  <Package className="w-3 h-3 text-primary" strokeWidth={2.5} />
+                  <span>{c.items.length} verified items</span>
                 </div>
               </div>
             </Link>

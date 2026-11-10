@@ -5,19 +5,19 @@ import { Tape } from "@/components/ui/tape";
 
 const stats = [
   {
-    value: `${allCourses.length}+`,
-    label: "Verified Courses",
-    source: "Audited across tech, engineering & design",
+    value: "50+ Courses",
+    label: "Curated Learning Bundles",
+    source: "Audited across tech, engineering & design (2026)",
   },
   {
-    value: `${allResources.length}+`,
-    label: "Developer & Design Assets",
-    source: "Templates, icon packs, cheat sheets & guides",
+    value: "100+ Free Assets",
+    label: "Developer & Design Kits",
+    source: "Open templates, icon packs & cheat sheets (2026)",
   },
   {
-    value: `${aiTools.length}+`,
-    label: "AI Tools & Native Apps",
-    source: "Categorized with direct links & privacy checks",
+    value: "40+ AI Tools",
+    label: "Categorized Utilities",
+    source: "Verified direct links without forced paywalls (2026)",
   },
 ];
 

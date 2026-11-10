@@ -386,7 +386,7 @@ const GlobalSearch = ({ open, onOpenChange }: GlobalSearchProps) => {
                 ))}
               </div>
               <p className="text-xs text-muted-foreground mt-4">
-                Fuzzy search across courses, resources, ebooks, AI tools, FOSS, Shizuku, Material You &amp; Telegram bots — start typing above.
+                Fuzzy search across courses, resources, ebooks, AI tools, FOSS, Shizuku, Material You &amp; Telegram bots: start typing above.
               </p>
             </div>
           ) : grouped.length === 0 ? (
