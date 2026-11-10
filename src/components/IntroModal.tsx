@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useDesignSystem, DesignSystem } from "@/components/ThemeProvider";
 import { Tape, NotebookHoles, RubberStamp } from "@/components/ui/tape";
+import { isBotOrScreenshotEnv } from "@/lib/botDetection";
 
 const STORAGE_KEY = "intro-seen-v3";
 export const OPEN_INTRO_EVENT = "nextup:open-intro";
@@ -142,14 +143,49 @@ const IntroModal = () => {
   const isLL = designSystem === "looseleaf";
 
   useEffect(() => {
+    // 1. Immediately abort if running in any automated browser, bot, crawler, Lighthouse, or Sitepeel
+    if (isBotOrScreenshotEnv()) return;
+
     try {
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        const id = setTimeout(() => setOpen(true), 400);
-        return () => clearTimeout(id);
-      }
+      if (localStorage.getItem(STORAGE_KEY)) return;
     } catch {
-      /* ignore */
+      return;
     }
+
+    // 2. Require an active human gesture (scroll, pointer, keypress) before auto-popping on cold visits.
+    // Automated screenshot tools take viewport snapshots on load without user interactions.
+    let triggered = false;
+    let timer: any = null;
+
+    const triggerIntro = () => {
+      if (triggered) return;
+      triggered = true;
+      cleanup();
+      timer = setTimeout(() => {
+        try {
+          if (!localStorage.getItem(STORAGE_KEY)) {
+            setOpen(true);
+          }
+        } catch {
+          /* ignore */
+        }
+      }, 1500);
+    };
+
+    const cleanup = () => {
+      window.removeEventListener("scroll", triggerIntro);
+      window.removeEventListener("pointerdown", triggerIntro);
+      window.removeEventListener("keydown", triggerIntro);
+    };
+
+    window.addEventListener("scroll", triggerIntro, { passive: true });
+    window.addEventListener("pointerdown", triggerIntro, { passive: true });
+    window.addEventListener("keydown", triggerIntro, { passive: true });
+
+    return () => {
+      cleanup();
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {
@@ -183,7 +219,7 @@ const IntroModal = () => {
     setOpen(false);
   };
 
-  if (!open) return null;
+  if (!open || isBotOrScreenshotEnv()) return null;
 
   const current = STEPS[step];
   const Icon = current.icon;
