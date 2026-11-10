@@ -219,7 +219,7 @@ const TvApps = () => {
                             title={FLAG_LABELS[f]}
                             className="px-2 py-0.5 rounded-full text-[10px] font-bold border-2 border-foreground/40 bg-muted text-foreground"
                           >
-                            {f}
+                            {FLAG_LABELS[f] || f}
                           </span>
                         ))}
                       </div>

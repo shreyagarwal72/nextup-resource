@@ -1,182 +1,192 @@
 import { Button } from "@/components/ui/button";
-import { Sparkles, ArrowRight, BookOpen, Package, Bot, Globe } from "lucide-react";
+import { ArrowRight, BookOpen, Package, Bot, Globe, Search, Star, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useTypewriter } from "@/hooks/useTypewriter";
 import { springPresets } from "./MotionEffects";
-
-const ConfettiCircle = ({ className }: { className: string }) => (
-  <motion.div
-    animate={{ y: [0, -12, 0], rotate: [0, 10, 0] }}
-    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-    className={`geometric-decoration absolute w-6 h-6 rounded-full border-2 border-foreground/80 ${className}`}
-  />
-);
-
-const ConfettiTriangle = ({ className }: { className: string }) => (
-  <motion.div
-    animate={{ y: [0, 14, 0], rotate: [0, -15, 0] }}
-    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-    className={`geometric-decoration absolute w-0 h-0 ${className}`}
-    style={{
-      borderLeft: "12px solid transparent",
-      borderRight: "12px solid transparent",
-      borderBottom: "20px solid currentColor",
-    }}
-  />
-);
-
-const ConfettiSquare = ({ className }: { className: string }) => (
-  <motion.div
-    animate={{ y: [0, -10, 0], rotate: [12, 28, 12] }}
-    transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-    className={`geometric-decoration absolute w-5 h-5 border-2 border-foreground/80 ${className}`}
-  />
-);
+import { useDesignSystem } from "@/components/ThemeProvider";
+import { Tape, Pushpin, RubberStamp, DoodleArrow } from "@/components/ui/tape";
+import { allCourses } from "@/data/content";
 
 const Hero = () => {
-  const typewriterText = useTypewriter(["Courses", "Resources", "Ebooks", "Apps & Websites", "AI Tools"], 120, 80, 2000);
+  const { designSystem } = useDesignSystem();
+  const isLL = designSystem === "looseleaf";
+
+  // Pick top verified courses for the live catalog preview
+  const previewCourses = allCourses.slice(0, 2);
 
   return (
-    <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24 dot-grid">
-      {/* Decorative ambient blurred blobs */}
-      <motion.div
-        animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="geometric-decoration absolute top-20 left-8 w-40 h-40 sm:w-64 sm:h-64 rounded-full bg-tertiary/20 border-2 border-foreground/10 hidden sm:block pointer-events-none"
-      />
-      <motion.div
-        animate={{ scale: [1, 1.15, 1], rotate: [0, -12, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="geometric-decoration absolute bottom-32 right-12 w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-secondary/15 border-2 border-foreground/10 hidden sm:block pointer-events-none"
-      />
-
-      {/* Floating confetti shapes */}
-      <ConfettiCircle className="bg-secondary/30 top-32 right-[20%] hidden lg:block" />
-      <ConfettiTriangle className="text-tertiary top-40 left-[15%] hidden lg:block" />
-      <ConfettiSquare className="bg-quaternary/30 bottom-40 left-[10%] hidden lg:block" />
-      <ConfettiCircle className="bg-primary/20 bottom-60 right-[15%] hidden lg:block" />
-      <ConfettiTriangle className="text-secondary bottom-32 right-[30%] hidden lg:block" />
-
-      <div className="container px-4 py-10 md:py-32 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={springPresets.bouncy}
-          className="flex flex-col items-center text-center max-w-4xl mx-auto"
-        >
-          {/* Welcome Badge */}
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-20 md:pt-28 pb-14 dot-grid">
+      <div className="container px-4 sm:px-6 lg:px-8 relative z-10 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          {/* Left Column: Direct value proposition */}
           <motion.div
-            whileHover={{ scale: 1.08, rotate: [0, -3, 3, 0] }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={springPresets.bouncy}
-            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold bg-card border-2 border-foreground/80 shadow-pop mb-8 cursor-pointer"
+            className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left"
           >
-            <Sparkles className="h-4 w-4 text-tertiary animate-pulse" strokeWidth={2.5} />
-            <span>Welcome to Nextup Resources</span>
+            {/* Lead headline — uniform styling without artificial single-word accent slop */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground mb-5 font-heading leading-[1.12]">
+              Explore curated courses, developer resources, and AI tools.
+            </h1>
+
+            {/* Clear, substantive subheadline with proper punctuation */}
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-8 font-body leading-relaxed">
+              Nextup is a hand-vetted catalog of premium courses, free developer assets, placement ebooks, and verified Android power tools. No paywalls, no tracking.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto mb-8">
+              <Button
+                size="xl"
+                asChild
+                className={`shadow-pop hover:shadow-pop-hover ${isLL ? "ll-btn" : ""}`}
+              >
+                <Link to="/courses" className="flex items-center justify-center gap-2">
+                  <span>Explore Courses</span>
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </Link>
+              </Button>
+
+              <Button
+                variant="outline"
+                size="xl"
+                asChild
+                className={`shadow-pop hover:shadow-pop-hover ${isLL ? "ll-btn" : ""}`}
+              >
+                <Link to="/ai" className="flex items-center justify-center gap-2">
+                  <Bot className="w-4 h-4" />
+                  <span>Browse AI Tools</span>
+                </Link>
+              </Button>
+            </div>
+
+            {/* Quick section links */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2.5">
+              {[
+                { to: "/resources", icon: Package, label: "Free Resources" },
+                { to: "/apps", icon: Globe, label: "Apps & Web Tools" },
+                { to: "/courses", icon: BookOpen, label: "Study Bundles" },
+              ].map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold border-2 border-foreground/75 bg-card hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-1.5 ${
+                    isLL ? "ll-btn" : "shadow-pop-soft hover:shadow-pop"
+                  }`}
+                >
+                  <item.icon className="w-3.5 h-3.5 text-primary" strokeWidth={2.5} />
+                  <span>{item.label}</span>
+                </Link>
+              ))}
+            </div>
+
+            {isLL && (
+              <div className="hidden lg:flex items-center gap-2 mt-6 text-xs text-muted-foreground font-hand">
+                <DoodleArrow direction="right" className="text-primary w-6 h-4" />
+                <span>Hand-drawn paper notebook view active</span>
+              </div>
+            )}
           </motion.div>
 
-          {/* Main Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-foreground mb-6 font-heading">
-            Explore{" "}
-            <span className="text-primary inline-block min-w-[200px] text-left">
-              {typewriterText}
-              <span className="animate-pulse text-secondary">|</span>
-            </span>
-          </h1>
+          {/* Right Column: Real interactive product showcase (Fixes "No picture of the product") */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ ...springPresets.bouncy, delay: 0.15 }}
+            className="lg:col-span-5 relative"
+          >
+            {/* Real Product Interface Showcase Box */}
+            <div
+              className={`relative rounded-3xl p-5 sm:p-6 transition-all duration-300 ${
+                isLL
+                  ? "ll-card text-card-foreground"
+                  : designSystem === "clay"
+                  ? "clay-card text-card-foreground"
+                  : designSystem === "squid-game"
+                  ? "squid-card text-card-foreground"
+                  : designSystem === "minecraft"
+                  ? "mc-panel-card text-card-foreground !rounded-none"
+                  : "bg-card border-2 border-foreground/80 shadow-pop"
+              }`}
+            >
+              {isLL ? (
+                <>
+                  <Tape variant="masking" position="top-center" width={95} height={24} />
+                  <div className="absolute -top-3 -right-2">
+                    <Pushpin color="red" />
+                  </div>
+                </>
+              ) : null}
 
-          {/* Subheadline */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 font-body">
-            Discover premium courses, free resources, ebooks, apps, websites, and AI tools — all in one place. Start your learning journey today.
-          </p>
+              {/* Showcase Header: Simulated Search Bar */}
+              <div className="flex items-center justify-between border-b-2 border-foreground/20 pb-3 mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-400 border border-foreground/40" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-400 border border-foreground/40" />
+                  <div className="w-3 h-3 rounded-full bg-green-400 border border-foreground/40" />
+                </div>
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-background border border-foreground/30 text-xs font-mono text-muted-foreground">
+                  <Search className="w-3 h-3" />
+                  <span>nextup / catalog</span>
+                </div>
+                {isLL ? (
+                  <RubberStamp text="VERIFIED" color="marker" tilt={3} />
+                ) : (
+                  <span className="text-[10px] font-mono font-bold uppercase text-primary">Live Data</span>
+                )}
+              </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={springPresets.bouncy}>
-              <Button size="xl" asChild className="shadow-pop hover:shadow-pop-hover">
-                <Link to="/courses" className="flex items-center gap-2">
-                  Explore Courses
-                  <motion.div
-                    whileHover={{ x: 4 }}
-                    transition={springPresets.snappy}
-                    className="w-7 h-7 rounded-full bg-primary-foreground/20 flex items-center justify-center"
+              {/* Showcase Real Items from Catalog */}
+              <div className="space-y-3">
+                <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center justify-between">
+                  <span>Featured from Catalog</span>
+                  <span className="font-mono text-[11px]">{previewCourses.length} of {allCourses.length}</span>
+                </div>
+
+                {previewCourses.map((c, i) => (
+                  <div
+                    key={c.id || i}
+                    className="p-3.5 rounded-2xl border-2 border-foreground/20 bg-background/60 hover:bg-background transition-colors flex flex-col gap-1.5"
                   >
-                    <ArrowRight className="w-4 h-4" />
-                  </motion.div>
-                </Link>
-              </Button>
-            </motion.div>
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="font-heading font-extrabold text-sm text-foreground line-clamp-1">
+                        {c.title}
+                      </span>
+                      <span className="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/30">
+                        {c.category}
+                      </span>
+                    </div>
 
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={springPresets.bouncy}>
-              <Button variant="outline" size="xl" asChild className="shadow-pop hover:shadow-pop-hover">
-                <Link to="/ai" className="flex items-center gap-2">
-                  <Bot className="w-4 h-4 text-primary" /> AI Tools
-                </Link>
-              </Button>
-            </motion.div>
-          </div>
+                    <p className="text-xs text-muted-foreground line-clamp-1">
+                      {c.description}
+                    </p>
 
-          {/* Quick Links */}
-          <div className="flex flex-wrap justify-center gap-3 mt-4">
-            {[
-              { to: "/resources", icon: Package, label: "Resources", color: "hover:bg-quaternary hover:text-quaternary-foreground" },
-              { to: "/apps", icon: Globe, label: "Apps & Websites", color: "hover:bg-secondary hover:text-secondary-foreground" },
-              { to: "/courses", icon: BookOpen, label: "Courses", color: "hover:bg-tertiary hover:text-tertiary-foreground" },
-            ].map((item, idx) => (
-              <motion.div
-                key={item.to}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ ...springPresets.bouncy, delay: 0.2 + idx * 0.08 }}
-              >
-                <Link
-                  to={item.to}
-                  className={`px-4 py-2 rounded-full text-sm font-bold border-2 border-foreground/80 bg-card shadow-pop hover:shadow-pop-hover hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 ${item.color}`}
-                >
-                  <item.icon className="w-4 h-4" strokeWidth={2.5} />
-                  {item.label}
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                    <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-1 border-t border-foreground/10">
+                      <span className="flex items-center gap-1">
+                        <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                        <span>Curated</span>
+                      </span>
+                      <Link
+                        to="/courses"
+                        className="font-bold text-primary hover:underline inline-flex items-center gap-0.5"
+                      >
+                        <span>View</span>
+                        <ExternalLink className="w-2.5 h-2.5" />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-          {/* Special Thanks Badges */}
-          <div className="flex flex-col gap-3 mt-10 items-center">
-            {[
-              {
-                url: "https://t.me/techinsiderAs",
-                text: "@techinsiderashish",
-                desc: "contributing core catalog content",
-              },
-              {
-                url: "https://t.me/CoolAppStore",
-                text: "@coolappstore",
-                desc: "curating open-source apps on Telegram",
-              },
-              {
-                url: "https://t.me/SeedOSS",
-                text: "@SeedOSS",
-                desc: "serving as a trusted hub for privacy tools",
-              },
-            ].map((thanks, i) => (
-              <motion.a
-                key={thanks.url}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ ...springPresets.bouncy, delay: 0.35 + i * 0.1 }}
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                href={thanks.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-card border-2 border-foreground/80 rounded-2xl px-6 py-3 shadow-pop-soft hover:shadow-pop transition-all inline-block"
-              >
-                <p className="text-sm text-muted-foreground font-medium">
-                  Special thanks to <span className="text-primary font-bold underline decoration-wavy underline-offset-4">{thanks.text}</span> for {thanks.desc}
-                </p>
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
+              {/* Sourced attribution footer */}
+              <div className="mt-4 pt-3 border-t-2 border-foreground/15 flex items-center justify-between text-[11px] text-muted-foreground">
+                <span>Free & Direct Access</span>
+                <span className="font-mono">Updated 2026</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -10,7 +10,7 @@ const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
       ref={ref}
       className={cn(
         designSystem === "looseleaf"
-          ? "ll-card text-card-foreground overflow-hidden"
+          ? "ll-card text-card-foreground"
           : designSystem === "clay"
           ? "clay-card text-card-foreground overflow-hidden"
           : designSystem === "squid-game"

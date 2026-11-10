@@ -9,42 +9,15 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import BottomNav from "@/components/BottomNav";
 import NewVisitorNotice from "@/components/NewVisitorNotice";
-import { ShieldCheck, Wifi, Zap, Lock } from "lucide-react";
-
-const pillars = [
-  {
-    icon: ShieldCheck,
-    title: "Curated, not scraped",
-    body: "Every course, app and resource is hand-checked before it lands here.",
-    accent: "bg-primary text-primary-foreground",
-  },
-  {
-    icon: Zap,
-    title: "Instant access",
-    body: "No sign-up, no paywall, no loading screens — content renders immediately.",
-    accent: "bg-secondary text-secondary-foreground",
-  },
-  {
-    icon: Wifi,
-    title: "Works offline",
-    body: "Install as an app and keep browsing your library without a connection.",
-    accent: "bg-tertiary text-tertiary-foreground",
-  },
-  {
-    icon: Lock,
-    title: "Private by design",
-    body: "Favorites and settings stay in your browser. No trackers, no accounts.",
-    accent: "bg-quaternary text-quaternary-foreground",
-  },
-];
+import { ShieldCheck, Wifi, Zap, Lock, CheckCircle2 } from "lucide-react";
+import { useDesignSystem } from "@/components/ThemeProvider";
+import { Tape, RubberStamp } from "@/components/ui/tape";
 
 const Index = () => {
-  useEffect(() => {
-    // Title/description/canonical are now set centrally by <SEOManager />
-    // in App.tsx — see routeSEOMap in src/lib/og-image.ts. Don't add a
-    // per-page updatePageMeta() call here again; it'll just fight the
-    // manager for which value wins on each render.
+  const { designSystem } = useDesignSystem();
+  const isLL = designSystem === "looseleaf";
 
+  useEffect(() => {
     const script = document.createElement("script");
     script.type = "application/ld+json";
     script.innerHTML = JSON.stringify({
@@ -72,7 +45,8 @@ const Index = () => {
       <NewVisitorNotice />
       <main>
         <Hero />
-        <section className="pt-4 pb-12" aria-label="Library at a glance">
+
+        <section className="pt-2 pb-10" aria-label="Library at a glance">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <Stats />
           </div>
@@ -81,30 +55,87 @@ const Index = () => {
         <Marquee />
         <QuickAccess />
 
-        <section className="py-14" aria-labelledby="why-nextup">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 id="why-nextup" className="sr-only">
-              Why Nextup Resources
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {pillars.map((p, i) => {
-                const Icon = p.icon;
-                return (
-                  <div
-                    key={p.title}
-                    style={{ animationDelay: `${i * 70}ms` }}
-                    className="animate-pop-in opacity-0 rounded-3xl border-2 border-foreground/80 bg-card p-5 shadow-pop-soft transition-all duration-300 ease-bounce hover:-translate-y-1 hover:shadow-pop"
-                  >
-                    <span
-                      className={`mb-3 inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-foreground/80 ${p.accent}`}
-                    >
-                      <Icon className="h-5 w-5" strokeWidth={2.5} />
-                    </span>
-                    <h3 className="font-heading text-lg font-extrabold leading-tight">{p.title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{p.body}</p>
+        {/* Core Principles: Structured comparison & real functionality (Fixes repetitive card grid & tinted tiles) */}
+        <section className="py-12" aria-labelledby="why-nextup">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+            <div
+              className={`relative p-6 sm:p-8 md:p-10 ${
+                isLL
+                  ? "ll-card text-card-foreground"
+                  : designSystem === "clay"
+                  ? "clay-card text-card-foreground"
+                  : designSystem === "squid-game"
+                  ? "squid-card text-card-foreground"
+                  : designSystem === "minecraft"
+                  ? "mc-panel-card text-card-foreground !rounded-none"
+                  : "bg-card border-2 border-foreground/80 rounded-3xl shadow-pop"
+              }`}
+            >
+              {isLL && (
+                <>
+                  <Tape variant="washi-mint" position="top-center" width={110} height={24} />
+                  <div className="absolute top-5 right-6 hidden sm:block">
+                    <RubberStamp text="OPEN ACCESS" color="green" tilt={-2} />
                   </div>
-                );
-              })}
+                </>
+              )}
+
+              <div className="max-w-2xl mb-8">
+                <h2 id="why-nextup" className="text-2xl sm:text-3xl font-extrabold font-heading mb-2">
+                  Built for direct, private learning
+                </h2>
+                <p className="text-sm sm:text-base text-muted-foreground">
+                  Nextup was created to eliminate paywalls, ad clutter, and broken links from technical education.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                {/* Panel 1: Editorial Curation */}
+                <div className="flex flex-col gap-3 p-5 rounded-2xl border-2 border-foreground/20 bg-background/50">
+                  <div className="flex items-center gap-2.5">
+                    <ShieldCheck className="w-5 h-5 text-primary shrink-0" strokeWidth={2.5} />
+                    <h3 className="font-heading text-base sm:text-lg font-bold">
+                      Curated, not automated
+                    </h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Every course bundle, Android tool, and repository is tested before addition. We verify direct download links, eliminate dead mirrors, and categorize content for easy navigation.
+                  </p>
+                  <ul className="mt-2 space-y-1.5 text-xs text-foreground font-medium">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
+                      <span>Manually tested mirrors and verified checksums</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
+                      <span>Organized by topic, skill level, and career paths</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Panel 2: Offline & Zero Tracking */}
+                <div className="flex flex-col gap-3 p-5 rounded-2xl border-2 border-foreground/20 bg-background/50">
+                  <div className="flex items-center gap-2.5">
+                    <Lock className="w-5 h-5 text-primary shrink-0" strokeWidth={2.5} />
+                    <h3 className="font-heading text-base sm:text-lg font-bold">
+                      Instant & 100% private
+                    </h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    No sign-up forms, no cookies, no tracking pixels. Favorites and user preferences live locally in your browser storage. Install as a PWA to keep reading offline.
+                  </p>
+                  <ul className="mt-2 space-y-1.5 text-xs text-foreground font-medium">
+                    <li className="flex items-center gap-2">
+                      <Wifi className="w-3.5 h-3.5 text-primary shrink-0" />
+                      <span>Progressive Web App support for offline browsing</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Zap className="w-3.5 h-3.5 text-primary shrink-0" />
+                      <span>Instant client-side rendering with zero telemetry</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </section>

@@ -188,11 +188,11 @@ const Settings = () => {
                         : "border-2 border-foreground/30 bg-muted"
                 }`} role="radiogroup" aria-label="Design style">
                   {([
+                    ["looseleaf", "Looseleaf ✎ (Default)"],
                     ["geometric", "Geometric"],
                     ["clay", "Claymorphism"],
                     ["squid-game", "Squid Game ○△□"],
                     ["minecraft", "Minecraft ⛏"],
-                    ["looseleaf", "Looseleaf ✎"],
                   ] as const).map(([value, label]) => {
                     const active = designSystem === value;
                     return (
@@ -204,6 +204,8 @@ const Settings = () => {
                         variant={active ? "default" : "ghost"}
                         onClick={() => chooseDesignSystem(value)}
                         className={`h-auto min-h-11 whitespace-normal px-2.5 py-2 text-center leading-tight ${
+                          value === "looseleaf" && active ? "ll-btn" : ""
+                        } ${
                           value === "squid-game" && active ? "squid-btn" : ""
                         } ${value === "minecraft" && active ? "mc-btn-gui mc-btn-gui-green" : ""}`}
                       >

@@ -1664,16 +1664,205 @@ a {
 .looseleaf .shadow-pop-pink, .looseleaf .shadow-pop-yellow, .looseleaf .shadow-pop-green { box-shadow: var(--pop-shadow); }
 .looseleaf [class*="border-foreground/80"][class*="rounded-"]:not([class*="rounded-full"]):not([class*="rounded-none"]) { border-radius: var(--ll-wobble); }
 
-/* ---- Card: a sheet of paper ---- */
-.looseleaf .ll-card {
-  background-color: hsl(var(--card));
-  background-image: var(--ll-paper-light);
-  border: 2px solid hsl(var(--foreground) / .85);
-  border-radius: var(--ll-wobble);
-  box-shadow: var(--ll-card-shadow);
-  transition: transform .12s ease-out, box-shadow .12s ease-out;
+/* ---- Tape: authentic hand-drawn masking & washi tape ---- */
+.ll-tape {
+  position: relative;
+  display: inline-block;
+  height: 22px;
+  width: 76px;
+  backdrop-filter: blur(0.5px);
+  box-shadow: 0 1px 3px rgba(42, 36, 32, 0.14);
+  /* Jagged saw-tooth torn ends on left and right */
+  clip-path: polygon(
+    0% 12%, 3px 0%, 0% 24%, 3px 36%, 0% 48%, 3px 60%, 0% 72%, 3px 84%, 0% 96%, 3px 100%,
+    100% 88%, calc(100% - 3px) 100%, 100% 76%, calc(100% - 3px) 64%, 100% 52%, calc(100% - 3px) 40%, 100% 28%, calc(100% - 3px) 16%, 100% 4%, calc(100% - 3px) 0%
+  );
+  pointer-events: none;
+  z-index: 20;
 }
-.looseleaf .ll-card:hover { transform: translateY(-2px) rotate(-.25deg); }
+.ll-tape-masking {
+  background: rgba(248, 244, 230, 0.82);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(235, 225, 195, 0.55) 100%);
+  border-left: 2px dashed rgba(160, 145, 115, 0.45);
+  border-right: 2px dashed rgba(160, 145, 115, 0.45);
+}
+.dark .ll-tape-masking {
+  background: rgba(75, 70, 62, 0.78);
+  border-left: 2px dashed rgba(180, 170, 145, 0.35);
+  border-right: 2px dashed rgba(180, 170, 145, 0.35);
+}
+.ll-tape-washi-stripes {
+  background: rgba(254, 215, 170, 0.85);
+  background-image: repeating-linear-gradient(45deg, rgba(234, 88, 12, 0.35), rgba(234, 88, 12, 0.35) 6px, transparent 6px, transparent 12px);
+  border-left: 1.5px dashed rgba(234, 88, 12, 0.4);
+  border-right: 1.5px dashed rgba(234, 88, 12, 0.4);
+}
+.ll-tape-washi-dots {
+  background: rgba(251, 207, 232, 0.85);
+  background-image: radial-gradient(rgba(219, 39, 119, 0.45) 1.5px, transparent 1.5px);
+  background-size: 7px 7px;
+  border-left: 1.5px dashed rgba(219, 39, 119, 0.4);
+  border-right: 1.5px dashed rgba(219, 39, 119, 0.4);
+}
+.ll-tape-washi-mint {
+  background: rgba(187, 247, 208, 0.85);
+  background-image: repeating-linear-gradient(-45deg, rgba(22, 163, 74, 0.28), rgba(22, 163, 74, 0.28) 5px, transparent 5px, transparent 10px);
+  border-left: 1.5px dashed rgba(22, 163, 74, 0.4);
+  border-right: 1.5px dashed rgba(22, 163, 74, 0.4);
+}
+.ll-tape-washi-yellow {
+  background: rgba(254, 240, 138, 0.88);
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.3), rgba(250, 204, 21, 0.35));
+  border-left: 1.5px dashed rgba(202, 138, 4, 0.45);
+  border-right: 1.5px dashed rgba(202, 138, 4, 0.45);
+}
+.ll-tape-kraft {
+  background: rgba(215, 185, 142, 0.92);
+  border-left: 2px dashed rgba(120, 95, 60, 0.45);
+  border-right: 2px dashed rgba(120, 95, 60, 0.45);
+}
+.ll-tape-clear {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6), 0 1px 3px rgba(42, 36, 32, 0.1);
+  border-left: 1.5px dashed rgba(140, 135, 120, 0.25);
+  border-right: 1.5px dashed rgba(140, 135, 120, 0.25);
+}
+
+/* ---- Card: authentic sheet of notebook paper with tape ---- */
+.looseleaf .ll-card {
+  position: relative;
+  background-color: hsl(var(--card));
+  /* Faint blue notebook horizontal ruled lines + paper lighting */
+  background-image:
+    repeating-linear-gradient(transparent, transparent 27px, rgba(143, 176, 212, 0.16) 27px, rgba(143, 176, 212, 0.16) 28px),
+    var(--ll-paper-light);
+  border: 2px solid hsl(var(--foreground) / .88);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 2.5px 3.5px 0 0 hsl(var(--pop-shadow-color) / .88), var(--ll-card-shadow);
+  transition: transform .14s ease-out, box-shadow .14s ease-out;
+}
+
+/* Masking tape on top center of paper cards */
+.looseleaf .ll-card::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 76px;
+  height: 22px;
+  background: rgba(248, 244, 230, 0.82);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(235, 225, 195, 0.55) 100%);
+  border-left: 2px dashed rgba(160, 145, 115, 0.45);
+  border-right: 2px dashed rgba(160, 145, 115, 0.45);
+  box-shadow: 0 1px 3px rgba(42, 36, 32, 0.14);
+  clip-path: polygon(
+    0% 12%, 3px 0%, 0% 24%, 3px 36%, 0% 48%, 3px 60%, 0% 72%, 3px 84%, 0% 96%, 3px 100%,
+    100% 88%, calc(100% - 3px) 100%, 100% 76%, calc(100% - 3px) 64%, 100% 52%, calc(100% - 3px) 40%, 100% 28%, calc(100% - 3px) 16%, 100% 4%, calc(100% - 3px) 0%
+  );
+  pointer-events: none;
+  z-index: 20;
+}
+.dark.looseleaf .ll-card::before {
+  background: rgba(75, 70, 62, 0.78);
+  border-left: 2px dashed rgba(180, 170, 145, 0.35);
+  border-right: 2px dashed rgba(180, 170, 145, 0.35);
+}
+
+/* Playful alternating tape variations for cards in lists and grids */
+.looseleaf *:nth-child(2n) > .ll-card::before,
+.looseleaf .ll-card:nth-child(2n)::before {
+  transform: translateX(-50%) rotate(2deg);
+  background: rgba(254, 215, 170, 0.85);
+  background-image: repeating-linear-gradient(45deg, rgba(234, 88, 12, 0.35), rgba(234, 88, 12, 0.35) 6px, transparent 6px, transparent 12px);
+  border-left: 1.5px dashed rgba(234, 88, 12, 0.4);
+  border-right: 1.5px dashed rgba(234, 88, 12, 0.4);
+}
+.looseleaf *:nth-child(3n) > .ll-card::before,
+.looseleaf .ll-card:nth-child(3n)::before {
+  transform: translateX(-50%) rotate(-2.8deg);
+  width: 68px;
+  background: rgba(187, 247, 208, 0.85);
+  background-image: repeating-linear-gradient(-45deg, rgba(22, 163, 74, 0.28), rgba(22, 163, 74, 0.28) 5px, transparent 5px, transparent 10px);
+  border-left: 1.5px dashed rgba(22, 163, 74, 0.4);
+  border-right: 1.5px dashed rgba(22, 163, 74, 0.4);
+}
+.looseleaf *:nth-child(4n) > .ll-card::before,
+.looseleaf .ll-card:nth-child(4n)::before {
+  transform: translateX(-50%) rotate(1.2deg);
+  background: rgba(251, 207, 232, 0.85);
+  background-image: radial-gradient(rgba(219, 39, 119, 0.45) 1.5px, transparent 1.5px);
+  background-size: 7px 7px;
+  border-left: 1.5px dashed rgba(219, 39, 119, 0.4);
+  border-right: 1.5px dashed rgba(219, 39, 119, 0.4);
+}
+
+.looseleaf .ll-card:hover {
+  transform: translateY(-2px) rotate(-.35deg);
+  box-shadow: 3.5px 4.5px 0 0 hsl(var(--pop-shadow-color) / .88), 0 10px 18px -4px rgba(58, 44, 30, 0.22);
+}
+
+/* ---- Full Looseleaf Notebook Page Box with red margin rule ---- */
+.looseleaf .ll-page,
+.ll-page {
+  position: relative;
+  background-color: hsl(var(--card));
+  background-image:
+    /* Red vertical margin line on the left */
+    linear-gradient(to right, transparent 40px, rgba(217, 119, 106, 0.42) 40px, rgba(217, 119, 106, 0.42) 42px, transparent 42px),
+    /* Faint blue horizontal lines */
+    repeating-linear-gradient(transparent, transparent 27px, rgba(143, 176, 212, 0.2) 27px, rgba(143, 176, 212, 0.2) 28px),
+    var(--ll-paper-light);
+  border: 2px solid hsl(var(--foreground) / .88);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 3px 4px 0 0 hsl(var(--pop-shadow-color) / .88), var(--ll-card-shadow);
+  padding-left: 56px;
+}
+
+/* 3 binder punch holes on the left edge */
+.looseleaf .ll-page::after,
+.ll-page::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 16px;
+  width: 14px;
+  background-image:
+    radial-gradient(circle at 7px 36px, hsl(var(--background)) 5.5px, hsl(var(--foreground) / 0.7) 6.5px, transparent 7px),
+    radial-gradient(circle at 7px 50%, hsl(var(--background)) 5.5px, hsl(var(--foreground) / 0.7) 6.5px, transparent 7px),
+    radial-gradient(circle at 7px calc(100% - 36px), hsl(var(--background)) 5.5px, hsl(var(--foreground) / 0.7) 6.5px, transparent 7px);
+  pointer-events: none;
+}
+
+/* ---- Sticky Note Box ---- */
+.looseleaf .ll-sticky,
+.ll-sticky {
+  position: relative;
+  background-color: #fef08a;
+  color: #2a2420;
+  border: 2px solid #2a2420;
+  border-radius: 2px 2px 14px 2px;
+  box-shadow: 2.5px 3.5px 0 0 rgba(42, 36, 32, 0.85), 0 8px 12px -3px rgba(120, 92, 20, 0.25);
+  transform: rotate(-1.5deg);
+  transition: transform .12s ease-out;
+}
+.looseleaf .ll-sticky:hover,
+.ll-sticky:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+/* Curled bottom-right corner */
+.looseleaf .ll-sticky::after,
+.ll-sticky::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, transparent 50%, rgba(42, 36, 32, 0.2) 50%, rgba(42, 36, 32, 0.8) 100%);
+  pointer-events: none;
+}
 
 /* ---- Buttons: marker on paper ---- */
 .looseleaf .ll-btn {

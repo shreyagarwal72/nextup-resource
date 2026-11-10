@@ -16,13 +16,14 @@ const DESIGN_SYSTEM_KEY = "nextup-design-system";
 const DesignSystemContext = createContext<DesignSystemContextValue | undefined>(undefined);
 
 const getStoredDesignSystem = (): DesignSystem => {
-  if (typeof window === "undefined") return "geometric";
+  if (typeof window === "undefined") return "looseleaf";
   const stored = window.localStorage.getItem(DESIGN_SYSTEM_KEY);
   if (stored === "minecraft") return "minecraft";
   if (stored === "squid-game") return "squid-game";
   if (stored === "clay") return "clay";
+  if (stored === "geometric") return "geometric";
   if (stored === "looseleaf") return "looseleaf";
-  return "geometric";
+  return "looseleaf";
 };
 
 export const useDesignSystem = () => {
