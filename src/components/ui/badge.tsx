@@ -30,6 +30,7 @@ function Badge({ className, variant, ...props }: BadgeProps) {
       className={cn(
         badgeVariants({ variant }),
         designSystem === "clay" && "clay-badge",
+        designSystem === "looseleaf" && "ll-badge",
         designSystem === "squid-game" && "squid-badge rounded-md",
         designSystem === "minecraft" && "!rounded-none border-2 border-black bg-[#100010] text-[#55ffff] font-mono shadow-[inset_0_0_0_2px_#3b13a3]",
         className

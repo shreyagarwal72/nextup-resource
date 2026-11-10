@@ -47,7 +47,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const { designSystem } = useDesignSystem();
     const Comp = asChild ? Slot : "button";
-    const themeClass = designSystem === "clay"
+    const llVariant = variant === "secondary" ? "ll-btn-secondary" : variant === "destructive" ? "ll-btn-destructive" : variant === "outline" ? "ll-btn-outline" : variant === "ghost" ? "ll-btn-ghost" : variant === "link" ? "ll-btn-link" : "";
+    const themeClass = designSystem === "looseleaf"
+      ? `ll-btn ${llVariant}`
+      : designSystem === "clay"
       ? variant === "secondary"
         ? "clay-btn-secondary"
         : variant === "destructive"

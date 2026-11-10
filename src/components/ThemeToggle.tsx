@@ -7,7 +7,9 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const { designSystem } = useDesignSystem();
-  const surfaceClass = designSystem === "clay"
+  const surfaceClass = designSystem === "looseleaf"
+    ? "ll-circle"
+    : designSystem === "clay"
     ? "clay-circle"
     : designSystem === "squid-game"
       ? "border border-primary/50 bg-card text-foreground shadow-[0_0_10px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_16px_hsl(var(--primary)/0.6)]"

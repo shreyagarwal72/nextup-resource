@@ -163,6 +163,7 @@ const BottomNav = () => {
   const isClay = designSystem === "clay";
   const isSquid = designSystem === "squid-game";
   const isMc = designSystem === "minecraft";
+  const isLL = designSystem === "looseleaf";
 
 
   const navigate = useNavigate();
@@ -535,7 +536,9 @@ const BottomNav = () => {
       <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden" aria-label="Primary">
         <div
           className={`mx-2 mb-2 flex items-center gap-1 rounded-full bg-card/95 pl-1.5 pr-2 py-1.5 backdrop-blur-md ${
-            isClay
+            isLL
+              ? "ll-nav-shell"
+              : isClay
               ? "clay-nav-shell"
               : isSquid
                 ? "border border-primary/40 shadow-[0_0_15px_hsl(var(--primary)/0.25)] rounded-2xl"
@@ -551,7 +554,9 @@ const BottomNav = () => {
             aria-label="Open all pages"
             aria-expanded={open}
             className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-transform duration-300 ease-bounce active:scale-90 ${
-              isClay
+              isLL
+                ? "ll-circle"
+                : isClay
                 ? "clay-circle"
                 : isSquid
                   ? "border border-primary/50 bg-card text-primary shadow-[0_0_8px_hsl(var(--primary)/0.3)] rounded-xl"

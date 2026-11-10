@@ -30,7 +30,9 @@ const SearchBox = ({ value, onChange, placeholder, ariaLabel }: SearchBoxProps) 
           onClick={() => onChange("")}
           aria-label="Clear search"
           className={`absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full bg-muted text-foreground hover:bg-card transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-            designSystem === "clay"
+            designSystem === "looseleaf"
+              ? "ll-circle"
+              : designSystem === "clay"
               ? "clay-circle border-border/30"
               : designSystem === "squid-game"
                 ? "border border-primary/40 bg-card hover:bg-primary/20 text-primary"

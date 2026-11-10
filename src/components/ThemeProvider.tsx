@@ -5,7 +5,7 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
-export type DesignSystem = "geometric" | "clay" | "squid-game" | "minecraft";
+export type DesignSystem = "geometric" | "clay" | "squid-game" | "minecraft" | "looseleaf";
 
 type DesignSystemContextValue = {
   designSystem: DesignSystem;
@@ -21,6 +21,7 @@ const getStoredDesignSystem = (): DesignSystem => {
   if (stored === "minecraft") return "minecraft";
   if (stored === "squid-game") return "squid-game";
   if (stored === "clay") return "clay";
+  if (stored === "looseleaf") return "looseleaf";
   return "geometric";
 };
 
@@ -39,6 +40,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     root.classList.toggle("geometric", designSystem === "geometric");
     root.classList.toggle("squid-game", designSystem === "squid-game");
     root.classList.toggle("minecraft-theme", designSystem === "minecraft");
+    root.classList.toggle("looseleaf", designSystem === "looseleaf");
     root.dataset.designSystem = designSystem;
     window.localStorage.setItem(DESIGN_SYSTEM_KEY, designSystem);
 
@@ -48,6 +50,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       href = "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;800;900&display=swap";
     } else if (designSystem === "squid-game") {
       href = "https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Black+Ops+One&family=Outfit:wght@400;600;800&display=swap";
+    } else if (designSystem === "looseleaf") {
+      href = "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap";
     } else if (designSystem === "minecraft") {
       href = "https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap";
     }

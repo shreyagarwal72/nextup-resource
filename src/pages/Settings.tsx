@@ -95,7 +95,10 @@ const Settings = () => {
   const isClay = designSystem === "clay";
   const isSquid = designSystem === "squid-game";
   const isMc = designSystem === "minecraft";
-  const settingSurface = isClay
+  const isLL = designSystem === "looseleaf";
+  const settingSurface = isLL
+    ? "ll-card"
+    : isClay
     ? "clay-card"
     : isSquid
       ? "squid-card p-4 sm:p-5"
@@ -175,7 +178,7 @@ const Settings = () => {
                     <p className="text-sm text-muted-foreground">Choose the site’s shapes, depth, and motion. This does not change light or dark mode.</p>
                   </div>
                 </div>
-                <div className={`grid grid-cols-2 sm:grid-cols-4 gap-2 rounded-[22px] p-1.5 ${
+                <div className={`grid grid-cols-2 sm:grid-cols-3 gap-2 rounded-[22px] p-1.5 ${
                   isClay
                     ? "clay-input"
                     : isSquid
@@ -189,6 +192,7 @@ const Settings = () => {
                     ["clay", "Claymorphism"],
                     ["squid-game", "Squid Game ○△□"],
                     ["minecraft", "Minecraft ⛏"],
+                    ["looseleaf", "Looseleaf ✎"],
                   ] as const).map(([value, label]) => {
                     const active = designSystem === value;
                     return (
